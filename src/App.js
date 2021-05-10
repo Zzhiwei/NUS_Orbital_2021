@@ -7,7 +7,7 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
-
+const number = 3;
 
 
 const theme = createMuiTheme({
