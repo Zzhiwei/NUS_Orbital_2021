@@ -1,0 +1,39 @@
+import React from 'react';
+import { Avatar, Button, ButtonBase, Chip, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      '& > *': {
+        margin: theme.spacing(0.5),
+      },
+    },
+}));
+
+function Chips({title, items}) {
+    const classes = useStyles();
+    
+    return (
+        <div style={{marginBottom: "30px"}}>
+                <Typography align="center" color="primary" variant="h4" style={{marginBottom: '10px'}}>
+                        {title} 
+                </Typography>
+                <div className={classes.root}>
+                  {items.map(i => {
+                    return <Chip label={i}> </Chip>
+                  })}
+                {/* {
+                <Chip label="writing"> </Chip>
+                <Chip label="basketball"> </Chip>
+                <Chip label="nba"> </Chip>
+                <Chip label="programming"> </Chip>} */}
+                               
+                </div>
+        </div>
+    );
+  }
+  
+  export default Chips;
+  
