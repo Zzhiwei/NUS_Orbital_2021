@@ -34,7 +34,7 @@ function Layout(props) {
 
     return (
         <div className={classes.page}>         
-            <AppBar className={classes.appbar} color="" elevation={0}>                
+            <AppBar className={classes.appbar} color="" elevation={2}>                
                 <Toolbar>
                     <Link to="/" style={{color: 'black'}}>
                     </Link>
