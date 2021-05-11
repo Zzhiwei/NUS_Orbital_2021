@@ -16,7 +16,7 @@ function Login({title, author, description}) {
                 <CardHeader  
                     avatar={
                         <Avatar aria-label="recipe" >
-                            R
+                            S
                         </Avatar>
                     }
                     title={
