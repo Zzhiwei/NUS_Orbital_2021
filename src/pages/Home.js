@@ -80,12 +80,28 @@ function Home() {
                             description={truncate("looking for a few people to team up with and participate in the ACSI media club short film competition")}
                             chips={["short films", "video editing", "film-making"]}
                         />
-                    </Grid>        
+                    </Grid>    
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="facebook hackathon"
+                            author="Wang Gang"
+                            description={truncate("looking for an computer science student to participate in Facebook Hackathon with")}
+                            chips={["programming", "hackathon"]}
+                        />
+                    </Grid>    
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="engineering innovation challenge"
+                            author="Wang Gang"
+                            description={truncate("looking for an engineering student to participate in this competition")}
+                            chips={["engineering"]}
+                        />
+                    </Grid>    
                     <Grid item xs={12} md={6}>
                         <ProjectCard
                             title="NUS Egaming league of legends tournament"
                             author="noobmaster97"
-                            description={truncate("looking for leaguers to play in the NUS eGaming tournament")}
+                            description={truncate("looking for league of legends players to play in the NUS eGaming tournament")}
                             chips={["league of legends", "video-games"]}
                         />
                     </Grid>                  
