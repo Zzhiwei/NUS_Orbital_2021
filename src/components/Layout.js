@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Grid, InputBase, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import AddIcon from '@material-ui/icons/Add';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import history from '../history';
 
 
@@ -46,54 +49,99 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-        },
-        inputRoot: {
-            color: 'inherit',
-        },
-        inputInput: {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-            transition: theme.transitions.create('width'),
-            width: '100%',
-            [theme.breakpoints.up('sm')]: {
-                width: '20ch',
-                '&:focus': {
-                width: '30ch',
-                },
-            }
         }
     }    
 });
 
 function Layout(props) {    
     const classes = useStyles();        
+    const [login, setLogin] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
-    // quickSearch feature not implemented for now
 
-    // {const renderQuickSearch = () => {
-    //     if (!(history.location.pathname === "/")) {
-    //         return (
-    //             <div className={classes.search}>
-    //                 <div className={classes.searchIcon}>
-    //                     <SearchIcon />
-    //                 </div>
-    //                 <form>
-    //                     <InputBase
-    //                         placeholder="Search…"
-    //                         classes={{
-    //                             root: classes.inputRoot,
-    //                             input: classes.inputInput,
-    //                         }}
-    //                         autoComplete
-    //                         inputProps={{ 'aria-label': 'search' }}
-    //                     />
-    //                 </form>
-    //             </div>
-    //         );
-    //     }
-    // }}
+    const isMenuOpen = Boolean(anchorEl);
 
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };  
+
+    const renderMenu = (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          id={'primary-search-account-menu'}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Account Setting</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Bookedmarked projects</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Help</MenuItem>
+        </Menu>
+    );
+    
+    const renderLogin = () => {
+        if (login) {
+            return (
+                <div style={{marginRight: '50px'}}> 
+                    <IconButton aria-label="show 4 new mails" color="primary">
+                        <AddIcon fontSize="large"/>
+                    </IconButton>
+                    <IconButton aria-label="show 17 new notifications" color="primary">
+                    {/* <Badge badgeContent={17} color="secondary"> */}
+                        <NotificationsIcon  />
+                    {/* </Badge> */}
+                    </IconButton>
+                    <IconButton
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={'primary-search-account-menu'}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                    >
+                    <AccountCircle  color="primary" />
+                    </IconButton>
+                    {renderMenu}
+                  </div>
+            )
+                        
+        } 
+        return (            
+            <Paper className={classes.rightPaper} elevation={0}>
+                <Grid container spacing={1}   alignContent="center" justify='center'>
+                    <Grid item>
+                        <Link to="/register" style={{textDecoration: 'none'}}>
+                            <Button color="primary" >
+                                <Typography variant='h6'>
+                                    Sign Up
+                                </Typography>                                        
+                            </Button>    
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <Link to="/login" style={{textDecoration: 'none'}}>
+                            <Button color="primary" >
+                                <Typography variant='h6'>
+                                Login
+                                </Typography>
+                            </Button>    
+                        </Link>
+                    </Grid>
+                </Grid>
+            </Paper>
+        );
+    }
+
+  
     return (
         <div className={classes.page}>         
             <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
@@ -110,34 +158,13 @@ function Layout(props) {
                     </Link>
                     <span className={classes.title}></span>
 
-                    {/* search bar
-                        uncontrolled as of now
-                    */}
-                    {/* {renderQuickSearch()} */}
-
-                    {/* sign in sign up */}
-                    <Paper className={classes.rightPaper} elevation={0}>
-                        <Grid container spacing={1}   alignContent="center" justify='center'>
-                            <Grid item>
-                                <Link to="/register" style={{textDecoration: 'none'}}>
-                                    <Button color="primary" >
-                                        <Typography variant='h6'>
-                                            Sign Up
-                                        </Typography>                                        
-                                    </Button>    
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link to="/login" style={{textDecoration: 'none'}}>
-                                    <Button color="primary" >
-                                        <Typography variant='h6'>
-                                        Login
-                                        </Typography>
-                                    </Button>    
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </Paper>
+                    <Button onClick={() => {
+                        setLogin(!login);  
+                    }}>
+                        toggle Login
+                    </Button>
+                    {renderLogin()}
+                    
                 </Toolbar>                 
             </AppBar>    
 
