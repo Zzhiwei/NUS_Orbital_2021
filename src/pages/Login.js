@@ -49,7 +49,7 @@ function Login() {
                         <InputLabel htmlFor="component-outlined">Username / Email</InputLabel>
                         <OutlinedInput className={classes.input} id="component-outlined" value={userName} onChange={onUserNameChange} label="Username / Email" />
                     </FormControl>
-                </div>
+                </div>  
                 
                 <div className={classes.marginBot}>
                     <FormControl variant="outlined" required fullWidth>
