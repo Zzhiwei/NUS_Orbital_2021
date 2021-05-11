@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 const shortText = "Looking for a partner to do orbital with. Orbital is a NUS project mod."
-const longText = "Looking for a partner to do orbital with. Orbital is a NUS project mod. Looking for a partner to do orbital with. Orbital is Looking for a partner to do orbital with. Orbital is a NUS project mod. a NUS project mod. Looking for a partner to do orbital with. Orbital is a NUS project mod. Looking for a partner to do orbital with. Orbital is Looking for a partner to do orbital with. Orbital is a NUS project mod. a NUS project mod. Looking for a partner to do orbital with. Orbital is a NUS project mod"
+const longText = "I am looking for partner to participate in the upcoming shopee code league. Looking for a person who has experience in data science, data structures and algorithms"
 
 function Home() {
     const classes = useStyles();
@@ -54,6 +54,45 @@ function Home() {
         return str        
     }
 
+    const renderSampleContent = () => {
+        return (
+            <Grid container spacing={3}>
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="Shopee code league"
+                            author="zhiwei007"
+                            description={truncate(longText + longText)}
+                            chips={["data science", "data structures", "algorithms", "programming"]}
+                        />
+                    </Grid>              
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="NUS project orbital"
+                            author="myc37"
+                            description={truncate(shortText)}
+                            chips={["programming", "computer science", "web development", "National University of Singapore"]}
+                        />
+                    </Grid>  
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="24 ACSI short film competition"
+                            author="surendra shenoy basti"
+                            description={truncate("looking for a few people to team up with and participate in the ACSI media club short film competition")}
+                            chips={["short films", "video editing", "film-making"]}
+                        />
+                    </Grid>        
+                    <Grid item xs={12} md={6}>
+                        <ProjectCard
+                            title="NUS Egaming league of legends tournament"
+                            author="noobmaster97"
+                            description={truncate("looking for leaguers to play in the NUS eGaming tournament")}
+                            chips={["league of legends", "video-games"]}
+                        />
+                    </Grid>                  
+                </Grid> 
+        )
+    }
+
     return (        
             <div className={classes.homeResults}>
                 <Search toggleFilter={toggleFilter} />
@@ -62,22 +101,10 @@ function Home() {
                         
                     </Paper>
                 </Drawer>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
-                        <ProjectCard
-                            title="build a website"
-                            author="zhiwei"
-                            description={truncate(longText)}
-                        />
-                    </Grid>              
-                    <Grid item xs={12} md={6}>
-                        <ProjectCard
-                            title="build a website"
-                            author="zhiwei"
-                            description={truncate(shortText)}
-                        />
-                    </Grid>                     
-                </Grid>       
+                {renderSampleContent()}   
+                {renderSampleContent()}   
+                {renderSampleContent()}   
+                {renderSampleContent()}   
             </div>
         
     );
