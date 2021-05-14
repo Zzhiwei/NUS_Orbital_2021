@@ -80,7 +80,8 @@ function Layout(props) {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Account Setting</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Account setting</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My projects</MenuItem>
           <MenuItem onClick={handleMenuClose}>Bookedmarked projects</MenuItem>
           <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
           <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
