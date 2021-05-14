@@ -105,7 +105,7 @@ function Layout(props) {
                             variant='h4'
                             className={classes.title}                        
                         >
-                            Team Tam           
+                            partnerUp           
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>

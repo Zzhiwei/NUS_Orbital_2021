@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
+import ViewPost from './pages/ViewPost';
 
 const number = 3;
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/register" exact component={Register}></Route>
           <Route path="/profile/:id" component={Profile}></Route>
           <Route path="/newpost" component={NewPost}></Route>
+          <Route path="/viewpost" component={ViewPost}></Route>
           {/*<Route path="/:others"><NoMatch /></Route>*/}
         </Switch>
         </Layout>

@@ -1,7 +1,14 @@
-import { Typography, Grid, makeStyles, TextField, FormControl } from '@material-ui/core';
+import { Paper, Typography, Grid, TextField, FormControl } from '@material-ui/core';
 import React, { useState } from 'react';
-import AppForm from '../views/AppForm2';
 import ChipInput from 'material-ui-chip-input';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles (theme => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(3)
+  }
+}));
 
 function NewPost() {
 
@@ -9,8 +16,8 @@ function NewPost() {
   const [description, setDescription] = useState("");
 
   return (      
-    <AppForm>
-      <div style={{marginBottom: '20px'}}>
+    <form>
+      <div style={{margin: '20px'}}>
         <Typography variant="h4" color="primary" gutterBottom  align="center">
           Create a New Post
         </Typography >
@@ -19,21 +26,21 @@ function NewPost() {
       <form align="center" noValidate autoComplete="off" onSubmit={null}>
         <Grid container spacing={2}>
 
-          <Grid item xs={12}>
-            <FormControl style={{width: "75%", marginBottom: '10px'}}>
-              <TextField 
-              label="Project Title"
-              //variant="outlined"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-              /> 
-            </FormControl>
+          <Grid item xs={12} align="center" style={{}}>
+          <TextField 
+            className="textFied" 
+            id="title"
+            label="Project Title"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            margin="normal"
+          />
           </Grid>
 
           <Grid item xs = {12}>
             <ChipInput 
               label="Required Skills"
-              variant="outlined"
+              //variant="outlined"
               fullWidth
             />
           </Grid>
@@ -71,7 +78,7 @@ function NewPost() {
 
         </Grid>
       </form>
-    </AppForm>   
+    </form>   
   );
 }
   
