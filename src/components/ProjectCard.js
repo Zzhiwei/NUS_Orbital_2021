@@ -1,6 +1,5 @@
-
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => {
     return {
