@@ -4,14 +4,18 @@ import Register from './pages/Register';
 import Layout from './components/Layout';
 import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
-import ViewPost from './pages/ViewPost';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#2196f3'
+    },
+    background: {
+      //default: "#f4f5f1"
+      //default: '#f4f5fd'
+      default: '#ffffff'
     }
   }
 });
@@ -20,6 +24,7 @@ function App() {
   console.log(window.location.href);
   return (    
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter >
         <Layout>
         <Switch>
@@ -28,7 +33,7 @@ function App() {
           <Route path="/register" exact component={Register}></Route>
           <Route path="/profile/:id" component={Profile}></Route>
           <Route path="/newpost" component={NewPost}></Route>
-          <Route path="/viewpost" component={ViewPost}></Route>
+          <Route path="/viewpost" component={NewPost}></Route>
           {/*<Route path="/:others"><NoMatch /></Route>*/}
         </Switch>
         </Layout>

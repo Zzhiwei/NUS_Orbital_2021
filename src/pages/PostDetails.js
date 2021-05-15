@@ -1,14 +1,15 @@
-import { Grid } from '@material-ui/core';
+import { Grid, Paper, Card } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm';
 import Controls from "../components/Controls";  
 
 const initialFValues = {
   id: 0,
+  type: "",
   title: "",
   skills: "",
   location: "",
   schedule: "",
-  members: 0,
+  members: "",
   description: ""
 }
 
@@ -16,6 +17,7 @@ export default function PostDetails() {
 
   const validate = () => {
     let temp = {}
+    temp.type = values.type ? "" : "This field is required"
     temp.title = values.title ? "" : "This field is required"
     temp.skills = values.skills ? "" : "This field is required"
     temp.location = values.location ? "" : "This field is required"
@@ -43,76 +45,115 @@ export default function PostDetails() {
   }
 
   return (
+
     <Form onSubmit={handleSubmit}>
-      <Grid container>
-        <Grid item xs={6}>
+      <Grid container justify="center">
+        <Grid item xs={4}>
+          <Controls.Select 
+            name="type"
+            label="Type"
+            value={values.type}
+            onChange={handleInputChange}
+            options={[{id: 1, value: "Competition"}, {id: 2, value: "Project"}]}
+          />
+        </Grid>
+        <Grid item xs={4}>
+        <Controls.Select 
+            name="members"
+            label="Group Size"
+            value={values.members}
+            onChange={handleInputChange}
+            options={[{id: 1, value: 1}, {id: 2, value: 2}, {id: 3, value: 3}, {id: 4, value: 4}, {id: 5, value: 5},]}
+          />
+        </Grid>
+      </Grid>
+      <br />
+      <Grid container justify="center">
+        <Grid item xs={9}>
           <Controls.Input 
             name="title"
             label="Title"
             value={values.title}
-            placeholder="Name of the competition or project you are interested in"
+            variant="outlined"
+            placeholder="Name of competition/project"
             onChange={handleInputChange}
             rows={1}
-            error={errors.title}  
           />
           <Controls.Input 
             name="skills"
-            label="Required Skills"
+            label="Required Skills/Experience"
             value={values.skills}
+            variant="outlined"
             placeholder="None, HTML/CSS, Photography, etc"
             onChange={handleInputChange}
             rows={1}
-            error={errors.skills}
           />
+        </Grid>
+      </Grid>
+      
+      <Grid container justify="center">
+        <Grid item xs={4}>
+          <Controls.Select 
+            name="education"
+            label="Education Level"
+            value={values.education}
+            onChange={handleInputChange}
+            options={[{id: 1, value: "Any"}, {id: 2, value: "Primary"}, {id: 3, value: "Secondary"}, {id: 4, value: "Pre-University"}, {id: 5, value: "Undergraduate"}, {id: 6, value: "Professional"},]}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <Controls.Select 
+            name="proficiency"
+            label="Proficiency Level"
+            value={values.proficiency}
+            onChange={handleInputChange}
+            options={[{id: 1, value: "Any"}, {id: 2, value: "Beginner"}, {id: 3, value: "Intermediate"}, {id: 4, value: "Advanced"},]}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container justify="center">
+        <Grid item xs={4}>
           <Controls.Input 
             name="location"
             label="Location"
             value={values.location}
-            placeholder="Online, East-side, Jurong, etc"
+            variant="outlined"
+            placeholder="Online, East-side, etc"
             onChange={handleInputChange}
             rows={1}
-            error={errors.location}
           />
+        </Grid>
+        <Grid item xs={4}>
           <Controls.Input 
             name="schedule"
-            label="Schedule"
+            label="Commitment Period"
             value={values.schedule}
-            placeholder="OTOT/Ad-hoc, Daily 3-5pm, Mondays 7-9pm, etc"
+            variant="outlined"
+            placeholder="21-26 June, etc"
             onChange={handleInputChange}
             rows={1}
-            error={errors.schedule}
           />
         </Grid>
-        <Grid item xs={6}>
-          <Controls.Select 
-            name="members"
-            label="How many members are you looking for?"
-            value={values.members}
-            onChange={handleInputChange}
-            options={[{id: '1', value: 1}, {id: '2', value: 2}, {id: '3', value: 3}, {id: '4', value: 4}]}
-            //errors={errors.members}
-          />
+      </Grid>
+
+      <Grid container justify="center">
+        <Grid item xs={9}>
           <Controls.Input 
-            name="description"
-            label="Description"
-            value={values.description}
-            placeholder="Some other details about the competition or project that you are interested in"
-            onChange={handleInputChange}
-            rows={9}
-            error={errors.description}
-          />
+              name="description"
+              label="Additional Information"
+              value={values.description}
+              variant="outlined"
+              placeholder="Other details about the competition/project..."
+              onChange={handleInputChange}
+              rows={6}
+            />
         </Grid>
-        <Grid item xs={12}>
-        <div style={{marginTop: "20px"}}>
-            <Controls.Button 
-              type="submit"
-              text="Submit"
-            />
-            <Controls.Button 
-              text="Reset"
-              color="default"
-            />
-          </div>
+        <Grid item xs={9}>
+          <Controls.Button 
+            type="submit"
+            text="Post"
+          />
         </Grid>
       </Grid>
     </Form>
