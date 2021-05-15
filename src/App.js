@@ -1,4 +1,3 @@
-import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -8,9 +7,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
 import ViewPost from './pages/ViewPost';
-
-const number = 3;
-
 
 const theme = createMuiTheme({
   palette: {
