@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
@@ -93,9 +93,13 @@ function Layout(props) {
         if (login) {
             return (
                 <div style={{marginRight: '50px'}}> 
-                    <IconButton aria-label="show 4 new mails" color="primary">
-                        <AddIcon fontSize="large"/>
-                    </IconButton>
+                    <Link to="./newpost">
+                        <Tooltip title="Create a New Post">
+                            <IconButton aria-label="show 4 new mails" color="primary">
+                                <AddIcon fontSize="large"/>
+                            </IconButton>
+                        </Tooltip>
+                    </Link>
                     <IconButton aria-label="show 17 new notifications" color="primary">
                     {/* <Badge badgeContent={17} color="secondary"> */}
                         <NotificationsIcon  />
