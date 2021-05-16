@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip } from '@material-ui/core';
+import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -132,8 +132,11 @@ function Layout(props) {
             <Paper className={classes.rightPaper} elevation={0}>
                 <Grid container spacing={1}   alignContent="center" justify='center'>
                     <Grid item>
+                        <Divider orientation="vertical" />
+                    </Grid>
+                    <Grid item>
                         <Link to="/register" style={{textDecoration: 'none'}}>
-                            <Button color="primary" >
+                            <Button color="primary" style={{textTransform: 'none'}}>
                                 <Typography variant='h6'>
                                     Sign Up
                                 </Typography>                                        
@@ -141,10 +144,13 @@ function Layout(props) {
                         </Link>
                     </Grid>
                     <Grid item>
+                        <Divider orientation="vertical" />
+                    </Grid>
+                    <Grid item>
                         <Link to="/login" style={{textDecoration: 'none'}}>
-                            <Button color="primary" >
+                            <Button color="primary" style={{textTransform: 'none'}}>
                                 <Typography variant='h6'>
-                                Login
+                                    Login
                                 </Typography>
                             </Button>    
                         </Link>

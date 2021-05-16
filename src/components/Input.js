@@ -3,12 +3,12 @@ import React from 'react';
 
 export default function Input(props) {
 
-  const {name, label, value, placeholder, onChange, rows, error=null} = props;
+  const {name, label, value, variant, placeholder, onChange, rows, error=null} = props;
 
   return (
     <TextField
       multiline
-      variant="outlined"
+      variant={variant}
       label={label}
       name={name}
       value={value}

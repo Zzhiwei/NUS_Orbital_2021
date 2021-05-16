@@ -4,15 +4,21 @@ import Register from './pages/Register';
 import Layout from './components/Layout';
 import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
 import ViewPost from './pages/ViewPost';
 import { AuthProvider } from './contexts/AuthContext'
+
 
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#2196f3'
+    },
+    background: {
+      //default: "#f4f5f1"
+      //default: '#f4f5fd'
+      default: '#ffffff'
     }
   }
 });
@@ -20,6 +26,7 @@ const theme = createMuiTheme({
 function App() {
   return (    
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter >       
         <AuthProvider>
           <Layout>
@@ -33,6 +40,7 @@ function App() {
             </Switch>
           </Layout>   
         </AuthProvider>      
+
       </BrowserRouter>
     </ThemeProvider>
   );
