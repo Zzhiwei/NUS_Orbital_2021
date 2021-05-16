@@ -1,4 +1,4 @@
-import { Grid, Paper, Card } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm';
 import Controls from "../components/Controls";  
 
@@ -47,8 +47,9 @@ export default function PostDetails() {
   return (
 
     <Form onSubmit={handleSubmit}>
-      <Grid container justify="center">
-        <Grid item xs={4}>
+    <Container component="main" maxWidth="sm">
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
           <Controls.Select 
             name="type"
             label="Type"
@@ -57,7 +58,7 @@ export default function PostDetails() {
             options={[{id: 1, value: "Competition"}, {id: 2, value: "Project"}]}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={6}>
         <Controls.Select 
             name="members"
             label="Group Size"
@@ -66,10 +67,7 @@ export default function PostDetails() {
             options={[{id: 1, value: 1}, {id: 2, value: 2}, {id: 3, value: 3}, {id: 4, value: 4}, {id: 5, value: 5},]}
           />
         </Grid>
-      </Grid>
-      <br />
-      <Grid container justify="center">
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           <Controls.Input 
             name="title"
             label="Title"
@@ -89,10 +87,7 @@ export default function PostDetails() {
             rows={1}
           />
         </Grid>
-      </Grid>
-      
-      <Grid container justify="center">
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={6}>
           <Controls.Select 
             name="education"
             label="Education Level"
@@ -101,7 +96,7 @@ export default function PostDetails() {
             options={[{id: 1, value: "Any"}, {id: 2, value: "Primary"}, {id: 3, value: "Secondary"}, {id: 4, value: "Pre-University"}, {id: 5, value: "Undergraduate"}, {id: 6, value: "Professional"},]}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item item xs={12} sm={6}>
           <Controls.Select 
             name="proficiency"
             label="Proficiency Level"
@@ -110,10 +105,7 @@ export default function PostDetails() {
             options={[{id: 1, value: "Any"}, {id: 2, value: "Beginner"}, {id: 3, value: "Intermediate"}, {id: 4, value: "Advanced"},]}
           />
         </Grid>
-      </Grid>
-
-      <Grid container justify="center">
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={6}>
           <Controls.Input 
             name="location"
             label="Location"
@@ -124,7 +116,7 @@ export default function PostDetails() {
             rows={1}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={6}>
           <Controls.Input 
             name="schedule"
             label="Commitment Period"
@@ -135,10 +127,7 @@ export default function PostDetails() {
             rows={1}
           />
         </Grid>
-      </Grid>
-
-      <Grid container justify="center">
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           <Controls.Input 
               name="description"
               label="Additional Information"
@@ -149,13 +138,14 @@ export default function PostDetails() {
               rows={6}
             />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12}>
           <Controls.Button 
             type="submit"
             text="Post"
           />
         </Grid>
       </Grid>
+    </Container>
     </Form>
   )
 

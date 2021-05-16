@@ -1,4 +1,4 @@
-import { TextField } from '@material-ui/core';
+import TextField from "@material-ui/core/TextField";
 import React from 'react';
 
 export default function Input(props) {
@@ -7,7 +7,6 @@ export default function Input(props) {
 
   return (
     <TextField
-      multiline
       variant={variant}
       label={label}
       name={name}
@@ -16,6 +15,8 @@ export default function Input(props) {
       onChange={onChange}
       rows={rows}
       {...(error && {error:true, helperText:error})}
+      fullWidth
+      multiline
     />
   )
 }
