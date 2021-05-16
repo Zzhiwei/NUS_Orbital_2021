@@ -176,7 +176,7 @@ function Layout(props) {
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>
-
+                    {currentUser && `currently logged in as ${currentUser.email}`}
                     {renderLogin()}
                     
                 </Toolbar>                 

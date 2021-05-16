@@ -6,7 +6,6 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
-import ViewPost from './pages/ViewPost';
 import { AuthProvider } from './contexts/AuthContext'
 
 
@@ -36,7 +35,7 @@ function App() {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
               <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/viewpost" component={ViewPost}></Route>          
+              <Route path="/viewpost" component={NewPost}></Route>          
             </Switch>
           </Layout>   
         </AuthProvider>      
