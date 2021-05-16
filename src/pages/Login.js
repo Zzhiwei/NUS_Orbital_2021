@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, FormControl, InputLabel, OutlinedInput, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AppForm from '../views/AppForm';
+import { useAuth } from '../contexts/AuthContext';
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles({
@@ -14,21 +16,37 @@ const useStyles = makeStyles({
 });
 
 function Login() {
-    const [userName, setUserName] = React.useState('');
+    const classes = useStyles()
+    const { login } = useAuth()
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
+    
+    const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const classes = useStyles();
+    
 
-    const onUserNameChange = (e) => {        
-        setUserName(e.target.value);
+    const onEmailChange = (e) => {        
+        setEmail(e.target.value);
     }
 
     const onPasswordChange = (e) => {        
         setPassword(e.target.value);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(userName, password);
+
+        try {
+            setLoading(true)
+            setError('')
+            await login(email, password)
+            history.push('/')
+        } catch (e) {
+            setError(e.message)
+        }
+
+        setLoading(false)
     }
 
     return (
@@ -43,18 +61,20 @@ function Login() {
                 </Typography>                
             </React.Fragment>            
 
+            {error && <Alert severity="error">{error}</Alert>}
+
             <form  align="center" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <div className={classes.marginBot}>
                     <FormControl variant="outlined" required fullWidth>
-                        <InputLabel htmlFor="component-outlined">Username / Email</InputLabel>
-                        <OutlinedInput className={classes.input} id="component-outlined" value={userName} onChange={onUserNameChange} label="Username / Email" />
+                        <InputLabel htmlFor="component-outlined">Email</InputLabel>
+                        <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} label="Email" />
                     </FormControl>
                 </div>  
                 
                 <div className={classes.marginBot}>
                     <FormControl variant="outlined" required fullWidth>
                         <InputLabel htmlFor="component-outlined">Password</InputLabel>
-                        <OutlinedInput id="component-outlined" value={password} onChange={onPasswordChange} label="Password" />
+                        <OutlinedInput type="password" id="component-outlined" value={password} onChange={onPasswordChange} label="Password" />
                     </FormControl>
                 </div>
             
@@ -64,6 +84,7 @@ function Login() {
                     variant='contained'
                     endIcon={<KeyboardArrowRightIcon />}
                     size='large'                                                                            
+                    disabled={loading}
                 >
                     Login
                 </Button>

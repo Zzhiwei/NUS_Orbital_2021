@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
-import { Link } from 'react-router-dom';
-import SearchIcon from '@material-ui/icons/Search';
+import { Link, useHistory } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import history from '../history';
-
+import { useAuth } from '../contexts/AuthContext'
 
 
 const useStyles = makeStyles(theme => { 
@@ -55,9 +53,9 @@ const useStyles = makeStyles(theme => {
 
 function Layout(props) {    
     const classes = useStyles();        
-    const [login, setLogin] = useState(false);
+    const { currentUser, logout } = useAuth()
+    const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(null);
-
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -68,6 +66,16 @@ function Layout(props) {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };  
+
+    const handleLogout = async () => {
+
+        try {
+            await logout()
+            history.push('/login')
+        } catch (e) {
+            alert('failed to log out')
+        }
+    }
 
     const renderMenu = (
         <Menu
@@ -84,13 +92,13 @@ function Layout(props) {
           <MenuItem onClick={handleMenuClose}>My projects</MenuItem>
           <MenuItem onClick={handleMenuClose}>Bookedmarked projects</MenuItem>
           <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+          <MenuItem onClick={handleLogout}>Log out</MenuItem>
           <MenuItem onClick={handleMenuClose}>Help</MenuItem>
         </Menu>
     );
     
     const renderLogin = () => {
-        if (login) {
+        if (currentUser) {
             return (
                 <div style={{marginRight: '50px'}}> 
                     <Link to="./newpost">
@@ -169,11 +177,6 @@ function Layout(props) {
                     </Link>
                     <span className={classes.title}></span>
 
-                    <Button onClick={() => {
-                        setLogin(!login);  
-                    }}>
-                        toggle Login
-                    </Button>
                     {renderLogin()}
                     
                 </Toolbar>                 
