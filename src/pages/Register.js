@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, OutlinedInput, Paper, Typography } from '@material-ui/core';
+import { Button, debounce, FormControl, Grid, InputLabel, OutlinedInput, Paper, Typography } from '@material-ui/core';
 import { Link, useHistory }  from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import AppForm from '../views/AppForm2';
@@ -6,6 +6,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert';
+import { db } from '../firebase'
 
 
 
@@ -20,10 +21,8 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassowrd, setConfirmPassword] = useState('');
-
-    // currently not in use
     const [firstName, setFirstName] = React.useState('');
-    const [secondName, setSecondName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
 
     const onEmailChange = (e) => {
         setEmail(e.target.value)
@@ -36,9 +35,14 @@ function Register() {
     const onConfirmPasswordChange = (e) => {
         setConfirmPassword(e.target.value)
     }
-        
+     
+    const onFirstNameChange = (e) => {
+        setFirstName(e.target.value)
+    }
 
-    
+    const onLastNameChange = (e) => {
+        setLastName(e.target.value)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -50,7 +54,14 @@ function Register() {
         try {
             setLoading(true)
             setError('')
-            await signup(email, password)
+            const cred = await signup(email, password)
+            await db.collection('users').doc(cred.user.uid).set({
+                email,
+                password,
+                firstName,
+                lastName
+            })
+            
             history.push('/')
         } catch (e) {
             setError(e.message)
@@ -78,14 +89,14 @@ function Register() {
                     <Grid container >
                         <Grid item xs={6}>
                         <FormControl variant="outlined">
-                            <InputLabel htmlFor="component-outlined">First name</InputLabel>
-                            <OutlinedInput id="component-outlined" value={"dsa"} onChange={null} label="First name" />
+                            <InputLabel htmlFor="firstName">First name</InputLabel>
+                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
                         </FormControl>
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl variant="outlined">
-                                <InputLabel htmlFor="component-outlined">Last name</InputLabel>
-                                <OutlinedInput id="component-outlined" value={"dsa"} onChange={null} label="Last name" />
+                                <InputLabel htmlFor="lastName">Last name</InputLabel>
+                                <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
                             </FormControl>    
                         </Grid>
                     </Grid>         
