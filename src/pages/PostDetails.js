@@ -30,6 +30,7 @@ export default function PostDetails() {
 
     return Object.values(temp).every(x => x == "");
   }
+  
   const {
     values,
     setValues,
