@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
   pageHeader: {
     padding: theme.spacing(4),
     display: 'flex',
+    justifyContent: 'center',
     marginBottom: theme.spacing(2)
   },
   pageIcon: {
