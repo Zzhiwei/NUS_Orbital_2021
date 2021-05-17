@@ -1,18 +1,37 @@
-import { Button, debounce, FormControl, Grid, InputLabel, OutlinedInput, Paper, Typography } from '@material-ui/core';
-import { Link, useHistory }  from 'react-router-dom';
+import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Typography, Container, CssBaseline, Avatar, Link } from '@material-ui/core';
+import { useHistory }  from 'react-router-dom';
 import React, { useRef, useState } from 'react';
-import AppForm from '../views/AppForm2';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert';
 import { db } from '../firebase'
+import Copyright from '../components/Copyright'
 
-
-
-
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(5),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.primary.main,
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+  }));
 
 function Register() {
+
+    const classes = useStyles();
+
     const { signup, currentUser } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
@@ -71,91 +90,76 @@ function Register() {
     }
 
     return (
-        <div> 
-            <AppForm>
-                <div align='center' style={{marginBottom: '5px'}}>
-                <AccountBoxIcon color='white' fontSize='large' />
-                </div>
+        <Container component="main" maxWidth="xs"> 
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <AccountBoxIcon fontSize="large"/>
+                </Avatar>
+                <Typography variant="h5" component="h1" gutterBottom>
+                    Sign Up
+                </Typography> 
 
-                <div >
-                    <Typography variant="h3" gutterBottom  align="center">
-                        Sign Up
-                    </Typography>                
-                </div>
-                    
                 {error && <Alert severity="error">{error}</Alert>}
-            
-                <form align="center" noValidate autoComplete="off" onSubmit={handleSubmit}>
-                    <Grid container >
-                        <Grid item xs={6}>
-                        <FormControl variant="outlined">
-                            <InputLabel htmlFor="firstName">First name</InputLabel>
-                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
-                        </FormControl>
+
+                <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl variant="outlined">
+                                <InputLabel htmlFor="firstName">First name</InputLabel>
+                                <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
+                            </FormControl>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <FormControl variant="outlined">
                                 <InputLabel htmlFor="lastName">Last name</InputLabel>
                                 <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
                             </FormControl>    
                         </Grid>
-                    </Grid>         
-
-                    <br />
-                    
-                    <div>
-                        <FormControl style={{width: '400px'}} variant="outlined">
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                            <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
-                        </FormControl>
-                    </div>
-                        
-                    <br />
-                    
-                    <div>
-                        <FormControl style={{width: '400px'}} variant="outlined">
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
-                        </FormControl>
-                    </div>                                           
-                        
-                    <br />
-
-                    <div>
-                        <FormControl style={{width: '400px'}} variant="outlined">
-                            <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
-                            <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
-                        </FormControl>
-                    </div>                                           
-                        
-                    <br />
-                    
+                        <Grid item xs={12}>
+                            <FormControl style={{width: '400px'}} variant="outlined">
+                                <InputLabel htmlFor="email">Email</InputLabel>
+                                <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl style={{width: '400px'}} variant="outlined">
+                                <InputLabel htmlFor="password">Password</InputLabel>
+                                <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
+                            </FormControl>
+                        </Grid>                                           
+                        <Grid item xs={12}>
+                            <FormControl style={{width: '400px'}} variant="outlined">
+                                <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
+                                <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
+                            </FormControl>
+                        </Grid> 
+                    </Grid>
                     <Button
+                        className={classes.submit}
                         type='submit'
                         color='primary'
                         variant='contained'
                         endIcon={<KeyboardArrowRightIcon />} 
                         size='large'
                         disabled={loading}
-                                                
+                        fullWidth                     
                     >
                         Register
                     </Button>
-                    
-                    
-                    
+                    <Grid container justify="flex-end">
+                        <Grid item >
+                            <Link href='/login' variant="body2" color="primary" underline="hover">
+                                Already have an account? Sign in here
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </form>
-            <br />
-            <Typography variant="body2" align="center">
-                    {'Already have an account? '}
-                    <Link to='/login'>
-                        Sign in here
-                    </Link>
-            </Typography> 
-
-            
-            </AppForm>
-        </div>
+                <Box mt={5}>
+                    <Copyright />
+                </Box>
+            </div>  
+    </Container>
     );
   }
   
