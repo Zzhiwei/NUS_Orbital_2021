@@ -3,6 +3,7 @@ import { Card, Drawer, Grid, Link, makeStyles, Paper } from '@material-ui/core';
 import React, { useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import Search from '../components/Search';
+import { db } from '../firebase'
 
 
 const useStyles = makeStyles((theme) => {
