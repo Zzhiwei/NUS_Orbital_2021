@@ -1,13 +1,16 @@
-import { Grid, Container, Chip } from '@material-ui/core';
+import { Grid, Container, Chip, Button } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm';
 import Controls from "../components/Controls";  
 import ChipInput from 'material-ui-chip-input';
-
+import { Link, useHistory }  from 'react-router-dom';
+import { db } from '../firebase'
+import { useAuth } from '../contexts/AuthContext'
+import { useState } from 'react';
 
 
 
 const initialFValues = {
-  id: 0,
+  
   type: "",
   title: "",
   skills: [],
@@ -18,12 +21,20 @@ const initialFValues = {
 }
 
 export default function PostDetails() {
+  const { currentUser } = useAuth()
+  const history = useHistory()
 
+  //if no user is logged in redirect to sign up
+  if (!currentUser) {
+    history.push('/login')
+  }
+
+  const [loading, setLoading] = useState(false)
+  
   const validate = () => {
     let temp = {}
     temp.type = values.type ? "" : "This field is required"
     temp.title = values.title ? "" : "This field is required"
-    temp.skills = values.skills ? "" : "This field is required"
     temp.location = values.location ? "" : "This field is required"
     temp.schedule = values.schedule ? "" : "This field is required"
     temp.members = values.members ? "" : "This field is required"
@@ -45,10 +56,47 @@ export default function PostDetails() {
     handleInputChange
   } = useForm(initialFValues);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate())
-      window.alert('testing...')
+    if (!validate()) {
+      alert('form not filled in correctly')
+      return
+    }
+    const {
+      type,
+      title,
+      skills,
+      location,
+      schedule,
+      members,
+      description
+    } = values
+
+    setLoading(true)
+    db.collection("posts").add({
+      type,
+      title,
+      skills,
+      location,
+      schedule,
+      members,
+      description,
+      author: currentUser.uid
+    })
+    .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+        console.error("Error adding document: ", error);
+    });
+    
+    setLoading(false)
+    
+    setTimeout(() => {
+      history.push('/')
+    }, 300)
+    
+
   }
 
   const handleAddChip = (chip) => {
@@ -102,15 +150,6 @@ export default function PostDetails() {
             onAdd={(chip) => handleAddChip(chip)}
             onDelete={(chip, index) => handleDeleteChip(chip, index)}
           />          
-          {/* <Controls.Input 
-            name="skills"
-            label="Required Skills/Experience"
-            value={values.skills}
-            variant="outlined"
-            placeholder="None, HTML/CSS, Photography, etc"
-            onChange={handleInputChange}
-            rows={1}
-          /> */}
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controls.Select 
@@ -160,11 +199,12 @@ export default function PostDetails() {
               variant="outlined"
               placeholder="Other details about the competition/project..."
               onChange={handleInputChange}
-              rows={6}
+              rows={10}
             />
         </Grid>
         <Grid item xs={12}>
           <Controls.Button 
+            disabled={loading}
             type="submit"
             text="Post"
           />
