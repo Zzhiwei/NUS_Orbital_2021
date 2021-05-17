@@ -57,7 +57,7 @@ function Login({title, author, description, chips}) {
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {chips.map(tag => {
+                        {chips && chips.map(tag => {
                             return <Chip label={tag}/>
                         })}
                     </div>
