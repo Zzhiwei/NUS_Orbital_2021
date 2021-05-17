@@ -1,4 +1,4 @@
-import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Typography, Container, CssBaseline, Avatar, Link } from '@material-ui/core';
+import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Typography, Container, CssBaseline, Link } from '@material-ui/core';
 import { useHistory }  from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%',
         marginTop: theme.spacing(3),
+    },
+    field: {
+        background: "white",
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -104,31 +107,31 @@ function Register() {
             <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                        <FormControl variant="outlined">
+                        <FormControl className={classes.field} variant="outlined">
                             <InputLabel htmlFor="firstName">First name</InputLabel>
                             <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <FormControl variant="outlined">
+                        <FormControl className={classes.field} variant="outlined">
                             <InputLabel htmlFor="lastName">Last name</InputLabel>
                             <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
                         </FormControl>    
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl style={{width: '400px'}} variant="outlined">
+                        <FormControl fullWidth className={classes.field} variant="outlined">
                             <InputLabel htmlFor="email">Email</InputLabel>
                             <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
-                        <FormControl style={{width: '400px'}} variant="outlined">
+                        <FormControl fullWidth className={classes.field} variant="outlined">
                             <InputLabel htmlFor="password">Password</InputLabel>
                             <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
                         </FormControl>
                     </Grid>                                           
                     <Grid item xs={12}>
-                        <FormControl style={{width: '400px'}} variant="outlined">
+                        <FormControl fullWidth className={classes.field} variant="outlined">
                             <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
                             <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
                         </FormControl>
@@ -154,7 +157,7 @@ function Register() {
                     </Grid>
                 </Grid>
             </form>
-            <Box mt={5}>
+            <Box align="center" mt={5}>
                 <Copyright />
             </Box>
             

@@ -1,12 +1,20 @@
-import TextField from "@material-ui/core/TextField";
+import {TextField, makeStyles} from "@material-ui/core";
 import React from 'react';
+
+const useStyles = makeStyles((theme) => ({
+  text: {
+    background: "white",
+  }
+}))
 
 export default function Input(props) {
 
+  const classes = useStyles();
   const {name, label, value, variant, placeholder, onChange, rows, error=null} = props;
 
   return (
     <TextField
+      className={classes.text}
       variant={variant}
       label={label}
       name={name}
