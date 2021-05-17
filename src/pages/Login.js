@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Typography, Grid, FormControlLabel, Checkbox, Link, Box } from '@material-ui/core';
+import { Avatar, Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Typography, Grid, Link, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useAuth } from '../contexts/AuthContext';
 import Alert from '@material-ui/lab/Alert';
 import Copyright from '../components/Copyright';
@@ -69,7 +69,7 @@ function Login() {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOpenIcon fontSize='medium' />
+                    <AccountBoxIcon fontSize='large' />
                 </Avatar>
                 <Typography variant="h5" component="h1" gutterBottom>
                     Sign In
