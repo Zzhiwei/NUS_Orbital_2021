@@ -1,12 +1,19 @@
 import React from 'react';
-import { FormControl, InputLabel, Select as MuiSelect, MenuItem } from '@material-ui/core';
+import { makeStyles, FormControl, InputLabel, Select as MuiSelect, MenuItem } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  select: {
+    background: "white",
+  }
+}))
 
 export default function Select(props) {
 
+  const classes = useStyles();
   const { name, label, value, onChange, options} = props;
 
   return (
-    <FormControl variant="outlined"> 
+    <FormControl className={classes.select} variant="outlined"> 
       <InputLabel>
         {label}
       </InputLabel>

@@ -170,14 +170,12 @@ export default function PostDetails() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Controls.Input 
+          <Controls.Select 
             name="location"
             label="Location"
             value={values.location}
-            variant="outlined"
-            placeholder="Online, East-side, etc"
             onChange={handleInputChange}
-            rows={1}
+            options={[{id: 1, value: "Online"},{id: 2, value: "In-Person"}]}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

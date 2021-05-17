@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginTop: theme.spacing(3),
     },
+    field: {
+        background: "white",
+    },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
@@ -77,13 +80,13 @@ function Login() {
                 <form  className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <FormControl variant="outlined" required fullWidth>
+                            <FormControl className={classes.field} variant="outlined" required fullWidth>
                                 <InputLabel htmlFor="component-outlined">Email</InputLabel>
                                 <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} label="Email" />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl variant="outlined" required fullWidth>
+                            <FormControl className={classes.field} variant="outlined" required fullWidth>
                                 <InputLabel htmlFor="component-outlined">Password</InputLabel>
                                 <OutlinedInput type="password" id="component-outlined" value={password} onChange={onPasswordChange} label="Password" />
                             </FormControl>
@@ -114,7 +117,7 @@ function Login() {
                         </Grid>
                      </Grid>
                 </form>
-                <Box mt={5}>
+                <Box mt={5} align="center">
                     <Copyright />
                 </Box>
                  
