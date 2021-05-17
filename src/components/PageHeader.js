@@ -1,28 +1,24 @@
 import React from 'react';
-import { makeStyles, Paper, Card, Typography } from '@material-ui/core';
+import { makeStyles, Avatar, Typography, Container, CssBaseline } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor:'#fdfdff'
+const useStyles = makeStyles((theme) => ({
+  header: {
+      marginTop: theme.spacing(3),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
   },
-  pageHeader: {
-    padding: theme.spacing(4),
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: theme.spacing(2)
+  avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.primary.main,
+      width: theme.spacing(6),
+      height: theme.spacing(6)
   },
-  pageIcon: {
-    display: 'inline-block',
-    padding: theme.spacing(2),
-    color: '#2196f3'
-  },
-  pageTitle: {
-    paddingLeft: theme.spacing(4),
-    '& .MuiTypography-subtitle2': {
-      opacity: '0.6'
-    }  
+  subTitle: {
+    marginTop: theme.spacing(-1.25),
+    opacity: "0.6",
   }
-}))
+}));
 
 export default function PageHeader(props) {
 
@@ -30,26 +26,19 @@ export default function PageHeader(props) {
   const { title, subTitle, icon} = props;
 
   return (
-    <Paper elevation={0} square className={classes.root} >
-      <div className={classes.pageHeader}>
-        <Card className={classes.pageIcon}>
-          {icon}
-        </Card>
-        <div className={classes.pageTitle}>
-          <Typography
-            variant="h6"
-            component="div"
-          >
-            {title}
-          </Typography>
-            <Typography
-              variant="subtitle2"
-              component="div"
-            >
-              {subTitle}
-            </Typography>
+    <Container component="main" maxWidth="xs"> 
+        <CssBaseline />
+        <div className={classes.header}>
+            <Avatar className={classes.avatar}>
+                {icon}
+            </Avatar>
+            <Typography variant="h5" component="h1" gutterBottom>
+                {title}
+            </Typography> 
+            <Typography className={classes.subTitle} variant="subtitle2" component="h1" gutterBottom>
+                {subTitle}
+            </Typography> 
         </div>
-      </div>
-    </Paper>
+    </Container>
   )
 }

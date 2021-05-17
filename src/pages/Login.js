@@ -3,10 +3,11 @@ import { Avatar, Button, Container, CssBaseline, FormControl, InputLabel, Outlin
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext';
 import Alert from '@material-ui/lab/Alert';
 import Copyright from '../components/Copyright';
+import PageHeader from '../components/PageHeader';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         width: '100%',
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(3),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -67,16 +68,12 @@ function Login() {
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <AccountBoxIcon fontSize='large' />
-                </Avatar>
-                <Typography variant="h5" component="h1" gutterBottom>
-                    Sign In
-                </Typography>                
-            
+            <PageHeader 
+                title="Sign in"
+                icon={<PersonRoundedIcon style={{ fontSize: 38 }}/>}
+            />             
             {error && <Alert severity="error">{error}</Alert>}
-
+            
                 <form  className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -120,7 +117,7 @@ function Login() {
                 <Box mt={5}>
                     <Copyright />
                 </Box>
-            </div>      
+                 
         </Container>
     );
   }

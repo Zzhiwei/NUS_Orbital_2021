@@ -2,11 +2,13 @@ import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, 
 import { useHistory }  from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert';
 import { db } from '../firebase'
 import Copyright from '../components/Copyright'
+import PageHeader from '../components/PageHeader';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
         width: '100%',
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(3),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -92,73 +94,70 @@ function Register() {
     return (
         <Container component="main" maxWidth="xs"> 
             <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <AccountBoxIcon fontSize="large"/>
-                </Avatar>
-                <Typography variant="h5" component="h1" gutterBottom>
-                    Sign Up
-                </Typography> 
+            <PageHeader 
+                title="Sign in"
+                icon={<PersonRoundedIcon style={{ fontSize: 38 }}/>}
+            />
 
-                {error && <Alert severity="error">{error}</Alert>}
+            {error && <Alert severity="error">{error}</Alert>}
 
-                <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl variant="outlined">
-                                <InputLabel htmlFor="firstName">First name</InputLabel>
-                                <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl variant="outlined">
-                                <InputLabel htmlFor="lastName">Last name</InputLabel>
-                                <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
-                            </FormControl>    
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl style={{width: '400px'}} variant="outlined">
-                                <InputLabel htmlFor="email">Email</InputLabel>
-                                <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl style={{width: '400px'}} variant="outlined">
-                                <InputLabel htmlFor="password">Password</InputLabel>
-                                <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
-                            </FormControl>
-                        </Grid>                                           
-                        <Grid item xs={12}>
-                            <FormControl style={{width: '400px'}} variant="outlined">
-                                <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
-                                <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
-                            </FormControl>
-                        </Grid> 
+            <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl variant="outlined">
+                            <InputLabel htmlFor="firstName">First name</InputLabel>
+                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
+                        </FormControl>
                     </Grid>
-                    <Button
-                        className={classes.submit}
-                        type='submit'
-                        color='primary'
-                        variant='contained'
-                        endIcon={<KeyboardArrowRightIcon />} 
-                        size='large'
-                        disabled={loading}
-                        fullWidth                     
-                    >
-                        Register
-                    </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item >
-                            <Link href='/login' variant="body2" color="primary" underline="hover">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <FormControl variant="outlined">
+                            <InputLabel htmlFor="lastName">Last name</InputLabel>
+                            <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
+                        </FormControl>    
                     </Grid>
-                </form>
-                <Box mt={5}>
-                    <Copyright />
-                </Box>
-            </div>  
+                    <Grid item xs={12}>
+                        <FormControl style={{width: '400px'}} variant="outlined">
+                            <InputLabel htmlFor="email">Email</InputLabel>
+                            <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl style={{width: '400px'}} variant="outlined">
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
+                        </FormControl>
+                    </Grid>                                           
+                    <Grid item xs={12}>
+                        <FormControl style={{width: '400px'}} variant="outlined">
+                            <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
+                            <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
+                        </FormControl>
+                    </Grid> 
+                </Grid>
+                <Button
+                    className={classes.submit}
+                    type='submit'
+                    color='primary'
+                    variant='contained'
+                    endIcon={<KeyboardArrowRightIcon />} 
+                    size='large'
+                    disabled={loading}
+                    fullWidth                     
+                >
+                    Register
+                </Button>
+                <Grid container justify="flex-end">
+                    <Grid item >
+                        <Link href='/login' variant="body2" color="primary" underline="hover">
+                            Already have an account? Sign in
+                        </Link>
+                    </Grid>
+                </Grid>
+            </form>
+            <Box mt={5}>
+                <Copyright />
+            </Box>
+            
     </Container>
     );
   }

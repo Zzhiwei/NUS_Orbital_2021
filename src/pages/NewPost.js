@@ -1,6 +1,5 @@
 import { makeStyles, Box } from '@material-ui/core';
-import PeopleOutlineTwoToneIcon from "@material-ui/icons/PeopleOutlineTwoTone";
-import Controls from '../components/Controls';
+import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../components/Copyright';
 import PageHeader from '../components/PageHeader';
 import PostDetails from './PostDetails';
@@ -22,7 +21,7 @@ function NewPost() {
       <PageHeader 
           title="Create a New Post"
           subTitle="Please fill in the required details below"
-          icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+          icon={<CreateTwoToneIcon fontSize="large"/>}
         />
       <div className={classes.pageContent}>
         <PostDetails />
