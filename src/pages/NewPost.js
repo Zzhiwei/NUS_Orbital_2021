@@ -20,10 +20,10 @@ function NewPost() {
   return (
     <>
       <PageHeader 
-        title="Create a New Post"
-        subTitle="Please fill in the required details below"
-        icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
-      />
+          title="Create a New Post"
+          subTitle="Please fill in the required details below"
+          icon={<PeopleOutlineTwoToneIcon fontSize="large" />}
+        />
       <div className={classes.pageContent}>
         <PostDetails />
       </div>

@@ -1,12 +1,16 @@
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Chip } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm';
 import Controls from "../components/Controls";  
+import ChipInput from 'material-ui-chip-input';
+
+
+
 
 const initialFValues = {
   id: 0,
   type: "",
   title: "",
-  skills: "",
+  skills: [],
   location: "",
   schedule: "",
   members: "",
@@ -31,6 +35,8 @@ export default function PostDetails() {
     return Object.values(temp).every(x => x == "");
   }
   
+  
+
   const {
     values,
     setValues,
@@ -43,6 +49,15 @@ export default function PostDetails() {
     e.preventDefault();
     if (validate())
       window.alert('testing...')
+  }
+
+  const handleAddChip = (chip) => {
+    setValues(values => ({...values, skills: [...values.skills, chip]}))
+  }
+
+  const handleDeleteChip = (chip, index) => {
+    values.skills.splice(index, 1)
+    setValues(values => ({...values, skills: values.skills}))
   }
 
   return (
@@ -78,7 +93,16 @@ export default function PostDetails() {
             onChange={handleInputChange}
             rows={1}
           />
-          <Controls.Input 
+          <ChipInput
+            name="skills"
+            label="Required Skills/Experience"
+            placeholder="None, HTML/CSS, Photography, etc"
+            variant="outlined"
+            value={values.skills}
+            onAdd={(chip) => handleAddChip(chip)}
+            onDelete={(chip, index) => handleDeleteChip(chip, index)}
+          />          
+          {/* <Controls.Input 
             name="skills"
             label="Required Skills/Experience"
             value={values.skills}
@@ -86,7 +110,7 @@ export default function PostDetails() {
             placeholder="None, HTML/CSS, Photography, etc"
             onChange={handleInputChange}
             rows={1}
-          />
+          /> */}
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controls.Select 
