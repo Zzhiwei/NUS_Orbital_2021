@@ -1,5 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom' 
 
 const useStyles = makeStyles(theme => {
     return {
@@ -18,7 +19,11 @@ const useStyles = makeStyles(theme => {
             '& > *': {
               margin: theme.spacing(0.5),
             },
-        }
+        },
+        link: {
+            color: theme.palette.primary.main,
+            textDecoration: "none",
+        },
     }    
 })
 
@@ -67,10 +72,14 @@ function Login({title, author, description, chips}) {
                     <Grid  container justify="center">
                         <Grid item>
                             <Button size="small" color="primary">
-                            view
+                                <Link className={classes.link} to='/viewpost'>
+                                    View
+                                </Link>
                             </Button>
                             <Button size="small" color="primary">
-                            Bookmark
+                                <Link className={classes.link} to='/viewpost'>
+                                    Bookmark
+                                </Link>
                             </Button>
                         </Grid>
                     </Grid>

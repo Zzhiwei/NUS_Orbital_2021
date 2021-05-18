@@ -58,28 +58,28 @@ function ViewPost() {
         <div className={classes.pageContent}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Type" value={type}/>
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Type" value={type}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Group Size" value={members}/>
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Group Size" value={members}/>
                 </Grid>
                 <Grid item xs={12}>
-                    <ChipInput fullWidth  multiline rows={1} variant="outlined" label="Skills" value={skills}/>
+                    <ChipInput disabled fullWidth  multiline rows={1} variant="outlined" label="Skills" value={skills}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Education"value={edu}/>
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Education"value={edu}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Proficiency" value={prof}/>  
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Proficiency" value={prof}/>  
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Location" value={loc}/>  
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Location" value={loc}/>  
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth multiline rows={1} variant="outlined" label="Commitment Period" value={sched}/>  
+                    <TextField disabled fullWidth multiline rows={1} variant="outlined" label="Commitment Period" value={sched}/>  
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField fullWidth multiline rows={10} variant="outlined" label="Description" value={desc}/>  
+                    <TextField disabled fullWidth multiline rows={10} variant="outlined" label="Description" value={desc}/>  
                 </Grid>
             </Grid>
         </div>
