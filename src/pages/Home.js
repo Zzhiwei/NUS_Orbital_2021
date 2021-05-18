@@ -80,7 +80,7 @@ function Home() {
         for (const post of posts) {
             const name = await db.collection('users').doc(post.author).get().then(res => {
                 const data = res.data()
-                return data.firstName + data.lastName
+                return data.firstName + " " + data.lastName
             })
             
             renderList = [...renderList, (
