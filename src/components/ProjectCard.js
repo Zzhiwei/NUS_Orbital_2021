@@ -72,7 +72,7 @@ function Login({title, author, description, chips}) {
                     <Grid  container justify="center">
                         <Grid item>
                             <Button size="small" color="primary">
-                                <Link className={classes.link} to='/viewpost'>
+                                <Link className={classes.link} to='/viewpost' target="_blank" rel="noopener noreferrer">
                                     View
                                 </Link>
                             </Button>
