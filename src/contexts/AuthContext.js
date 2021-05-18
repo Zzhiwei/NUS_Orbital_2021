@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 const AuthContext = React.createContext()
 
@@ -8,16 +8,18 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+    
     const [currentUser, setCurrentUser] = useState()
+    const [currentUserData, setCurrentUserData] = useState({})
     const [loading, setLoading] = useState(true)
-
 
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password)
     }
 
+    //interesting behaviour, if you do not return it => program doesn't wait for async fx to finish
     function login(email, password) {
-        return auth.signInWithEmailAndPassword(email, password)
+         return auth.signInWithEmailAndPassword(email, password)
     }
 
     function logout() {
@@ -27,12 +29,19 @@ export function AuthProvider({ children }) {
     function resetPassword(email) {
         return auth.sendPasswordResetEmail(email)
     }
-    
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-          setCurrentUser(user)
-          setLoading(false)
+        const unsubscribe = auth.onAuthStateChanged(async user => {
+            setCurrentUser(user)
+            
+            //if there's a current user, set up currentUser context
+            if (user) {
+                const data = await db.collection('users').doc(user.uid).get().then(res => res.data())
+                setCurrentUserData(data) 
+            }
+            
+            setLoading(false)
+            
         })
 
         return unsubscribe
@@ -43,7 +52,8 @@ export function AuthProvider({ children }) {
         signup,
         login,
         logout,
-        resetPassword
+        resetPassword,
+        currentUserData
     }
     
     return (
