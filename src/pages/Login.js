@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Typography, Grid, Link, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
+import { Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Grid, Box, makeStyles } from '@material-ui/core';
+import { useHistory, Link } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext';
@@ -29,6 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+    },
+    link: {
+        color: theme.palette.primary.main,
+        textDecoration: "none",
+        '&:hover':{
+            textDecoration: "underline",
+        }
     },
   }));
 
@@ -106,12 +112,12 @@ function Login() {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href='/'>
+                            <Link className={classes.link} to='/'>
                                 Forgot your password?
                             </Link>
                         </Grid>
                         <Grid item>                   
-                            <Link href='./register'>                         
+                            <Link className={classes.link} to='./register'>                         
                                 Don't have an account? Sign up
                             </Link>
                         </Grid>
@@ -120,7 +126,6 @@ function Login() {
                 <Box mt={5} align="center">
                     <Copyright />
                 </Box>
-                 
         </Container>
     );
   }

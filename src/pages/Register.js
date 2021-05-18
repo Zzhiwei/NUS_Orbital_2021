@@ -1,5 +1,5 @@
-import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Typography, Container, CssBaseline, Link } from '@material-ui/core';
-import { useHistory }  from 'react-router-dom';
+import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Typography, Container, CssBaseline } from '@material-ui/core';
+import { useHistory, Link }  from 'react-router-dom';
 import React, { useRef, useState } from 'react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
@@ -30,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+    },
+    link: {
+        color: theme.palette.primary.main,
+        textDecoration: "none",
+        '&:hover':{
+            textDecoration: "underline",
+        }
     },
   }));
 
@@ -151,7 +158,7 @@ function Register() {
                 </Button>
                 <Grid container justify="flex-end">
                     <Grid item >
-                        <Link href='/login' variant="body2" color="primary" underline="hover">
+                        <Link className={classes.link} to='/login'>
                             Already have an account? Sign in
                         </Link>
                     </Grid>
@@ -160,7 +167,6 @@ function Register() {
             <Box align="center" mt={5}>
                 <Copyright />
             </Box>
-            
     </Container>
     );
   }
