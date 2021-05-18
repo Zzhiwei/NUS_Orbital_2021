@@ -60,15 +60,11 @@ function Home() {
 
     //sends query to backend when first mounting
     useEffect(() => {
-        let received = []
-        db.collection('posts').get().then(snapShot => {
-            snapShot.forEach(doc => {
-                received.push(doc.data())
-            }) 
-            setPosts(received)
-        }).catch(e => {
-            console.log(e)
-        })
+        const fetchPosts = async () => {
+            const data = await db.collection("posts").get()
+            setPosts(data.docs.map(doc => {return {...doc.data(), id: doc.id} }))
+        }
+        fetchPosts()
     }, [])
 
     
@@ -86,6 +82,7 @@ function Home() {
             renderList = [...renderList, (
                 <Grid item xs={12} md={6} key={post.id}>
                     <ProjectCard
+                        id={post.id}
                         title={post.title}
                         author={name}
                         description={post.description}

@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Input(props) {
 
   const classes = useStyles();
-  const {name, label, value, variant, placeholder, onChange, rows, error=null} = props;
+  const {readOnly, name, label, value, variant, placeholder, onChange, rows, error=null} = props;
 
   return (
     <TextField
@@ -25,6 +25,7 @@ export default function Input(props) {
       {...(error && {error:true, helperText:error})}
       fullWidth
       multiline
+      InputProps={readOnly}
     />
   )
 }

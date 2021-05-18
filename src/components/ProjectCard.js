@@ -37,7 +37,7 @@ function randomString(len) {
     return randomString;
 }
 
-function Login({title, author, description, chips}) {
+function Login({id, title, author, description, chips}) {
     const classes = useStyles();
     return (
         <div>
@@ -72,12 +72,12 @@ function Login({title, author, description, chips}) {
                     <Grid  container justify="center">
                         <Grid item>
                             <Button size="small" color="primary">
-                                <Link className={classes.link} to='/viewpost' target="_blank" rel="noopener noreferrer">
+                                <Link className={classes.link} to={'/viewpost/' + id} target="_blank" rel="noopener noreferrer">
                                     View
                                 </Link>
                             </Button>
                             <Button size="small" color="primary">
-                                <Link className={classes.link} to='/viewpost'>
+                                <Link className={classes.link} to={'/viewpost/' + id}>
                                     Bookmark
                                 </Link>
                             </Button>
