@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
 import { AuthProvider } from './contexts/AuthContext'
-import ViewPost from './pages/ViewPost';
+import GetId from './components/GetId';
 import ForgotPassword from './pages/ForgotPassword';
 
 
@@ -37,7 +37,7 @@ function App() {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
               <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/viewpost" component={ViewPost}></Route>
+              <Route path="/viewpost/:id" component={GetId}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>    
             </Switch>
           </Layout>   
