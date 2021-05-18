@@ -8,7 +8,8 @@ const useStyles = makeStyles(theme => {
         },
         avatar: {
             height: '50px',
-            width: '50px'
+            width: '50px',
+            backgroundColor: theme.palette.primary.main
         },
         chipStyle: {
             display: 'flex',
