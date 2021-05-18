@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => {
 
 function Layout(props) {    
     const classes = useStyles();        
-    const { currentUser, logout } = useAuth()
+    const { currentUser, currentUserData, logout } = useAuth()
     const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -68,7 +68,6 @@ function Layout(props) {
     };  
 
     const handleLogout = async () => {
-
         try {
             await logout()
             history.push('/login')
@@ -176,7 +175,7 @@ function Layout(props) {
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>
-                    {currentUser && `currently logged in as ${currentUser.email}`}
+                    {currentUser && `currently logged in as ${currentUserData.firstName + " " + currentUserData.lastName}`}
                     {renderLogin()}
                     
                 </Toolbar>                 
