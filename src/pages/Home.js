@@ -74,7 +74,7 @@ function Home() {
     
     
 
-
+    //preparing posts to be rendered, also make get request to get info for each post
     const prepareRender = async () => {
         let renderList = []
         for (const post of posts) {

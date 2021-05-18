@@ -105,7 +105,7 @@ function Register() {
         <Container component="main" maxWidth="xs"> 
             <CssBaseline />
             <PageHeader 
-                title="Sign in"
+                title="Sign Up"
                 icon={<PersonRoundedIcon style={{ fontSize: 38 }}/>}
             />
 

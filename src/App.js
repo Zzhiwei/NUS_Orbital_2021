@@ -8,6 +8,7 @@ import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
 import { AuthProvider } from './contexts/AuthContext'
 import ViewPost from './pages/ViewPost';
+import ForgotPassword from './pages/ForgotPassword';
 
 
 const theme = createMuiTheme({
@@ -36,7 +37,8 @@ function App() {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
               <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/viewpost" component={ViewPost}></Route>    
+              <Route path="/viewpost" component={ViewPost}></Route>
+              <Route path="/forgotpassword" component={ForgotPassword}></Route>    
             </Switch>
           </Layout>   
         </AuthProvider>      
