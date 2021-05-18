@@ -6,8 +6,8 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
-import PostDetails from './pages/PostDetails';
 import { AuthProvider } from './contexts/AuthContext'
+import ViewPost from './pages/ViewPost';
 
 
 const theme = createMuiTheme({
@@ -36,7 +36,7 @@ function App() {
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
               <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/viewpost" component={PostDetails}></Route>          
+              <Route path="/viewpost" component={ViewPost}></Route>    
             </Switch>
           </Layout>   
         </AuthProvider>      

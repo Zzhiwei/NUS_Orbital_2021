@@ -1,11 +1,12 @@
-import { Grid, Container, Chip, Button } from '@material-ui/core';
-import { useForm, Form } from '../components/useForm';
-import Controls from "../components/Controls";  
-import ChipInput from 'material-ui-chip-input';
-import { Link, useHistory }  from 'react-router-dom';
+import { Grid, Container } from '@material-ui/core'
+import { useForm, Form } from '../components/useForm'
+import Controls from "../components/Controls"
+import ChipInput from 'material-ui-chip-input'
+import { useHistory }  from 'react-router-dom'
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
-import { useState } from 'react';
+import { useState } from 'react'
+import * as selections from '../components/Selections'
 
 
 
@@ -14,6 +15,8 @@ const initialFValues = {
   type: "",
   title: "",
   skills: [],
+  proficiency: "",
+  education: "", 
   location: "",
   schedule: "",
   members: "",
@@ -36,7 +39,6 @@ export default function PostDetails() {
     temp.type = values.type ? "" : "This field is required"
     temp.title = values.title ? "" : "This field is required"
     temp.location = values.location ? "" : "This field is required"
-    temp.schedule = values.schedule ? "" : "This field is required"
     temp.members = values.members ? "" : "This field is required"
     temp.description = values.description ? "" : "This field is required"
     setErrors({
@@ -66,6 +68,8 @@ export default function PostDetails() {
       type,
       title,
       skills,
+      proficiency,
+      education,
       location,
       schedule,
       members,
@@ -77,6 +81,8 @@ export default function PostDetails() {
       type,
       title,
       skills,
+      proficiency,
+      education,
       location,
       schedule,
       members,
@@ -119,7 +125,7 @@ export default function PostDetails() {
             label="Type"
             value={values.type}
             onChange={handleInputChange}
-            options={[{id: 1, value: "Competition"}, {id: 2, value: "Project"}]}
+            options={selections.type()}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -128,7 +134,7 @@ export default function PostDetails() {
             label="Group Size"
             value={values.members}
             onChange={handleInputChange}
-            options={[{id: 1, value: 1}, {id: 2, value: 2}, {id: 3, value: 3}, {id: 4, value: 4}, {id: 5, value: 5},]}
+            options={selections.groupSize()}
           />
         </Grid>
         <Grid item xs={12}>
@@ -157,7 +163,7 @@ export default function PostDetails() {
             label="Education Level"
             value={values.education}
             onChange={handleInputChange}
-            options={[{id: 1, value: "Any"}, {id: 2, value: "Primary"}, {id: 3, value: "Secondary"}, {id: 4, value: "Pre-University"}, {id: 5, value: "Undergraduate"}, {id: 6, value: "Professional"},]}
+            options={selections.education()}
           />
         </Grid>
         <Grid item item xs={12} sm={6}>
@@ -166,7 +172,7 @@ export default function PostDetails() {
             label="Proficiency Level"
             value={values.proficiency}
             onChange={handleInputChange}
-            options={[{id: 1, value: "Any"}, {id: 2, value: "Beginner"}, {id: 3, value: "Intermediate"}, {id: 4, value: "Advanced"},]}
+            options={selections.proficiency()}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -175,7 +181,7 @@ export default function PostDetails() {
             label="Location"
             value={values.location}
             onChange={handleInputChange}
-            options={[{id: 1, value: "Online"},{id: 2, value: "In-Person"}]}
+            options={selections.location()}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
