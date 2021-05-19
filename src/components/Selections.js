@@ -31,3 +31,31 @@ export const proficiency = () => ([
     {id: 3, value: "Intermediate"},
     {id: 4, value: "Advanced"},
 ])
+
+
+//below here are selections for profile
+export const day = () => {
+    const res = []
+    for (let i = 1; i < 32; i++) {
+        res.push({id: i, value: i})
+    }
+    return res;
+} 
+
+export const month = () => {
+    const mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const res = []
+    for (let i = 0; i < 12; i++) {
+        res.push({id: i+1, value: mL[i]})
+    }
+    return res;
+} 
+
+export const year = () => {
+    const res = []
+    let j = 1;
+    for (let i = 2020; i > 1900; i--) {
+        res.push({id: j++, value: i})
+    }
+    return res;
+} 

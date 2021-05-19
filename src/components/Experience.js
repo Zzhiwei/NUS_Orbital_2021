@@ -43,10 +43,7 @@ function Experience() {
                 <Typography align="center" color="primary" variant="h4" style={{marginBottom: '30px'}}>
                         Experience
                 </Typography>
-                <ExperienceBlock propsCat="work" organization="Inland Revenue Authority of Singapore" workDescription="worked as a tax officer to assist tax payers on tax-related issues such as payment" />
-                
-                <ExperienceBlock propsCat="volunteer" organization="SoapForHope" workDescription="worked with NUS students to manually make soap for foreign workers" />
-                <ExperienceBlock propsCat="other projects" organization="nil" workDescription="build a personal website as a showcase of my porfolio" />
+                {/* <ExperienceBlock propsCat="other projects" organization="nil" workDescription="build a personal website as a showcase of my porfolio" /> */}
 
         </div>
     );
