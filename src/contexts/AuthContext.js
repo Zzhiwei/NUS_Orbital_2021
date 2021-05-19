@@ -53,7 +53,8 @@ export function AuthProvider({ children }) {
         login,
         logout,
         resetPassword,
-        currentUserData
+        currentUserData,
+        setCurrentUserData
     }
     
     return (

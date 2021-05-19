@@ -21,15 +21,9 @@ function Chips({title, items}) {
                         {title} 
                 </Typography>
                 <div className={classes.root}>
-                  {items.map(i => {
+                  {(Object.entries(items).length !== 0) && items.map(i => {
                     return <Chip label={i}> </Chip>
                   })}
-                {/* {
-                <Chip label="writing"> </Chip>
-                <Chip label="basketball"> </Chip>
-                <Chip label="nba"> </Chip>
-                <Chip label="programming"> </Chip>} */}
-                               
                 </div>
         </div>
     );

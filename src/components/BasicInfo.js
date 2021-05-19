@@ -1,28 +1,12 @@
-import React from 'react';
-import { Avatar, Button, ButtonBase, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Avatar, Button, IconButton, InputLabel, makeStyles, Modal, Paper, TextField, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import EditBasicInfo from './modals/EditBasicInfo'
+import { useAuth } from '../contexts/AuthContext';
 
 
 const useStyles = makeStyles((theme) => {
     return {
-        root: {
-            // {border: '1px solid red',}            
-            width: '60%',
-            margin: 'auto auto',            
-            padding: '10px 100px'            
-            
-        },        
-        btn: {
-            width: '100%'
-        },
-        category: {
-            margin: "10px",
-            borderBottom: '1px solid grey'
-        },
-        avatar: {
-            width: theme.spacing(10),
-            height: theme.spacing(10),
-            margin: '0px auto'
-        },
         flex: {
             display: 'flex',
             width: '100%',
@@ -33,82 +17,101 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function BasicInfo() {
+function BasicInfo({ basicInfo }) {
     const classes = useStyles();
-    const firstName = "zhiwei"
+    const [open, setOpen] = React.useState(false);
+    const { currentUserData } = useAuth()
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+
     return (
         <div>
-                
-                <div className={classes.sectionHeader}>                       
-                    <Typography align="center" color="primary" variant="h4" style={{marginBottom: '30px'}}>
-                        Basic info
-                    </Typography>
-                </div>                
-                <div style={{marginBottom: '50px'}}>
-                    
-                    <Avatar className={classes.avatar} style={{marginBottom: '10px'}}/>
-                    <br />                   
-                        
-                    
-                    <form  align="center" noValidate autoComplete="off" onSubmit={null}>
-                        <div className={classes.flex}>
-                            <div style={{flex: '1'}}>
-                                <TextField  value={firstName}  label="First name"  InputProps={{readOnly: true}}/>   
-                            </div>
-                            <div style={{flex: '1'}}>
-                                <TextField  value={"Lin"}  label="First name"  InputProps={{readOnly: true}}/>   
-                            </div>                        
-                            <div style={{flex: '1'}}>
-                                <TextField  value={"Male"}  label="Gender"  InputProps={{readOnly: true}}/>   
-                            </div>              
-                        </div>
-                        <br />
-                        <div className={classes.flex}>
-                            <div style={{flex: '1'}}>
-                                <div>
-                                <TextField  value={"18/11/1997"}  label="Date of birth"  InputProps={{readOnly: true}} />   
-                                </div>                                
-                            </div>
-                            <div style={{flex: '2'}}>
-                                <div style={{width: '80%', margin: '0px auto'}}>
-                                <TextField  value={"linzhiweihotmail@hotmail.com"}  label="Email"  InputProps={{readOnly: true}} fullWidth />   
-                                </div>                                
-                            </div>                            
-                        </div>
-                        <br />
-                        <div style={{display: 'flex', justifyContent: 'left'}}>
-                            <div style={{flex: '1'}}>
-                                <div>
-                                <TextField  value={"Singapore"}  label="Location"  InputProps={{readOnly: true}} />   
-                                </div>                                
-                                
-                            </div>
-                            <div style={{flex: '1'}}>
-                                <div>
-                                <TextField  value={"Singaporean"}  label="Nationality"  InputProps={{readOnly: true}} />   
-                                </div>        
-                            </div>
-                            <div style={{flex: '1'}}></div>
-                        </div>
+                <Typography style={{borderBottom: '2px solid black', marginBottom: '20px'}} color="primary" variant="h4">
+                    Basic info
+                    <IconButton onClick={() => setOpen(true)}>
+                        <EditIcon  />
+                    </IconButton>
+                </Typography>
 
-                        <br />
-                        <br />                    
-                        <TextField
-                            id="outlined-read-only-input"
-                            label="About me"
-                            defaultValue="Hi i am an undergrad student at NUS"
-                            multiline
-                            rows="3"
-                            fullWidth                    
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            variant="outlined"
-                            />
-                        
+                <Modal
+                    open={open}
+                    onClose={null}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                >
+                    <EditBasicInfo basicInfo={currentUserData.basicInfo} handleClose={handleClose} open={open}/>
+                </Modal>
+        
+            
+                <form  align="left" noValidate autoComplete="off" onSubmit={null}>
+                    <div className={classes.flex}>
+                        <div style={{flex: '1'}}>
+                            
+                            <InputLabel>First Name</InputLabel>     
+                            <TextField  value={currentUserData.basicInfo.firstName}  InputProps={{readOnly: true}}/>
+                        </div>
+                        <div style={{flex: '1'}}>
+                            <InputLabel>Last Name</InputLabel> 
+                            <TextField  value={currentUserData.basicInfo.lastName}  InputProps={{readOnly: true}}/>   
+                        </div>                        
+                        <div style={{flex: '1'}}>
+                            <InputLabel>Gender</InputLabel> 
+                            <TextField  value={currentUserData.basicInfo.gender}  InputProps={{readOnly: true}}/>   
+                        </div>              
+                    </div>
+                    <br />
+                    <div className={classes.flex}>
+                        <div style={{flex: '1'}}>
+                            <div>
+                            <InputLabel>Date of Birth</InputLabel> 
+                            <TextField  value={currentUserData.basicInfo.dateOfBirth.year}  InputProps={{readOnly: true}} />   
+                            </div>                                
+                        </div>
+                        <div style={{flex: '2'}}>
+                            <div style={{ width: "300px"}}>
+                            <InputLabel>Email</InputLabel> 
+                            <TextField  value={currentUserData.email}   InputProps={{readOnly: true}} fullWidth />   
+                            </div>                                
+                        </div>                            
+                    </div>
+                    <br />
+                    <div style={{display: 'flex', justifyContent: 'left'}}>
+                        <div style={{flex: '1'}}>
+                            <div>
+                            <InputLabel>Location</InputLabel> 
+                            <TextField  value={currentUserData.basicInfo.location}   InputProps={{readOnly: true}} />   
+                            </div>                                
+                            
+                        </div>
+                        <div style={{flex: '1'}}>
+                            <div>
+                            <InputLabel>Nationality</InputLabel> 
+                            <TextField   value={currentUserData.basicInfo.nationality}    InputProps={{readOnly: true}} />   
+                            </div>        
+                        </div>
+                        <div style={{flex: '1'}}></div>
+                    </div>
 
-                    </form>
-                </div>                                
+                    <br />
+                    <br />           
+                    <InputLabel style={{marginBottom: '10px'}}>About me</InputLabel> 
+                    <TextField
+                        id="outlined-read-only-input"
+                        defaultValue={currentUserData.basicInfo.bio}
+                        multiline
+                        rows="4"
+                        fullWidth                    
+                        InputProps={{
+                            readOnly: true,
+                        }}
+                        variant="outlined"
+                    />
+                    
+
+                </form>
                
             
         </div>

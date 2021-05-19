@@ -6,6 +6,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useAuth } from '../contexts/AuthContext'
+import { FormatColorReset } from '@material-ui/icons';
 
 
 const useStyles = makeStyles(theme => { 
@@ -55,16 +56,16 @@ function Layout(props) {
     const classes = useStyles();        
     const { currentUser, currentUserData, logout } = useAuth()
     const history = useHistory()
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [anchorEl, setAnchorEl] = useState(false);
 
-    const isMenuOpen = Boolean(anchorEl);
+    const isMenuOpen = anchorEl;
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleMenuClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(false);
     };  
 
     const handleLogout = async () => {
@@ -74,6 +75,10 @@ function Layout(props) {
         } catch (e) {
             alert('failed to log out')
         }
+    }
+    
+    const handleProfile = () => {
+        history.push('/profile/32')
     }
 
     const renderMenu = (
@@ -86,7 +91,7 @@ function Layout(props) {
           open={isMenuOpen}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+          <MenuItem onClick={handleProfile}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Account setting</MenuItem>
           <MenuItem onClick={handleMenuClose}>My projects</MenuItem>
           <MenuItem onClick={handleMenuClose}>Bookedmarked projects</MenuItem>
@@ -100,7 +105,7 @@ function Layout(props) {
         if (currentUser) {
             return (
                 <div style={{marginRight: '50px'}}> 
-                    <Link to="./newpost">
+                    <Link to="/newpost">
                         <Tooltip title="Create a New Post">
                             <IconButton aria-label="show 4 new mails" color="primary">
                                 <AddIcon fontSize="large"/>
@@ -175,7 +180,7 @@ function Layout(props) {
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>
-                    {currentUser && `currently logged in as ${currentUserData.firstName + " " + currentUserData.lastName}`}
+                    {currentUser && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
                     {renderLogin()}
                     
                 </Toolbar>                 

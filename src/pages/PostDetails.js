@@ -11,7 +11,6 @@ import * as selections from '../components/Selections'
 
 
 const initialFValues = {
-  
   type: "",
   title: "",
   skills: [],

@@ -45,10 +45,7 @@ function Education() {
                 </Typography>
                 <form  align="center" noValidate autoComplete="off" onSubmit={null}>
                     {/* {written in material UI grid as opposed to flex box } */}                    
-                    <EducationBlock institution="Anglo-Chinese School (Independent)" from="2012" to="2017" />                    
-                    <EducationBlock institution="National University of Singapore" from="2020" to="current" />
-                                        
-                    
+                    {/* <EducationBlock institution="National University of Singapore" from="2020" to="current" /> */}
                 </form>
         </div>
     );

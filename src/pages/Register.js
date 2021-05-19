@@ -87,10 +87,17 @@ function Register() {
             setError('')
             const cred = await signup(email, password)
             await db.collection('users').doc(cred.user.uid).set({
-                email,
                 password,
-                firstName,
-                lastName
+                email,
+                basicInfo: {
+                    firstName,
+                    lastName,
+                    dateOfBirth: {}
+                },
+                education: {},
+                experience: {},
+                interests: {},
+                skills: {}
             })
             
             history.push('/')

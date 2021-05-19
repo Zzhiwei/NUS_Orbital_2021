@@ -5,6 +5,8 @@ import BasicInfo from '../components/BasicInfo';
 import Education from '../components/Education';
 import Chips from '../components/Chips';
 import Experience from '../components/Experience';
+import { useAuth } from '../contexts/AuthContext';
+import { useHistory } from 'react-router';
 
 
 const txt = "dsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad";
@@ -12,8 +14,7 @@ const txt = "dsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddha
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            // {border: '1px solid red',}            
-            width: '60%',
+            width: '1000px',
             margin: 'auto auto',            
             padding: '10px 100px'            
             
@@ -35,24 +36,33 @@ const useStyles = makeStyles((theme) => {
             width: '100%',
             justifyContent: 'space-between'
         },
+        avatar: {
+            width: theme.spacing(15),
+            height: theme.spacing(15),
+            marginTop: '40px',
+            marginBottom: '50px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+        }
         
         
     }
 });
 
 function Profile() {
+    const { currentUserData, currentUser } = useAuth()
     const classes = useStyles();
-    const firstName = "Zhiwei";
+
     return (
         <div>
-        
-        <Paper className={classes.root} elevation={3}>                  
-            <BasicInfo />
-            <Education />            
-            <Experience />
-            <Chips title="Interests" items={["programming", "drawing", "eating", "video games", "league of legends", "movies"]} />
-            <Chips title="Skills" items={["C++", "React", "Material UI", "HTML/CSS/JS", "JAVA", "NodeJS"]} />
-        </Paper>
+            <Paper className={classes.root} elevation={3}>                  
+                <Avatar className={classes.avatar}/>
+                <BasicInfo />
+                <Education education={currentUserData.education}/>            
+                <Experience experience={currentUserData.experience}/>
+                <Chips title="Interests" items={currentUserData.interests} />
+                <Chips title="Skills" items={currentUserData.skills} />
+            </Paper>
         </div>
     );
   }
