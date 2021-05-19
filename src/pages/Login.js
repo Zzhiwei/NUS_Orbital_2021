@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
     },
     field: {
         background: "white",
+        borderRadius: "4px",
+        outline: "none",
     },
     submit: {
         margin: theme.spacing(3, 0, 2),

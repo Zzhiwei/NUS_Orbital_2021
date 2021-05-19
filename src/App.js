@@ -14,12 +14,16 @@ import ForgotPassword from './pages/ForgotPassword';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#2196f3'
+      main: '#027dc5',
+      light: '#a0c3e2',
+    },
+    secondary: {
+      main: '#f8f8f6',
+      //main: '#f7f7f7',
     },
     background: {
-      //default: "#f4f5f1"
-      //default: '#f4f5fd'
-      default: '#ffffff'
+      //default: '#ffffff'
+      default: '#d7e0eb'
     }
   }
 });

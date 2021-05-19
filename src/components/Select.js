@@ -4,6 +4,7 @@ import { makeStyles, FormControl, InputLabel, Select as MuiSelect, MenuItem } fr
 const useStyles = makeStyles((theme) => ({
   select: {
     background: "white",
+    borderRadius: "4px",
   }
 }))
 
