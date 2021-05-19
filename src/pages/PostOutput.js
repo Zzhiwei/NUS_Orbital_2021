@@ -17,7 +17,7 @@ export default function PostOutput({ data })  {
         <div>
         <PageHeader 
                 title={data.title}
-                subTitle={"by " + data.author}
+                subTitle={"by " + data.name}
                 icon={<DescriptionIcon fontSize="large"/>}
             />
         <Container component="main" maxWidth="sm">
