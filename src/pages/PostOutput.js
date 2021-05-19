@@ -22,7 +22,7 @@ export default function PostOutput({ data })  {
             />
         <Container component="main" maxWidth="sm">
             <div className={classes.pageContent}>
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             InputProps={{readOnly: true}}
