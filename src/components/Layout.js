@@ -81,6 +81,10 @@ function Layout(props) {
         history.push('/profile/32')
     }
 
+    const handleMyPosts = () => {
+        history.push('/myposts')
+    }
+
     const renderMenu = (
         <Menu
           anchorEl={anchorEl}
@@ -92,11 +96,11 @@ function Layout(props) {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleProfile}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Account setting</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My projects</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Bookedmarked projects</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Account Settings</MenuItem>
+          <MenuItem onClick={handleMyPosts}>My Posts</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Bookmarked Posts</MenuItem>
           <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
-          <MenuItem onClick={handleLogout}>Log out</MenuItem>
+          <MenuItem onClick={handleLogout}>Log Out</MenuItem>
           <MenuItem onClick={handleMenuClose}>Help</MenuItem>
         </Menu>
     );
