@@ -1,6 +1,5 @@
-
-import { Card, Drawer, Grid, Link, makeStyles, Paper } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
+import { Drawer, Grid, makeStyles, Paper } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 import Search from '../components/Search';
 import { db } from '../firebase'
@@ -12,43 +11,21 @@ const truncate = (str) => {
     return str        
 }
 
-
 const useStyles = makeStyles((theme) => {
     return {
         homeResults: {
             height: '100%',
             width: '80%',            
             margin: 'auto auto',
-            
-            
         },
-        myMasonryGrid: {
-            display: '-webkit-box', 
-            display: '-ms-flexbox', 
-            display: 'flex',
-            marginLeft: '-30px', 
-            width: 'auto'
-        }, 
-        myMasonryGridColumn: {
-            paddingLeft: '30px', /* gutter size */
-            backgroundClip: 'padding-box'
-        },
-        columnDiv: {
-            background: 'none',
-            marginBottom: '30px'
-        }
     }
 });
-
-const shortText = "Looking for a partner to do orbital with. Orbital is a NUS project mod."
-const longText = "I am looking for partner to participate in the upcoming shopee code league. Looking for a person who has experience in data science, data structures and algorithms"
 
 function Home() {
     const classes = useStyles();
     const [filter, setFilter] = useState(false);
     const [posts, setPosts] = useState([]);
     const [toRender, setToRender] = useState([])
-    
 
     //for filter pop up
     const toggleFilter = (open) => (event) => {
@@ -67,24 +44,16 @@ function Home() {
         fetchPosts()
     }, [])
 
-    
-    
-
     //preparing posts to be rendered, also make get request to get info for each post
     const prepareRender = async () => {
         let renderList = []
         for (const post of posts) {
-            const name = await db.collection('users').doc(post.author).get().then(res => {
-                const data = res.data()
-                return data.firstName + " " + data.lastName
-            })
-            
             renderList = [...renderList, (
-                <Grid item xs={12} md={6} key={post.id}>
+                <Grid item xs={12} md={6}>
                     <ProjectCard
                         id={post.id}
                         title={post.title}
-                        author={name}
+                        author={post.name}
                         description={post.description}
                         chips={post.skills}
                     />
