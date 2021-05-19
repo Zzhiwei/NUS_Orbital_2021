@@ -24,14 +24,14 @@ function Search({toggleFilter}) {
             <form>
                 <Grid container>
                     <Grid item xs={6}  style={{marginBottom: '20px'}}>
-                        <TextField variant="outlined" label="Search"  fullWidth/>
+                        <TextField style={{background: "white", borderRadius: "4px"}}variant="outlined" label="Search"  fullWidth/>
                     </Grid>
                     
-                    <Button color="primary" variant="contained" style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px'}}>
+                    <Button color="primary" variant="contained" style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px', color: 'white'}}>
                         Search
                     </Button>
 
-                    <Button onClick={toggleFilter(true)} variant="outlined" startIcon={<TuneIcon />} style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px'}}>
+                    <Button onClick={toggleFilter(true)} variant="outlined" startIcon={<TuneIcon />} style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px', background: "white", color: '#027dc5'}}>
                         filter
                     </Button>
                     

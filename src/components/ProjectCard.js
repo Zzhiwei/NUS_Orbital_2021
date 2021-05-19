@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => {
         avatar: {
             height: '50px',
             width: '50px',
+            color: 'white',
             backgroundColor: theme.palette.primary.main
         },
         chipStyle: {
@@ -24,6 +25,9 @@ const useStyles = makeStyles(theme => {
             color: theme.palette.primary.main,
             textDecoration: "none",
         },
+        border: {
+            backgroundColor: theme.palette.secondary.main,
+        }
     }    
 })
 
@@ -43,7 +47,7 @@ function Login({id, title, author, description, chips}) {
         <div>
             <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
                 <CardHeader  
-                    style={{backgroundColor: '#f7f7f7'}}
+                    className={classes.border}
                     avatar={
                         <Avatar className={classes.avatar} >
                             {randomString(1)}
@@ -68,7 +72,7 @@ function Login({id, title, author, description, chips}) {
                         })}
                     </div>
                 </CardContent>    
-                <CardActions  style={{backgroundColor: '#f7f7f7'}}> 
+                <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
                             <Button size="small" color="primary">

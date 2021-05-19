@@ -5,28 +5,29 @@ const useStyles = makeStyles((theme) => ({
   text: {
     background: "white",
     borderRadius: "4px",
+  },
+  input: {
+    textAlign: "center"
   }
 }))
 
-export default function Input(props) {
+export default function Output(props) {
 
   const classes = useStyles();
-  const {inputProps, name, label, value, variant, placeholder, onChange, rows, error=null} = props;
+  const {name, label, value, rows } = props;
 
   return (
     <TextField
+      inputProps={{readOnly: true}}
+      InputProps={{disableUnderline: true, classes: {input: classes.input}}}
+      InputLabelProps={{style: {textAlign: "center"}}}
       className={classes.text}
-      variant={variant}
       label={label}
       name={name}
       value={value}
-      placeholder={placeholder}
-      onChange={onChange}
       rows={rows}
-      {...(error && {error:true, helperText:error})}
       fullWidth
       multiline
-      inputProps={inputProps}
     />
   )
 }

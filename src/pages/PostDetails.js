@@ -148,6 +148,7 @@ export default function PostDetails() {
             rows={1}
           />
           <ChipInput
+            style={{background: "white", borderRadius: "4px"}}
             name="skills"
             label="Required Skills/Experience"
             placeholder="None, HTML/CSS, Photography, etc"

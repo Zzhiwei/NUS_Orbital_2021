@@ -1,8 +1,9 @@
-import { Box, Container, Grid, TextField, makeStyles } from '@material-ui/core'
+import { Box, Container, Grid, makeStyles } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input'
 import Copyright from '../components/Copyright'
 import PageHeader from '../components/PageHeader'
 import DescriptionIcon from '@material-ui/icons/Description'
+import Controls from "../components/Controls"
 
 const useStyles = makeStyles (theme => ({
     pageContent: {
@@ -24,90 +25,62 @@ export default function PostOutput({ data })  {
             <div className={classes.pageContent}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{readOnly: true}}
+                        <Controls.Output
                             name="type"
                             label="Type"
-                            defaultValue={data.type}
-                            variant="outlined"
+                            value={data.type}                       
                             rows={1}
-                            fullWidth
-                            multiline
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{readOnly: true}}
+                        <Controls.Output
                             name="members"
                             label="Group Size"
-                            defaultValue={data.members}
-                            variant="outlined"
+                            value={data.members}              
                             rows={1}
-                            fullWidth
-                            multiline
                         />
                     </Grid>
                     <Grid item xs={12}>
-                        <ChipInput InputProps={{readOnly: true}} autoFocus fullWidth  multiline rows={1} variant="outlined" label="Skills" value={data.skills}/>
+                        <ChipInput style={{background: "white", borderRadius: "4px"}} readOnly disableUnderline fullWidth  multiline rows={1}  label="Skills" value={data.skills}/>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{readOnly: true}}
+                        <Controls.Output
                             name="education"
                             label="Education Level"
-                            defaultValue={data.education}
-                            variant="outlined"
+                            value={data.education}
                             rows={1}
-                            fullWidth
-                            multiline
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{readOnly: true}} 
+                        <Controls.Output 
                             name="proficiency"
                             label="Proficiency"
-                            defaultValue={data.proficiency}
-                            variant="outlined"
+                            value={data.proficiency}
                             rows={1}
-                            fullWidth
-                            multiline
                         />  
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{readOnly: true}}
+                        <Controls.Output
                             name="location"
                             label="Location"
-                            defaultValue={data.location}
-                            variant="outlined"
+                            value={data.location}
                             rows={1}
-                            fullWidth
-                            multiline
                         /> 
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextField 
-                            InputProps={{readOnly: true}}
+                        <Controls.Output 
                             name="schedule"
                             label="Commitment Period"
-                            defaultValue={data.schedule}
-                            variant="outlined"
+                            value={data.schedule}                          
                             rows={1}
-                            fullWidth
-                            multiline
                         />  
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField 
-                            InputProps={{readOnly: true}}
+                        <Controls.Output 
                             name="description"
                             label="Description"
-                            defaultValue={data.description}
-                            variant="outlined"
+                            value={data.description}
                             rows={10}
-                            fullWidth
-                            multiline
                         /> 
                     </Grid>
                 </Grid>
