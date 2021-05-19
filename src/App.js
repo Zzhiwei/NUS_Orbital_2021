@@ -9,6 +9,7 @@ import NewPost from './pages/NewPost';
 import { AuthProvider } from './contexts/AuthContext'
 import GetId from './components/GetId';
 import ForgotPassword from './pages/ForgotPassword';
+import MyPosts from './pages/MyPosts';
 
 
 const theme = createMuiTheme({
@@ -40,6 +41,7 @@ function App() {
               <Route path="/login" exact component={Login}></Route>
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
+              <Route path='/myposts' component={MyPosts}></Route>
               <Route path="/newpost" component={NewPost}></Route>
               <Route path="/viewpost/:id" component={GetId}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>    
