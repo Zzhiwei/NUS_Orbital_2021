@@ -11,7 +11,6 @@ import * as selections from '../components/Selections'
 
 
 const initialFValues = {
-  
   type: "",
   title: "",
   skills: [],
@@ -24,7 +23,7 @@ const initialFValues = {
 }
 
 export default function PostDetails() {
-  const { currentUser } = useAuth()
+  const { currentUser, currentUserData } = useAuth()
   const history = useHistory()
 
   //if no user is logged in redirect to sign up
@@ -87,7 +86,8 @@ export default function PostDetails() {
       schedule,
       members,
       description,
-      author: currentUser.uid
+      author: currentUser.uid,
+      name: currentUserData.firstName + " " + currentUserData.lastName
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
