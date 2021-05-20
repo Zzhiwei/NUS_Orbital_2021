@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Badge, Button, Grid, IconButton, InputBase, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider } from '@material-ui/core';
+import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useAuth } from '../contexts/AuthContext'
-import { FormatColorReset } from '@material-ui/icons';
 
 
 const useStyles = makeStyles(theme => { 

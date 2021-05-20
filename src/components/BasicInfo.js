@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Avatar, Button, IconButton, InputLabel, makeStyles, Modal, Paper, TextField, Typography } from '@material-ui/core';
+import React from 'react';
+import { IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditBasicInfo from './modals/EditBasicInfo'
 import { useAuth } from '../contexts/AuthContext';
@@ -12,8 +12,6 @@ const useStyles = makeStyles((theme) => {
             width: '100%',
             justifyContent: 'space-between'
         },
-        
-        
     }
 });
 
@@ -100,7 +98,7 @@ function BasicInfo({ basicInfo }) {
                     <InputLabel style={{marginBottom: '10px'}}>About me</InputLabel> 
                     <TextField
                         id="outlined-read-only-input"
-                        defaultValue={currentUserData.basicInfo.bio}
+                        value={currentUserData.basicInfo.bio}
                         multiline
                         rows="4"
                         fullWidth                    

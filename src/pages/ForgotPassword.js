@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Grid, Box, makeStyles } from '@material-ui/core';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext';

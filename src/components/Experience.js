@@ -1,6 +1,5 @@
 import React from 'react';
-import { Avatar, Button, ButtonBase, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import ExperienceBlock from './ExperienceBlock';
+import { makeStyles,  Typography } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => {

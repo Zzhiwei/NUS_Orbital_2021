@@ -44,7 +44,7 @@ export default function PostDetails() {
       ...temp
     })
 
-    return Object.values(temp).every(x => x == "");
+    return Object.values(temp).every(x => x === "");
   }
   
   
@@ -87,7 +87,7 @@ export default function PostDetails() {
       members,
       description,
       author: currentUser.uid,
-      name: currentUserData.firstName + " " + currentUserData.lastName
+      name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
@@ -167,7 +167,7 @@ export default function PostDetails() {
             options={selections.education()}
           />
         </Grid>
-        <Grid item item xs={12} sm={6}>
+        <Grid  item xs={12} sm={6}>
           <Controls.Select 
             name="proficiency"
             label="Proficiency Level"

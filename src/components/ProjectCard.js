@@ -41,7 +41,7 @@ function randomString(len) {
     return randomString;
 }
 
-function Login({id, title, author, description, chips}) {
+function ProjectCard({id, title, author, description, chips}) {
     const classes = useStyles();
     return (
         <div>
@@ -75,16 +75,16 @@ function Login({id, title, author, description, chips}) {
                 <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
-                            <Button size="small" color="primary">
-                                <Link className={classes.link} to={'/viewpost/' + id} target="_blank" rel="noopener noreferrer">
-                                    View
-                                </Link>
-                            </Button>
-                            <Button size="small" color="primary">
-                                <Link className={classes.link} to={'/viewpost/' + id}>
+                            <Link className={classes.link} to={'/viewpost/' + id} target="_blank" rel="noopener noreferrer">
+                                <Button size="small" color="primary">
+                                View
+                                </Button>
+                            </Link>
+                            <Link className={classes.link} to={'/viewpost/' + id}>
+                                <Button size="small" color="primary">
                                     Bookmark
-                                </Link>
-                            </Button>
+                                </Button>
+                            </Link>
                         </Grid>
                     </Grid>
                         
@@ -97,5 +97,5 @@ function Login({id, title, author, description, chips}) {
     );
   }
   
-  export default Login;
+  export default ProjectCard;
   

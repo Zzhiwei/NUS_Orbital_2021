@@ -1,15 +1,10 @@
-import { Avatar, Button, ButtonBase, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
-import { BorderBottom } from '@material-ui/icons';
+import { Avatar, makeStyles, Paper } from '@material-ui/core';
 import React from 'react';
 import BasicInfo from '../components/BasicInfo';
 import Education from '../components/Education';
 import Chips from '../components/Chips';
 import Experience from '../components/Experience';
 import { useAuth } from '../contexts/AuthContext';
-import { useHistory } from 'react-router';
-
-
-const txt = "dsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad dsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdskladdsaiddhasdhasdal dsakljdsklad";
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -25,11 +20,6 @@ const useStyles = makeStyles((theme) => {
         category: {
             margin: "10px",
             borderBottom: '1px solid grey'
-        },
-        avatar: {
-            width: theme.spacing(10),
-            height: theme.spacing(10),
-            margin: '0px auto'
         },
         flex: {
             display: 'flex',
@@ -50,7 +40,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 function Profile() {
-    const { currentUserData, currentUser } = useAuth()
+    const { currentUserData } = useAuth()
     const classes = useStyles();
 
     return (
