@@ -1,49 +1,52 @@
 import React from 'react';
-import { makeStyles,  Typography } from '@material-ui/core';
+import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import EditExperience from './modals/EditExperience'
+import { useAuth } from '../contexts/AuthContext';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
+
 
 
 const useStyles = makeStyles((theme) => {
     return {
-        root: {
-            // {border: '1px solid red',}            
-            width: '60%',
-            margin: 'auto auto',            
-            padding: '10px 100px'            
-            
-        },        
-        btn: {
-            width: '100%'
-        },
-        category: {
-            margin: "10px",
-            borderBottom: '1px solid grey'
-        },
-        avatar: {
-            width: theme.spacing(10),
-            height: theme.spacing(10),
-            margin: '0px auto'
-        },
-        flex: {
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'space-between'
-            
-        },
-        
-        
+        title: {
+            paddingBottom: '12px',
+            borderBottom: '2px solid black',
+            marginBottom: '20px'
+        }
     }
 });
 
 function Experience() {
-    const classes = useStyles();
+    const classes = useStyles()
+    const [open, setOpen] = React.useState(false);
+    const { currentUserData } = useAuth()
+
+    const handleClose = () => {
+        setOpen(false)
+    }
     
     return (
         <div style={{marginBottom: '30px'}}>
-                <Typography align="center" color="primary" variant="h4" style={{marginBottom: '30px'}}>
-                        Experience
+                <Typography className={classes.title} color="primary" variant="h4">
+                    Experience
                 </Typography>
-                {/* <ExperienceBlock propsCat="other projects" organization="nil" workDescription="build a personal website as a showcase of my porfolio" /> */}
 
+                <Modal
+                    open={open}
+                    onClose={null}
+                >
+                    <EditExperience handleClose={handleClose} open={open}/>
+                </Modal>
+                <div align="center">
+                    <IconButton size="medium">
+                        <AddCircleOutlineIcon color="primary" fontSize="large" />
+                    </IconButton> 
+                </div>
+                
+                
+                
         </div>
     );
   }

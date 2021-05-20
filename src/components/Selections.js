@@ -59,3 +59,22 @@ export const year = () => {
     }
     return res;
 } 
+
+export const eduYearStart = () => {
+    const res = []
+    let j = 1;
+    for (let i = 1960; i < 2030; i++) {
+        res.push({id: j++, value: i})
+    }
+    return res;
+} 
+
+export const eduYearEnd = () => {
+    const res = []
+    let j = 2;
+    res.push({id: 1, value: 'current'})
+    for (let i = 1960; i < 2030; i++) {
+        res.push({id: j++, value: i})
+    }
+    return res;
+}

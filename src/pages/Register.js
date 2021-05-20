@@ -95,8 +95,8 @@ function Register() {
                     lastName,
                     dateOfBirth: {}
                 },
-                education: {},
-                experience: {},
+                education: [],
+                experience: [],
                 interests: {},
                 skills: {}
             })
