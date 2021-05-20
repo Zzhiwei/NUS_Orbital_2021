@@ -26,7 +26,7 @@ function BasicInfo({ basicInfo }) {
 
 
     return (
-        <div>
+        <div style={{marginBottom: '50px'}}>
                 <Typography style={{borderBottom: '2px solid black', marginBottom: '20px'}} color="primary" variant="h4">
                     Basic info
                     <IconButton onClick={() => setOpen(true)}>
@@ -37,8 +37,6 @@ function BasicInfo({ basicInfo }) {
                 <Modal
                     open={open}
                     onClose={null}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
                 >
                     <EditBasicInfo basicInfo={currentUserData.basicInfo} handleClose={handleClose} open={open}/>
                 </Modal>

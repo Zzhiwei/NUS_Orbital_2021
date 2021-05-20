@@ -13,6 +13,14 @@ const useStyles = makeStyles((theme) => {
             display: 'flex',
             justifyContent: 'space-between'
         },
+        root: {
+            padding: '50px',
+            position: 'absolute',
+            width: "800px",
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }
         
         
     }
@@ -20,6 +28,8 @@ const useStyles = makeStyles((theme) => {
 
 
 export default function EditBasicInfo({ handleClose, basicInfo }) {
+    const classes = useStyles()
+
     const initialFValues = {
         firstName: basicInfo.firstName,
         lastName: basicInfo.lastName,
@@ -32,7 +42,6 @@ export default function EditBasicInfo({ handleClose, basicInfo }) {
         bio: basicInfo.bio
     }
 
-    const classes = useStyles()
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
 
 
@@ -84,8 +93,8 @@ export default function EditBasicInfo({ handleClose, basicInfo }) {
     }
     
     return (
-        <Paper style={{padding: '50px', position: 'absolute', width: "800px", left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-            <Form style={{margin: '0px 0px'}} onSubmit={handleSubmit}>
+        <Paper className={classes.root}>
+            <Form  onSubmit={handleSubmit}>
 
                 {/* first name & last name */}
                 <div className={classes.flex}>

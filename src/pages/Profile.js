@@ -48,8 +48,8 @@ function Profile() {
             <Paper className={classes.root} elevation={3}>                  
                 <Avatar className={classes.avatar}/>
                 <BasicInfo />
-                <Education education={currentUserData.education}/>            
-                <Experience experience={currentUserData.experience}/>
+                <Education />            
+                <Experience />
                 <Chips title="Interests" items={currentUserData.interests} />
                 <Chips title="Skills" items={currentUserData.skills} />
             </Paper>
