@@ -183,7 +183,7 @@ function Layout(props) {
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>
-                    {currentUser && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
+                    {currentUserData.basicInfo && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
                     {renderLogin()}
                     
                 </Toolbar>                 
