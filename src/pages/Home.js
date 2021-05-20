@@ -39,7 +39,10 @@ function Home() {
     useEffect(() => {
         const fetchPosts = async () => {
             const data = await db.collection("posts").get()
-            setPosts(data.docs.map(doc => {return {...doc.data(), id: doc.id} }))
+            setPosts(data.docs.map(doc => {
+                //adds post id to local posts data: for viewPost/:id
+                return {...doc.data(), id: doc.id} 
+            }))
         }
         fetchPosts()
     }, [])
@@ -49,8 +52,9 @@ function Home() {
         let renderList = []
         for (const post of posts) {
             renderList = [...renderList, (
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} >
                     <ProjectCard
+                        key={post.id}
                         id={post.id}
                         title={post.title}
                         author={post.name}

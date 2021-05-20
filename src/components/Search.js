@@ -1,24 +1,13 @@
-import { Button, FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, Grid, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import SearchIcon from '@material-ui/icons/Search';
 import TuneIcon from '@material-ui/icons/Tune';
 
 
 
 function Search({toggleFilter}) {
     
-    const [level, setLevel] = useState('');
-    const [education, setEducation] = useState('');
-    const [commitment, setCommitment] = useState('');
-    const handleLevelChange = (event) => {
-        setLevel(event.target.value);
-    };
-    const handleEducationChange = (event) => {
-        setEducation(event.target.value);
-    };
-    const handleCommitmentChange = (event) => {
-        setCommitment(event.target.value);
-    };
+   
+
     return (
         <div style={{margin: '50px 0px'}}>
             <form>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Button, ButtonBase, Chip, Grid, makeStyles, Paper, TextField, Typography } from '@material-ui/core';
+import { Chip, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
