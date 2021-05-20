@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
+import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext'
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -31,18 +36,23 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function randomString(len) {
-    var charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    var randomString = '';
-    for (var i = 0; i < len; i++) {
-        var randomPoz = Math.floor(Math.random() * charSet.length);
-        randomString += charSet.substring(randomPoz,randomPoz+1);
-    }
-    return randomString;
-}
-
 function ProjectCard({id, title, author, description, chips}) {
     const classes = useStyles();
+    const { currentUser } = useAuth()
+    const [bookmarked, setBookmarked] = useState(false)
+
+    const handleAddBookmark = () => {
+        if (!bookmarked) {
+            const docRef = db.collection("users").doc(currentUser.uid)
+            docRef.update({
+                bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
+            })
+            setBookmarked(true)
+            alert("This post has been added to your bookmarks!")
+        } else {
+            alert("You have already bookmarked this post!")
+        }
+    }
     return (
         <div>
             <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
@@ -50,7 +60,7 @@ function ProjectCard({id, title, author, description, chips}) {
                     className={classes.border}
                     avatar={
                         <Avatar className={classes.avatar} >
-                            {randomString(1)}
+                            <EmojiPeopleIcon fontSize="large"/>
                         </Avatar>
                     }
                     title={
@@ -75,16 +85,14 @@ function ProjectCard({id, title, author, description, chips}) {
                 <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
-                            <Link className={classes.link} to={'/viewpost/' + id} target="_blank" rel="noopener noreferrer">
+                            <Link className={classes.link} to={'/viewpost/' + id} target="_blank" /*rel="noopener noreferrer"*/>
                                 <Button size="small" color="primary">
                                 View
                                 </Button>
                             </Link>
-                            <Link className={classes.link} to={'/viewpost/' + id}>
-                                <Button size="small" color="primary">
-                                    Bookmark
-                                </Button>
-                            </Link>
+                            <Button size="small" color="primary" onClick={handleAddBookmark}>
+                                Bookmark
+                            </Button>
                         </Grid>
                     </Grid>
                         

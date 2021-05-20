@@ -45,7 +45,7 @@ function Register() {
 
     const classes = useStyles();
 
-    const { signup, currentUser } = useAuth()
+    const { signup } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -102,8 +102,8 @@ function Register() {
             })
             
             history.push('/')
-        } catch (e) {
-            setError(e.message)
+        } catch (err) {
+            setError(err.message)
         }
 
         setLoading(false)

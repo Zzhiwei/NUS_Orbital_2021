@@ -63,8 +63,8 @@ function Login() {
             await resetPassword(email)
             alert('check your inbox to complete reset')
             history.push('/login')
-        } catch (e) {
-            setError(e.message)
+        } catch (err) {
+            setError(err.message)
         }
 
         setLoading(false)

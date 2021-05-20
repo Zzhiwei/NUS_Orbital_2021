@@ -7,7 +7,6 @@ import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useAuth } from '../contexts/AuthContext'
 
-
 const useStyles = makeStyles(theme => { 
     return {
         page: {        
@@ -84,6 +83,10 @@ function Layout(props) {
         history.push('/myposts')
     }
 
+    const handleMyBookmarks = () => {
+        history.push('/bookmarks')
+    }
+
     const renderMenu = (
         <Menu
           anchorEl={anchorEl}
@@ -97,7 +100,7 @@ function Layout(props) {
           <MenuItem onClick={handleProfile}>Profile</MenuItem>
           <MenuItem onClick={handleMenuClose}>Account Settings</MenuItem>
           <MenuItem onClick={handleMyPosts}>My Posts</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Bookmarked Posts</MenuItem>
+          <MenuItem onClick={handleMyBookmarks}>My Bookmarks</MenuItem>
           <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
           <MenuItem onClick={handleLogout}>Log Out</MenuItem>
           <MenuItem onClick={handleMenuClose}>Help</MenuItem>
