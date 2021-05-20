@@ -4,7 +4,7 @@ import ProjectCard from '../components/ProjectCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
-import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -17,20 +17,22 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function MyPosts() {
+export default function MyBookmarks() {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [toRender, setToRender] = useState([])
     const { currentUserData } = useAuth()
-    const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
+    const bookmarks = currentUserData.bookmarks
 
     //sends query to backend when first mounting
     useEffect(() => {
-        db.collection("posts").where("name", "==", name).get()
+        db.collection("posts").get()
         .then(snapShot => {
-            setPosts(snapShot.docs.map(doc => {return {...doc.data(), id: doc.id} }))
+            setPosts(snapShot.docs
+                .filter(doc => bookmarks.includes(doc.id))
+                .map(doc => {return {...doc.data(), id: doc.id} }))
         })
-    }, [name])
+    }, [bookmarks])
 
     //preparing posts to be rendered, also make get request to get info for each post
     const prepareRender = async () => {
@@ -64,8 +66,8 @@ export default function MyPosts() {
     return (
         <>
             <PageHeader 
-                title="My Posts"
-                icon={<AllInboxRoundedIcon fontSize="large"/>}
+                title="My Bookmarks"
+                icon={<BookmarksIcon style={{fontSize: "28" }}/>}
             />        
             <div className={classes.homeResults}>
                 <Grid container spacing={3}>
