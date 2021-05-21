@@ -97,8 +97,8 @@ function Register() {
                 },
                 education: [],
                 experience: [],
-                interests: {},
-                skills: {},
+                interests: [],
+                skills: [],
                 bookmarks: [],
             })
             

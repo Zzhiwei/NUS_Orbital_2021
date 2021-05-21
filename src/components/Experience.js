@@ -51,8 +51,8 @@ function Experience() {
                 </Modal>
                 {experienceList}
                 <div align="center">
-                    <IconButton size="medium">
-                        <AddCircleOutlineIcon onClick={() => setOpen(true)} color="primary" fontSize="large" />
+                    <IconButton size="medium" onClick={() => setOpen(true)}>
+                        <AddCircleOutlineIcon  color="primary" fontSize="large" />
                     </IconButton> 
                 </div>
                 
