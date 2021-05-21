@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => {
         root: {
             padding: '50px',
             position: 'absolute',
-            width: "800px",
+            width: "70%",
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)'
