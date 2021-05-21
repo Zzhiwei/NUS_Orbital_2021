@@ -10,7 +10,7 @@ const usePostFetch = (id) => {
     useEffect(() => {
         const abortCont = new AbortController();
         db.collection('posts').doc(id).get().then(snapShot => {
-            setData(snapShot.data())
+            setData({...snapShot.data(), id: snapShot.id})
             setPending(false)
             setError(null)
         }).catch(err => {

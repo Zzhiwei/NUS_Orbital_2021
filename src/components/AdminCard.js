@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
+import React from 'react'
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom' 
-import { db } from '../firebase';
-import { useAuth } from '../contexts/AuthContext'
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import { db } from '../firebase'
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 
 const useStyles = makeStyles(theme => {
     return {
@@ -36,32 +33,15 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCard({id, title, author, description, chips}) {
+export default function AdminCard({id, title, author, description, chips}) {
     const classes = useStyles();
-    const { currentUser, currentUserData } = useAuth()
-    const docRef = db.collection("users").doc(currentUser.uid)
-    const [bookmarked, setBookmarked] = useState(currentUserData.bookmarks.includes(id))
 
-    const handleAddBookmark = () => {
-        docRef.update({
-            bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
-        })
+    const handleDelete = () => {
+        db.collection('posts').doc(id).delete()
         .then(() => {
-            setBookmarked(true)
-            alert("Post bookmarked")
+            alert('Post deleted')
             window.location.reload()
         })
-    }
-
-    const handleRemoveBookmark = () => {
-        docRef.update({
-            bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
-        })
-        .then(() => {
-            setBookmarked(false)
-            alert("Post removed from bookmarks")
-            window.location.reload()
-        })      
     }
 
     return (
@@ -101,8 +81,13 @@ function ProjectCard({id, title, author, description, chips}) {
                                     View
                                 </Button>
                             </Link>
-                            <Button size="small" color="primary" onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
-                                {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
+                            <Link className={classes.link} to={'/editpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
+                                <Button size="small" color="primary">
+                                    Edit
+                                </Button>
+                            </Link>
+                            <Button size="small" onClick={handleDelete} style={{color: '#f44336'}}>
+                                Delete
                             </Button>
                         </Grid>
                     </Grid>
@@ -115,6 +100,4 @@ function ProjectCard({id, title, author, description, chips}) {
         </div>
     );
   }
-  
-  export default ProjectCard;
   

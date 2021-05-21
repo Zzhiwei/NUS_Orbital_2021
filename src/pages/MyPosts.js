@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import ProjectCard from '../components/ProjectCard';
+import AdminCard from '../components/AdminCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
@@ -38,7 +38,7 @@ export default function MyPosts() {
         for (const post of posts) {
             renderList = [...renderList, (
                 <Grid item xs={12} md={6}>
-                    <ProjectCard
+                    <AdminCard
                         id={post.id}
                         title={post.title}
                         author={post.name}
