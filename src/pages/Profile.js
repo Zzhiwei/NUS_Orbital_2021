@@ -4,8 +4,9 @@ import BasicInfo from '../components/BasicInfo';
 import Education from '../components/Education';
 import Chips from '../components/Chips';
 import Experience from '../components/Experience';
+import Interests from '../components/Interests';
 import { useAuth } from '../contexts/AuthContext';
-
+import Skills from '../components/Skills'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -50,8 +51,8 @@ function Profile() {
                 <BasicInfo />
                 <Education />            
                 <Experience />
-                <Chips title="Interests" items={currentUserData.interests} />
-                <Chips title="Skills" items={currentUserData.skills} />
+                <Interests />
+                <Skills />
             </Paper>
         </div>
     );

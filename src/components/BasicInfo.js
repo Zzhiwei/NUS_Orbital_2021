@@ -24,6 +24,27 @@ function BasicInfo({ basicInfo }) {
         setOpen(false)
     }
 
+    const monthToNum = {
+        "January": "01",
+        'February': "02",
+        'March': "03",
+        'April': "04",
+        'May': "05",
+        'June': "06",
+        'July': "07",
+        'August': "08",
+        'September': "09",
+        'October': "10",
+        'November': "11",
+        'December': "12"
+    }
+
+    const addZero = n => n < 10 ? "0" + n : n 
+    const { day, month, year } = currentUserData.basicInfo.dateOfBirth
+    const dob = addZero(day) + '/' + monthToNum[month] + '/' +  year
+    
+
+
 
     return (
         <div style={{marginBottom: '50px'}}>
@@ -63,7 +84,7 @@ function BasicInfo({ basicInfo }) {
                         <div style={{flex: '1'}}>
                             <div>
                             <InputLabel>Date of Birth</InputLabel> 
-                            <TextField  value={currentUserData.basicInfo.dateOfBirth.year}  InputProps={{readOnly: true}} />   
+                            <TextField  value={dob}  InputProps={{readOnly: true}} />   
                             </div>                                
                         </div>
                         <div style={{flex: '2'}}>
