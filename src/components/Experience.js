@@ -4,6 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import EditExperience from './modals/EditExperience'
 import { useAuth } from '../contexts/AuthContext';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import ExperienceBlock from './ExperienceBlock'
 
 
 
@@ -26,6 +27,15 @@ function Experience() {
     const handleClose = () => {
         setOpen(false)
     }
+
+    const experienceList = currentUserData.experience.map(exp => {
+        
+        return (
+            <div>
+                <ExperienceBlock customProps={exp}/>
+            </div>
+        )
+    })
     
     return (
         <div style={{marginBottom: '30px'}}>
@@ -39,12 +49,12 @@ function Experience() {
                 >
                     <EditExperience handleClose={handleClose} open={open}/>
                 </Modal>
+                {experienceList}
                 <div align="center">
                     <IconButton size="medium">
-                        <AddCircleOutlineIcon color="primary" fontSize="large" />
+                        <AddCircleOutlineIcon onClick={() => setOpen(true)} color="primary" fontSize="large" />
                     </IconButton> 
                 </div>
-                
                 
                 
         </div>

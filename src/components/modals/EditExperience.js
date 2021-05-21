@@ -1,6 +1,16 @@
-import { Button, IconButton, makeStyles, Paper } from '@material-ui/core'
+import { Button, Grid, IconButton, InputLabel, makeStyles, Paper, TextField } from '@material-ui/core'
 import React from 'react'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import Controls from "../../components/Controls"
+import { useForm, Form } from '../../components/useForm'
+import {expCategory, month, year } from '../../components/Selections'
+import { useAuth } from '../../contexts/AuthContext'
+import { db } from '../../firebase'
+import firebase from "firebase/app"
+
+
+
+
+
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -11,7 +21,7 @@ const useStyles = makeStyles((theme) => {
         root: {
             padding: '50px',
             position: 'absolute',
-            width: "800px",
+            width: "70%",
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)'
@@ -21,16 +31,186 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditExperience({ handleClose, open }) {
+export default function EditEducation({ handleClose, open }) {
     const classes = useStyles()
+    
+    const initialFValues = {       
+        category: "",
+        organization: "",
+        fromMonth: "",
+        fromYear: "",
+        toMonth: "",
+        toYear: "",
+        description: ""
+    }
+
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
+
+    const {
+        values,
+        setValues,
+        errors,
+        setErrors,
+        handleInputChange
+    } = useForm(initialFValues);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        await db.collection('users').doc(currentUser.uid).update({
+            experience: firebase.firestore.FieldValue.arrayUnion(values)
+        })
+
+        setCurrentUserData({
+            ...currentUserData,
+            experience: [
+                ...currentUserData.experience,
+                values
+            ]
+        })
+
+        handleClose()
+        
+
+    }
 
     return (
         <Paper className={classes.root}>
-            gekki
-            <div align="center">
+            <Form onSubmit={handleSubmit}>
+                <Grid container spacing={3}>
+                    <Grid item xs={8} sm={4} >
+                        <InputLabel align="left" style={{marginLeft: '10px'}}>
+                            Category
+                        </InputLabel>
+                        <Controls.Select
+                            name={"category"}
+                            value={values.category}
+                            variant="outlined"
+                            onChange={handleInputChange}
+                            options={expCategory()}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel align="left" style={{marginLeft: '10px'}}> 
+                            Organization
+                        </InputLabel>
+                        <Controls.Input
+                            fullWidth
+                            name={"organization"}
+                            value={values.organization}
+                            variant="outlined"
+                            onChange={handleInputChange}
+                        />
+                    </Grid>
+                </Grid>
+
+                <br />
                 
-            </div>
-            <Button onClick={handleClose}>close</Button>
+
+                <Grid container>
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel align="left" style={{marginLeft: '10px', marginBottom: '5px'}}> 
+                            From 
+                        </InputLabel>
+                        <Grid container spacing={3}> 
+                            <Grid item xs={4}>
+                                <Controls.Select
+                                    name={"fromMonth"}
+                                    value={values.fromMonth}
+                                    variant="outlined"
+                                    onChange={handleInputChange}
+                                    options={month()}
+                                    label="month"
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Controls.Select
+                                    name={"fromYear"}
+                                    value={values.fromYear}
+                                    variant="outlined"
+                                    onChange={handleInputChange}
+                                    options={year()}
+                                    label="year"
+                                />
+                            </Grid>
+                        </Grid>               
+
+                        
+                    </Grid>
+
+                    <Grid item xs={12} sm={6}>
+                        <InputLabel align="left" style={{marginLeft: '10px', marginBottom: '5px'}}> 
+                            To 
+                        </InputLabel>
+                        <Grid container spacing={3}> 
+                            <Grid item xs={4}>
+                                <Controls.Select
+                                    name={"toMonth"}
+                                    value={values.toMonth}
+                                    variant="outlined"
+                                    onChange={handleInputChange}
+                                    options={month()}
+                                    label="month"
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Controls.Select
+                                    name={"toYear"}
+                                    value={values.toYear}
+                                    variant="outlined"
+                                    onChange={handleInputChange}
+                                    options={year()}
+                                    label="year"
+                                />
+                            </Grid>
+                        </Grid>  
+                    </Grid>
+
+                </Grid>
+                
+                
+
+                
+                <br />
+
+                <InputLabel align="left" style={{marginLeft: '10px'}}> 
+                    Description
+                </InputLabel>
+                <Controls.Input
+                    fullWidth
+                    name={"description"}
+                    value={values.description}
+                    variant="outlined"
+                    onChange={handleInputChange}
+                    multiline
+                    rows={3}
+                />
+                    
+                <br />
+                <br />
+
+
+
+
+                <div align="center">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{marginRight: '10px', width: '100px'}}
+                        type="submit"
+                    >
+                        add
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        style={{ width: '100px'}}
+                        onClick={handleClose}
+                    >
+                        cancel
+                    </Button>
+                </div>       
+            </Form>            
         </Paper>
     )
 }

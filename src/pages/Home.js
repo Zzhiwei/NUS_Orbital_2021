@@ -44,7 +44,6 @@ function Home() {
     const prepareRender = async () => {
         let renderList = []
         for (const post of posts) {
-            console.log(post.id)
             renderList = [...renderList, (
                 <Grid item xs={12} md={6} >
                     <ProjectCard

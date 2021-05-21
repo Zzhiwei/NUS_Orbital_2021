@@ -6,10 +6,6 @@ import firebase from "firebase/app"
 import { useAuth } from '../contexts/AuthContext'
 import _ from 'lodash'
 
-
-
-
-
 const useStyles = makeStyles((theme) => {
     return {
         iconRoot: {
@@ -23,8 +19,6 @@ function EducationBlock({institution, from, to}) {
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
 
-    
-
     const handleDelete = async () => {
 
         const currentUserRef = db.collection('users').doc(currentUser.uid)
@@ -36,10 +30,8 @@ function EducationBlock({institution, from, to}) {
                 to
             })
         })
-
       
-        const eduList = currentUserData.education
-        const filteredList = eduList.filter(item => {
+        const filteredList = currentUserData.education.filter(item => {
              return !(_.isEqual(item, {
                  to,
                  from,
@@ -54,14 +46,12 @@ function EducationBlock({institution, from, to}) {
 
 
     }
-    
 
     return (
         <div >               
                 <Grid container spacing={3}>
                     <Grid item  xs={6} >
                         <TextField
-                        id="outlined-read-only-input"
                         label="Institution"
                         value={institution}                    
                         fullWidth
@@ -72,7 +62,6 @@ function EducationBlock({institution, from, to}) {
                     </Grid>
                     <Grid item xs={2} >
                         <TextField
-                        id="outlined-read-only-input"
                         label="From"
                         value={from}                                                                        
                         InputProps={{
@@ -82,7 +71,6 @@ function EducationBlock({institution, from, to}) {
                     </Grid>
                     <Grid item xs={2}>
                         <TextField
-                        id="outlined-read-only-input"
                         label="To"
                         value={to}                                                                           
                         InputProps={{
@@ -103,11 +91,6 @@ function EducationBlock({institution, from, to}) {
                         </div>
                     </Grid>
                 </Grid>
-                    
-                    
-                    
-
-                    
                                     
         </div>
     );

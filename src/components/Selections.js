@@ -78,3 +78,13 @@ export const eduYearEnd = () => {
     }
     return res;
 }
+
+export const expCategory = () => {
+    return [
+        {id: 1, value: 'work'},
+        {id: 1, value: 'intership'},
+        {id: 1, value: 'personal project'},
+        {id: 1, value: 'volunteer'},
+        {id: 1, value: 'others'}
+    ]
+}
