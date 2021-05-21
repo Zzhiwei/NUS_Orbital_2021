@@ -1,16 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import ViewPost from '../pages/ViewPost';
+import EditPost from '../pages/EditPost';
 
-function GetId() {
+export default function GetEditId() {
 
     const { id } = useParams();
 
     return (
         <div>
-            <ViewPost id={ id }/>
+            <EditPost id={ id }/>
         </div>
     );
 }
-
-export default GetId;

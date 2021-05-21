@@ -32,7 +32,7 @@ export default function MyBookmarks() {
                 .filter(doc => bookmarks.includes(doc.id))
                 .map(doc => {return {...doc.data(), id: doc.id} }))
         })
-    }, [bookmarks])
+    }, [bookmarks]) 
 
     //preparing posts to be rendered, also make get request to get info for each post
     const prepareRender = async () => {
