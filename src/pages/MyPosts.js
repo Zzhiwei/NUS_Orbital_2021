@@ -34,7 +34,6 @@ export default function MyPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
-            console.log(name)
             const data = await db.collection("posts").where("name", "==", name).get()
             setPosts(data.docs.map(doc => {return {...doc.data(), id: doc.id} }))
         }

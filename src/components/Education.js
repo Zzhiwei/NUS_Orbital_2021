@@ -23,9 +23,11 @@ function Education() {
     const [open, setOpen] = React.useState(false);
     const { currentUserData } = useAuth()
 
-    const educationList = currentUserData.education.map(edu => {
+    const xs = currentUserData.education
+
+    const educationList = xs.map(edu => {
         return (
-            <div key={1}>
+            <div>
                 <EducationBlock institution={edu.institution} from={edu.from} to={edu.to}/>
             </div>
         )

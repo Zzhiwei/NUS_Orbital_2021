@@ -90,10 +90,10 @@ export default function PostDetails() {
       name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
     })
     .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+        // console.log("Document written with ID: ", docRef.id);
     })
     .catch((error) => {
-        console.error("Error adding document: ", error);
+        // console.error("Error adding document: ", error);
     });
     
     setLoading(false)
