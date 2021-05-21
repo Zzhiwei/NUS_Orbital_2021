@@ -4,13 +4,6 @@ import ProjectCard from '../components/ProjectCard';
 import Search from '../components/Search';
 import { db } from '../firebase'
 
-const truncate = (str) => {
-    if (str.length > 300) {
-        return str.substring(0, 280) + " ..."
-    }        
-    return str        
-}
-
 const useStyles = makeStyles((theme) => {
     return {
         homeResults: {
@@ -51,6 +44,7 @@ function Home() {
     const prepareRender = async () => {
         let renderList = []
         for (const post of posts) {
+            console.log(post.id)
             renderList = [...renderList, (
                 <Grid item xs={12} md={6} >
                     <ProjectCard

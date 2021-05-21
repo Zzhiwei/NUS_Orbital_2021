@@ -69,8 +69,8 @@ function Login() {
             setError('')
             await login(email, password)
             history.push('/')
-        } catch (e) {
-            setError(e.message)
+        } catch (err) {
+            setError(err.message)
         }
 
         setLoading(false)
