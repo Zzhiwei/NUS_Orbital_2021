@@ -10,7 +10,6 @@ const usePostFetch = (id) => {
     useEffect(() => {
         const abortCont = new AbortController();
         db.collection('posts').doc(id).get().then(snapShot => {
-            //console.log(snapShot.data())
             setData(snapShot.data())
             setPending(false)
             setError(null)
