@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function ExperienceBlock({ customProps }) {
+function ExperienceBlock({ customProps, enableEdit }) {
     const classes = useStyles();
 
     const {  
@@ -57,6 +57,22 @@ function ExperienceBlock({ customProps }) {
 
     }
 
+    const renderDelete = () => {
+        if (enableEdit) {
+            return (
+                <Button
+                    className={classes.deleteButton}
+                    variant="outlined"
+                    startIcon={<DeleteIcon />}
+                    size="small"
+                    onClick={handleDelete}
+                >
+                    Delete
+                </Button>
+            )
+        }
+    }
+
     return (
         <div className={classes.root}>    
                 <Grid container spacing={3}>
@@ -85,15 +101,7 @@ function ExperienceBlock({ customProps }) {
                         />
                     </Grid>
 
-                        <Button
-                            className={classes.deleteButton}
-                            variant="outlined"
-                            startIcon={<DeleteIcon />}
-                            size="small"
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </Button>
+                    {renderDelete()}
                     
                 </Grid>
 

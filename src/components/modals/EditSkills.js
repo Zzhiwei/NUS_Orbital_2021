@@ -36,7 +36,6 @@ export default function EditSkills({handleClose, skills}) {
     const handleDeleteChip = (chip, index) => {
         let chipsCopy = chips
         chips.splice(index, 1)
-        console.log("copy: ", chipsCopy)
         setChips(chipsCopy)
         setRerender(!rerender)
     }

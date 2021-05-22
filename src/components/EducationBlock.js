@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function EducationBlock({institution, from, to}) {
+function EducationBlock({institution, from, to, enableEdit }) {
     const classes = useStyles();
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -44,6 +44,27 @@ function EducationBlock({institution, from, to}) {
             education: filteredList
         })
 
+
+    }
+
+    const renderDelete = () => {
+        if (enableEdit) {
+            return (
+                <Grid item xs={2}>
+                    <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
+                        <IconButton 
+                            classes={{
+                                root: classes.iconRoot
+                            }}
+                            onClick={handleDelete}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </div>
+                </Grid>
+            )
+        }
+        
 
     }
 
@@ -78,18 +99,7 @@ function EducationBlock({institution, from, to}) {
                         }}                    
                         />
                     </Grid>
-                    <Grid item xs={2}>
-                        <div style={{ height: '100%', display: 'flex', alignItems: 'flex-end', justifyContent: 'center'}}>
-                            <IconButton 
-                                classes={{
-                                    root: classes.iconRoot
-                                }}
-                                onClick={handleDelete}
-                            >
-                                <DeleteIcon />
-                            </IconButton>
-                        </div>
-                    </Grid>
+                    {renderDelete()}
                 </Grid>
                                     
         </div>

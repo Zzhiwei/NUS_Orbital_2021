@@ -24,17 +24,15 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function Skills() {
+export default function Skills({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-
-    const { currentUserData } = useAuth()
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const skillList = currentUserData.skills.map(skill => {
+    const skillList = userData.skills.map(skill => {
         return <Chip label={skill}> </Chip>
     })
 
@@ -44,20 +42,28 @@ export default function Skills() {
         </div>
     )
 
+    const renderEdit = () => {
+        if (enableEdit) {
+            return (
+                <IconButton onClick={() => setOpen(true)}>
+                    <EditIcon  />
+                </IconButton>
+            )
+        }
+    }
+
 
     return (
         <div style={{marginBottom: '30px'}}> 
             <Typography className={classes.title} color="primary" variant="h4">
                 Skills
-                <IconButton onClick={() => setOpen(true)}>
-                    <EditIcon  />
-                </IconButton> 
+                {renderEdit()}
             </Typography> 
             <Modal
                 open={open}
                 onClose={null}
             > 
-                <EditSkills skills={currentUserData.skills} handleClose={handleClose} open={open}/>
+                <EditSkills skills={userData.skills} handleClose={handleClose} open={open}/>
             </Modal>
             {toRender}
         </div>

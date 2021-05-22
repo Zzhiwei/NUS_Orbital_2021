@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCard({id, title, author, description, chips}) {
+function ProjectCard({ authorId, id, title, author, description, chips}) {
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
     const docRef = db.collection("users").doc(currentUser.uid)
@@ -52,6 +52,12 @@ function ProjectCard({id, title, author, description, chips}) {
             window.location.reload()
         })
     }
+    
+    const byline = (
+        <Link to={`/profile/${authorId}`}>
+            {`by: ${author}`}
+        </Link>
+    )
 
     const handleRemoveBookmark = () => {
         docRef.update({
@@ -79,7 +85,7 @@ function ProjectCard({id, title, author, description, chips}) {
                         {title}
                         </Typography>
                     }
-                    subheader={"by: " + author}                    
+                    subheader={byline}                    
                 />
                 <CardContent style={{}}>
                     

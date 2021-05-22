@@ -76,7 +76,7 @@ function Layout(props) {
     }
     
     const handleProfile = () => {
-        history.push('/profile/32')
+        history.push(`/profile/${currentUser.uid}`)
     }
 
     const handleMyPosts = () => {
