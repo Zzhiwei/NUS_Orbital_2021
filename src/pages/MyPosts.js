@@ -23,20 +23,22 @@ export default function MyPosts() {
     const [posts, setPosts] = useState([]);
     const [toRender, setToRender] = useState([])
     const { currentUser, currentUserData } = useAuth()
-    const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
+    const [name, setName] = useState("")
     const history = useHistory()
-
-    //if no user is logged in redirect to sign up
-    if (!currentUser) {
-        history.push('/login')
-    }
 
     //sends query to backend when first mounting
     useEffect(() => {
-        db.collection("posts").where("name", "==", name).get()
-        .then(snapShot => {
-            setPosts(snapShot.docs.map(doc => {return {...doc.data(), id: doc.id} }))
-        })
+        //if no user is logged in redirect to sign up
+        if (!currentUser) {
+            alert("Please log in first")
+            history.push('/login')
+        } else {
+            setName(currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName)
+            db.collection("posts").where("name", "==", name).get()
+            .then(snapShot => {
+                setPosts(snapShot.docs.map(doc => {return {...doc.data(), id: doc.id} }))
+            })
+        }
     }, [name])
 
     //preparing posts to be rendered, also make get request to get info for each post
