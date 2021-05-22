@@ -5,7 +5,7 @@ import { useForm, Form } from '../components/useForm';
 import { db } from '../firebase'
 import * as selections from '../components/Selections'
 import { useHistory }  from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -26,20 +26,24 @@ export default function PostChange({ data })  {
     const classes = useStyles()
     const { currentUser } = useAuth()
     const history = useHistory()
-    const docRef = db.collection('posts').doc(data.id)
-    docRef.get().then(doc => {
-        const author = doc.data().author
-        if (author !== currentUser.uid) {
+    const [docRef, setDocRef] = useState(null)
+    //if no user is logged in redirect to sign up
+
+    useEffect(() => {
+        if (currentUser) {
+            setDocRef(db.collection('posts').doc(data.id))
+            docRef.get().then(doc => {
+                const author = doc.data().author
+                if (author !== currentUser.uid) {
+                    alert("You can only edit your own posts")
+                    history.push('/')   
+                }
+            })
+        } else {
             alert("You can only edit your own posts")
             history.push('/')
         }
-    })
-    
-
-    //if no user is logged in redirect to sign up
-    if (!currentUser) {
-        history.push('/login')
-    }
+    }, [currentUser, docRef, data.id, history])
 
     const initialFValues = {
         type: data.type,
@@ -97,7 +101,7 @@ export default function PostChange({ data })  {
           } = values
 
         setLoading(true)
-
+        
         docRef.update({
             type,
             title,
