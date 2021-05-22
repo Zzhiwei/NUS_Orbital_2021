@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase';
@@ -30,6 +30,10 @@ const useStyles = makeStyles(theme => {
             color: theme.palette.primary.main,
             textDecoration: "none",
         },
+        profileLink: {
+            color: theme.palette.primary.light,
+            textDecoration: "none"
+        },
         border: {
             backgroundColor: theme.palette.secondary.main,
         }
@@ -39,9 +43,20 @@ const useStyles = makeStyles(theme => {
 function ProjectCard({ authorId, id, title, author, description, chips}) {
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
-    const docRef = db.collection("users").doc(currentUser.uid)
-    const [bookmarked, setBookmarked] = useState(currentUserData.bookmarks.includes(id))
+    const [docRef, setDocRef] = useState(null)
+    const [bookmarked, setBookmarked] = useState(false)
 
+    useEffect(() => {
+        if (currentUser) {
+            setDocRef(db.collection("users").doc(currentUser.uid))
+            setBookmarked(currentUserData.bookmarks.includes(id))
+        }
+    }, [currentUser, currentUserData.bookmarks, id])
+
+    const handleNotLoggedIn = () => {
+        alert("Please log in to bookmark this post")
+    }
+    
     const handleAddBookmark = () => {
         docRef.update({
             bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
@@ -52,12 +67,6 @@ function ProjectCard({ authorId, id, title, author, description, chips}) {
             window.location.reload()
         })
     }
-    
-    const byline = (
-        <Link to={`/profile/${authorId}`}>
-            {`by: ${author}`}
-        </Link>
-    )
 
     const handleRemoveBookmark = () => {
         docRef.update({
@@ -69,6 +78,12 @@ function ProjectCard({ authorId, id, title, author, description, chips}) {
             window.location.reload()
         })      
     }
+
+    const byline = (
+        <Link className={classes.profileLink} to={`/profile/${authorId}`}>
+            {`by: ${author}`}
+        </Link>
+    )
 
     return (
         <div>
@@ -107,7 +122,7 @@ function ProjectCard({ authorId, id, title, author, description, chips}) {
                                     View
                                 </Button>
                             </Link>
-                            <Button size="small" color="primary" onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
+                            <Button size="small" color="primary" onClick={currentUser ? (bookmarked ? handleRemoveBookmark : handleAddBookmark) : handleNotLoggedIn}>
                                 {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
                             </Button>
                         </Grid>
