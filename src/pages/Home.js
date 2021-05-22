@@ -51,6 +51,7 @@ function Home() {
                         id={post.id}
                         title={post.title}
                         author={post.name}
+                        authorId={post.author}
                         description={post.description}
                         chips={post.skills}
                     />

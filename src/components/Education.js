@@ -1,7 +1,6 @@
 import React from 'react';
 import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
 import EditEducation from './modals/EditEducation'
-import { useAuth } from '../contexts/AuthContext';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import EducationBlock from './EducationBlock'
 
@@ -18,17 +17,14 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function Education() {
+function Education({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { currentUserData } = useAuth()
 
-    const xs = currentUserData.education
-
-    const educationList = xs.map(edu => {
+    const educationList = userData.education.map(edu => {
         return (
             <div>
-                <EducationBlock institution={edu.institution} from={edu.from} to={edu.to}/>
+                <EducationBlock institution={edu.institution} from={edu.from} to={edu.to} enableEdit={enableEdit}/>
             </div>
         )
     })
@@ -36,13 +32,24 @@ function Education() {
     const handleClose = () => {
         setOpen(false)
     }
-    
+
+    const renderAdd = () => {
+        if (enableEdit) {
+            return (
+                <div align="center">
+                    <IconButton onClick={() => setOpen(true)} size="medium">
+                        <AddCircleOutlineIcon color="primary" fontSize="large" />
+                    </IconButton> 
+                </div>
+            )
+        }
+    }
+
     return (
         <div style={{marginBottom: '30px'}}>
                 <Typography className={classes.title} color="primary" variant="h4">
                     Education
                 </Typography>
-
                 <Modal
                     open={open}
                     onClose={null}
@@ -50,15 +57,7 @@ function Education() {
                     <EditEducation handleClose={handleClose} open={open}/>
                 </Modal>
                 {educationList}
-                <div align="center">
-                    <IconButton onClick={() => setOpen(true)} size="medium">
-                        <AddCircleOutlineIcon color="primary" fontSize="large" />
-                    </IconButton> 
-                </div>
-
-                
-                
-                
+                {renderAdd()}
         </div>
     );
   }

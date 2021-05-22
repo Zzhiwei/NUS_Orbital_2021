@@ -61,6 +61,8 @@ export default function EditEducation({ handleClose, open }) {
             experience: firebase.firestore.FieldValue.arrayUnion(values)
         })
 
+        console.log("rerendering componenets")
+
         setCurrentUserData({
             ...currentUserData,
             experience: [

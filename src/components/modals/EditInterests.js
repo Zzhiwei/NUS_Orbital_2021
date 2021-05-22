@@ -36,7 +36,6 @@ export default function EditInterests({handleClose, interests}) {
     const handleDeleteChip = (chip, index) => {
         let chipsCopy = chips
         chips.splice(index, 1)
-        console.log("copy: ", chipsCopy)
         setChips(chips => {
             //interestingly this doesn't trigger rerender, dk why
             return chipsCopy

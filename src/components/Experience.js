@@ -2,7 +2,6 @@ import React from 'react';
 import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditExperience from './modals/EditExperience'
-import { useAuth } from '../contexts/AuthContext';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import ExperienceBlock from './ExperienceBlock'
 
@@ -19,23 +18,34 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function Experience() {
+function Experience({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { currentUserData } = useAuth()
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const experienceList = currentUserData.experience.map(exp => {
+    const experienceList = userData.experience.map(exp => {
         
         return (
             <div>
-                <ExperienceBlock customProps={exp}/>
+                <ExperienceBlock customProps={exp} enableEdit={enableEdit}/>
             </div>
         )
     })
+
+    const renderAdd = () => {
+        if (enableEdit) {
+            return (
+                <div align="center">
+                    <IconButton onClick={() => setOpen(true)} size="medium">
+                        <AddCircleOutlineIcon color="primary" fontSize="large" />
+                    </IconButton> 
+                </div>
+            )
+        }
+    }
     
     return (
         <div style={{marginBottom: '30px'}}>
@@ -50,11 +60,7 @@ function Experience() {
                     <EditExperience handleClose={handleClose} open={open}/>
                 </Modal>
                 {experienceList}
-                <div align="center">
-                    <IconButton size="medium" onClick={() => setOpen(true)}>
-                        <AddCircleOutlineIcon  color="primary" fontSize="large" />
-                    </IconButton> 
-                </div>
+                {renderAdd()}
                 
                 
         </div>

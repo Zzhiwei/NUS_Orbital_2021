@@ -2,7 +2,7 @@ import React from 'react';
 import { IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import EditBasicInfo from './modals/EditBasicInfo'
-import { useAuth } from '../contexts/AuthContext';
+
 
 
 const useStyles = makeStyles((theme) => {
@@ -15,10 +15,9 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function BasicInfo({ basicInfo }) {
+function BasicInfo({ userData, enableEdit }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const { currentUserData } = useAuth()
 
     const handleClose = () => {
         setOpen(false)
@@ -40,43 +39,47 @@ function BasicInfo({ basicInfo }) {
     }
 
     const addZero = n => n < 10 ? "0" + n : n 
-    const { day, month, year } = currentUserData.basicInfo.dateOfBirth
+    const { day, month, year } = userData.basicInfo.dateOfBirth
     const dob = addZero(day) + '/' + monthToNum[month] + '/' +  year
+
+    const renderEdit = () => {
+        if (enableEdit) {
+            return (
+                <IconButton onClick={() => setOpen(true)}>
+                    <EditIcon  />
+                </IconButton>
+            )
+        }
+    }
     
-
-
-
     return (
         <div style={{marginBottom: '50px'}}>
                 <Typography style={{borderBottom: '2px solid black', marginBottom: '20px'}} color="primary" variant="h4">
                     Basic info
-                    <IconButton onClick={() => setOpen(true)}>
-                        <EditIcon  />
-                    </IconButton>
+                    {renderEdit()}
                 </Typography>
 
                 <Modal
                     open={open}
                     onClose={null}
                 >
-                    <EditBasicInfo basicInfo={currentUserData.basicInfo} handleClose={handleClose} open={open}/>
+                    <EditBasicInfo basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
                 </Modal>
         
-            
                 <form  align="left" noValidate autoComplete="off" onSubmit={null}>
                     <div className={classes.flex}>
                         <div style={{flex: '1'}}>
                             
                             <InputLabel>First Name</InputLabel>     
-                            <TextField  value={currentUserData.basicInfo.firstName}  InputProps={{readOnly: true}}/>
+                            <TextField  value={userData.basicInfo.firstName}  InputProps={{readOnly: true}}/>
                         </div>
                         <div style={{flex: '1'}}>
                             <InputLabel>Last Name</InputLabel> 
-                            <TextField  value={currentUserData.basicInfo.lastName}  InputProps={{readOnly: true}}/>   
+                            <TextField  value={userData.basicInfo.lastName}  InputProps={{readOnly: true}}/>   
                         </div>                        
                         <div style={{flex: '1'}}>
                             <InputLabel>Gender</InputLabel> 
-                            <TextField  value={currentUserData.basicInfo.gender}  InputProps={{readOnly: true}}/>   
+                            <TextField  value={userData.basicInfo.gender}  InputProps={{readOnly: true}}/>   
                         </div>              
                     </div>
                     <br />
@@ -90,7 +93,7 @@ function BasicInfo({ basicInfo }) {
                         <div style={{flex: '2'}}>
                             <div style={{ width: "300px"}}>
                             <InputLabel>Email</InputLabel> 
-                            <TextField  value={currentUserData.email}   InputProps={{readOnly: true}} fullWidth />   
+                            <TextField  value={userData.email}   InputProps={{readOnly: true}} fullWidth />   
                             </div>                                
                         </div>                            
                     </div>
@@ -99,14 +102,14 @@ function BasicInfo({ basicInfo }) {
                         <div style={{flex: '1'}}>
                             <div>
                             <InputLabel>Location</InputLabel> 
-                            <TextField  value={currentUserData.basicInfo.location}   InputProps={{readOnly: true}} />   
+                            <TextField  value={userData.basicInfo.location}   InputProps={{readOnly: true}} />   
                             </div>                                
                             
                         </div>
                         <div style={{flex: '1'}}>
                             <div>
                             <InputLabel>Nationality</InputLabel> 
-                            <TextField   value={currentUserData.basicInfo.nationality}    InputProps={{readOnly: true}} />   
+                            <TextField   value={userData.basicInfo.nationality}    InputProps={{readOnly: true}} />   
                             </div>        
                         </div>
                         <div style={{flex: '1'}}></div>
@@ -117,7 +120,7 @@ function BasicInfo({ basicInfo }) {
                     <InputLabel style={{marginBottom: '10px'}}>About me</InputLabel> 
                     <TextField
                         id="outlined-read-only-input"
-                        value={currentUserData.basicInfo.bio}
+                        value={userData.basicInfo.bio}
                         multiline
                         rows="4"
                         fullWidth                    

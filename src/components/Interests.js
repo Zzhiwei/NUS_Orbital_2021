@@ -24,17 +24,15 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function Interests() {
+export default function Interests({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-
-    const { currentUserData } = useAuth()
 
     const handleClose = () => {
         setOpen(false)
     }
 
-    const interestList = currentUserData.interests.map(interest => {
+    const interestList = userData.interests.map(interest => {
         return <Chip label={interest}> </Chip>
     })
 
@@ -44,23 +42,27 @@ export default function Interests() {
         </div>
     )
 
-
-
-    
+    const renderEdit = () => {
+        if (enableEdit) {
+            return (
+                <IconButton onClick={() => setOpen(true)}>
+                    <EditIcon  />
+                </IconButton>
+            )
+        }
+    }
 
     return (
         <div style={{marginBottom: '30px'}}>
             <Typography className={classes.title} color="primary" variant="h4">
                 Interests
-                <IconButton onClick={() => setOpen(true)}>
-                    <EditIcon  />
-                </IconButton> 
+                {renderEdit()}
             </Typography> 
             <Modal
                 open={open}
                 onClose={null}
             > 
-                <EditInterests interests={currentUserData.interests} handleClose={handleClose} open={open}/>
+                <EditInterests interests={userData.interests} handleClose={handleClose} open={open}/>
             </Modal>
             {toRender}
         </div>
