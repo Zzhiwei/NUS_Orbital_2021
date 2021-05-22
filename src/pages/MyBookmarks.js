@@ -5,6 +5,8 @@ import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import { useHistory }  from 'react-router-dom'
+
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -21,8 +23,14 @@ export default function MyBookmarks() {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [toRender, setToRender] = useState([])
-    const { currentUserData } = useAuth()
+    const { currentUser, currentUserData } = useAuth()
     const bookmarks = currentUserData.bookmarks
+    const history = useHistory()
+
+    //if no user is logged in redirect to sign up
+    if (!currentUser) {
+        history.push('/login')
+    }
 
     //sends query to backend when first mounting
     useEffect(() => {

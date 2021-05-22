@@ -1,4 +1,4 @@
-import { Box, Container, Grid, makeStyles } from '@material-ui/core'
+import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input'
 import Copyright from '../components/Copyright'
 import PageHeader from '../components/PageHeader'
@@ -6,6 +6,13 @@ import DescriptionIcon from '@material-ui/icons/Description'
 import Controls from "../components/Controls"
 
 const useStyles = makeStyles (theme => ({
+    root: {
+        '& .MuiFormControl-root': {
+          width: '100%',
+          margin: theme.spacing(1) 
+          
+        }
+    },
     pageContent: {
       marginTop: theme.spacing(1),
       padding: theme.spacing(3),
@@ -15,15 +22,16 @@ const useStyles = makeStyles (theme => ({
 export default function PostOutput({ data })  {
     const classes = useStyles()
     return (
-        <div>
-            <PageHeader 
-                    title={data.title}
-                    subTitle={"by " + data.name}
-                    icon={<DescriptionIcon fontSize="large"/>}
-                />
+    <>
+        <PageHeader 
+            title={data.title}
+            subTitle={"by " + data.name}
+            icon={<DescriptionIcon fontSize="large"/>}
+        />
+        <form className={classes.root}>
             <Container component="main" maxWidth="sm">
                 <div className={classes.pageContent}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <Controls.Output
                                 name="type"
@@ -41,7 +49,19 @@ export default function PostOutput({ data })  {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <ChipInput style={{background: "white", borderRadius: "4px"}} readOnly disableUnderline fullWidth  multiline rows={1}  label="Skills" value={data.skills}/>
+                            <div style={{marginLeft: "20px"}}>
+                                <Typography variant="h7">
+                                    Required Skills / Experience
+                                </Typography>
+                            </div>
+                            <ChipInput 
+                                style={{background: "white", borderRadius: "4px", height: "53px"}} 
+                                readOnly 
+                                variant="outlined"
+                                fullWidth 
+                                multiline 
+                                value={data.skills}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Controls.Output
@@ -89,6 +109,7 @@ export default function PostOutput({ data })  {
                     <Copyright />
                 </Box>
             </Container>
-        </div>
+        </form>
+    </>
     )
 }

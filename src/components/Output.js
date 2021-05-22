@@ -1,7 +1,11 @@
-import {TextField, makeStyles} from "@material-ui/core";
+import {TextField, Typography, makeStyles} from "@material-ui/core";
 import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
+  label : {
+    textAlign: "left",
+    marginLeft: "20px"
+  },
   text: {
     background: "white",
     borderRadius: "4px",
@@ -17,17 +21,23 @@ export default function Output(props) {
   const {name, label, value, rows } = props;
 
   return (
-    <TextField
-      inputProps={{readOnly: true}}
-      InputProps={{disableUnderline: true, classes: {input: classes.input}}}
-      InputLabelProps={{style: {textAlign: "center"}}}
-      className={classes.text}
-      label={label}
-      name={name}
-      value={value}
-      rows={rows}
-      fullWidth
-      multiline
-    />
+    <div>
+      <div className={classes.label}>
+          <Typography variant="h7">
+            {label}
+          </Typography>
+      </div>
+      <TextField
+        inputProps={{readOnly: true}}
+        //InputProps={{disableUnderline: true, classes: {input: classes.input}}}
+        variant="outlined"
+        className={classes.text}
+        name={name}
+        value={value}
+        rows={rows}
+        fullWidth
+        multiline
+      />
+    </div>
   )
 }
