@@ -5,6 +5,7 @@ import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
+import { useHistory }  from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -21,8 +22,14 @@ export default function MyPosts() {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [toRender, setToRender] = useState([])
-    const { currentUserData } = useAuth()
+    const { currentUser, currentUserData } = useAuth()
     const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
+    const history = useHistory()
+
+    //if no user is logged in redirect to sign up
+    if (!currentUser) {
+        history.push('/login')
+    }
 
     //sends query to backend when first mounting
     useEffect(() => {

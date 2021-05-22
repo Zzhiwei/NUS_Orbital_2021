@@ -47,7 +47,6 @@ function Home() {
             renderList = [...renderList, (
                 <Grid item xs={12} md={6} >
                     <ProjectCard
-                        key={post.id}
                         id={post.id}
                         title={post.title}
                         author={post.name}

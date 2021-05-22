@@ -1,38 +1,52 @@
 import React from 'react';
-import { makeStyles, FormControl, InputLabel, Select as MuiSelect, MenuItem } from '@material-ui/core';
+import { makeStyles, FormControl, Select as MuiSelect, MenuItem, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  label : {
+    textAlign: "left",
+    marginLeft: "20px"
+  },
   select: {
     background: "white",
     borderRadius: "4px",
+  },
+  unselected: {
+    opacity: "0.5",
+    textAlign: "left"
   }
 }))
 
 export default function Select(props) {
 
   const classes = useStyles();
-  const { name, label, value, onChange, options} = props;
+  const { name, label, value, placeholder, onChange, options} = props;
 
   return (
-    <FormControl className={classes.select} variant="outlined"> 
-      <InputLabel>
-        {label}
-      </InputLabel>
-      <MuiSelect 
-        label={label}
-        name={name}
-        value={value}
-        onChange={onChange}
-      >
-        <MenuItem value="">
-          -
-        </MenuItem>
-        {
-          options.map(
-            item => (<MenuItem key= {item.id} value={item.value}>{item.value}</MenuItem>)
-          )
-        }
-      </MuiSelect>
-    </FormControl>
+    <div>
+      <div className={classes.label}>
+        <Typography variant="h7">
+            {label}
+        </Typography>
+      </div>
+      <FormControl className={classes.select} variant="outlined"> 
+        <MuiSelect 
+          name={name}
+          value={value}
+          onChange={onChange}
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            <div className={classes.unselected}>
+              {placeholder}
+            </div>
+          </MenuItem>
+          {
+            options.map(
+              item => (<MenuItem key= {item.id} value={item.value}>{item.value}</MenuItem>)
+            )
+          }
+        </MuiSelect>
+      </FormControl>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Grid, Container } from '@material-ui/core'
+import { Grid, Container, Typography } from '@material-ui/core'
 import { useForm, Form } from '../components/useForm'
 import Controls from "../components/Controls"
 import ChipInput from 'material-ui-chip-input'
@@ -116,19 +116,21 @@ export default function PostDetails() {
                         name="type"
                         label="Type"
                         value={values.type}
+                        placeholder="Competition or project?"
                         onChange={handleInputChange}
                         options={selections.type()}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Controls.Select 
-                      name="members"
-                      label="Group Size"
-                      value={values.members}
-                      onChange={handleInputChange}
-                      options={selections.groupSize()}
-                    />
-                  </Grid>
+                    <Controls.Select 
+                        name="members"
+                        label="Group Size"
+                        value={values.members}
+                        placeholder="How many members?"
+                        onChange={handleInputChange}
+                        options={selections.groupSize()}
+                      />
+                </Grid>
                 <Grid item xs={12}>
                     <Controls.Input 
                         name="title"
@@ -139,22 +141,29 @@ export default function PostDetails() {
                         onChange={handleInputChange}
                         rows={1}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <div style={{textAlign: "left", marginLeft: "20px"}}>
+                        <Typography variant="h7">
+                            Required Skills / Experience
+                        </Typography>
+                    </div>
                     <ChipInput
-                        style={{background: "white", borderRadius: "4px"}}
+                        style={{background: "white", borderRadius: "4px", height: "53px"}}
                         name="skills"
-                        label="Required Skills/Experience"
                         placeholder="None, HTML/CSS, Photography, etc"
                         variant="outlined"
                         value={values.skills}
                         onAdd={(chip) => handleAddChip(chip)}
                         onDelete={(chip, index) => handleDeleteChip(chip, index)}
-                    />          
+                    />         
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Controls.Select 
                         name="education"
                         label="Education Level"
                         value={values.education}
+                        placeholder="Please specify"
                         onChange={handleInputChange}
                         options={selections.education()}
                     />
@@ -164,6 +173,7 @@ export default function PostDetails() {
                         name="proficiency"
                         label="Proficiency Level"
                         value={values.proficiency}
+                        placeholder="Please specify"
                         onChange={handleInputChange}
                         options={selections.proficiency()}
                     />
@@ -173,6 +183,7 @@ export default function PostDetails() {
                         name="location"
                         label="Location"
                         value={values.location}
+                        placeholder="Online or in-person?"
                         onChange={handleInputChange}
                         options={selections.location()}
                     />

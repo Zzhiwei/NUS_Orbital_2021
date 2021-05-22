@@ -27,6 +27,14 @@ export default function PostChange({ data })  {
     const { currentUser } = useAuth()
     const history = useHistory()
     const docRef = db.collection('posts').doc(data.id)
+    docRef.get().then(doc => {
+        const author = doc.data().author
+        if (author !== currentUser.uid) {
+            alert("You can only edit your own posts")
+            history.push('/')
+        }
+    })
+    
 
     //if no user is logged in redirect to sign up
     if (!currentUser) {
