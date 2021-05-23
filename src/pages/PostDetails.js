@@ -99,7 +99,8 @@ export default function PostDetails() {
       description,
       author: currentUser.uid,
       name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp() 
+      bookmarkedBy: ["init"],
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
     setLoading(false)
     
