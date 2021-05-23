@@ -39,8 +39,7 @@ export default function AdminCard({id, title, author, description, chips}) {
     const handleDelete = () => {
         db.collection('posts').doc(id).delete()
         .then(() => {
-            alert('Post deleted')
-            window.location.reload()
+            console.log("deleted")
         })
     }
 
