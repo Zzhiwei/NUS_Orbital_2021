@@ -39,15 +39,16 @@ export default function MyPosts() {
                 setPosts(snapShot.docs.map(doc => {return {...doc.data(), id: doc.id} }))
             })
         }
-    }, [name])
+    }, [currentUser, name, currentUserData.basicInfo.firstName, currentUserData.basicInfo.lastName, history])
 
     //preparing posts to be rendered, also make get request to get info for each post
     const prepareRender = async () => {
         let renderList = []
         for (const post of posts) {
             renderList = [...renderList, (
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} key={post.id}>
                     <AdminCard
+                        key={post.id}
                         id={post.id}
                         title={post.title}
                         author={post.name}

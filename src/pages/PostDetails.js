@@ -1,4 +1,4 @@
-import { Grid, Container, Typography } from '@material-ui/core'
+import { Grid, Container, Typography, makeStyles } from '@material-ui/core'
 import { useForm, Form } from '../components/useForm'
 import Controls from "../components/Controls"
 import ChipInput from 'material-ui-chip-input'
@@ -9,6 +9,18 @@ import { useState } from 'react'
 import * as selections from '../components/Selections'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+
+const useStyles = makeStyles (theme => ({
+  label: {
+      textAlign: "left", 
+      marginLeft: "20px",
+  },
+  chip: {
+      background: "white", 
+      borderRadius: "4px", 
+      height: "53px",
+  }
+}))
 
 const initialFValues = {
   type: "",
@@ -23,6 +35,7 @@ const initialFValues = {
 }
 
 export default function PostDetails() {
+  const classes = useStyles()
   const { currentUser, currentUserData } = useAuth()
   const history = useHistory()
 
@@ -143,13 +156,13 @@ export default function PostDetails() {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <div style={{textAlign: "left", marginLeft: "20px"}}>
-                        <Typography variant="h7">
+                    <div className={classes.label}>
+                        <Typography>
                             Required Skills / Experience
                         </Typography>
                     </div>
                     <ChipInput
-                        style={{background: "white", borderRadius: "4px", height: "53px"}}
+                        className={classes.chip}
                         name="skills"
                         placeholder="None, HTML/CSS, Photography, etc"
                         variant="outlined"

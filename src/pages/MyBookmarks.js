@@ -37,28 +37,25 @@ export default function MyBookmarks() {
         db.collection("posts").get()
         .then(snapShot => {
             setPosts(snapShot.docs
-                .filter(doc => bookmarks.includes(doc.id))
-                .map(doc => {return {...doc.data(), id: doc.id} }))
+            .filter(doc => bookmarks.includes(doc.id))
+            .map(doc => {return {...doc.data(), id: doc.id} }))
         })
     }, [bookmarks]) 
 
     //preparing posts to be rendered, also make get request to get info for each post
-    const prepareRender = async () => {
-        let renderList = []
-        for (const post of posts) {
-            renderList = [...renderList, (
-                <Grid item xs={12} md={6}>
-                    <ProjectCard
-                        id={post.id}
-                        title={post.title}
-                        author={post.name}
-                        description={post.description}
-                        chips={post.skills}
-                    />
-                </Grid>  
-            )]
-           
-        }
+    const prepareRender = () => {
+       const renderList = posts.map(post => (
+            <Grid item xs={12} md={6} key={post.id}>
+                <ProjectCard
+                    key={post.timestamp}
+                    id={post.id}
+                    title={post.title}
+                    author={post.name}
+                    description={post.description}
+                    chips={post.skills}
+                />
+            </Grid>  
+        ))
         setToRender(renderList)
     }
 

@@ -20,7 +20,7 @@ export default function Input(props) {
   return (
     <div>
       <div className={classes.label}>
-        <Typography variant="h7">
+        <Typography>
           {label}
         </Typography>
       </div>
