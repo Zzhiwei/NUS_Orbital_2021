@@ -42,7 +42,6 @@ export default function Home() {
         <div>
             { !render && <div>Loading..</div> }
             { render && 
-
             <div className={classes.homeResults}>
                 <Search toggleFilter={toggleFilter} />
                 <Drawer anchor="right" open={filter} onClose={toggleFilter(false)}>
