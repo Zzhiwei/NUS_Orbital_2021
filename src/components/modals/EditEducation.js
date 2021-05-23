@@ -58,15 +58,20 @@ export default function EditEducation({ handleClose, open }) {
             education: firebase.firestore.FieldValue.arrayUnion(values)
         })
 
-        
-        //update local
-        setCurrentUserData({
-            ...currentUserData,
-            education: [
-                ...currentUserData.education,
-                values
-            ]
+
+        await db.collection('users').doc(currentUser.uid).get().then(res => {
+            setCurrentUserData(res.data())
         })
+        
+        //update local => causes infiniteloop when creating duplicate
+        
+        // setCurrentUserData({
+        //     ...currentUserData,
+        //     education: [
+        //         ...currentUserData.education,
+        //         values
+        //     ]
+        // })
         
         handleClose()
 
