@@ -12,6 +12,8 @@ import EditPost from './pages/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
+import { functions } from './firebase'
+import SearchDummy from './pages/SearchDummy';
 
 
 const theme = createMuiTheme({
@@ -32,6 +34,7 @@ const theme = createMuiTheme({
 });
 
 function App() {
+
   return (    
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -46,9 +49,10 @@ function App() {
               <Route path="/myposts" component={MyPosts}></Route>
               <Route path="/bookmarks" component={MyBookmarks}></Route>
               <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/viewpost/:id" component={ViewPost}></Route>
-              <Route path="/editpost/:id" component={EditPost}></Route>
-              <Route path="/forgotpassword" component={ForgotPassword}></Route>    
+              <Route path="/viewpost/:id" component={GetViewId}></Route>
+              <Route path="/editpost/:id" component={GetEditId}></Route>
+              <Route path="/forgotpassword" component={ForgotPassword}></Route>
+              <Route path="/search" component={SearchDummy}></Route>    
             </Switch>
           </Layout>   
         </AuthProvider>      
