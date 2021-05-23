@@ -27,23 +27,26 @@ export default function PostChange({ data })  {
     const { currentUser } = useAuth()
     const history = useHistory()
     const [docRef, setDocRef] = useState(null)
-    //if no user is logged in redirect to sign up
 
     useEffect(() => {
+
         if (currentUser) {
-            setDocRef(db.collection('posts').doc(data.id))
-            docRef.get().then(doc => {
+            const fetched = db.collection('posts').doc(data.id)
+            setDocRef(fetched)
+            fetched.get().then(doc => {
                 const author = doc.data().author
+                //if user is not author redirect to homepage
                 if (author !== currentUser.uid) {
                     alert("You can only edit your own posts")
                     history.push('/')   
                 }
             })
+        //if no user is logged in redirect to homepage
         } else {
             alert("You can only edit your own posts")
             history.push('/')
         }
-    }, [currentUser, docRef, data.id, history])
+    }, [currentUser, data.id, history])
 
     const initialFValues = {
         type: data.type,
