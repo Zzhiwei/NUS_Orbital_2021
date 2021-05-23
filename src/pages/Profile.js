@@ -57,10 +57,10 @@ function Profile() {
         if no: disable edit options, pass other user's data as prop
     */
     if (viewingOwn.current === null) {
-        if (id === currentUser.uid) {
-            viewingOwn.current = true
-        } else {
+        if (currentUser === null || id !== currentUser.uid) {
             viewingOwn.current = false
+        } else {
+            viewingOwn.current = true
         }
     }
 
