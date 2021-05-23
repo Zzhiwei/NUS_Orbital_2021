@@ -50,7 +50,7 @@ export default function PostOutput({ data })  {
                         </Grid>
                         <Grid item xs={12}>
                             <div style={{marginLeft: "20px"}}>
-                                <Typography variant="h7">
+                                <Typography>
                                     Required Skills / Experience
                                 </Typography>
                             </div>

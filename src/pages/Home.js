@@ -45,8 +45,9 @@ function Home() {
         let renderList = []
         for (const post of posts) {
             renderList = [...renderList, (
-                <Grid item xs={12} md={6} >
+                <Grid item xs={12} md={6} key={post.id}>
                     <ProjectCard
+                        key={post.id}
                         id={post.id}
                         title={post.title}
                         author={post.name}
