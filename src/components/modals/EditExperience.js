@@ -65,7 +65,8 @@ export default function EditEducation({ handleClose, open }) {
             setCurrentUserData(res.data())
         })
         
-
+        //update local => causes infiniteloop when creating duplicate
+        
         // setCurrentUserData({
         //     ...currentUserData,
         //     experience: [
