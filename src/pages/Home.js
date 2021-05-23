@@ -14,11 +14,11 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function Home() {
+export default function Home() {
     const classes = useStyles();
     const [filter, setFilter] = useState(false);
     const [posts, setPosts] = useState([]);
-    const [toRender, setToRender] = useState([])
+    const [render, setRender] = useState(false)
 
     //for filter pop up
     const toggleFilter = (open) => (event) => {
@@ -30,61 +30,44 @@ function Home() {
 
     //sends query to backend when first mounting
     useEffect(() => {
-        const fetchPosts = async () => {
-            const data = await db.collection("posts").get()
-            setPosts(data.docs.map(doc => {
-                //adds post id to local posts data: for viewPost/:id
-                return {...doc.data(), id: doc.id} 
-            }))
-        }
-        fetchPosts()
+        db.collection('posts').onSnapshot((snapShot) => {
+            setPosts(snapShot.docs.map((doc) => ({
+                id: doc.id, data: doc.data()
+            })))
+            setRender(true)
+        })
     }, [])
 
-    //preparing posts to be rendered, also make get request to get info for each post
-    const prepareRender = async () => {
-        let renderList = []
-        for (const post of posts) {
-            console.log(post.id)
-            renderList = [...renderList, (
-                <Grid item xs={12} md={6} >
-                    <ProjectCard
-                        id={post.id}
-                        title={post.title}
-                        author={post.name}
-                        authorId={post.author}
-                        description={post.description}
-                        chips={post.skills}
-                    />
-                </Grid>  
-            )]
-           
-        }
-        setToRender(renderList)
-    }
+    return (
+        <div>
+            { !render && <div>Loading..</div> }
+            { render && 
 
-    /*
-    first render: posts got nth yet
-    2nd render: triggerred by setPosts inside first async func
-    3rd render: triggered by setToRender inside second async func
-    */
-    if (posts.length && !toRender.length) {
-        prepareRender()
-    }
-
-    return (        
             <div className={classes.homeResults}>
                 <Search toggleFilter={toggleFilter} />
                 <Drawer anchor="right" open={filter} onClose={toggleFilter(false)}>
-                    <Paper style={{height: '1000px', width: '500px', padding: '100px'}}>
-                    </Paper>
-                </Drawer>
+                    <Paper style={{height: '1000px', width: '500px', padding: '100px'}} />
+                </Drawer>  
                 <Grid container spacing={3}>
-                    {toRender}
+                    {posts.map(({id, data}) => {
+                        return ( 
+                        <Grid item xs={12} md={6}key={id}>
+                            <ProjectCard
+                                key={id}
+                                id={id}
+                                title={data.title}
+                                author={data.name}
+                                authorId={data.author}
+                                description={data.description}
+                                chips={data.skills}
+                                bookmarkedBy={data.bookmarkedBy}
+                            />
+                        </Grid>
+                    )})}
                 </Grid>
             </div>
-        
+            }
+        </div>
     );
   }
-  
-  export default Home;
   

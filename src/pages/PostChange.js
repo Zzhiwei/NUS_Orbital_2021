@@ -1,4 +1,4 @@
-import { Box, Container, Grid, makeStyles } from '@material-ui/core'
+import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input'
 import Controls from "../components/Controls"
 import { useForm, Form } from '../components/useForm';
@@ -13,12 +13,19 @@ import Copyright from '../components/Copyright'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import PageHeader from '../components/PageHeader';
 
-
-
 const useStyles = makeStyles (theme => ({
     pageContent: {
       marginTop: theme.spacing(1),
       padding: theme.spacing(3),
+    },
+    label: {
+        textAlign: "left", 
+        marginLeft: "20px",
+    },
+    chip: {
+        background: "white", 
+        borderRadius: "4px", 
+        height: "53px",
     }
 }))
 
@@ -27,6 +34,7 @@ export default function PostChange({ data })  {
     const { currentUser } = useAuth()
     const history = useHistory()
     const [docRef, setDocRef] = useState(null)
+    const [render, setRender] = useState(false)
 
     useEffect(() => {
 
@@ -39,6 +47,8 @@ export default function PostChange({ data })  {
                 if (author !== currentUser.uid) {
                     alert("You can only edit your own posts")
                     history.push('/')   
+                } else {
+                    setRender(true)
                 }
             })
         //if no user is logged in redirect to homepage
@@ -137,6 +147,9 @@ export default function PostChange({ data })  {
 
     return (
         <div>
+            { !render && <div>Loading...</div>}
+            { render && 
+            <div>
             <PageHeader 
                     title="Edit Post"
                     icon={<CreateTwoToneIcon fontSize="large"/>}
@@ -173,10 +186,16 @@ export default function PostChange({ data })  {
                                     onChange={handleInputChange}
                                     rows={1}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <div className={classes.label}>
+                                    <Typography>
+                                        Required Skills / Experience
+                                    </Typography>
+                                </div>
                                 <ChipInput
-                                    style={{background: "white", borderRadius: "4px"}}
+                                    className={classes.chip}
                                     name="skills"
-                                    label="Required Skills/Experience"
                                     placeholder="None, HTML/CSS, Photography, etc"
                                     variant="outlined"
                                     value={values.skills}
@@ -247,6 +266,9 @@ export default function PostChange({ data })  {
                     </Box>
                 </Container>
             </Form>
+            </div>
+            }
         </div>
+       
     )
 }

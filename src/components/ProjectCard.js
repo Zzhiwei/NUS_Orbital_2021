@@ -40,18 +40,17 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCard({ authorId, id, title, author, description, chips}) {
+function ProjectCard({ authorId, id, title, author, description, chips, bookmarkedBy }) {
     const classes = useStyles();
-    const { currentUser, currentUserData } = useAuth()
-    const [docRef, setDocRef] = useState(null)
+    const { currentUser } = useAuth()
+    const docRef = db.collection("posts").doc(id)
     const [bookmarked, setBookmarked] = useState(false)
 
     useEffect(() => {
         if (currentUser) {
-            setDocRef(db.collection("users").doc(currentUser.uid))
-            setBookmarked(currentUserData.bookmarks.includes(id))
+            setBookmarked(bookmarkedBy.includes(currentUser.uid))
         }
-    }, [currentUser, currentUserData.bookmarks, id])
+    }, [currentUser])
 
     const handleNotLoggedIn = () => {
         alert("Please log in to bookmark this post")
@@ -59,23 +58,19 @@ function ProjectCard({ authorId, id, title, author, description, chips}) {
     
     const handleAddBookmark = () => {
         docRef.update({
-            bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
+            bookmarkedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
         })
         .then(() => {
             setBookmarked(true)
-            alert("Post bookmarked")
-            window.location.reload()
         })
     }
 
     const handleRemoveBookmark = () => {
         docRef.update({
-            bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
+            bookmarkedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
         })
         .then(() => {
             setBookmarked(false)
-            alert("Post removed from bookmarks")
-            window.location.reload()
         })      
     }
 
@@ -97,7 +92,7 @@ function ProjectCard({ authorId, id, title, author, description, chips}) {
                     }
                     title={
                         <Typography color="primary" variant="body1">
-                        {title}
+                            {title}
                         </Typography>
                     }
                     subheader={byline}                    

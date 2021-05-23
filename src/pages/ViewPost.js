@@ -1,8 +1,10 @@
+import { useParams } from 'react-router'
 import usePostFetch from '../components/usePostFetch'
 import PostOutput from './PostOutput'
 
-function ViewPost({ id }) {
+function ViewPost() {
 
+  const { id } = useParams()
   const { data, pending, error } = usePostFetch(id)
 
   return (

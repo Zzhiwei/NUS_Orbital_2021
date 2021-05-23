@@ -7,8 +7,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import NewPost from './pages/NewPost';
 import { AuthProvider } from './contexts/AuthContext'
-import GetViewId from './components/GetViewId';
-import GetEditId from './components/GetEditId';
+import ViewPost from './pages/ViewPost';
+import EditPost from './pages/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
