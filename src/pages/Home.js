@@ -1,6 +1,6 @@
 import React from 'react';
 import algoliasearch from 'algoliasearch';
-import { InstantSearch, connectHits, connectSearchBox} from 'react-instantsearch-dom';
+import { InstantSearch, Configure, connectSearchBox, connectInfiniteHits} from 'react-instantsearch-dom';
 import PostCard from '../components/PostCard'
 import { Grid, TextField, Button } from '@material-ui/core';
 
@@ -9,17 +9,25 @@ const searchClient = algoliasearch(
   'c57f19049ad61dad541fc8f7659c0f92'
 );
 
-const Hits = ({ hits }) => (
-    <Grid container spacing={3} style={{width: '80%', margin: 'auto auto'}} >
-      {hits.map(hit => (
-        <Grid item xs={12} sm={6}  key={hit.objectID}>
-            <PostCard hit={hit} />
+const InfiniteHits = ({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) => (
+    <div >
+        <Grid container spacing={3} style={{width: '80%', margin: 'auto auto'}} >
+        {hits.map(hit => (
+            <Grid item xs={12} sm={6}  key={hit.objectID}>
+                <PostCard hit={hit} />
+            </Grid>
+        ))}
+            
         </Grid>
-      ))}
-    </Grid>
+        <div align="center">
+        <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
+                Load more
+        </Button>
+        </div>
+    </div>
 );
 
-const CustomHits = connectHits(Hits);
+const CustomInfiniteHits = connectInfiniteHits(InfiniteHits);
 
 const SearchBox = ({ isSearchStalled, refine }) => (
     <Grid item  style={{marginBottom: '20px'}} xs={8} >
@@ -55,11 +63,18 @@ export default function Home() {
                 indexName="posts"
                 searchClient={searchClient}
             > 
+            <Configure
+                hitsPerPage={20}
+                analytics={false}
+                enablePersonalization={true}
+                distinct
+            />
+
             <Grid container spacing={2} justify="center" style={{marginBottom: "20px"}}>
                 <CustomSearchBox />
             </Grid>
 
-            <CustomHits />
+            <CustomInfiniteHits />
             </InstantSearch>
         </div>
     )
