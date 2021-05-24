@@ -1,13 +1,8 @@
-import { Button, Grid, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
-import TuneIcon from '@material-ui/icons/Tune';
-
-
+import { Button, Grid, TextField } from '@material-ui/core'
+import TuneIcon from '@material-ui/icons/Tune'
 
 function Search({toggleFilter}) {
     
-   
-
     return (
         <div style={{margin: '50px 0px'}}>
             <form>

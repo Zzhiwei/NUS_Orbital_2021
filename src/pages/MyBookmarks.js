@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import ProjectCard from '../components/ProjectCard';
+import BookmarkCard from '../components/BookmarkCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
@@ -59,7 +59,7 @@ export default function MyBookmarks() {
                         {posts.map(({id, data}) => {
                                 return ( 
                                 <Grid item xs={12} md={6}key={id}>
-                                    <ProjectCard
+                                    <BookmarkCard
                                         key={id}
                                         id={id}
                                         title={data.title}
