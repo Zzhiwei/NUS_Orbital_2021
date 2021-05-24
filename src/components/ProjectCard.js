@@ -32,11 +32,14 @@ const useStyles = makeStyles(theme => {
         },
         profileLink: {
             color: theme.palette.primary.light,
-            textDecoration: "none"
+            textDecoration: "none",
+            '&:hover':{
+                textDecoration: "underline",
+            },
         },
         border: {
             backgroundColor: theme.palette.secondary.main,
-        }
+        },
     }    
 })
 

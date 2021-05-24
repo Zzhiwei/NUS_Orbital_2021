@@ -1,4 +1,4 @@
-import { Button, makeStyles, FormControl, Grid, InputLabel, OutlinedInput, Box, Container, CssBaseline } from '@material-ui/core';
+import { Button, makeStyles, FormControl, Grid, Typography, OutlinedInput, Box, Container, CssBaseline } from '@material-ui/core';
 import { useHistory, Link }  from 'react-router-dom';
 import React, { useState } from 'react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginTop: theme.spacing(3),
     },
+    label: {
+        textAlign: "left",
+        marginLeft: "20px"
+    },
     field: {
         background: "white",
         borderRadius: "4px",
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(3.5, 0, 2),
     },
     link: {
         color: theme.palette.primary.main,
@@ -120,35 +124,35 @@ function Register() {
             {error && <Alert severity="error">{error}</Alert>}
 
             <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
+                <Grid container spacing={1}>
                     <Grid item xs={12} sm={6}>
+                        <Typography className={classes.label}>First name</Typography>
                         <FormControl className={classes.field} variant="outlined">
-                            <InputLabel htmlFor="firstName">First name</InputLabel>
-                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} label="First name" />
+                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                        <Typography className={classes.label}>Last name</Typography>
                         <FormControl className={classes.field} variant="outlined">
-                            <InputLabel htmlFor="lastName">Last name</InputLabel>
-                            <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} label="Last name" />
+                            <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} />
                         </FormControl>    
                     </Grid>
                     <Grid item xs={12}>
+                        <Typography className={classes.label}>Email</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <InputLabel htmlFor="email">Email</InputLabel>
-                            <OutlinedInput type="email" id="email" label="Email" onChange={onEmailChange} value={email}/>
+                            <OutlinedInput type="email" id="email" onChange={onEmailChange} value={email}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
+                        <Typography className={classes.label}>Password</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <OutlinedInput required type="password" id="password" label="Password" onChange={onPasswordChange} value={password}/>
+                            <OutlinedInput required type="password" id="password" onChange={onPasswordChange} value={password}/>
                         </FormControl>
                     </Grid>                                           
                     <Grid item xs={12}>
+                        <Typography className={classes.label}>Confirm password</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <InputLabel htmlFor="confirmPassword">Confirm password</InputLabel>
-                            <OutlinedInput required type="password" id="confirmPassword" label="Confirm password" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
+                            <OutlinedInput required type="password" id="confirmPassword" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
                         </FormControl>
                     </Grid> 
                 </Grid>

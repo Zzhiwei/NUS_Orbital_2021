@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Grid, Box, makeStyles } from '@material-ui/core';
+import { Button, Container, CssBaseline, FormControl, Typography, OutlinedInput, Grid, Box, makeStyles } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%',
         marginTop: theme.spacing(3),
+    },
+    label: {
+        textAlign: "left",
+        marginLeft: "20px"
     },
     field: {
         background: "white",
@@ -88,15 +92,15 @@ function Login() {
                 <form  className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
+                            <Typography className={classes.label}>Email</Typography>
                             <FormControl className={classes.field} variant="outlined" required fullWidth>
-                                <InputLabel htmlFor="component-outlined">Email</InputLabel>
-                                <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} label="Email" />
+                                <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
+                            <Typography className={classes.label}>Password</Typography>
                             <FormControl className={classes.field} variant="outlined" required fullWidth>
-                                <InputLabel htmlFor="component-outlined">Password</InputLabel>
-                                <OutlinedInput type="password" id="component-outlined" value={password} onChange={onPasswordChange} label="Password" />
+                                <OutlinedInput type="password" id="component-outlined" value={password} onChange={onPasswordChange} />
                             </FormControl>
                         </Grid>
                     </Grid>
