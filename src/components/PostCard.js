@@ -40,25 +40,46 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCardTest({ hit }) {
-    /*
-    author=name
-    id=firebase id
-    authorId=author
-    title=title
-    description=description
-    chips=skills
-    */
-    const classes = useStyles();
-    const { currentUser, currentUserData } = useAuth()
+export default function PostCard({ hit }) {
+    
+    const classes = useStyles()
+    const { currentUser } = useAuth()
+    const docRef = db.collection("posts").doc(hit.objectID)
+    const [bookmarked, setBookmarked] = useState(false)
+
+    useEffect(() => {
+        if (currentUser) {
+            setBookmarked(hit.bookmarkedBy.includes(currentUser.uid))
+        }
+    }, [currentUser])
+
+    const handleNotLoggedIn = () => {
+        alert("Please log in to bookmark this post")
+    }
+    
+    const handleAddBookmark = () => {
+        docRef.update({
+            bookmarkedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+        })
+        .then(() => {
+            setBookmarked(true)
+        })
+    }
+
+    const handleRemoveBookmark = () => {
+        docRef.update({
+            bookmarkedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
+        })
+        .then(() => {
+            setBookmarked(false)
+        })      
+    }
 
     const byline = (
         <Link className={classes.profileLink} to={`/profile/${hit.author}`}>
             {`by: ${hit.name}`}
         </Link>
     )
-    
-    const chips = hit.skills
 
     return (
         
@@ -84,7 +105,7 @@ function ProjectCardTest({ hit }) {
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {chips && chips.map(tag => {
+                        {hit.skills && hit.skills.map(tag => {
                             return <Chip label={tag}/>
                         })}
                     </div>
@@ -92,18 +113,20 @@ function ProjectCardTest({ hit }) {
                 <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
-                           
+                            <Link className={classes.link} to={'/viewpost/' + hit.objectID} /*target="_blank" rel="noopener noreferrer"*/>
+                                <Button size="small" color="primary">
+                                    View
+                                </Button>
+                            </Link>
+                            <Button size="small" color="primary" onClick={currentUser ? (bookmarked ? handleRemoveBookmark : handleAddBookmark) : handleNotLoggedIn}>
+                                {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
+                            </Button>
                         </Grid>
-                    </Grid>
-                        
-                    
-                </CardActions>                
+                    </Grid>  
+                </CardActions>                             
                 
             </Card>
 
         
     );
   }
-  
-  export default ProjectCardTest;
-  

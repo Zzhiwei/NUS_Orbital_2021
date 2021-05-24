@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCard({ authorId, id, title, author, description, chips, bookmarkedBy }) {
+export default function BookmarkCard({ authorId, id, title, author, description, chips, bookmarkedBy }) {
     const classes = useStyles();
     const { currentUser } = useAuth()
     const docRef = db.collection("posts").doc(id)
@@ -133,7 +133,4 @@ function ProjectCard({ authorId, id, title, author, description, chips, bookmark
 
         </div>
     );
-  }
-  
-  export default ProjectCard;
-  
+  }  
