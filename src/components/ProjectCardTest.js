@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-function ProjectCard({ hit }) {
+function ProjectCardTest({ hit }) {
     /*
     author=name
     id=firebase id
@@ -61,7 +61,7 @@ function ProjectCard({ hit }) {
     const chips = hit.skills
 
     return (
-        <div>
+        
             <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
                 <CardHeader  
                     className={classes.border}
@@ -101,9 +101,9 @@ function ProjectCard({ hit }) {
                 
             </Card>
 
-        </div>
+        
     );
   }
   
-  export default ProjectCard;
+  export default ProjectCardTest;
   
