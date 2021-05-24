@@ -1,4 +1,5 @@
-{
+{ 
+  "type": "module",
   "name": "orbital",
   "version": "0.1.0",
   "private": true,
@@ -11,6 +12,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "algoliasearch": "^4.9.1",
+    "faker": "^5.5.3",
     "firebase": "^8.6.1",
     "lodash": "^4.17.21",
     "material-ui-chip-input": "^2.0.0-beta.2",
