@@ -1,8 +1,10 @@
 import { makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
-import { useAuth } from '../contexts/AuthContext';
-import EditSkills from './modals/EditSkills'
 import EditIcon from '@material-ui/icons/Edit';
+
+import EditSkills from './modals/EditSkills'
+import { useAuth } from '../../contexts/AuthContext';
+
 
 
 const useStyles = makeStyles((theme) => {
@@ -32,8 +34,8 @@ export default function Skills({ userData, enableEdit }) {
         setOpen(false)
     }
 
-    const skillList = userData.skills.map(skill => {
-        return <Chip label={skill}> </Chip>
+    const skillList = userData.skills.map((skill, index) => {
+        return <Chip key={index} label={skill} />
     })
 
     const toRender = (
@@ -62,8 +64,10 @@ export default function Skills({ userData, enableEdit }) {
             <Modal
                 open={open}
                 onClose={null}
-            > 
-                <EditSkills skills={userData.skills} handleClose={handleClose} open={open}/>
+            >   
+                <div>
+                    <EditSkills skills={userData.skills} handleClose={handleClose} open={open}/>
+                </div>
             </Modal>
             {toRender}
         </div>

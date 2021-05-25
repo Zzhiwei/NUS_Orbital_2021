@@ -1,9 +1,10 @@
 import { Button, makeStyles, Paper } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input';
 import React, { useState } from 'react'
-import { Form } from '../useForm';
-import { useAuth } from '../../contexts/AuthContext'
-import { db } from '../../firebase'
+
+import { Form } from '../../useForm';
+import { useAuth } from '../../../contexts/AuthContext'
+import { db } from '../../../firebase'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -67,6 +68,7 @@ export default function EditInterests({handleClose, interests}) {
         <Paper className={classes.root}>
             <Form onSubmit={handleSubmit}>
                 <ChipInput
+                    fullWidthInput	
                     style={{background: "white", borderRadius: "4px"}}
                     name="chips"
                     label="interests"
@@ -74,6 +76,7 @@ export default function EditInterests({handleClose, interests}) {
                     value={chips}
                     onAdd={(chip) => handleAddChip(chip)}
                     onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                    fullWidthInput={true}
                 />  
                 
 

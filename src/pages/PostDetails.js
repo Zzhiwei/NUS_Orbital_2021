@@ -70,7 +70,7 @@ export default function PostDetails() {
     handleInputChange
   } = useForm(initialFValues);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) {
       alert('form not filled in correctly')
@@ -89,7 +89,7 @@ export default function PostDetails() {
     } = values
 
     setLoading(true)
-    db.collection("posts").add({
+    await db.collection("posts").add({
       type,
       title,
       skills,
@@ -106,7 +106,8 @@ export default function PostDetails() {
     })
     setLoading(false)
     setRefresh(true)
-    
+
+    //set timeout because it takes time for algolia index to update
     setTimeout(() => {
       history.push('/myposts')
     }, 300)

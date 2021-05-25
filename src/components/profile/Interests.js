@@ -1,8 +1,9 @@
 import { makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
-import { useAuth } from '../contexts/AuthContext';
-import EditInterests from './modals/EditInterests'
 import EditIcon from '@material-ui/icons/Edit';
+
+import { useAuth } from '../../contexts/AuthContext';
+import EditInterests from './modals/EditInterests'
 
 
 const useStyles = makeStyles((theme) => {
@@ -32,8 +33,8 @@ export default function Interests({ userData, enableEdit }) {
         setOpen(false)
     }
 
-    const interestList = userData.interests.map(interest => {
-        return <Chip label={interest}> </Chip>
+    const interestList = userData.interests.map((interest, index) => {
+        return <Chip key={index} label={interest} />
     })
 
     const toRender = (
@@ -62,7 +63,9 @@ export default function Interests({ userData, enableEdit }) {
                 open={open}
                 onClose={null}
             > 
-                <EditInterests interests={userData.interests} handleClose={handleClose} open={open}/>
+                <div>
+                    <EditInterests interests={userData.interests} handleClose={handleClose} open={open}/>
+                </div>
             </Modal>
             {toRender}
         </div>

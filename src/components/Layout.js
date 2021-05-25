@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => {
         },
         toolbar: theme.mixins.toolbar,        
         title: {
-            flexGrow: 1
+            flexGrow: 1,
+            textDecoration: 'none',
         },
         rightPaper: {
             width: '230px',
@@ -56,7 +57,7 @@ function Layout(props) {
     const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(false);
 
-    const isMenuOpen = anchorEl;
+    const isMenuOpen = Boolean(anchorEl);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -77,14 +78,17 @@ function Layout(props) {
     
     const handleProfile = () => {
         history.push(`/profile/${currentUser.uid}`)
+        handleMenuClose()
     }
 
     const handleMyPosts = () => {
         history.push('/myposts')
+        handleMenuClose()
     }
 
     const handleMyBookmarks = () => {
         history.push('/bookmarks')
+        handleMenuClose()
     }
 
     const renderMenu = (
@@ -92,7 +96,6 @@ function Layout(props) {
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           id={'primary-search-account-menu'}
-          keepMounted
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={isMenuOpen}
           onClose={handleMenuClose}
@@ -176,7 +179,15 @@ function Layout(props) {
             <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
-                    <Link to="/" style={{color: 'black', textDecoration: 'none'}} >
+                    <a href="/" className={classes.title}>
+                        <Typography 
+                            color="primary"
+                            variant='h4'
+                        >
+                            partnerUp           
+                        </Typography> 
+                    </a>
+                    {/* <Link to="/" style={{color: 'black', textDecoration: 'none'}} >
                         <Typography 
                             color="primary"
                             variant='h4'
@@ -184,9 +195,11 @@ function Layout(props) {
                         >
                             partnerUp           
                         </Typography> 
-                    </Link>
+                    </Link> */}
                     <span className={classes.title}></span>
-                    {currentUserData.basicInfo && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
+                    {currentUser 
+                        && currentUserData.basicInfo 
+                        && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
                     {renderLogin()}
                     
                 </Toolbar>                 

@@ -1,10 +1,12 @@
 import React from 'react';
 import {  Grid, InputLabel, makeStyles , TextField, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useAuth } from '../contexts/AuthContext'
-import { db } from '../firebase'
 import firebase from "firebase/app"
 import _ from 'lodash'
+
+import { db } from '../../firebase'
+import { useAuth } from '../../contexts/AuthContext'
+
 
 
 
@@ -172,6 +174,7 @@ function ExperienceBlock({ customProps, enableEdit }) {
                     InputProps={{
                         readOnly: true,
                     }}     
+                    multiline
                     value={description}
                     variant="outlined"
                 />
