@@ -7,7 +7,6 @@ import * as selections from '../components/Selections'
 import { useHistory }  from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useApp } from '../contexts/AppContext';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import Copyright from '../components/Copyright'
@@ -33,7 +32,6 @@ const useStyles = makeStyles (theme => ({
 export default function PostChange({ data })  {
     const classes = useStyles()
     const { currentUser } = useAuth()
-    const { setRefresh } = useApp()
     const history = useHistory()
     const [docRef, setDocRef] = useState(null)
     const [render, setRender] = useState(false)
@@ -131,10 +129,9 @@ export default function PostChange({ data })  {
         })
 
         setLoading(false)
-        setRefresh(true)
 
         setTimeout(() => {
-            history.push('/myposts')
+            history.push('/')
         }, 300)
 
         }
