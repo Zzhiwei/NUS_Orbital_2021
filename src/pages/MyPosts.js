@@ -53,9 +53,9 @@ export default function MyPosts() {
                 />        
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
-                        {posts.map(({id, data}) => {
+                        {posts.map(({id, data}, index) => {
                             return (
-                            <Grid item xs={12} md={6}>
+                            <Grid key={index} item xs={12} md={6}>
                                 <AdminCard
                                 key={id}
                                 id={id}
