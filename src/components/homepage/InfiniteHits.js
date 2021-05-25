@@ -7,8 +7,8 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
     return (
         <div >
             <Grid container spacing={3} style={{width: '80%', margin: 'auto auto'}} >
-                {hits.map(hit => (
-                    <Grid item xs={12} sm={6}  key={hit.objectID}>
+                {hits.map((hit, index) => (
+                    <Grid item xs={12} sm={6}  key={index}>
                         <PostCard hit={hit} />
                     </Grid>
                 ))}
