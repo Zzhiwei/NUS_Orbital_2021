@@ -1,12 +1,12 @@
 import { Avatar, makeStyles, Paper } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
-import BasicInfo from '../components/BasicInfo';
-import Education from '../components/Education';
+import BasicInfo from '../components/profile/BasicInfo';
+import Education from '../components/profile/Education';
 import Chips from '../components/Chips';
-import Experience from '../components/Experience';
-import Interests from '../components/Interests';
+import Experience from '../components/profile/Experience';
+import Interests from '../components/profile/Interests';
 import { useAuth } from '../contexts/AuthContext';
-import Skills from '../components/Skills'
+import Skills from '../components/profile/Skills'
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import { getDefaultNormalizer } from '@testing-library/dom';

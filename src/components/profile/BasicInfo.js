@@ -1,6 +1,7 @@
 import React from 'react';
 import { IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+
 import EditBasicInfo from './modals/EditBasicInfo'
 
 

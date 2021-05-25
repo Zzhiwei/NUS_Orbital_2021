@@ -1,8 +1,10 @@
 import { makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
-import { useAuth } from '../contexts/AuthContext';
-import EditSkills from './modals/EditSkills'
 import EditIcon from '@material-ui/icons/Edit';
+
+import EditSkills from './modals/EditSkills'
+import { useAuth } from '../../contexts/AuthContext';
+
 
 
 const useStyles = makeStyles((theme) => {
