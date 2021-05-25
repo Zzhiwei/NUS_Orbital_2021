@@ -1,8 +1,9 @@
 import { makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
-import { useAuth } from '../contexts/AuthContext';
-import EditInterests from './modals/EditInterests'
 import EditIcon from '@material-ui/icons/Edit';
+
+import { useAuth } from '../../contexts/AuthContext';
+import EditInterests from './modals/EditInterests'
 
 
 const useStyles = makeStyles((theme) => {

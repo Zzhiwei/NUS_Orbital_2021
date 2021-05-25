@@ -1,9 +1,10 @@
 import { Button, makeStyles, Paper } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input';
 import React, { useState } from 'react'
-import { Form } from '../useForm';
-import { useAuth } from '../../contexts/AuthContext'
-import { db } from '../../firebase'
+
+import { Form } from '../../useForm';
+import { useAuth } from '../../../contexts/AuthContext'
+import { db } from '../../../firebase'
 
 const useStyles = makeStyles((theme) => {
     return {

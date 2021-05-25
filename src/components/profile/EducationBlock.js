@@ -1,10 +1,11 @@
 import React from 'react';
 import { Grid, IconButton, makeStyles, TextField } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { db } from '../firebase'
 import firebase from "firebase/app"
-import { useAuth } from '../contexts/AuthContext'
 import _ from 'lodash'
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import { db } from '../../firebase'
+import { useAuth } from '../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => {
     return {

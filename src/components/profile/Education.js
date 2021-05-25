@@ -1,9 +1,9 @@
 import React from 'react';
 import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import EditExperience from './modals/EditExperience'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import ExperienceBlock from './ExperienceBlock'
+
+import EditEducation from './modals/EditEducation'
+import EducationBlock from './EducationBlock'
 
 
 
@@ -18,22 +18,21 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function Experience({ userData, enableEdit }) {
+function Education({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
+
+    const educationList = userData.education.map(edu => {
+        return (
+            <div>
+                <EducationBlock institution={edu.institution} from={edu.from} to={edu.to} enableEdit={enableEdit}/>
+            </div>
+        )
+    })
 
     const handleClose = () => {
         setOpen(false)
     }
-
-    const experienceList = userData.experience.map(exp => {
-        
-        return (
-            <div>
-                <ExperienceBlock customProps={exp} enableEdit={enableEdit}/>
-            </div>
-        )
-    })
 
     const renderAdd = () => {
         if (enableEdit) {
@@ -46,26 +45,23 @@ function Experience({ userData, enableEdit }) {
             )
         }
     }
-    
+
     return (
         <div style={{marginBottom: '30px'}}>
                 <Typography className={classes.title} color="primary" variant="h4">
-                    Experience
+                    Education
                 </Typography>
-
                 <Modal
                     open={open}
                     onClose={null}
                 >
-                    <EditExperience handleClose={handleClose} open={open}/>
+                    <EditEducation handleClose={handleClose} open={open}/>
                 </Modal>
-                {experienceList}
+                {educationList}
                 {renderAdd()}
-                
-                
         </div>
     );
   }
   
-  export default Experience;
+  export default Education;
   
