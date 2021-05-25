@@ -107,8 +107,8 @@ export default function BookmarkCard({ authorId, id, title, author, description,
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {chips && chips.map(tag => {
-                            return <Chip label={tag}/>
+                        {chips && chips.map((tag, index) => {
+                            return <Chip key={index} label={tag}/>
                         })}
                     </div>
                 </CardContent>    
