@@ -1,18 +1,24 @@
-import React from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch, Configure } from 'react-instantsearch-dom';
+
 import SearchBox from '../components/homepage/SearchBox'
 import InfiniteHits from '../components/homepage/InfiniteHits'
+import { useApp } from '../contexts/AppContext';
+
 
 const searchClient = algoliasearch(
-  'ES79ODFVNM',
-  'c57f19049ad61dad541fc8f7659c0f92'
+    'ES79ODFVNM',
+    'c57f19049ad61dad541fc8f7659c0f92'
 );
 
+
 export default function Home() {
+    const { reloadPage } = useApp()
+    reloadPage()
+
     return (
         <div style={{marginTop: '50px'}}>
-             <InstantSearch
+            <InstantSearch
                 indexName="posts"
                 searchClient={searchClient}
             > 
