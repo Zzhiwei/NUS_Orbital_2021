@@ -1,8 +1,8 @@
-import React from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch, connectHits, connectSearchBox} from 'react-instantsearch-dom';
 import PostCard from '../components/PostCard'
 import { Grid, TextField, Button } from '@material-ui/core';
+import { useApp } from '../contexts/AppContext';
 
 const searchClient = algoliasearch(
   'ES79ODFVNM',
@@ -22,7 +22,7 @@ const Hits = ({ hits }) => (
 const CustomHits = connectHits(Hits);
 
 const SearchBox = ({ isSearchStalled, refine }) => (
-    <Grid item  style={{marginBottom: '20px'}} xs={8} >
+    <Grid item xs={8} style={{marginBottom: '20px'}}>
         <form noValidate action="" role="search">
             <Grid container>
                 <Grid item xs={8}>
@@ -34,7 +34,7 @@ const SearchBox = ({ isSearchStalled, refine }) => (
                     onChange={e => refine(e.currentTarget.value)}
                 />
                 </Grid>
-                <Grid xs={4}>
+                <Grid item xs={4}>
                     <Button onClick={() => refine('')} color="primary" variant="contained" style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px', color: 'white'}}>
                         reset
                     </Button>
@@ -49,9 +49,13 @@ const CustomSearchBox = connectSearchBox(SearchBox);
 
 export default function Home() {
 
+    const { reloadPage } = useApp()
+
+    reloadPage()
+    
     return (
         <div style={{marginTop: '50px'}}>
-             <InstantSearch
+            <InstantSearch
                 indexName="posts"
                 searchClient={searchClient}
             > 
