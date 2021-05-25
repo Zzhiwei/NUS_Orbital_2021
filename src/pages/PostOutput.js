@@ -4,6 +4,7 @@ import Copyright from '../components/Copyright'
 import PageHeader from '../components/PageHeader'
 import DescriptionIcon from '@material-ui/icons/Description'
 import Controls from "../components/Controls"
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles (theme => ({
     root: {
@@ -16,16 +17,29 @@ const useStyles = makeStyles (theme => ({
     pageContent: {
       marginTop: theme.spacing(1),
       padding: theme.spacing(3),
+    },
+    byline: {
+        color: theme.palette.primary.main,
+        textDecoration: "none"
     }
 }))
 
+
+
 export default function PostOutput({ data })  {
     const classes = useStyles()
+    
+    const byline = (
+        <Link className={classes.byline} to={`/profile/${data.author}`}>
+            {`by: ${data.name}`}
+        </Link>
+    )
+
     return (
     <>
         <PageHeader 
             title={data.title}
-            subTitle={"by " + data.name}
+            subTitle={byline}
             icon={<DescriptionIcon fontSize="large"/>}
         />
         <form className={classes.root}>

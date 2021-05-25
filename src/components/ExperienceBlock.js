@@ -172,6 +172,7 @@ function ExperienceBlock({ customProps, enableEdit }) {
                     InputProps={{
                         readOnly: true,
                     }}     
+                    multiline
                     value={description}
                     variant="outlined"
                 />

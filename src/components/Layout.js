@@ -186,7 +186,9 @@ function Layout(props) {
                         </Typography> 
                     </Link>
                     <span className={classes.title}></span>
-                    {currentUserData.basicInfo && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
+                    {currentUser 
+                        && currentUserData.basicInfo 
+                        && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
                     {renderLogin()}
                     
                 </Toolbar>                 
