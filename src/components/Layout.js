@@ -56,7 +56,7 @@ function Layout(props) {
     const history = useHistory()
     const [anchorEl, setAnchorEl] = useState(false);
 
-    const isMenuOpen = anchorEl;
+    const isMenuOpen = Boolean(anchorEl);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -95,7 +95,6 @@ function Layout(props) {
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           id={'primary-search-account-menu'}
-          keepMounted
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           open={isMenuOpen}
           onClose={handleMenuClose}

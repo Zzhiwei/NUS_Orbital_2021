@@ -22,9 +22,9 @@ function Education({ userData, enableEdit }) {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
 
-    const educationList = userData.education.map(edu => {
+    const educationList = userData.education.map((edu, index) => {
         return (
-            <div>
+            <div key={index}>
                 <EducationBlock institution={edu.institution} from={edu.from} to={edu.to} enableEdit={enableEdit}/>
             </div>
         )
@@ -55,7 +55,9 @@ function Education({ userData, enableEdit }) {
                     open={open}
                     onClose={null}
                 >
-                    <EditEducation handleClose={handleClose} open={open}/>
+                    <div>
+                        <EditEducation handleClose={handleClose} open={open}/>
+                    </div>
                 </Modal>
                 {educationList}
                 {renderAdd()}

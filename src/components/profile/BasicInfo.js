@@ -52,7 +52,10 @@ function BasicInfo({ userData, enableEdit }) {
             )
         }
     }
-    
+
+ 
+  
+
     return (
         <div style={{marginBottom: '50px'}}>
                 <Typography style={{borderBottom: '2px solid black', marginBottom: '20px'}} color="primary" variant="h4">
@@ -63,8 +66,10 @@ function BasicInfo({ userData, enableEdit }) {
                 <Modal
                     open={open}
                     onClose={null}
-                >
-                    <EditBasicInfo basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
+                >   
+                    <div>
+                        <EditBasicInfo basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
+                    </div>
                 </Modal>
         
                 <form  align="left" noValidate autoComplete="off" onSubmit={null}>

@@ -31,7 +31,7 @@ function SearchBox({ isSearchStalled, refine }) {
                             onChange={handleChange}
                         />
                         </Grid>
-                        <Grid xs={4}>
+                        <Grid item xs={4}>
                             <Button onClick={handleReset} color="primary" variant="contained" style={{marginLeft: '20px', marginTop: '0px', height: '55px', width: '100px', color: 'white'}}>
                                 reset
                             </Button>
