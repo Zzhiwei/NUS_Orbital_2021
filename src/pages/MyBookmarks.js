@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function MyBookmarks() {
+    console.log("rerenderings")
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
@@ -43,7 +44,7 @@ export default function MyBookmarks() {
             setRender(true)
         }
         return () => { isMounted = false}
-    }) 
+    }, []) 
    
     return (
         <div>

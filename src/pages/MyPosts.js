@@ -25,6 +25,7 @@ export default function MyPosts() {
     const [name, setName] = useState("")
     const [render, setRender] = useState(false)
     const history = useHistory()
+    console.log("rerendering")
 
     //sends query to backend when first mounting
     useEffect(() => {
@@ -40,7 +41,7 @@ export default function MyPosts() {
             })
             setRender(true)
         }
-    })
+    }, [])
 
     return (
         <div>
