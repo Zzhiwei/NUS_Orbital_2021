@@ -13,9 +13,7 @@ export function AppProvider({ children }) {
     function reloadPage() {
         if (refresh) {
             setRefresh(false)
-            setTimeout(() => {
-                window.location.reload()
-            }, 500)
+            window.location.reload()
         }
     }
 
