@@ -67,6 +67,7 @@ export default function EditInterests({handleClose, interests}) {
         <Paper className={classes.root}>
             <Form onSubmit={handleSubmit}>
                 <ChipInput
+                    fullWidthInput	
                     style={{background: "white", borderRadius: "4px"}}
                     name="chips"
                     label="interests"
@@ -74,6 +75,7 @@ export default function EditInterests({handleClose, interests}) {
                     value={chips}
                     onAdd={(chip) => handleAddChip(chip)}
                     onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                    fullWidthInput={true}
                 />  
                 
 
