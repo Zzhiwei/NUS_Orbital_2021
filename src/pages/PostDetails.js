@@ -9,7 +9,6 @@ import { useState } from 'react'
 import * as selections from '../components/Selections'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { useApp } from '../contexts/AppContext'
 
 const useStyles = makeStyles (theme => ({
   label: {
@@ -38,7 +37,6 @@ const initialFValues = {
 export default function PostDetails() {
   const classes = useStyles()
   const { currentUser, currentUserData } = useAuth()
-  const { setRefresh } = useApp()
   const history = useHistory()
 
   //if no user is logged in redirect to sign up
@@ -104,13 +102,13 @@ export default function PostDetails() {
       bookmarkedBy: ["init"],
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
-    setLoading(false)
-    setRefresh(true)
-
+    
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
-      history.push('/myposts')
-    }, 300)
+      window.location.assign('/')
+    }, 500)
+    
+    
     
 
   }
