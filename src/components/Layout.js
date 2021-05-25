@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => {
         },
         toolbar: theme.mixins.toolbar,        
         title: {
-            flexGrow: 1
+            flexGrow: 1,
+            textDecoration: 'none',
         },
         rightPaper: {
             width: '230px',
@@ -178,7 +179,15 @@ function Layout(props) {
             <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
-                    <Link to="/" style={{color: 'black', textDecoration: 'none'}} >
+                    <a href="/" className={classes.title}>
+                        <Typography 
+                            color="primary"
+                            variant='h4'
+                        >
+                            partnerUp           
+                        </Typography> 
+                    </a>
+                    {/* <Link to="/" style={{color: 'black', textDecoration: 'none'}} >
                         <Typography 
                             color="primary"
                             variant='h4'
@@ -186,7 +195,7 @@ function Layout(props) {
                         >
                             partnerUp           
                         </Typography> 
-                    </Link>
+                    </Link> */}
                     <span className={classes.title}></span>
                     {currentUser 
                         && currentUserData.basicInfo 
