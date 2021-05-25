@@ -105,8 +105,8 @@ export default function PostCard({ hit }) {
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {hit.skills && hit.skills.map(tag => {
-                            return <Chip label={tag}/>
+                        {hit.skills && hit.skills.map((tag, index) => {
+                            return <Chip key={index} label={tag}/>
                         })}
                     </div>
                 </CardContent>    

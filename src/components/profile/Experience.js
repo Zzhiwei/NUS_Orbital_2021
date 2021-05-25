@@ -28,11 +28,11 @@ function Experience({ userData, enableEdit }) {
         setOpen(false)
     }
 
-    const experienceList = userData.experience.map(exp => {
+    const experienceList = userData.experience.map((exp, index) => {
         
         return (
-            <div>
-                <ExperienceBlock customProps={exp} enableEdit={enableEdit}/>
+            <div key={index}>
+                <ExperienceBlock  customProps={exp} enableEdit={enableEdit}/>
             </div>
         )
     })
@@ -58,8 +58,10 @@ function Experience({ userData, enableEdit }) {
                 <Modal
                     open={open}
                     onClose={null}
-                >
-                    <EditExperience handleClose={handleClose} open={open}/>
+                >   
+                    <div>
+                        <EditExperience handleClose={handleClose} open={open}/>
+                    </div>
                 </Modal>
                 {experienceList}
                 {renderAdd()}

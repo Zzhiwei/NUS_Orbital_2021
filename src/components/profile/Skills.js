@@ -34,8 +34,8 @@ export default function Skills({ userData, enableEdit }) {
         setOpen(false)
     }
 
-    const skillList = userData.skills.map(skill => {
-        return <Chip label={skill}> </Chip>
+    const skillList = userData.skills.map((skill, index) => {
+        return <Chip key={index} label={skill} />
     })
 
     const toRender = (
@@ -64,8 +64,10 @@ export default function Skills({ userData, enableEdit }) {
             <Modal
                 open={open}
                 onClose={null}
-            > 
-                <EditSkills skills={userData.skills} handleClose={handleClose} open={open}/>
+            >   
+                <div>
+                    <EditSkills skills={userData.skills} handleClose={handleClose} open={open}/>
+                </div>
             </Modal>
             {toRender}
         </div>
