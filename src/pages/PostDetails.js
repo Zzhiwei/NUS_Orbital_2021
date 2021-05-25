@@ -104,12 +104,13 @@ export default function PostDetails() {
       bookmarkedBy: ["init"],
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
+    setLoading(false)
     setRefresh(true)
 
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
       history.push('/myposts')
-    }, 500)
+    }, 300)
     
 
   }

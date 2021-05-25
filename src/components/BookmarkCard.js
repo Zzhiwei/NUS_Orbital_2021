@@ -49,9 +49,7 @@ export default function BookmarkCard({ authorId, id, title, author, description,
     const docRef = db.collection("posts").doc(id)
     const [bookmarked, setBookmarked] = useState(false)
 
-    
     useEffect(() => {
-
         if (currentUser) {
             setBookmarked(bookmarkedBy.includes(currentUser.uid))
         }
@@ -109,8 +107,8 @@ export default function BookmarkCard({ authorId, id, title, author, description,
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {chips && chips.map((tag, index) => {
-                            return <Chip key={index} label={tag}/>
+                        {chips && chips.map(tag => {
+                            return <Chip label={tag}/>
                         })}
                     </div>
                 </CardContent>    

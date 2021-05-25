@@ -41,6 +41,7 @@ export default function AdminCard({id, title, author, description, chips}) {
     const handleDelete = () => {
         db.collection('posts').doc(id).delete()
         .then(() => {
+            console.log("deleted")
             setRefresh(true)
         })
     }
@@ -69,8 +70,8 @@ export default function AdminCard({id, title, author, description, chips}) {
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {chips && chips.map((tag, index) => {
-                            return <Chip key={index} label={tag}/>
+                        {chips && chips.map(tag => {
+                            return <Chip label={tag}/>
                         })}
                     </div>
                 </CardContent>    
