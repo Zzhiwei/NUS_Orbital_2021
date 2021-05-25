@@ -77,14 +77,17 @@ function Layout(props) {
     
     const handleProfile = () => {
         history.push(`/profile/${currentUser.uid}`)
+        handleMenuClose()
     }
 
     const handleMyPosts = () => {
         history.push('/myposts')
+        handleMenuClose()
     }
 
     const handleMyBookmarks = () => {
         history.push('/bookmarks')
+        handleMenuClose()
     }
 
     const renderMenu = (

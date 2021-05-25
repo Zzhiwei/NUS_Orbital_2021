@@ -41,9 +41,6 @@ function Profile() {
 
     const viewingOwn = useRef(null)
 
-    console.log('rerendering')
-
-
     const [renderOptions, setRenderOptions] = useState({
         userData: null,
         enableEdit: null,
