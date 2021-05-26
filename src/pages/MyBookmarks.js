@@ -6,7 +6,6 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useHistory }  from 'react-router-dom'
-import firebase from "firebase/app"
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -29,23 +28,27 @@ export default function MyBookmarks() {
 
     //sends query to backend when first mounting
     useEffect(() => {
-        let mounted = true
         //if no user is logged in redirect to sign up
         if (!currentUser) {
             alert("Please login to view your bookmarks")
             history.push('/login')
         } else {
-            db.collection("posts").where(firebase.firestore.FieldPath.documentId(), "in", currentUserData.bookmarks).get()
-            .then(snapShot => {
-                setPosts(snapShot.docs.map(doc => {return {data: doc.data(), id: doc.id} }))
-            })
+            let renderList = []
+            async function fetch() {
+                await currentUserData.bookmarks.forEach(
+                uid => {
+                    db.collection("posts").doc(uid).onSnapshot(
+                        doc => {
+                            renderList.push({...doc.data(), id: doc.id})
+                        })
+                })
+            }
+            fetch()
+            setPosts(renderList)
             setRender(true)
         }
-        return function cleanup() {
-            mounted = false
-        }
-    }, []) 
-   
+    }, [currentUser, currentUserData.bookmarks, history]) 
+
     return (
         <div>
             { !render && <div>Loading...</div>}
@@ -57,12 +60,13 @@ export default function MyBookmarks() {
                 />        
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
-                        {posts.map(({id, data}, index) => {
+                        {posts.map((data, index) => {
+                            console.log(data)
                                 return ( 
                                 <Grid item xs={12} md={6} key={index}>
                                     <PostCard
-                                        key={id}
-                                        id={id}
+                                        key={data.id}
+                                        id={data.id}
                                         title={data.title}
                                         author={data.name}
                                         authorId={data.author}

@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkCard({ authorId, id, title, author, description, chips }) {
+export default function PostCard({ authorId, id, title, author, description, chips }) {
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
     const docRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
@@ -125,12 +125,8 @@ export default function BookmarkCard({ authorId, id, title, author, description,
                             </Button>
                         </Grid>
                     </Grid>
-                        
-                    
                 </CardActions>                
-                
             </Card>
-
         </div>
     );
   }  
