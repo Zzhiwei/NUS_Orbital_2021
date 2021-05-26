@@ -52,11 +52,9 @@ function App() {
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>   
-              <Route path="/c" component={PictureCropper}></Route>   
             </Switch>
           </Layout>   
         </AuthProvider>      
-
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 function Profile() {
+    console.log("rerender profile")
     const { currentUser, currentUserData } = useAuth()
     const classes = useStyles()
     const { id } = useParams()

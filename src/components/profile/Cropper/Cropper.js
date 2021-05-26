@@ -5,9 +5,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Alert from '@material-ui/lab/Alert';
 
 
-import { dataURLtoFile } from './Converter'
 import './Cropper.css'
 import getCroppedImg from "./CropImage";
+import { db } from "../../../firebase";
+import { useAuth } from '../../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -51,8 +52,10 @@ const useStyles = makeStyles((theme) => {
 
 
 
-export default function PictureCropper({ file, setFile, open, closeCropper }) {
+export default function PictureCropper({ closeCropper }) {
     const classes = useStyles()
+
+	const { currentUser,  currentUserData, setCurrentUserData } = useAuth()
     
 	const inputRef = React.useRef();
 
@@ -96,8 +99,16 @@ export default function PictureCropper({ file, setFile, open, closeCropper }) {
 		}
 		const canvas = await getCroppedImg(image, croppedArea)
 		const canvasDataUrl = canvas.toDataURL("image/jpeg")
-		const imageFile = dataURLtoFile(canvasDataUrl, 'cropped.jpeg')
-		setFile(canvasDataUrl)
+		await db.collection('users').doc(currentUser.uid).update({
+			profilePicture: canvasDataUrl
+		})
+		console.log("successfully uploaded picture")
+		setCurrentUserData({
+			...currentUserData,
+			profilePicture: canvasDataUrl
+		})
+		// setSrcURL(canvasDataUrl)
+		
 		closeCropper()
 
 	}
