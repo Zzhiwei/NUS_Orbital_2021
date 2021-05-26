@@ -43,15 +43,15 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkCard({ authorId, id, title, author, description, chips, bookmarkedBy }) {
+export default function BookmarkCard({ authorId, id, title, author, description, chips }) {
     const classes = useStyles();
-    const { currentUser } = useAuth()
-    const docRef = db.collection("posts").doc(id)
+    const { currentUser, currentUserData } = useAuth()
+    const docRef = db.collection("users").doc(currentUser.uid)
     const [bookmarked, setBookmarked] = useState(false)
-
+ 
     useEffect(() => {
         if (currentUser) {
-            setBookmarked(bookmarkedBy.includes(currentUser.uid))
+            setBookmarked(currentUserData.bookmarks.includes(id))
         }
     }, [currentUser])
 
@@ -61,7 +61,7 @@ export default function BookmarkCard({ authorId, id, title, author, description,
     
     const handleAddBookmark = () => {
         docRef.update({
-            bookmarkedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+            bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
         })
         .then(() => {
             setBookmarked(true)
@@ -70,7 +70,7 @@ export default function BookmarkCard({ authorId, id, title, author, description,
 
     const handleRemoveBookmark = () => {
         docRef.update({
-            bookmarkedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
+            bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
         })
         .then(() => {
             setBookmarked(false)

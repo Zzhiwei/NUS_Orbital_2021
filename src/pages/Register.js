@@ -103,6 +103,8 @@ function Register() {
                 experience: [],
                 interests: [],
                 skills: [],
+                posts: [],
+                bookmarks: [],
             })
             
             history.push('/')

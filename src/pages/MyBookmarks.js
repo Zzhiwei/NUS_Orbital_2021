@@ -68,7 +68,6 @@ export default function MyBookmarks() {
                                         authorId={data.author}
                                         description={data.description}
                                         chips={data.skills}
-                                        bookmarkedBy={data.bookmarkedBy}
                                     />
                                 </Grid>
                             )})}

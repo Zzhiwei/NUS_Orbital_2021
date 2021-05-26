@@ -102,14 +102,11 @@ export default function PostDetails() {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(docRef => (setCurrentUserData(currentUserData.posts.push(docRef.id))))
+    
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
       window.location.assign('/')
     }, 500)
-    
-    
-    
-
   }
 
   const handleAddChip = (chip) => {
