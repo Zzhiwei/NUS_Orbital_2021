@@ -3,6 +3,7 @@ import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid,
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase'
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
+import { useAuth } from '../contexts/AuthContext'
 
 const useStyles = makeStyles(theme => {
     return {
@@ -35,11 +36,13 @@ const useStyles = makeStyles(theme => {
 
 export default function AdminCard({id, title, author, description, chips}) {
     const classes = useStyles();
+    const { currentUserData, setCurrentUserData } = useAuth()
 
     const handleDelete = () => {
         db.collection('posts').doc(id).delete()
         .then(() => {
             console.log("deleted")
+            setCurrentUserData(currentUserData.posts.pop(id))
         })
     }
 
