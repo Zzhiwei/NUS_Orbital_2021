@@ -36,7 +36,7 @@ const initialFValues = {
 
 export default function PostDetails() {
   const classes = useStyles()
-  const { currentUser, currentUserData } = useAuth()
+  const { currentUser, currentUserData, setCurrentUserData } = useAuth()
   const history = useHistory()
 
   //if no user is logged in redirect to sign up
@@ -99,10 +99,9 @@ export default function PostDetails() {
       description,
       author: currentUser.uid,
       name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName,
-      bookmarkedBy: ["init"],
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
-    
+    .then(docRef => (setCurrentUserData(currentUserData.posts.push(docRef.id))))
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
       window.location.assign('/')

@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => {
 
 export default function MyPosts() {
     const classes = useStyles();
-    const [posts, setPosts] = useState([]);
     const { currentUser, currentUserData } = useAuth()
-    const [name, setName] = useState("")
+    const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
     console.log("rerendering")
+    console.log(currentUserData)
 
     //sends query to backend when first mounting
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function MyPosts() {
             alert("Please log in first")
             history.push('/login')
         } else {
-            setName(currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName)
+            const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
             db.collection("posts").where("name", "==", name).get()
             .then(snapShot => {
                 setPosts(snapShot.docs.map(doc => {return {data: doc.data(), id: doc.id} }))
