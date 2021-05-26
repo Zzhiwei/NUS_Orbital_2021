@@ -1,0 +1,20 @@
+.cropperSlider {
+    height: 10%;
+    margin: auto;
+    width: 35%;
+}
+
+.buttons {
+    height: 10%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .cropperSlider {
+        width: 55%;
+        background-color: pink;
+    }
+}

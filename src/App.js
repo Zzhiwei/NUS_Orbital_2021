@@ -12,6 +12,7 @@ import EditPost from './pages/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
+import PictureCropper from './components/profile/Cropper/Cropper'
 
 
 
@@ -51,6 +52,7 @@ function App() {
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>   
+              <Route path="/c" component={PictureCropper}></Route>   
             </Switch>
           </Layout>   
         </AuthProvider>      

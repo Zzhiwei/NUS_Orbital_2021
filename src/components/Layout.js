@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => {
         page: {        
             height: '100%',
             width: '100%',            
-            paddingBottom: '37.5vh'            
+            paddingBottom: '37.5vh',
         },
         toolbar: theme.mixins.toolbar,        
         title: {
