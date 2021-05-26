@@ -6,7 +6,6 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
 import { useHistory }  from 'react-router-dom'
-import firebase from "firebase/app"
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -34,13 +33,22 @@ export default function MyPosts() {
             alert("Please log in first")
             history.push('/login')
         } else {
-            db.collection("posts").where(firebase.firestore.FieldPath.documentId(), "in", currentUserData.posts).get()
-            .then(snapShot => {
-                setPosts(snapShot.docs.map(doc => {return {data: doc.data(), id: doc.id} }))
-            })
+            let renderList = []
+
+            async function fetch() {
+                await currentUserData.posts.forEach(
+                uid => {
+                    db.collection("posts").doc(uid).onSnapshot(
+                        doc => {
+                            renderList.push({...doc.data(), id: doc.id})
+                        })
+                })
+            }
+            fetch()
+            setPosts(renderList)
             setRender(true)
         }
-    }, [currentUser])
+    }, [currentUser, currentUserData.posts, history])
 
     return (
         <div>
@@ -53,12 +61,13 @@ export default function MyPosts() {
                 />        
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
-                        {posts.map(({id, data}, index) => {
+                        {posts.map((data, index) => {
+                            console.log(data)
                             return (
                             <Grid key={index} item xs={12} md={6}>
                                 <AdminCard
-                                key={id}
-                                id={id}
+                                key={data.id}
+                                id={data.id}
                                 title={data.title}
                                 author={data.name}
                                 description={data.description}
