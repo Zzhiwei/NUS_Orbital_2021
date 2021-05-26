@@ -1,17 +1,16 @@
-import { Avatar, makeStyles, Paper } from '@material-ui/core';
 import React, { useRef, useState } from 'react';
-import BasicInfo from '../components/profile/BasicInfo';
-import Education from '../components/profile/Education';
-import Chips from '../components/Chips';
-import Experience from '../components/profile/Experience';
-import Interests from '../components/profile/Interests';
-import { useAuth } from '../contexts/AuthContext';
-import Skills from '../components/profile/Skills'
+import { makeStyles, Paper } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
-import { db } from '../firebase';
-import { getDefaultNormalizer } from '@testing-library/dom';
 import _ from 'lodash'
 
+import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
+import BasicInfo from '../components/profile/BasicInfo';
+import Education from '../components/profile/Education';
+import Experience from '../components/profile/Experience';
+import Interests from '../components/profile/Interests';
+import Skills from '../components/profile/Skills'
+import ProfileAvatar from '../components/profile/ProfileAvatar'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -20,17 +19,7 @@ const useStyles = makeStyles((theme) => {
             margin: 'auto auto',            
             padding: '10px 100px'            
             
-        },        
-        avatar: {
-            width: theme.spacing(15),
-            height: theme.spacing(15),
-            marginTop: '40px',
-            marginBottom: '50px',
-            marginLeft: 'auto',
-            marginRight: 'auto'
         }
-        
-        
     }
 });
 
@@ -99,7 +88,7 @@ function Profile() {
         return (
             <div>
                 <Paper className={classes.root} elevation={3}>                  
-                    <Avatar className={classes.avatar}/>
+                    <ProfileAvatar userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     <BasicInfo userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     <Education userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>            
                     <Experience userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
