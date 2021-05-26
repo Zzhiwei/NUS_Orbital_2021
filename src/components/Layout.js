@@ -187,17 +187,8 @@ function Layout(props) {
                             partnerUp           
                         </Typography> 
                     </a>
-                    {/* <Link to="/" style={{color: 'black', textDecoration: 'none'}} >
-                        <Typography 
-                            color="primary"
-                            variant='h4'
-                            className={classes.title}                        
-                        >
-                            partnerUp           
-                        </Typography> 
-                    </Link> */}
                     <span className={classes.title}></span>
-                    {currentUser 
+                    {currentUserData
                         && currentUserData.basicInfo 
                         && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
                     {renderLogin()}

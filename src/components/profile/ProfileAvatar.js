@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { makeStyles, Avatar, Modal, Menu, MenuItem, IconButton } from '@material-ui/core';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
+
 import PictureCropper from './Cropper/Cropper'
+import { useAuth } from '../../contexts/AuthContext'
 
 
 const useStyles = makeStyles((theme) => {
@@ -29,15 +31,15 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function ProfileAvatar({ currentUserData, enableEdit}) {
+export default function ProfileAvatar({ enableEdit}) {
+    console.log("rendering profileAvatar")
     const classes = useStyles()
 
+    const { currentUserData } = useAuth()
     //options
     const [anchorEl, setAnchorEl] = useState(null);
     //cropper
     const [open, setOpen] = useState(false);
-    const [file, setFile] = useState(null)
-    
 
 
     const handleClick = (event) => {
@@ -57,6 +59,7 @@ export default function ProfileAvatar({ currentUserData, enableEdit}) {
     const handleOptionsClose = () => {
         setAnchorEl(null);
     };
+
     
 
     return (
@@ -69,11 +72,11 @@ export default function ProfileAvatar({ currentUserData, enableEdit}) {
                 aria-describedby="simple-modal-description"
             >
                 <div>
-                    <PictureCropper file={file} setFile={setFile} open={open} closeCropper={handleCropperClose}/>
+                    <PictureCropper    closeCropper={handleCropperClose}/>
                 </div>   
             </Modal>
              
-            <Avatar src={file} className={classes.avatar}/>
+            <Avatar src={currentUserData.profilePicture} className={classes.avatar}/>
             <IconButton className={classes.avatarOptions} size="small" onClick={handleClick}>
                 <CameraAltIcon />
             </IconButton>

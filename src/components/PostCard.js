@@ -46,11 +46,11 @@ const useStyles = makeStyles(theme => {
 export default function BookmarkCard({ authorId, id, title, author, description, chips }) {
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
-    const docRef = db.collection("users").doc(currentUser.uid)
+    const docRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [bookmarked, setBookmarked] = useState(false)
  
     useEffect(() => {
-        if (currentUser) {
+        if (currentUser && currentUserData) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
     }, [currentUser])
