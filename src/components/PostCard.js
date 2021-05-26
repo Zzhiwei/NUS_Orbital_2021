@@ -32,24 +32,26 @@ const useStyles = makeStyles(theme => {
         },
         profileLink: {
             color: theme.palette.primary.light,
-            textDecoration: "none"
+            textDecoration: "none",
+            '&:hover':{
+                textDecoration: "underline",
+            },
         },
         border: {
             backgroundColor: theme.palette.secondary.main,
-        }
+        },
     }    
 })
 
-export default function PostCard({ hit }) {
-    
-    const classes = useStyles()
-    const { currentUser } = useAuth()
-    const docRef = db.collection("posts").doc(hit.objectID)
+export default function BookmarkCard({ authorId, id, title, author, description, chips }) {
+    const classes = useStyles();
+    const { currentUser, currentUserData } = useAuth()
+    const docRef = db.collection("users").doc(currentUser.uid)
     const [bookmarked, setBookmarked] = useState(false)
-
+ 
     useEffect(() => {
         if (currentUser) {
-            setBookmarked(hit.bookmarkedBy.includes(currentUser.uid))
+            setBookmarked(currentUserData.bookmarks.includes(id))
         }
     }, [currentUser])
 
@@ -59,7 +61,7 @@ export default function PostCard({ hit }) {
     
     const handleAddBookmark = () => {
         docRef.update({
-            bookmarkedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+            bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
         })
         .then(() => {
             setBookmarked(true)
@@ -68,7 +70,7 @@ export default function PostCard({ hit }) {
 
     const handleRemoveBookmark = () => {
         docRef.update({
-            bookmarkedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
+            bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
         })
         .then(() => {
             setBookmarked(false)
@@ -76,13 +78,13 @@ export default function PostCard({ hit }) {
     }
 
     const byline = (
-        <Link className={classes.profileLink} to={`/profile/${hit.author}`}>
-            {`by: ${hit.name}`}
+        <Link className={classes.profileLink} to={`/profile/${authorId}`}>
+            {`by: ${author}`}
         </Link>
     )
 
     return (
-        
+        <div>
             <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
                 <CardHeader  
                     className={classes.border}
@@ -93,7 +95,7 @@ export default function PostCard({ hit }) {
                     }
                     title={
                         <Typography color="primary" variant="body1">
-                        {hit.title}
+                            {title}
                         </Typography>
                     }
                     subheader={byline}                    
@@ -101,11 +103,11 @@ export default function PostCard({ hit }) {
                 <CardContent style={{}}>
                     
                     <Typography variant="body1" >
-                        {hit.description}
+                        {description}
                     </Typography>
 
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
-                        {hit.skills && hit.skills.map((tag, index) => {
+                        {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
                         })}
                     </div>
@@ -113,7 +115,7 @@ export default function PostCard({ hit }) {
                 <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
-                            <Link className={classes.link} to={'/viewpost/' + hit.objectID} /*target="_blank" rel="noopener noreferrer"*/>
+                            <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
                                 <Button size="small" color="primary">
                                     View
                                 </Button>
@@ -122,11 +124,13 @@ export default function PostCard({ hit }) {
                                 {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
                             </Button>
                         </Grid>
-                    </Grid>  
-                </CardActions>                             
+                    </Grid>
+                        
+                    
+                </CardActions>                
                 
             </Card>
 
-        
+        </div>
     );
-  }
+  }  
