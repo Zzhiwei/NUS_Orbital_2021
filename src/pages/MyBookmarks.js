@@ -1,11 +1,12 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import BookmarkCard from '../components/BookmarkCard';
+import PostCard from '../components/PostCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useHistory }  from 'react-router-dom'
+import firebase from "firebase/app"
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -23,27 +24,26 @@ export default function MyBookmarks() {
     const classes = useStyles();
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
-    const { currentUser } = useAuth()
+    const { currentUser, currentUserData } = useAuth()
     const history = useHistory()
 
     //sends query to backend when first mounting
     useEffect(() => {
-        let isMounted = true
+        let mounted = true
         //if no user is logged in redirect to sign up
         if (!currentUser) {
             alert("Please login to view your bookmarks")
             history.push('/login')
         } else {
-            db.collection("posts").onSnapshot(snapShot => {
-                if (isMounted) {
-                    setPosts(snapShot.docs
-                    .filter(doc => (doc.data().bookmarkedBy).includes(currentUser.uid))
-                    .map(doc => {return {data: doc.data(), id: doc.id}}))
-                }
+            db.collection("posts").where(firebase.firestore.FieldPath.documentId(), "in", currentUserData.bookmarks).get()
+            .then(snapShot => {
+                setPosts(snapShot.docs.map(doc => {return {data: doc.data(), id: doc.id} }))
             })
             setRender(true)
         }
-        return () => { isMounted = false}
+        return function cleanup() {
+            mounted = false
+        }
     }, []) 
    
     return (
@@ -57,10 +57,10 @@ export default function MyBookmarks() {
                 />        
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
-                        {posts.map(({id, data}) => {
+                        {posts.map(({id, data}, index) => {
                                 return ( 
-                                <Grid item xs={12} md={6}key={id}>
-                                    <BookmarkCard
+                                <Grid item xs={12} md={6} key={index}>
+                                    <PostCard
                                         key={id}
                                         id={id}
                                         title={data.title}

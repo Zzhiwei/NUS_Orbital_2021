@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
 import { useHistory }  from 'react-router-dom'
+import firebase from "firebase/app"
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -25,7 +26,6 @@ export default function MyPosts() {
     const [render, setRender] = useState(false)
     const history = useHistory()
     console.log("rerendering")
-    console.log(currentUserData)
 
     //sends query to backend when first mounting
     useEffect(() => {
@@ -34,14 +34,13 @@ export default function MyPosts() {
             alert("Please log in first")
             history.push('/login')
         } else {
-            const name = currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName
-            db.collection("posts").where("name", "==", name).get()
+            db.collection("posts").where(firebase.firestore.FieldPath.documentId(), "in", currentUserData.posts).get()
             .then(snapShot => {
                 setPosts(snapShot.docs.map(doc => {return {data: doc.data(), id: doc.id} }))
             })
             setRender(true)
         }
-    }, [])
+    }, [currentUser])
 
     return (
         <div>
