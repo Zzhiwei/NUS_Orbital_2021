@@ -1,6 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import PostCard from '../components/PostCard';
+import BookmarkedCard from '../components/BookmarkedCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
@@ -19,40 +19,42 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function MyBookmarks() {
-    console.log("rerenderings")
+    console.log("MYBOOKMARKS")
     const classes = useStyles();
+    const { currentUser, currentUserData } = useAuth()
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
-    const { currentUser, currentUserData } = useAuth()
     const history = useHistory()
 
-    //sends query to backend when first mounting
-    useEffect(() => {
-        //if no user is logged in redirect to sign up
-        if (!currentUser) {
-            alert("Please login to view your bookmarks")
-            history.push('/login')
-        } else {
-            let renderList = []
-            async function fetch() {
-                await currentUserData.bookmarks.forEach(
-                uid => {
-                    db.collection("posts").doc(uid).onSnapshot(
-                        doc => {
-                            renderList.push({...doc.data(), id: doc.id})
-                        })
-                })
-            }
-            fetch()
-            setPosts(renderList)
-            setRender(true)
-        }
-    }, [currentUser, currentUserData.bookmarks, history]) 
 
-    return (
-        <div>
-            { !render && <div>Loading...</div>}
-            { render && 
+    /*
+        right now it is in working state but not efficient 
+        since every deletions triggers another fetch action
+        and for some reason mybookmarks is rendered three times
+    */
+    useEffect(async () => {
+        if (!currentUser) {
+            return history.push('/login')
+        }
+        let renderList = []
+
+        async function fetch() {
+            for (const post of currentUserData.bookmarks) {
+                const postData =  await  db.collection("posts").doc(post).get().then(res => res.data())
+                renderList.push({...postData, id: post})
+            }
+        }
+        await fetch()
+        setPosts(renderList)
+        setRender(true)
+    }, [currentUserData.bookmarks]) 
+
+
+    const renderContent = () => {
+        if (!render) {
+            return <div>Loading...</div>
+        }
+        return (
             <div>
                 <PageHeader 
                     title="My Bookmarks"
@@ -61,11 +63,9 @@ export default function MyBookmarks() {
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
                         {posts.map((data, index) => {
-                            console.log(data)
                                 return ( 
                                 <Grid item xs={12} md={6} key={index}>
-                                    <PostCard
-                                        key={data.id}
+                                    <BookmarkedCard
                                         id={data.id}
                                         title={data.title}
                                         author={data.name}
@@ -78,9 +78,10 @@ export default function MyBookmarks() {
                     </Grid>
                 </div>
             </div>
-            }
-        </div>
-    );
+        )
+    }
+
+    return renderContent()
 
 }
 

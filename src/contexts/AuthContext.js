@@ -8,6 +8,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+    console.log("AUTHCONTEXT")
     
     const [currentUser, setCurrentUser] = useState()
     const [currentUserData, setCurrentUserData] = useState({})
