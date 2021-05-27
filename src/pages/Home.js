@@ -10,6 +10,7 @@ const searchClient = algoliasearch(
 );
 
 export default function Home() {
+    console.log("rerendering home")
     return (
         <div style={{marginTop: '50px'}}>
              <InstantSearch

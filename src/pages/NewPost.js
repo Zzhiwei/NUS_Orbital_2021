@@ -15,7 +15,7 @@ const useStyles = makeStyles (theme => ({
 function NewPost() {
 
   const classes = useStyles();
-
+  console.log('rendering  newpost')
   return (
     <>
       <PageHeader 

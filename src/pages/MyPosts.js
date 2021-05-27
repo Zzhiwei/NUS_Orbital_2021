@@ -19,12 +19,13 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function MyPosts() {
+    console.log("render myposts")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
-    console.log("rerendering")
+    
 
     //sends query to backend when first mounting
     useEffect(() => {

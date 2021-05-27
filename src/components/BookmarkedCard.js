@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase';
@@ -43,43 +43,27 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function PostCard({  authorId, id, title, author, description, chips }) {
-    console.log("rendering postcard")
+export default function BookmarkedCard({  authorId, id, title, author, description, chips }) {
+    console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
-    const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
-    const [bookmarked, setBookmarked] = useState(false)
+    const userRef = db.collection("users").doc(currentUser.uid)
  
-    useEffect(() => {
-        if (currentUser && currentUserData.bookmarks) {
-            setBookmarked(currentUserData.bookmarks.includes(id))
-        }
-    }, [])
-    
 
-    const handleAddBookmark = async () => {
-        await userRef.update({
-            bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
-        })
-        setCurrentUserData({
-            ...currentUserData,
-            bookmarks: [...currentUserData.bookmarks, id]
-        })
-        setBookmarked(true)
-    }
-
-    const handleRemoveBookmark = async () => {
-        await userRef.update({
+    const handleRemoveBookmark = () => {
+        userRef.update({
             bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
         })
-        const bookmarks = [...currentUserData.bookmarks]
-        const index = bookmarks.indexOf(id)
-        bookmarks.splice(index, 1)
-        setCurrentUserData({
-            ...currentUserData,
-            bookmarks
-        })
-        setBookmarked(false)
+        .then(() => {
+            const bookmarks = [...currentUserData.bookmarks]
+            const index = bookmarks.indexOf(id)
+            bookmarks.splice(index, 1)
+            console.log("deleting")
+            setCurrentUserData({
+                ...currentUserData,
+                bookmarks
+            })
+        })      
     }
 
     const byline = (
@@ -87,17 +71,6 @@ export default function PostCard({  authorId, id, title, author, description, ch
             {`by: ${author}`}
         </Link>
     )
-
-    const renderBookmark = () => {
-        if (currentUser) {
-            return (
-                <Button size="small" color="primary" onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
-                    {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
-                </Button>
-            )
-        }
-    }
-
     return (
         <div>
             
@@ -131,12 +104,14 @@ export default function PostCard({  authorId, id, title, author, description, ch
                 <CardActions  className={classes.border}> 
                     <Grid  container justify="center">
                         <Grid item>
-                            <Link className={classes.link} to={'/viewpost/' + id} >
+                            <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
                                 <Button size="small" color="primary">
                                     View
                                 </Button>
                             </Link>
-                            {renderBookmark()}
+                            <Button size="small" color="primary" onClick={ handleRemoveBookmark }>
+                                Remove from bookmarks
+                            </Button>
                         </Grid>
                     </Grid>
                 </CardActions>                
