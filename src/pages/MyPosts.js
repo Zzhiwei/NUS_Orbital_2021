@@ -22,11 +22,11 @@ export default function MyPosts() {
     console.log("render myposts")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
+    console.log(currentUserData.posts)
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
     
-
     //sends query to backend when first mounting
     useEffect(async () => {
         //if no user is logged in redirect to sign up
@@ -48,36 +48,39 @@ export default function MyPosts() {
         setRender(true)
     }, [currentUserData.posts])
 
-    return (
-        <div>
-            { !render && <div>Loading...</div>}
-            { render && 
+    const renderContent = () => {
+        if (!render) {
+            return <div>Loading...</div>
+        }
+        return (
             <div>
-                <PageHeader 
-                    title="My Posts"
-                    icon={<AllInboxRoundedIcon fontSize="large"/>}
-                />        
-                <div className={classes.homeResults}>
-                    <Grid container spacing={3}>
-                        {posts.map((data, index) => {
-                            return (
-                            <Grid key={index} item xs={12} md={6}>
-                                <AdminCard
-                                key={data.id}
-                                id={data.id}
-                                title={data.title}
-                                author={data.name}
-                                description={data.description}
-                                chips={data.skills}
-                                />
-                            </Grid>
-                        )})} 
-                    </Grid>
+                <div>
+                    <PageHeader 
+                        title="My Posts"
+                        icon={<AllInboxRoundedIcon fontSize="large"/>}
+                    />        
+                    <div className={classes.homeResults}>
+                        <Grid container spacing={3}>
+                            {posts.map((data, index) => {
+                                return (
+                                <Grid key={index} item xs={12} md={6}>
+                                    <AdminCard
+                                        key={data.id}
+                                        id={data.id}
+                                        title={data.title}
+                                        author={data.name}
+                                        description={data.description}
+                                        chips={data.skills}
+                                    />
+                                </Grid>
+                            )})} 
+                        </Grid>
+                    </div>
                 </div>
             </div>
-            }
-        </div>
-    );
+        )
+    }
 
+    return renderContent()
 }
 

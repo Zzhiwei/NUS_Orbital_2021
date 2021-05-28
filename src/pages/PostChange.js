@@ -37,7 +37,6 @@ export default function PostChange({ data })  {
     const [render, setRender] = useState(false)
 
     useEffect(() => {
-
         if (currentUser) {
             const fetched = db.collection('posts').doc(data.id)
             setDocRef(fetched)
@@ -131,7 +130,7 @@ export default function PostChange({ data })  {
         setLoading(false)
 
         setTimeout(() => {
-            history.push('/')
+            history.push('/myposts')
         }, 300)
 
         }
@@ -145,10 +144,12 @@ export default function PostChange({ data })  {
         setValues(val => ({...val, skills: val.skills}))
     }
 
-    return (
+    const renderContent = () => {
+        if (!render) {
+            return <div>Loading...</div>
+        }
+        return (
         <div>
-            { !render && <div>Loading...</div>}
-            { render && 
             <div>
             <PageHeader 
                     title="Edit Post"
@@ -267,8 +268,9 @@ export default function PostChange({ data })  {
                 </Container>
             </Form>
             </div>
-            }
         </div>
-       
-    )
+       )
+    }
+
+    return renderContent()
 }

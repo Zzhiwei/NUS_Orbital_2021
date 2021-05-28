@@ -19,13 +19,12 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function MyBookmarks() {
-    console.log("MYBOOKMARKS")
+    console.log("render bookmarks")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
-
 
     /*
         right now it is in working state but not efficient 
@@ -83,6 +82,5 @@ export default function MyBookmarks() {
     }
 
     return renderContent()
-
 }
 

@@ -78,8 +78,7 @@ export default function PostCard({  authorId, id, title, author, description, ch
             bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
         })
         const bookmarks = [...currentUserData.bookmarks]
-        const index = bookmarks.indexOf(id)
-        bookmarks.splice(index, 1)
+        bookmarks.pop(id)
         setCurrentUserData({
             ...currentUserData,
             bookmarks
@@ -133,8 +132,8 @@ export default function PostCard({  authorId, id, title, author, description, ch
                         })}
                     </div>
                 </CardContent>    
-                <CardActions  className={classes.border}> 
-                    <Grid  container justify="center">
+                <CardActions className={classes.border}> 
+                    <Grid container justify="center">
                         <Grid item>
                             <Link className={classes.link} to={'/viewpost/' + id} >
                                 <Button size="small" color="primary">
