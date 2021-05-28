@@ -52,7 +52,7 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
 
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
-        setProfilePic(dataUrl)
+        dataUrl && setProfilePic(dataUrl)
     }, [])
 
     const handleRemoveBookmark = () => {

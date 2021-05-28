@@ -6,6 +6,9 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useHistory }  from 'react-router-dom'
+import firebase from 'firebase/app';
+
+
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -36,13 +39,19 @@ export default function MyBookmarks() {
         if (!currentUser) {
             return history.push('/login')
         }
-        
         let renderList = []
 
         async function fetch() {
             for (const post of currentUserData.bookmarks) {
                 const postData =  await  db.collection("posts").doc(post).get().then(res => res.data())
-                renderList.push({...postData, id: post})
+                if (postData) {
+                    renderList.push({...postData, id: post})
+                } else {
+                    await db.collection("users").doc(currentUser.uid).update({
+                        bookmarks: firebase.firestore.FieldValue.arrayRemove(post)
+                    })
+                }
+                
             }
         }
         await fetch()
