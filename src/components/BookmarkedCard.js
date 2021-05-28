@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase';
@@ -47,8 +47,13 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
     console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
+    const [profilePic, setProfilePic] = useState("")
     const userRef = db.collection("users").doc(currentUser.uid)
- 
+
+    useEffect(async () => {
+        const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
+        setProfilePic(dataUrl)
+    }, [])
 
     const handleRemoveBookmark = () => {
         userRef.update({
@@ -78,7 +83,7 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
                 <CardHeader  
                     className={classes.border}
                     avatar={
-                        <Avatar className={classes.avatar} >
+                        <Avatar src={profilePic} className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
                         </Avatar>
                     }

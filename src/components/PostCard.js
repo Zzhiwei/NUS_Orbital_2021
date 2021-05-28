@@ -48,15 +48,20 @@ export default function PostCard({  authorId, id, title, author, description, ch
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
+    const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
  
     useEffect(() => {
         if (currentUser && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
-    }, [currentUser, currentUserData.bookmarks, id])
-    
+    }, [])
 
+    useEffect(async () => {
+        const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
+        setProfilePic(dataUrl)
+    }, [])
+    
     const handleAddBookmark = async () => {
         await userRef.update({
             bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
@@ -105,7 +110,7 @@ export default function PostCard({  authorId, id, title, author, description, ch
                 <CardHeader  
                     className={classes.border}
                     avatar={
-                        <Avatar className={classes.avatar} >
+                        <Avatar src={profilePic} className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
                         </Avatar>
                     }
