@@ -54,7 +54,7 @@ export default function PostCard({  authorId, id, title, author, description, ch
         if (currentUser && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
-    }, [])
+    }, [currentUser, currentUserData.bookmarks, id])
     
 
     const handleAddBookmark = async () => {
