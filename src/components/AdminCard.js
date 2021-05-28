@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => {
 })
 
 export default function AdminCard({id, title, author, description, chips}) {
+    console.log("rendering admincard")
     const classes = useStyles();
     const { currentUser } = useAuth()
     const docRef = db.collection("users").doc(currentUser.uid)

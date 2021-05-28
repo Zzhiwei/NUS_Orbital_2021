@@ -36,6 +36,7 @@ export default function MyBookmarks() {
         if (!currentUser) {
             return history.push('/login')
         }
+        
         let renderList = []
 
         async function fetch() {

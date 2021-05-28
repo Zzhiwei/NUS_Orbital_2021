@@ -28,28 +28,25 @@ export default function MyPosts() {
     
 
     //sends query to backend when first mounting
-    useEffect(() => {
+    useEffect(async () => {
         //if no user is logged in redirect to sign up
         if (!currentUser) {
             alert("Please log in first")
             history.push('/login')
-        } else {
-            let renderList = []
+        } 
 
-            async function fetch() {
-                await currentUserData.posts.forEach(
-                uid => {
-                    db.collection("posts").doc(uid).onSnapshot(
-                        doc => {
-                            renderList.push({...doc.data(), id: doc.id})
-                        })
-                })
+        let renderList = []
+
+        async function fetch() {
+            for (const post of currentUserData.posts) {
+                const postData =  await db.collection("posts").doc(post).get().then(res => res.data())
+                renderList.push({...postData, id: post})
             }
-            fetch()
-            setPosts(renderList)
-            setRender(true)
         }
-    }, [currentUser, currentUserData.posts, history])
+        await fetch()
+        setPosts(renderList)
+        setRender(true)
+    }, [currentUserData.posts])
 
     return (
         <div>
@@ -63,7 +60,6 @@ export default function MyPosts() {
                 <div className={classes.homeResults}>
                     <Grid container spacing={3}>
                         {posts.map((data, index) => {
-                            console.log(data)
                             return (
                             <Grid key={index} item xs={12} md={6}>
                                 <AdminCard

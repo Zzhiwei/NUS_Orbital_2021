@@ -62,7 +62,6 @@ export default function PostCard({  authorId, id, title, author, description, ch
         setProfilePic(dataUrl)
     }, [])
     
-
     const handleAddBookmark = async () => {
         await userRef.update({
             bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
