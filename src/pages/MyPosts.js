@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
 import { useHistory }  from 'react-router-dom'
+import firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -40,7 +41,13 @@ export default function MyPosts() {
         async function fetch() {
             for (const post of currentUserData.posts) {
                 const postData =  await db.collection("posts").doc(post).get().then(res => res.data())
-                renderList.push({...postData, id: post})
+                if (postData) {
+                    renderList.push({...postData, id: post})
+                } else {
+                    await db.collection("users").doc(currentUser.uid).update({
+                        posts: firebase.firestore.FieldValue.arrayRemove(post)
+                    })
+                }
             }
         }
         await fetch()

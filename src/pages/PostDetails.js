@@ -36,7 +36,7 @@ const initialFValues = {
 
 export default function PostDetails() {
   const classes = useStyles()
-  const { currentUser, currentUserData } = useAuth()
+  const { currentUser, currentUserData, setCurrentUserData } = useAuth()
   const history = useHistory()
   const docRef = db.collection("users").doc(currentUser.uid)
 
@@ -106,6 +106,13 @@ export default function PostDetails() {
       post => {
         docRef.update({
           posts: firebase.firestore.FieldValue.arrayUnion(post.id)
+        })
+        const posts = [...currentUserData.posts]
+        posts.push(post.id)
+        console.log("deleted post")
+        setCurrentUserData({
+            ...currentUserData, 
+            posts
         })
     })
   
