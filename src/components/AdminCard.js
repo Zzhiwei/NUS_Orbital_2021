@@ -9,9 +9,6 @@ import firebase from 'firebase/app';
 
 const useStyles = makeStyles(theme => {
     return {
-        root: {
-            
-        },
         avatar: {
             height: '50px',
             width: '50px',
@@ -39,15 +36,20 @@ const useStyles = makeStyles(theme => {
 export default function AdminCard({id, title, author, description, chips}) {
     console.log("rendering admincard")
     const classes = useStyles();
-    const { currentUser } = useAuth()
-    const docRef = db.collection("users").doc(currentUser.uid)
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
+    const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
 
     const handleDelete = () => {
         db.collection('posts').doc(id).delete()
-        .then(() => {
-            console.log("deleted")
-            docRef.update({
-                posts: firebase.firestore.FieldValue.arrayRemove(id)
+        userRef.update({
+            posts: firebase.firestore.FieldValue.arrayRemove(id)
+        }).then(() => {
+            const posts = [...currentUserData.posts]
+            posts.pop(id)
+            console.log("deleted post")
+            setCurrentUserData({
+                ...currentUserData, 
+                posts
             })
         })
     }
@@ -99,12 +101,8 @@ export default function AdminCard({id, title, author, description, chips}) {
                             </Button>
                         </Grid>
                     </Grid>
-                        
-                    
                 </CardActions>                
-                
             </Card>
-
         </div>
     );
   }

@@ -9,9 +9,6 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 const useStyles = makeStyles(theme => {
     return {
-        root: {
-            
-        },
         avatar: {
             height: '50px',
             width: '50px',
@@ -48,7 +45,7 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const [profilePic, setProfilePic] = useState("")
-    const userRef = db.collection("users").doc(currentUser.uid)
+    const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
 
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
@@ -61,9 +58,8 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
         })
         .then(() => {
             const bookmarks = [...currentUserData.bookmarks]
-            const index = bookmarks.indexOf(id)
-            bookmarks.splice(index, 1)
-            console.log("deleting")
+            bookmarks.pop(id)
+            console.log("deleted bookmark")
             setCurrentUserData({
                 ...currentUserData,
                 bookmarks
@@ -78,7 +74,6 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
     )
     return (
         <div>
-            
             <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
                 <CardHeader  
                     className={classes.border}
