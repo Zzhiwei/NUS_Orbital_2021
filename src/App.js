@@ -12,7 +12,7 @@ import EditPost from './pages/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
-import PictureCropper from './components/profile/Cropper/Cropper'
+import PictureCropper from './components/profile/Cropper/PictureCropper'
 
 
 

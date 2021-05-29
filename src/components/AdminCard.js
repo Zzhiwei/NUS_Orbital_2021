@@ -60,7 +60,7 @@ export default function AdminCard({id, title, author, description, chips}) {
                 <CardHeader  
                     className={classes.border}
                     avatar={
-                        <Avatar className={classes.avatar} >
+                        <Avatar src={currentUserData.profilePicture} className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
                         </Avatar>
                     }

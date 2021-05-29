@@ -5,7 +5,19 @@ import { connectInfiniteHits } from 'react-instantsearch-dom'
 import PostCard from '../PostCard'
 
 function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) {
-    
+    const count = hits.length
+
+    const renderLoadMore = () => {
+        if (count > 4) { //hits per page count
+            return (
+                <div align="center">
+                    <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
+                            Load more
+                    </Button>
+                </div>  
+            )
+        }
+    }
     return (
         <div >
             <Grid container spacing={3} style={{width: '80%', margin: 'auto auto'}} >
@@ -22,11 +34,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
                     </Grid>
                 ))}
             </Grid>
-            <div align="center">
-                <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
-                        Load more
-                </Button>
-            </div>
+            {renderLoadMore()}
         </div>
     )
 }

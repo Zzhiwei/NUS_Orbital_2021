@@ -1,4 +1,4 @@
-import { makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
+import { Tooltip, Zoom, makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 
@@ -18,9 +18,8 @@ const useStyles = makeStyles((theme) => {
             },
         },
         title: {
-            paddingBottom: '12px',
-            borderBottom: '2px solid black',
-            marginBottom: '20px'
+            borderBottom: '2px solid #a0c3e2',
+            margin: '20px auto'
         }
     }
 });
@@ -47,9 +46,13 @@ export default function Skills({ userData, enableEdit }) {
     const renderEdit = () => {
         if (enableEdit) {
             return (
-                <IconButton onClick={() => setOpen(true)}>
-                    <EditIcon  />
-                </IconButton>
+                <Tooltip title="Edit Skills" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                    <IconButton onClick={() => setOpen(true)}>
+                        <EditIcon  style={{
+                            color: '#027dc5'
+                        }}/>
+                    </IconButton>
+                </Tooltip>
             )
         }
     }

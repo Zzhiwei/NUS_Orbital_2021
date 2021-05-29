@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Tooltip, Zoom, IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
 import EditBasicInfo from './modals/EditBasicInfo'
@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => {
             width: '100%',
             justifyContent: 'space-between'
         },
+        sectionHeader: {
+            borderBottom: '2px solid #a0c3e2',
+            margin: '20px 0px',
+            
+        },
+        
     }
 });
 
@@ -46,9 +52,13 @@ function BasicInfo({ userData, enableEdit }) {
     const renderEdit = () => {
         if (enableEdit) {
             return (
-                <IconButton onClick={() => setOpen(true)}>
-                    <EditIcon  />
-                </IconButton>
+                <Tooltip title="Edit basic info" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                    <IconButton onClick={() => setOpen(true)}>            
+                        <EditIcon  style={{
+                            color: '#027dc5',
+                        }}/>
+                    </IconButton>
+                </Tooltip>
             )
         }
     }
@@ -58,8 +68,8 @@ function BasicInfo({ userData, enableEdit }) {
 
     return (
         <div style={{marginBottom: '50px'}}>
-                <Typography style={{borderBottom: '2px solid black', marginBottom: '20px'}} color="primary" variant="h4">
-                    Basic info
+                <Typography className={classes.sectionHeader} color="primary" variant="h4">
+                    Basic Info
                     {renderEdit()}
                 </Typography>
 
