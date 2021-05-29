@@ -75,10 +75,11 @@ export default function MyPosts() {
                                         key={data.id}
                                         id={data.id}
                                         title={data.title}
+                                        current={data.current}
+                                        total={data.total}
                                         location={data.location}
                                         schedule={data.schedule}
                                         education={data.education}
-                                        proficiency={data.proficiency}
                                         chips={data.skills}
                                     />
                                 </Grid>
