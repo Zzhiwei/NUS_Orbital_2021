@@ -61,7 +61,7 @@ export default function ProfileAvatar({ userData, enableEdit}) {
             return (
                 <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }} placement="right">
                     <IconButton className={classes.avatarOptions} size="small" onClick={handleCropperOpen}>
-                        <SwapVerticalCircleIcon fontSize="large" />
+                        <SwapVerticalCircleIcon color="primary"  fontSize="large" />
                     </IconButton>
                 </Tooltip>
             )

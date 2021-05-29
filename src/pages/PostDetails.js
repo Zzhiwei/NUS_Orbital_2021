@@ -228,10 +228,10 @@ export default function PostDetails() {
                 <Grid item xs={12}>
                     <Controls.Input 
                         name="description"
-                        label="Additional Information"
+                        label="Description"
                         value={values.description}
                         variant="outlined"
-                        placeholder="Other details about the competition/project..."
+                        placeholder="Details about the competition/project"
                         onChange={handleInputChange}
                         rows={10}
                       />
