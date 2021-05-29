@@ -21,7 +21,6 @@ export default function Home() {
                 hitsPerPage={4}
                 analytics={false}
                 enablePersonalization={true}
-                distinct
             />
             <SearchBox />
             <InfiniteHits />

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { makeStyles, Avatar, Modal, Menu, MenuItem, IconButton } from '@material-ui/core';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import { Zoom, Tooltip, makeStyles, Avatar, Modal, Menu, MenuItem, IconButton, Typography } from '@material-ui/core';
+import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
 
-import PictureCropper from './Cropper/Cropper'
+import PictureCropper from './Cropper/PictureCropper'
 import { useAuth } from '../../contexts/AuthContext'
 
 
@@ -10,19 +10,24 @@ const useStyles = makeStyles((theme) => {
     return {
         root: {
             position: 'relative',
+            marginBottom: '40px',
+            
         },
         avatar: {
-            width: theme.spacing(20),
-            height: theme.spacing(20),
+            width: theme.spacing(25),
+            height: theme.spacing(25),
             marginTop: '40px',
-            marginBottom: '50px',
+            marginBottom: '10px',
             marginLeft: 'auto',
             marginRight: 'auto'
         },
         avatarOptions: {
             position: 'absolute',
-            right: '345px',
-            bottom: '3px',
+            width: theme.spacing(5),
+            height: theme.spacing(5),
+            right: '300px',
+            bottom: '60px',
+            color: 'black',
             backgroundColor: 'white',
             '&:hover': {
                 backgroundColor: 'white'
@@ -31,24 +36,19 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function ProfileAvatar({ enableEdit}) {
+export default function ProfileAvatar({ userData, enableEdit}) {
     console.log("rendering profileAvatar")
     const classes = useStyles()
 
     const { currentUserData } = useAuth()
-    //options
-    const [anchorEl, setAnchorEl] = useState(null);
     //cropper
     const [open, setOpen] = useState(false);
 
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
 
     const handleCropperOpen = () => {
         setOpen(true);
-        handleOptionsClose()
+        
       };
     
       const handleCropperClose = () => {
@@ -56,9 +56,17 @@ export default function ProfileAvatar({ enableEdit}) {
       };
     
 
-    const handleOptionsClose = () => {
-        setAnchorEl(null);
-    };
+    const renderCameraIcon = () => {
+        if (enableEdit) {
+            return (
+                <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }} placement="right">
+                    <IconButton className={classes.avatarOptions} size="small" onClick={handleCropperOpen}>
+                        <SwapVerticalCircleIcon fontSize="large" />
+                    </IconButton>
+                </Tooltip>
+            )
+        }
+    }
 
     
 
@@ -76,20 +84,11 @@ export default function ProfileAvatar({ enableEdit}) {
                 </div>   
             </Modal>
              
-            <Avatar src={currentUserData.profilePicture} className={classes.avatar}/>
-            <IconButton className={classes.avatarOptions} size="small" onClick={handleClick}>
-                <CameraAltIcon />
-            </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleOptionsClose}
-                
-            >
-                <MenuItem onClick={handleCropperOpen}>change</MenuItem>
-            </Menu>
+            <Avatar src={userData.profilePicture} className={classes.avatar}/>
+            {renderCameraIcon()}
+            <Typography variant="h4" align="center">
+                {userData.basicInfo.firstName + " " + userData.basicInfo.lastName}
+            </Typography>
         </div>
     )
 }

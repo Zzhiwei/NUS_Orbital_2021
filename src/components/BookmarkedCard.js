@@ -50,8 +50,13 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
 
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
-        dataUrl && setProfilePic(dataUrl)
-    }, [])
+        if (dataUrl) {
+            setProfilePic(dataUrl)
+        } else {
+            setProfilePic(null)
+        }
+        
+    })
 
     const handleRemoveBookmark = () => {
         userRef.update({
@@ -59,8 +64,8 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
         })
         .then(() => {
             const bookmarks = [...currentUserData.bookmarks]
-            bookmarks.pop(id)
-            console.log("deleted bookmark")
+            const index  = bookmarks.indexOf(id)
+            bookmarks.splice(index, 1)
             setCurrentUserData({
                 ...currentUserData,
                 bookmarks

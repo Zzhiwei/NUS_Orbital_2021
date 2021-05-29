@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider } from '@material-ui/core';
+import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => {
         page: {        
             height: '100%',
             width: '100%',            
-            paddingBottom: '37.5vh',
+            paddingBottom: '10vh',
         },
         toolbar: theme.mixins.toolbar,        
         title: {
@@ -47,6 +47,14 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+        },
+        layoutAvatar: {
+            height: '40px',
+            width: '40px'
+        },
+        notification: {
+            height: '25px',
+            width: '25px'
         }
     }    
 });
@@ -123,7 +131,7 @@ function Layout(props) {
                     </Link>
                     <IconButton aria-label="show 17 new notifications" color="primary">
                     {/* <Badge badgeContent={17} color="secondary"> */}
-                        <NotificationsIcon  />
+                        <NotificationsIcon className={classes.notification} />
                     {/* </Badge> */}
                     </IconButton>
                     <IconButton
@@ -134,7 +142,7 @@ function Layout(props) {
                     onClick={handleProfileMenuOpen}
                     color="inherit"
                     >
-                    <AccountCircle  color="primary" />
+                    <Avatar src={currentUserData.profilePicture} className={classes.layoutAvatar}/> 
                     </IconButton>
                     {renderMenu}
                   </div>
@@ -187,10 +195,8 @@ function Layout(props) {
                             partnerUp           
                         </Typography> 
                     </a>
-                    <span className={classes.title}></span>
-                    {currentUserData
-                        && currentUserData.basicInfo 
-                        && `currently logged in as ${currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName}`}
+                    {/* <span className={classes.title}></span> */}
+                    
                     {renderLogin()}
                     
                 </Toolbar>                 

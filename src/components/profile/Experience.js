@@ -1,5 +1,5 @@
 import React from 'react';
-import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
+import {  Zoom, IconButton, makeStyles, Modal, Tooltip, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
@@ -13,9 +13,9 @@ import EditExperience from './modals/EditExperience'
 const useStyles = makeStyles((theme) => {
     return {
         title: {
-            paddingBottom: '12px',
-            borderBottom: '2px solid black',
-            marginBottom: '20px'
+            paddingBottom: '10px',
+            borderBottom: '2px solid #a0c3e2',
+            margin: '20px auto'
         }
     }
 });
@@ -41,9 +41,11 @@ function Experience({ userData, enableEdit }) {
         if (enableEdit) {
             return (
                 <div align="center">
-                    <IconButton onClick={() => setOpen(true)} size="medium">
-                        <AddCircleOutlineIcon color="primary" fontSize="large" />
-                    </IconButton> 
+                    <Tooltip title="Add an experience" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                        <IconButton onClick={() => setOpen(true)} size="medium">
+                            <AddCircleOutlineIcon color="primary" fontSize="large" />
+                        </IconButton> 
+                    </Tooltip>
                 </div>
             )
         }

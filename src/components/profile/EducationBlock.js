@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme) => {
     return {
         iconRoot: {
             paddingBottom: '0px'
+        },
+        delete: {
+            '&:hover': {
+                color: 'red'
+            }
         }
     }
 });
@@ -59,7 +64,7 @@ function EducationBlock({institution, from, to, enableEdit }) {
                             }}
                             onClick={handleDelete}
                         >
-                            <DeleteIcon />
+                            <DeleteIcon className={classes.delete}/>
                         </IconButton>
                     </div>
                 </Grid>

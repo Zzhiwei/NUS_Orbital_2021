@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { makeStyles, Paper } from '@material-ui/core';
+import { makeStyles, Paper, Typography } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import _ from 'lodash'
 

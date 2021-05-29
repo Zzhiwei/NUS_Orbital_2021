@@ -58,7 +58,7 @@ export default function PostCard({  authorId, id, title, author, location, sched
     const [bookmarked, setBookmarked] = useState(false)
  
     useEffect(() => {
-        if (currentUser && currentUserData.bookmarks) {
+        if (currentUser && currentUserData && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
     }, [])
@@ -66,7 +66,7 @@ export default function PostCard({  authorId, id, title, author, location, sched
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
         setProfilePic(dataUrl)
-    }, [])
+    })
     
     const handleAddBookmark = async () => {
         await userRef.update({
