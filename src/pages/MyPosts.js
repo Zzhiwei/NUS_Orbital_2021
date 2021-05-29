@@ -75,7 +75,6 @@ export default function MyPosts() {
                                         key={data.id}
                                         id={data.id}
                                         title={data.title}
-                                        author={data.name}
                                         location={data.location}
                                         schedule={data.schedule}
                                         education={data.education}
