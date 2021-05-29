@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             justifyContent: 'left',
             flexWrap: 'wrap',
+            marginBottom: '-20px',
             '& > *': {
               margin: theme.spacing(0.5),
             },
@@ -35,7 +36,8 @@ const useStyles = makeStyles(theme => {
             display: "flex", 
             alignItems: "center", 
             flexWrap: "wrap",
-            marginBottom: "10px"
+            marginBottom: "10px",
+            marginLeft: "10px"
         },
         link: {
             color: theme.palette.primary.main,
@@ -44,7 +46,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function AdminCard({id, title, author, location, schedule, education, proficiency, chips }) {
+export default function AdminCard({id, title, location, schedule, education, proficiency, chips }) {
     console.log("rendering admincard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -76,35 +78,34 @@ export default function AdminCard({id, title, author, location, schedule, educat
                         </Avatar>
                     }
                     title={
-                        <Typography color="primary" variant="body1">
+                        <Typography variant="h5">
                         {title}
                         </Typography>
-                    }
-                    subheader={"by: " + author}                    
+                    }                    
                 />
                 <CardContent>
-                    <div className={classes.content} style={{marginTop: '-10px'}}>
-                        <LocationOnIcon style={{marginRight: '8px'}}/>
+                    <div className={classes.content} style={{marginTop: '-15px'}}>
+                        <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
                         {location}
                     </div>
                     <div className={classes.content}>
-                        <DateRangeIcon style={{marginRight: '8px'}}/>
+                        <DateRangeIcon style={{marginRight: '15px'}}/>
                         {schedule}
                     </div>
                     <div className={classes.content}>
-                        <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '12px'}}/>
+                        <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>
                         {education}
                     </div>
                     <div className={classes.content}>
-                        <WorkIcon style={{marginRight: '8px'}}/>
+                        <WorkIcon style={{marginRight: '15px'}}/>
                         {proficiency}
                     </div>
-                    <div className={classes.chipStyle} style={{marginTop: '10px', marginBottom: '-15px'}}>
+                    <div className={classes.chipStyle}>
                         {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
                         })}
                     </div>
-                </CardContent>    
+                </CardContent>   
                 <CardActions> 
                     <Grid  container justify="center">
                         <Grid item>
