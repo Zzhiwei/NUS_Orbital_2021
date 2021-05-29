@@ -8,7 +8,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
     // console.log(hits)
 
     const renderLoadMore = () => {
-        if (hits.length >= 4) { //hits per page count
+        if (hits.length >= 4 && hasMore) { //hits per page count
             return (
                 <div align="center">
                     <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
