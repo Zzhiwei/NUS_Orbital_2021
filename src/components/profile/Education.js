@@ -1,5 +1,5 @@
 import React from 'react';
-import {  IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
+import {  Tooltip, Zoom, IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import EditEducation from './modals/EditEducation'
@@ -11,9 +11,9 @@ import EducationBlock from './EducationBlock'
 const useStyles = makeStyles((theme) => {
     return {
         title: {
-            paddingBottom: '12px',
-            borderBottom: '2px solid black',
-            marginBottom: '20px'
+            paddingBottom: '10px',
+            borderBottom: '2px solid #a0c3e2',
+            margin: '20px auto'
         }
     }
 });
@@ -38,9 +38,11 @@ function Education({ userData, enableEdit }) {
         if (enableEdit) {
             return (
                 <div align="center">
-                    <IconButton onClick={() => setOpen(true)} size="medium">
-                        <AddCircleOutlineIcon color="primary" fontSize="large" />
-                    </IconButton> 
+                    <Tooltip title="Add education" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                        <IconButton onClick={() => setOpen(true)} size="medium">
+                            <AddCircleOutlineIcon color="primary" fontSize="large" />
+                        </IconButton> 
+                    </Tooltip>
                 </div>
             )
         }
@@ -60,6 +62,7 @@ function Education({ userData, enableEdit }) {
                     </div>
                 </Modal>
                 {educationList}
+                <br />
                 {renderAdd()}
         </div>
     );

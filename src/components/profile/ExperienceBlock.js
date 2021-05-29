@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Grid, InputLabel, makeStyles , TextField, Button } from '@material-ui/core';
+import {  IconButton, Grid, InputLabel, makeStyles , TextField, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import firebase from "firebase/app"
 import _ from 'lodash'
@@ -22,8 +22,18 @@ const useStyles = makeStyles((theme) => {
             // border: '2px dotted black'
         },
         deleteButton: {
-            color: '#ff4081',
+            '&:hover': {
+                color: 'red'
+            },
             marginLeft: 'auto'
+        },
+        iconRoot: {
+            
+        },
+        delete: {
+            '&:hover': {
+                color: 'red'
+            }
         }
     }
 });
@@ -62,15 +72,23 @@ function ExperienceBlock({ customProps, enableEdit }) {
     const renderDelete = () => {
         if (enableEdit) {
             return (
-                <Button
-                    className={classes.deleteButton}
-                    variant="outlined"
-                    startIcon={<DeleteIcon />}
-                    size="small"
+                // <Button
+                //     className={classes.deleteButton}
+                //     variant="outlined"
+                //     startIcon={<DeleteIcon />}
+                //     size="small"
+                //     onClick={handleDelete}
+                // >
+                //     Delete
+                // </Button>
+                <IconButton 
+                    classes={{
+                        root: classes.iconRoot
+                    }}
                     onClick={handleDelete}
                 >
-                    Delete
-                </Button>
+                    <DeleteIcon className={classes.delete}/>
+                </IconButton>
             )
         }
     }
@@ -102,8 +120,16 @@ function ExperienceBlock({ customProps, enableEdit }) {
                             value={organization}
                         />
                     </Grid>
-
-                    {renderDelete()}
+                    <Grid item xs={2}>
+                        <Grid container >
+                            <Grid item xs={6}></Grid>
+                            <Grid item xs={6}>
+                                {renderDelete()}
+                            </Grid>
+                        </Grid>
+                            
+                    </Grid>
+                    
                     
                 </Grid>
 

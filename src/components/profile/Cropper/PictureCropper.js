@@ -1,5 +1,5 @@
 import React, {useState, useRef} from "react"
-import { Slider, Button, makeStyles, IconButton, Snackbar } from '@material-ui/core'
+import { Slider, Button, makeStyles, IconButton, Snackbar, Tooltip } from '@material-ui/core'
 import Cropper from "react-easy-crop"
 import CancelIcon from '@material-ui/icons/Cancel';
 import Alert from '@material-ui/lab/Alert';
@@ -13,24 +13,16 @@ import { useAuth } from '../../../contexts/AuthContext'
 const useStyles = makeStyles((theme) => {
     return {
         container: {
-			marginTop: '50px',
-            // height: '100vh',
-            height: '90vh',
+            height: '100vh',
             width: '100vw',
-            // width: '100vw'
 			backgroundColor: 'rgb(0, 0, 0, 0.5)'
         },
-        // buttons: {
-        //     height: '10%',
-        //     display: 'flex',
-        //     justifyContent: 'center',
-        //     alignItems: 'center',
-        // },
         cropperWidget: {
-            height: '90%'
+            height: '90%',
+			display: 'relative'
         },
         cropperMain: {
-            height: '90%'
+            height: "98%"
         },
 		close: {
 			position: 'absolute',
@@ -123,9 +115,11 @@ export default function PictureCropper({ closeCropper }) {
 
 	return (
 		<div className={classes.container} >
-			<IconButton onClick={closeCropper}  className={classes.close}>
-				<CancelIcon fontSize="large" />
-			</IconButton>
+			<Tooltip title="Close Image Uploader">
+				<IconButton onClick={closeCropper}  className={classes.close}>
+					<CancelIcon fontSize="large" />
+				</IconButton>
+			</Tooltip>
 			<div className={classes.cropperWidget}>
 				{image ? (
 					<>
@@ -168,19 +162,19 @@ export default function PictureCropper({ closeCropper }) {
 					variant='contained'
 					color='secondary'
 					onClick={handleClear}
-					style={{ marginRight: "10px" }}
+					style={{backgroundColor: '#f44336', color: 'white', marginRight: "10px" }}
 				>
 					Clear
 				</Button>
 				<Button
 					variant='contained'
-					color='secondary'
+					color='primary'
 					onClick={triggerFileSelectPopup}
 					style={{ marginRight: "10px" }}
 				>
 					Select Image
 				</Button>
-				<Button variant='contained' color='primary' onClick={handleUpload}>
+				<Button style={{backgroundColor: '#4caf50', color: 'white'}} variant='contained'  onClick={handleUpload}>
 					Upload
 				</Button>
 				
