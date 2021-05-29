@@ -46,7 +46,8 @@ export default function AdminCard({id, title, author, description, chips}) {
             posts: firebase.firestore.FieldValue.arrayRemove(id)
         }).then(() => {
             const posts = [...currentUserData.posts]
-            posts.pop(id)
+            const index = posts.indexOf(id)
+            posts.splice(index, 1)
             console.log("deleted post")
             setCurrentUserData({
                 ...currentUserData, 

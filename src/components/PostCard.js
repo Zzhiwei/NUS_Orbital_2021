@@ -8,6 +8,8 @@ import 'firebase/firestore';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { FaUserGraduate } from 'react-icons/fa'
+import WorkIcon from '@material-ui/icons/Work';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -49,7 +51,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function PostCard({  authorId, id, title, author, location, schedule, description, chips }) {
+export default function PostCard({  authorId, id, title, author, location, schedule, education, proficiency, chips }) {
     console.log("rendering postcard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -84,7 +86,8 @@ export default function PostCard({  authorId, id, title, author, location, sched
             bookmarks: firebase.firestore.FieldValue.arrayRemove(id)
         })
         const bookmarks = [...currentUserData.bookmarks]
-        bookmarks.pop(id)
+        const index  = bookmarks.indexOf(id)
+        bookmarks.splice(index, 1)
         setCurrentUserData({
             ...currentUserData,
             bookmarks
@@ -134,10 +137,14 @@ export default function PostCard({  authorId, id, title, author, location, sched
                         <DateRangeIcon />
                         {schedule}
                     </div>
-                    <Typography variant="body1" >
-                        {description}
-                    </Typography>
-
+                    <div className={classes.content}>
+                        <FaUserGraduate />
+                        {education}
+                    </div>
+                    <div className={classes.content}>
+                        <WorkIcon />
+                        {proficiency}
+                    </div>
                     <div className={classes.chipStyle} style={{marginTop: '10px'}}>
                         {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
