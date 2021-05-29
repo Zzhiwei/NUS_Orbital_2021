@@ -9,6 +9,7 @@ import { useState } from 'react'
 import * as selections from '../components/Selections'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 const useStyles = makeStyles (theme => ({
   label: {
@@ -26,11 +27,11 @@ const initialFValues = {
   type: "",
   title: "",
   skills: [],
-  proficiency: "",
   education: "", 
   location: "",
   schedule: "",
-  members: "",
+  current: "",
+  total: "",
   description: ""
 }
 
@@ -52,7 +53,6 @@ export default function PostDetails() {
     temp.type = values.type ? "" : "This field is required"
     temp.title = values.title ? "" : "This field is required"
     temp.location = values.location ? "" : "This field is required"
-    temp.members = values.members ? "" : "This field is required"
     temp.description = values.description ? "" : "This field is required"
     setErrors({
       ...temp
@@ -79,11 +79,11 @@ export default function PostDetails() {
       type,
       title,
       skills,
-      proficiency,
       education,
       location,
       schedule,
-      members,
+      current,
+      total,
       description
     } = values
 
@@ -92,11 +92,11 @@ export default function PostDetails() {
       type,
       title,
       skills,
-      proficiency,
       education,
       location,
       schedule,
-      members,
+      current,
+      total,
       description,
       author: currentUser.uid,
       name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName,
@@ -148,14 +148,15 @@ export default function PostDetails() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Controls.Select 
-                        name="members"
-                        label="Group Size"
-                        value={values.members}
-                        placeholder="How many members?"
+                    <Controls.Input 
+                        name="schedule"
+                        label="Commitment Period"
+                        value={values.schedule}
+                        variant="outlined"
+                        placeholder="21-26 June, etc"
                         onChange={handleInputChange}
-                        options={selections.groupSize()}
-                      />
+                        rows={1}
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <Controls.Input 
@@ -196,16 +197,6 @@ export default function PostDetails() {
                 </Grid>
                 <Grid  item xs={12} sm={6}>
                     <Controls.Select 
-                        name="proficiency"
-                        label="Proficiency Level"
-                        value={values.proficiency}
-                        placeholder="Please specify"
-                        onChange={handleInputChange}
-                        options={selections.proficiency()}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Controls.Select 
                         name="location"
                         label="Location"
                         value={values.location}
@@ -215,14 +206,23 @@ export default function PostDetails() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Controls.Input 
-                        name="schedule"
-                        label="Commitment Period"
-                        value={values.schedule}
-                        variant="outlined"
-                        placeholder="21-26 June, etc"
+                     <Controls.Select 
+                        name="current"
+                        label="Current Members"
+                        value={values.current}
+                        placeholder="Number of current members?"
                         onChange={handleInputChange}
-                        rows={1}
+                        options={selections.groupSize()}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <Controls.Select 
+                        name="total"
+                        label="Total Group Size"
+                        value={values.total}
+                        placeholder="Number of members in total?"
+                        onChange={handleInputChange}
+                        options={selections.groupSize()}
                     />
                   </Grid>
                 <Grid item xs={12}>

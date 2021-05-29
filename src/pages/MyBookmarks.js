@@ -80,10 +80,11 @@ export default function MyBookmarks() {
                                         title={data.title}
                                         author={data.name}
                                         authorId={data.author}
+                                        current={data.current}
+                                        total={data.total}
                                         location={data.location}
                                         schedule={data.schedule}
                                         education={data.education}
-                                        proficiency={data.proficiency}
                                         chips={data.skills}
                                     />
                                 </Grid>

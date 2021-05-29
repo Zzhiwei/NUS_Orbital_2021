@@ -28,6 +28,8 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
                             title={hit.title}
                             author={hit.name}
                             authorId={hit.author}
+                            current={hit.current}
+                            total={hit.total}
                             location={hit.location}
                             schedule={hit.schedule}
                             education={hit.education}

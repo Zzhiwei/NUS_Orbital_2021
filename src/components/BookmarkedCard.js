@@ -9,7 +9,7 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { FaUserGraduate } from 'react-icons/fa'
-import WorkIcon from '@material-ui/icons/Work';
+import { PeopleAlt } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -25,12 +25,23 @@ const useStyles = makeStyles(theme => {
         },
         chipStyle: {
             display: 'flex',
-            justifyContent: 'left',
+            justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: '-20px',
+            marginBottom: '-15px',
             '& > *': {
               margin: theme.spacing(0.5),
             },
+        },
+        contentBox: {
+            display: 'flex',
+            marginTop: '-10px',
+        },
+        members: {
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '-10px'
         },
         content: {
             display: "flex", 
@@ -53,7 +64,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkedCard({ authorId, id, title, author, location, schedule, education, proficiency, chips }) {
+export default function BookmarkedCard({ authorId, id, title, author, current, total, location, schedule, education, chips }) {
     console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -92,23 +103,24 @@ export default function BookmarkedCard({ authorId, id, title, author, location, 
     )
 
     return (
-        <div>
-            <Card elevation={4} className={classes.root}>
-                <CardHeader  
-                    avatar={
-                        <Avatar src={profilePic} className={classes.avatar} >
-                            <EmojiPeopleIcon fontSize="large"/>
-                        </Avatar>
-                    }
-                    title={
-                        <Typography variant="h5">
-                            {title}
-                        </Typography>
-                    }
-                    subheader={byline}                    
-                />
-                <CardContent>
-                    <div className={classes.content} style={{marginTop: '-15px'}}>
+        <Card elevation={4} className={classes.root}>
+            <CardHeader  
+                avatar={
+                    <Avatar src={profilePic} className={classes.avatar} >
+                        <EmojiPeopleIcon fontSize="large"/>
+                    </Avatar>
+                }
+                title={
+                    <Typography variant="h5">
+                        {title}
+                    </Typography>
+                }
+                subheader={byline}                    
+            />
+            <CardContent>
+            <div className={classes.contentBox}>
+                <div>
+                    <div className={classes.content}>
                         <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
                         {location}
                     </div>
@@ -121,30 +133,31 @@ export default function BookmarkedCard({ authorId, id, title, author, location, 
                         {education}
                     </div>
                     <div className={classes.content}>
-                        <WorkIcon style={{marginRight: '15px'}}/>
-                        {proficiency}
+                        <PeopleAlt fontSize="medium" style={{marginLeft: '0px', marginRight: '15px'}} />
+                        {current} / {total}
                     </div>
-                    <div className={classes.chipStyle}>
-                        {chips && chips.map((tag, index) => {
-                            return <Chip key={index} label={tag}/>
-                        })}
-                    </div>
-                </CardContent>      
-                <CardActions> 
-                    <Grid  container justify="center">
-                        <Grid item>
-                            <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
-                                <Button size="small" color="primary">
-                                    View
-                                </Button>
-                            </Link>
-                            <Button size="small" color="secondary" onClick={ handleRemoveBookmark }>
-                                Remove from bookmarks
+                </div>
+            </div>
+            <div className={classes.chipStyle}>
+                {chips && chips.map((tag, index) => {
+                    return <Chip key={index} label={tag}/>
+                })}
+            </div>
+        </CardContent>      
+            <CardActions> 
+                <Grid  container justify="center">
+                    <Grid item>
+                        <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
+                            <Button size="small" color="primary">
+                                View
                             </Button>
-                        </Grid>
+                        </Link>
+                        <Button size="small" color="secondary" onClick={ handleRemoveBookmark }>
+                            Remove from bookmarks
+                        </Button>
                     </Grid>
-                </CardActions>                
-            </Card>
-        </div>
+                </Grid>
+            </CardActions>                
+        </Card>
     );
   }  
