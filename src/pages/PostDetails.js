@@ -120,7 +120,7 @@ export default function PostDetails() {
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
       history.push('/myposts')
-    }, 500)
+    }, 1000)
   }
 
   const handleAddChip = (chip) => {
