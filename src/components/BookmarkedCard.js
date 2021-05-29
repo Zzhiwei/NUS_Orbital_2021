@@ -6,6 +6,10 @@ import { useAuth } from '../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { FaUserGraduate } from 'react-icons/fa'
+import WorkIcon from '@material-ui/icons/Work';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -27,6 +31,12 @@ const useStyles = makeStyles(theme => {
               margin: theme.spacing(0.5),
             },
         },
+        content: {
+            display: "flex", 
+            alignItems: "center", 
+            flexWrap: "wrap",
+            marginBottom: "10px"
+        },
         link: {
             color: theme.palette.primary.main,
             textDecoration: "none",
@@ -41,7 +51,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkedCard({  authorId, id, title, author, description, chips }) {
+export default function BookmarkedCard({ authorId, id, title, author, location, schedule, education, proficiency, chips }) {
     console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -94,18 +104,29 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
                     }
                     subheader={byline}                    
                 />
-                <CardContent style={{}}>
-                    
-                    <Typography variant="body1" >
-                        {description}
-                    </Typography>
-
-                    <div className={classes.chipStyle} style={{marginTop: '10px'}}>
+                <CardContent>
+                    <div className={classes.content} style={{marginTop: '-10px'}}>
+                        <LocationOnIcon style={{marginRight: '8px'}}/>
+                        {location}
+                    </div>
+                    <div className={classes.content}>
+                        <DateRangeIcon style={{marginRight: '8px'}}/>
+                        {schedule}
+                    </div>
+                    <div className={classes.content}>
+                        <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '12px'}}/>
+                        {education}
+                    </div>
+                    <div className={classes.content}>
+                        <WorkIcon style={{marginRight: '8px'}}/>
+                        {proficiency}
+                    </div>
+                    <div className={classes.chipStyle} style={{marginTop: '10px', marginBottom: '-15px'}}>
                         {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
                         })}
                     </div>
-                </CardContent>    
+                </CardContent>      
                 <CardActions> 
                     <Grid  container justify="center">
                         <Grid item>

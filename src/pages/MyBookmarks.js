@@ -8,8 +8,6 @@ import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useHistory }  from 'react-router-dom'
 import firebase from 'firebase/app';
 
-
-
 const useStyles = makeStyles((theme) => {
     return {
         homeResults: {
@@ -73,7 +71,7 @@ export default function MyBookmarks() {
                     icon={<BookmarksIcon style={{fontSize: "28" }}/>}
                 />        
                 <div className={classes.homeResults}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={4}>
                         {posts.map((data, index) => {
                                 return ( 
                                 <Grid item xs={12} md={6} key={index}>
@@ -82,7 +80,10 @@ export default function MyBookmarks() {
                                         title={data.title}
                                         author={data.name}
                                         authorId={data.author}
-                                        description={data.description}
+                                        location={data.location}
+                                        schedule={data.schedule}
+                                        education={data.education}
+                                        proficiency={data.proficiency}
                                         chips={data.skills}
                                     />
                                 </Grid>

@@ -49,8 +49,10 @@ const useStyles = makeStyles(theme => {
             justifyContent: 'center',
         },
         layoutAvatar: {
-            height: '40px',
-            width: '40px'
+            height: '35px',
+            width: '35px',
+            backgroundColor: theme.palette.primary.main,
+            color: "white"
         },
         notification: {
             height: '25px',

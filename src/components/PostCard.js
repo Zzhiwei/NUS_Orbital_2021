@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function PostCard({  authorId, id, title, author, location, schedule, education, proficiency, chips }) {
+export default function PostCard({ authorId, id, title, author, location, schedule, education, proficiency, chips }) {
     console.log("rendering postcard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -129,23 +129,23 @@ export default function PostCard({  authorId, id, title, author, location, sched
                     subheader={byline}                    
                 />
                 <CardContent>
-                    <div className={classes.content}>
-                        <LocationOnIcon />
+                    <div className={classes.content} style={{marginTop: '-10px'}}>
+                        <LocationOnIcon style={{marginRight: '8px'}}/>
                         {location}
                     </div>
                     <div className={classes.content}>
-                        <DateRangeIcon />
+                        <DateRangeIcon style={{marginRight: '8px'}}/>
                         {schedule}
                     </div>
                     <div className={classes.content}>
-                        <FaUserGraduate />
+                        <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '12px'}}/>
                         {education}
                     </div>
                     <div className={classes.content}>
-                        <WorkIcon />
+                        <WorkIcon style={{marginRight: '8px'}}/>
                         {proficiency}
                     </div>
-                    <div className={classes.chipStyle} style={{marginTop: '10px'}}>
+                    <div className={classes.chipStyle} style={{marginTop: '10px', marginBottom: '-15px'}}>
                         {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
                         })}

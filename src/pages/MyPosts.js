@@ -67,7 +67,7 @@ export default function MyPosts() {
                         icon={<AllInboxRoundedIcon fontSize="large"/>}
                     />        
                     <div className={classes.homeResults}>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={4}>
                             {posts.map((data, index) => {
                                 return (
                                 <Grid key={index} item xs={12} md={6}>
@@ -76,7 +76,10 @@ export default function MyPosts() {
                                         id={data.id}
                                         title={data.title}
                                         author={data.name}
-                                        description={data.description}
+                                        location={data.location}
+                                        schedule={data.schedule}
+                                        education={data.education}
+                                        proficiency={data.proficiency}
                                         chips={data.skills}
                                     />
                                 </Grid>
