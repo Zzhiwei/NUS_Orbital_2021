@@ -189,7 +189,7 @@ function Layout(props) {
             <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
-                    <a href="/" className={classes.title}>
+                    <a href="/" style={{textDecoration: 'none'}}>
                         <Typography 
                             color="primary"
                             variant='h4'
@@ -197,8 +197,7 @@ function Layout(props) {
                             partnerUp           
                         </Typography> 
                     </a>
-                    {/* <span className={classes.title}></span> */}
-                    
+                    <span className={classes.title}></span>
                     {renderLogin()}
                     
                 </Toolbar>                 

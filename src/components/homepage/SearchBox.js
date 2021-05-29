@@ -16,10 +16,14 @@ function SearchBox({ isSearchStalled, refine }) {
         refine('')
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <Grid container spacing={2} justify="center" style={{marginBottom: "20px"}}>
             <Grid item  style={{marginBottom: '20px'}} xs={8} >
-                <form noValidate action="" role="search">
+                <form noValidate action="" role="search" onSubmit={handleSubmit}>
                     <Grid container>
                         <Grid item xs={8}>
                         <TextField 
