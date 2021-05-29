@@ -54,8 +54,11 @@ export default function MyBookmarks() {
             }
         }
         await fetch()
+        console.log("setting up posts")
         setPosts(renderList)
-        setRender(true)
+        if (!render) {
+            setRender(true)
+        }
     }, [currentUserData.bookmarks]) 
 
 
