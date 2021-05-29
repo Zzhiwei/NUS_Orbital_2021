@@ -5,10 +5,10 @@ import { connectInfiniteHits } from 'react-instantsearch-dom'
 import PostCard from '../PostCard'
 
 function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) {
-    const count = hits.length
+    // console.log(hits)
 
     const renderLoadMore = () => {
-        if (count > 4) { //hits per page count
+        if (hits.length >= 4) { //hits per page count
             return (
                 <div align="center">
                     <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
