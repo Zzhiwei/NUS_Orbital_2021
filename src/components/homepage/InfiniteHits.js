@@ -16,6 +16,8 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
                             title={hit.title}
                             author={hit.name}
                             authorId={hit.author}
+                            location={hit.location}
+                            schedule={hit.schedule}
                             description={hit.description}
                             chips={hit.skills}
                         />

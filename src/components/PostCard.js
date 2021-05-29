@@ -6,11 +6,14 @@ import { useAuth } from '../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            
+            border: '1px solid grey',
+            borderRadius: '20px'
         },
         avatar: {
             height: '50px',
@@ -26,6 +29,12 @@ const useStyles = makeStyles(theme => {
               margin: theme.spacing(0.5),
             },
         },
+        content: {
+            display: "flex", 
+            alignItems: "center", 
+            flexWrap: "wrap",
+            marginBottom: "10px"
+        },
         link: {
             color: theme.palette.primary.main,
             textDecoration: "none",
@@ -37,13 +46,10 @@ const useStyles = makeStyles(theme => {
                 textDecoration: "underline",
             },
         },
-        border: {
-            backgroundColor: theme.palette.secondary.main,
-        },
     }    
 })
 
-export default function PostCard({  authorId, id, title, author, description, chips }) {
+export default function PostCard({  authorId, id, title, author, location, schedule, description, chips }) {
     console.log("rendering postcard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -95,7 +101,7 @@ export default function PostCard({  authorId, id, title, author, description, ch
     const renderBookmark = () => {
         if (currentUser) {
             return (
-                <Button size="small" color="primary" onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
+                <Button size="small" color={bookmarked ? "secondary" : "primary"} onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
                     {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
                 </Button>
             )
@@ -105,9 +111,8 @@ export default function PostCard({  authorId, id, title, author, description, ch
     return (
         <div>
             
-            <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
+            <Card elevation={4} className={classes.root}>
                 <CardHeader  
-                    className={classes.border}
                     avatar={
                         <Avatar src={profilePic} className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
@@ -120,8 +125,15 @@ export default function PostCard({  authorId, id, title, author, description, ch
                     }
                     subheader={byline}                    
                 />
-                <CardContent style={{}}>
-                    
+                <CardContent>
+                    <div className={classes.content}>
+                        <LocationOnIcon />
+                        {location}
+                    </div>
+                    <div className={classes.content}>
+                        <DateRangeIcon />
+                        {schedule}
+                    </div>
                     <Typography variant="body1" >
                         {description}
                     </Typography>
@@ -131,8 +143,8 @@ export default function PostCard({  authorId, id, title, author, description, ch
                             return <Chip key={index} label={tag}/>
                         })}
                     </div>
-                </CardContent>    
-                <CardActions className={classes.border}> 
+                </CardContent>   
+                <CardActions> 
                     <Grid container justify="center">
                         <Grid item>
                             <Link className={classes.link} to={'/viewpost/' + id} >

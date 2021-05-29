@@ -12,9 +12,6 @@ import EditPost from './pages/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
-import PictureCropper from './components/profile/Cropper/Cropper'
-
-
 
 const theme = createMuiTheme({
   palette: {
@@ -23,11 +20,9 @@ const theme = createMuiTheme({
       light: '#a0c3e2',
     },
     secondary: {
-      main: '#f8f8f6',
-      //main: '#f7f7f7',
+      main: '#f44336'
     },
     background: {
-      //default: '#ffffff'
       default: '#d7e0eb'
     }
   }

@@ -9,6 +9,10 @@ import firebase from 'firebase/app';
 
 const useStyles = makeStyles(theme => {
     return {
+        root: {
+            border: '1px solid grey',
+            borderRadius: '20px'
+        },
         avatar: {
             height: '50px',
             width: '50px',
@@ -27,9 +31,6 @@ const useStyles = makeStyles(theme => {
             color: theme.palette.primary.main,
             textDecoration: "none",
         },
-        border: {
-            backgroundColor: theme.palette.secondary.main,
-        }
     }    
 })
 
@@ -56,9 +57,8 @@ export default function AdminCard({id, title, author, description, chips}) {
 
     return (
         <div>
-            <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
+            <Card elevation={4} className={classes.root}>
                 <CardHeader  
-                    className={classes.border}
                     avatar={
                         <Avatar className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
@@ -83,7 +83,7 @@ export default function AdminCard({id, title, author, description, chips}) {
                         })}
                     </div>
                 </CardContent>    
-                <CardActions  className={classes.border}> 
+                <CardActions> 
                     <Grid  container justify="center">
                         <Grid item>
                             <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
@@ -96,7 +96,7 @@ export default function AdminCard({id, title, author, description, chips}) {
                                     Edit
                                 </Button>
                             </Link>
-                            <Button size="small" onClick={handleDelete} style={{color: '#f44336'}}>
+                            <Button size="small" color="secondary" onClick={handleDelete}>
                                 Delete
                             </Button>
                         </Grid>

@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       color: "white",
       backgroundColor: theme.palette.primary.main,
-      width: theme.spacing(6),
-      height: theme.spacing(6)
+      width: '50px',
+      height: '50px',
   },
   subTitle: {
     marginTop: theme.spacing(-1.25),
