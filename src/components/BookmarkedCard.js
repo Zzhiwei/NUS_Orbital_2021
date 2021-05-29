@@ -9,6 +9,10 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 const useStyles = makeStyles(theme => {
     return {
+        root: {
+            border: '1px solid grey',
+            borderRadius: '20px'
+        },
         avatar: {
             height: '50px',
             width: '50px',
@@ -33,9 +37,6 @@ const useStyles = makeStyles(theme => {
             '&:hover':{
                 textDecoration: "underline",
             },
-        },
-        border: {
-            backgroundColor: theme.palette.secondary.main,
         },
     }    
 })
@@ -79,9 +80,8 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
     )
     return (
         <div>
-            <Card elevation={2} style={{border: '1px solid grey'}} className={classes.root}>
+            <Card elevation={4} className={classes.root}>
                 <CardHeader  
-                    className={classes.border}
                     avatar={
                         <Avatar src={profilePic} className={classes.avatar} >
                             <EmojiPeopleIcon fontSize="large"/>
@@ -106,7 +106,7 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
                         })}
                     </div>
                 </CardContent>    
-                <CardActions  className={classes.border}> 
+                <CardActions> 
                     <Grid  container justify="center">
                         <Grid item>
                             <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
@@ -114,7 +114,7 @@ export default function BookmarkedCard({  authorId, id, title, author, descripti
                                     View
                                 </Button>
                             </Link>
-                            <Button size="small" color="primary" onClick={ handleRemoveBookmark }>
+                            <Button size="small" color="secondary" onClick={ handleRemoveBookmark }>
                                 Remove from bookmarks
                             </Button>
                         </Grid>
