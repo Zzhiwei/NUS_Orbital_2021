@@ -148,7 +148,7 @@ export default function PostCard({ authorId, id, title, author, location, schedu
                     </div>
                     <div className={classes.chipStyle}>
                         {chips && chips.map((tag, index) => {
-                            return <Chip key={index} label={tag}/>
+                            return <Chip style={{backgroundColor: "rgb(63, 76, 89, 0.2)"}} key={index} label={tag}/>
                         })}
                     </div>
                 </CardContent>   

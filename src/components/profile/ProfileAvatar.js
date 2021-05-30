@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Zoom, Tooltip, makeStyles, Avatar, Modal, Menu, MenuItem, IconButton, Typography } from '@material-ui/core';
-import SwapVerticalCircleIcon from '@material-ui/icons/SwapVerticalCircle';
+import SwapVertIcon from '@material-ui/icons/SwapVert';
 
 import PictureCropper from './Cropper/PictureCropper'
 import { useAuth } from '../../contexts/AuthContext'
@@ -61,7 +61,7 @@ export default function ProfileAvatar({ userData, enableEdit}) {
             return (
                 <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }} placement="right">
                     <IconButton className={classes.avatarOptions} size="small" onClick={handleCropperOpen}>
-                        <SwapVerticalCircleIcon color="primary"  fontSize="large" />
+                        <SwapVertIcon color="primary"  fontSize="large" />
                     </IconButton>
                 </Tooltip>
             )

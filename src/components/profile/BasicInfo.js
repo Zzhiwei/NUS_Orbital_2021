@@ -47,7 +47,8 @@ function BasicInfo({ userData, enableEdit }) {
 
     const addZero = n => n < 10 ? "0" + n : n 
     const { day, month, year } = userData.basicInfo.dateOfBirth
-    const dob = addZero(day) + '/' + monthToNum[month] + '/' +  year
+    const dobNotReady = !day || !month || !year
+    const dob = dobNotReady ? "" : addZero(day) + '/' + monthToNum[month] + '/' +  year
 
     const renderEdit = () => {
         if (enableEdit) {
