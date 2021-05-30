@@ -9,7 +9,7 @@ import firebase from 'firebase/app';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { FaUserGraduate } from 'react-icons/fa'
-import WorkIcon from '@material-ui/icons/Work';
+import { PeopleAlt } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -25,12 +25,23 @@ const useStyles = makeStyles(theme => {
         },
         chipStyle: {
             display: 'flex',
-            justifyContent: 'left',
+            justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: '-20px',
+            marginBottom: '-15px',
             '& > *': {
               margin: theme.spacing(0.5),
             },
+        },
+        contentBox: {
+            display: 'flex',
+            marginTop: '-10px',
+        },
+        members: {
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: '-10px'
         },
         content: {
             display: "flex", 
@@ -43,10 +54,10 @@ const useStyles = makeStyles(theme => {
             color: theme.palette.primary.main,
             textDecoration: "none",
         },
-    }    
+    }     
 })
 
-export default function AdminCard({id, title, location, schedule, education, proficiency, chips }) {
+export default function AdminCard({ id, title, current, total, location, schedule, education, chips }) {
     console.log("rendering admincard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -84,30 +95,34 @@ export default function AdminCard({id, title, location, schedule, education, pro
                     }                    
                 />
                 <CardContent>
-                    <div className={classes.content} style={{marginTop: '-15px'}}>
-                        <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
-                        {location}
-                    </div>
-                    <div className={classes.content}>
-                        <DateRangeIcon style={{marginRight: '15px'}}/>
-                        {schedule}
-                    </div>
-                    <div className={classes.content}>
-                        <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>
-                        {education}
-                    </div>
-                    <div className={classes.content}>
-                        <WorkIcon style={{marginRight: '15px'}}/>
-                        {proficiency}
+                    <div className={classes.contentBox}>
+                        <div>
+                            <div className={classes.content}>
+                                <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
+                                {location}
+                            </div>
+                            <div className={classes.content}>
+                                <DateRangeIcon style={{marginRight: '15px'}}/>
+                                {schedule}
+                            </div>
+                            <div className={classes.content}>
+                                <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>
+                                {education}
+                            </div>
+                            <div className={classes.content}>
+                                <PeopleAlt fontSize="medium" style={{marginLeft: '0px', marginRight: '15px'}} />
+                                {current} / {total}
+                            </div>
+                        </div>
                     </div>
                     <div className={classes.chipStyle}>
                         {chips && chips.map((tag, index) => {
                             return <Chip key={index} label={tag}/>
                         })}
                     </div>
-                </CardContent>   
+                </CardContent>         
                 <CardActions> 
-                    <Grid  container justify="center">
+                    <Grid container justify="center">
                         <Grid item>
                             <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
                                 <Button size="small" color="primary">

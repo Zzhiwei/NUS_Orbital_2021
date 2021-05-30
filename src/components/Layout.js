@@ -188,7 +188,8 @@ function Layout(props) {
   
     return (
         <div className={classes.page}>         
-            <AppBar color="default" elevation={2}>                
+
+            <AppBar color="white" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
                     <a href="/" style={{textDecoration: 'none'}}>

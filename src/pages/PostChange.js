@@ -61,11 +61,11 @@ export default function PostChange({ data })  {
         type: data.type,
         title: data.title,
         skills: data.skills,
-        proficiency: data.proficiency,
         education: data.education, 
         location: data.location,
         schedule: data.schedule,
-        members: data.members,
+        current: data.current,
+        total: data.total,
         description: data.description
       }
 
@@ -84,7 +84,6 @@ export default function PostChange({ data })  {
         temp.type = values.type ? "" : "This field is required"
         temp.title = values.title ? "" : "This field is required"
         temp.location = values.location ? "" : "This field is required"
-        temp.members = values.members ? "" : "This field is required"
         temp.description = values.description ? "" : "This field is required"
         setErrors({
         ...temp
@@ -104,11 +103,11 @@ export default function PostChange({ data })  {
             type,
             title,
             skills,
-            proficiency,
             education,
             location,
             schedule,
-            members,
+            current,
+            total,
             description
           } = values
 
@@ -118,11 +117,11 @@ export default function PostChange({ data })  {
             type,
             title,
             skills,
-            proficiency,
             education,
             location,
             schedule,
-            members,
+            current,
+            total,
             description,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         })
@@ -169,12 +168,15 @@ export default function PostChange({ data })  {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Controls.Select 
-                                    name="members"
-                                    label="Group Size"
-                                    value={values.members}
+                                <Controls.Input 
+                                    name="schedule"
+                                    label="Commitment Period"
+                                    value={values.schedule}
+                                    variant="outlined"
+                                    placeholder="21-26 June, etc"
                                     onChange={handleInputChange}
-                                    options={selections.groupSize()}
+                                    rows={1}
+                                    
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -215,15 +217,6 @@ export default function PostChange({ data })  {
                             </Grid>
                             <Grid  item xs={12} sm={6}>
                                 <Controls.Select 
-                                    name="proficiency"
-                                    label="Proficiency Level"
-                                    value={values.proficiency}
-                                    onChange={handleInputChange}
-                                    options={selections.proficiency()}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Controls.Select 
                                     name="location"
                                     label="Location"
                                     value={values.location}
@@ -232,14 +225,21 @@ export default function PostChange({ data })  {
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Controls.Input 
-                                    name="schedule"
-                                    label="Commitment Period"
-                                    value={values.schedule}
-                                    variant="outlined"
-                                    placeholder="21-26 June, etc"
+                                <Controls.Select 
+                                    name="current"
+                                    label="Current Members"
+                                    value={values.current}
                                     onChange={handleInputChange}
-                                    rows={1}
+                                    options={selections.groupSize()}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Controls.Select 
+                                    name="total"
+                                    label="Total Group Size"
+                                    value={values.total}
+                                    onChange={handleInputChange}
+                                    options={selections.groupSize()}
                                 />
                             </Grid>
                             <Grid item xs={12}>
