@@ -125,6 +125,7 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     }
 
     return (
+
         <Card elevation={4} className={classes.root}>
             <CardHeader  
                 avatar={

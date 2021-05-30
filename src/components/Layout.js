@@ -87,7 +87,9 @@ function Layout(props) {
     }
     
     const handleProfile = () => {
-        history.push(`/profile/${currentUser.uid}`)
+        //there's some issue with this when redirecting to your profile from other profile
+        // history.push(`/profile/${currentUser.uid}`)  
+        window.location.assign(`/profile/${currentUser.uid}`)
         handleMenuClose()
     }
 
@@ -186,6 +188,7 @@ function Layout(props) {
   
     return (
         <div className={classes.page}>         
+
             <AppBar color="white" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
