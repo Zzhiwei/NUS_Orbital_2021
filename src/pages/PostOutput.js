@@ -55,10 +55,10 @@ export default function PostOutput({ data })  {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Controls.Output
-                                name="members"
-                                label="Group Size"
-                                value={data.members}              
+                            <Controls.Output 
+                                name="schedule"
+                                label="Commitment Period"
+                                value={data.schedule}                          
                                 rows={1}
                             />
                         </Grid>
@@ -86,14 +86,6 @@ export default function PostOutput({ data })  {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Controls.Output 
-                                name="proficiency"
-                                label="Proficiency"
-                                value={data.proficiency}
-                                rows={1}
-                            />  
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
                             <Controls.Output
                                 name="location"
                                 label="Location"
@@ -102,10 +94,18 @@ export default function PostOutput({ data })  {
                             /> 
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <Controls.Output 
-                                name="schedule"
-                                label="Commitment Period"
-                                value={data.schedule}                          
+                            <Controls.Output
+                                name="current"
+                                label="Current Members"
+                                value={data.current}              
+                                rows={1}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Controls.Output
+                                name="total"
+                                label="Total Group Size"
+                                value={data.total}              
                                 rows={1}
                             />  
                         </Grid>
