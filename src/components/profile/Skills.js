@@ -34,7 +34,7 @@ export default function Skills({ userData, enableEdit }) {
     }
 
     const skillList = userData.skills.map((skill, index) => {
-        return <Chip style={{backgroundColor: "#a0c3e2"}} key={index} label={skill} />
+        return <Chip  key={index} label={skill} />
     })
 
     const toRender = (
