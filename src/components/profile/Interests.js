@@ -34,7 +34,7 @@ export default function Interests({ userData, enableEdit }) {
     }
 
     const interestList = userData.interests.map((interest, index) => {
-        return <Chip style={{backgroundColor: "#a0c3e2"}} key={index} label={interest} />
+        return <Chip  key={index} label={interest} />
     })
 
     const toRender = (

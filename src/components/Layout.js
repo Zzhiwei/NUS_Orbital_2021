@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => {
             height: '100%',
             width: '100%',            
             paddingBottom: '10vh',
+            // backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/campus.jpeg"})`,
+            // backgroundRepeat: 'no-repeat',
+            // backgroundSize: 'cover'
         },
         toolbar: theme.mixins.toolbar,        
         title: {
@@ -188,7 +191,7 @@ function Layout(props) {
     return (
         <div className={classes.page}>         
 
-            <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
+            <AppBar color="default"  elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
                     <a href="/" style={{textDecoration: 'none'}}>
