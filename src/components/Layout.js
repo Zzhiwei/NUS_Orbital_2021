@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useAuth } from '../contexts/AuthContext'
@@ -189,7 +188,7 @@ function Layout(props) {
     return (
         <div className={classes.page}>         
 
-            <AppBar color="white" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
+            <AppBar color="default" classes={{colorDefault: classes.appBarRoot}} elevation={2}>                
                 <Toolbar>                                      
                     {/* Website name */}
                     <a href="/" style={{textDecoration: 'none'}}>
