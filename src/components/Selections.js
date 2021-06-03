@@ -1,6 +1,11 @@
 export const type = () => ([
-    {id: 1, value: "Project"},
-    {id: 2, value: "Competition"},
+    {id: 1, value: "Business"},
+    {id: 2, value: "IT & Software"},
+    {id: 3, value: "Photography and Film"},
+    {id: 4, value: "Music"},
+    {id: 5, value: "Health & Fitness"},
+    {id: 6, value: "Sciences"},
+    {id: 7, value: "Others"}
 ])
 
 export const groupSize = () => ([
@@ -17,21 +22,12 @@ export const location = () => ([
 ])
 
 export const education = () => ([
-    {id: 1, value: "Any"}, 
-    {id: 2, value: "Primary"}, 
+    {id: 1, value: "No Requirement"}, 
     {id: 3, value: "Secondary"}, 
     {id: 4, value: "Pre-University"}, 
     {id: 5, value: "Undergraduate"}, 
-    {id: 6, value: "Professional"},
+    {id: 6, value: "Other"},
 ])
-
-export const proficiency = () => ([
-    {id: 1, value: "Any"}, 
-    {id: 2, value: "Beginner"}, 
-    {id: 3, value: "Intermediate"},
-    {id: 4, value: "Advanced"},
-])
-
 
 //below here are selections for profile
 export const day = () => {
@@ -81,10 +77,10 @@ export const eduYearEnd = () => {
 
 export const expCategory = () => {
     return [
-        {id: 1, value: 'work'},
-        {id: 1, value: 'intership'},
-        {id: 1, value: 'personal project'},
-        {id: 1, value: 'volunteer'},
-        {id: 1, value: 'others'}
+        {id: 1, value: 'Work'},
+        {id: 1, value: 'Intership'},
+        {id: 1, value: 'Personal Project'},
+        {id: 1, value: 'Volunteering'},
+        {id: 1, value: 'Others'}
     ]
 }

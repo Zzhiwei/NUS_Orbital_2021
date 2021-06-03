@@ -6,8 +6,8 @@ export function useForm(initialFValues) {
   const [values, setValues] = useState(initialFValues);
   const [errors, setErrors] = useState({});
   
-  const handleInputChange= e => {
-    const {name, value} = e.target
+  const handleInputChange = e => {
+    const { name, value } = e.target
     setValues({
       ...values,
       [name]: value

@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "20px"
   },
   select: {
+    textAlign: "left",
     background: "white",
     borderRadius: "4px",
   },
