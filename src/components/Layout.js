@@ -10,8 +10,6 @@ import { useAuth } from '../contexts/AuthContext'
 const useStyles = makeStyles(theme => { 
     return {
         page: {        
-            height: '100%',
-            width: '100%',            
             paddingBottom: '10vh',
         },
         toolbarHeight: theme.mixins.toolbar,        
@@ -187,8 +185,7 @@ function Layout(props) {
 
   
     return (
-        <Container>
-            {/* <div className={classes.page}>          */}
+        <Container className={classes.page}>
             
                 <AppBar color="default"  elevation={1}> 
                     <Container>
@@ -211,7 +208,6 @@ function Layout(props) {
                 <div className={classes.toolbarHeight}></div>             
 
                 {props.children}
-            {/* </div>       */}
         </Container>   
     );
   }
