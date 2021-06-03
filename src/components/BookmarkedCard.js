@@ -14,8 +14,8 @@ import { PeopleAlt } from '@material-ui/icons';
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            border: '1px solid grey',
-            borderRadius: '20px'
+            border: '1px solid rgba(0, 0, 0, .125)',
+            borderRadius: '10px'
         },
         avatar: {
             height: '50px',
@@ -70,6 +70,7 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const [profilePic, setProfilePic] = useState("")
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
+    const [hover, setHover] = useState(1)
 
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
@@ -79,7 +80,7 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
             setProfilePic(null)
         }
         
-    })
+    }, [authorId])
 
     const handleRemoveBookmark = () => {
         userRef.update({
@@ -102,8 +103,23 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
         </Link>
     )
 
+    //hoverEffect
+    const handleHoverOn = () => {
+        setHover(12)
+    }
+
+    const handleHoverOff = () => {
+        setHover(1)
+    }
+
     return (
-        <Card elevation={4} className={classes.root}>
+        <Link className={classes.link} to={'/viewpost/' + id} >
+        <Card 
+            onMouseEnter={handleHoverOn}
+            onMouseLeave={handleHoverOff}
+            elevation={hover}
+            className={classes.root}
+        >
             <CardHeader  
                 avatar={
                     <Avatar src={profilePic} className={classes.avatar} >
@@ -147,17 +163,15 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
             <CardActions> 
                 <Grid  container justify="center">
                     <Grid item>
-                        <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
-                            <Button size="small" color="primary">
-                                View
+                        <Link to='/bookmarks' className={classes.link}>
+                            <Button size="small" color="secondary" onClick={ handleRemoveBookmark }>
+                                Remove from bookmarks
                             </Button>
                         </Link>
-                        <Button size="small" color="secondary" onClick={ handleRemoveBookmark }>
-                            Remove from bookmarks
-                        </Button>
                     </Grid>
                 </Grid>
             </CardActions>                
         </Card>
+        </Link>
     );
   }  

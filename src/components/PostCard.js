@@ -14,9 +14,8 @@ import { PeopleAlt } from '@material-ui/icons';
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            // border: '1px solid grey',
             border: '1px solid rgba(0, 0, 0, .125)',
-            borderRadius: '20px'
+            borderRadius: '10px'
         },
         avatar: {
             height: '50px',
@@ -72,6 +71,7 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
+    const [hover, setHover] = useState(1)
  
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
@@ -82,7 +82,7 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
         setProfilePic(dataUrl)
-    })
+    }, [authorId])
     
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -109,6 +109,15 @@ export default function PostCard({ authorId, id, title, author, current, total, 
         setBookmarked(false)
     }
 
+    //hoverEffect
+    const handleHoverOn = () => {
+        setHover(12)
+    }
+
+    const handleHoverOff = () => {
+        setHover(1)
+    }
+
     const byline = (
         <Link className={classes.profileLink} to={`/profile/${authorId}`}>
             {`by: ${author}`}
@@ -118,16 +127,23 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     const renderBookmark = () => {
         if (currentUser) {
             return (
+                <Link to='' style={{textDecoration: 'none'}}>
                 <Button size="small" color={bookmarked ? "secondary" : "primary"} onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
                     {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
                 </Button>
+                </Link>
             )
         }
     }
 
     return (
-
-        <Card elevation={4} className={classes.root}>
+        <Link className={classes.link} to={'/viewpost/' + id} >
+        <Card  
+            onMouseEnter={handleHoverOn}
+            onMouseLeave={handleHoverOff}
+            elevation={hover} 
+            className={classes.root} 
+        >
             <CardHeader  
                 avatar={
                     <Avatar src={profilePic} className={classes.avatar} >
@@ -171,15 +187,11 @@ export default function PostCard({ authorId, id, title, author, current, total, 
             <CardActions> 
                 <Grid container justify="center">
                     <Grid item>
-                        <Link className={classes.link} to={'/viewpost/' + id} >
-                            <Button size="small" color="primary">
-                                View
-                            </Button>
-                        </Link>
                         {renderBookmark()}
                     </Grid>
                 </Grid>
             </CardActions>                
         </Card>
+        </Link>
     );
   }  

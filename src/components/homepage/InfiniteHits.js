@@ -3,12 +3,14 @@ import React from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 
 import PostCard from '../PostCard'
+import NoResults from './NoResults'
 
 function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) {
-    // console.log(hits)
+    
+    const len = hits.length
 
     const renderLoadMore = () => {
-        if (hits.length >= 8 && hasMore) { //hits per page count
+        if (len >= 8 && hasMore) { 
             return (
                 <div align="center">
                     <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
@@ -18,6 +20,11 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
             )
         }
     }
+
+    if (len === 0) {
+        return <NoResults />
+    }
+
     return (
         <div >
             <Grid container spacing={4} style={{margin: 'auto auto'}} >

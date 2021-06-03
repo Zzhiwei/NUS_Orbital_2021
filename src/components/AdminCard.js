@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase'
@@ -14,8 +14,8 @@ import { PeopleAlt } from '@material-ui/icons';
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            border: '1px solid grey',
-            borderRadius: '20px'
+            border: '1px solid rgba(0, 0, 0, .125)',
+            borderRadius: '10px'
         },
         avatar: {
             height: '50px',
@@ -62,6 +62,8 @@ export default function AdminCard({ id, title, current, total, location, schedul
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
+    const [hover, setHover] = useState(1)
+
 
     const handleDelete = () => {
         db.collection('posts').doc(id).delete()
@@ -79,9 +81,23 @@ export default function AdminCard({ id, title, current, total, location, schedul
         })
     }
 
+    //hoverEffect
+    const handleHoverOn = () => {
+        setHover(12)
+    }
+
+    const handleHoverOff = () => {
+        setHover(1)
+    }
+
     return (
-        <div>
-            <Card elevation={4} className={classes.root}>
+        <Link className={classes.link} to={'/viewpost/' + id} >
+            <Card 
+                onMouseEnter={handleHoverOn}
+                onMouseLeave={handleHoverOff}
+                elevation={hover}
+                className={classes.root}
+            >
                 <CardHeader  
                     avatar={
                         <Avatar src={currentUserData.profilePicture} className={classes.avatar} >
@@ -124,24 +140,21 @@ export default function AdminCard({ id, title, current, total, location, schedul
                 <CardActions> 
                     <Grid container justify="center">
                         <Grid item>
-                            <Link className={classes.link} to={'/viewpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
-                                <Button size="small" color="primary">
-                                    View
-                                </Button>
-                            </Link>
                             <Link className={classes.link} to={'/editpost/' + id} /*target="_blank" rel="noopener noreferrer"*/>
                                 <Button size="small" color="primary">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button size="small" color="secondary" onClick={handleDelete}>
-                                Delete
-                            </Button>
+                            <Link to="/myposts" className={classes.link}>
+                                <Button size="small" color="secondary" onClick={handleDelete}>
+                                    Delete
+                                </Button>
+                            </Link>
                         </Grid>
                     </Grid>
                 </CardActions>                
             </Card>
-        </div>
+        </Link>
     );
   }
   

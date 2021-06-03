@@ -7,8 +7,6 @@ import { Grid } from '@material-ui/core';
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
 
-
-
 const searchClient = algoliasearch(
   'ES79ODFVNM',
   'c57f19049ad61dad541fc8f7659c0f92'
@@ -17,23 +15,11 @@ const searchClient = algoliasearch(
 export default function Home() {
     console.log("rerendering home")
     return (
-        
             <div style={{marginTop: '50px'}}>
-                
                 <InstantSearch
                     indexName="posts"
                     searchClient={searchClient}
                 > 
-                {/* <RefinementList
-                    attribute="location"
-                />
-                <ToggleRefinement
-                    attribute="location"
-                    label="online"
-                    value="Online"
-                />
-                 */}
-                
                 <Configure
                     hitsPerPage={8}
                     analytics={false}
@@ -48,9 +34,6 @@ export default function Home() {
                         <InfiniteHits />
                     </Grid>
                 </Grid>
-                
-                
-
                 </InstantSearch>
             </div>
     )
