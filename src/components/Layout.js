@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar } from '@material-ui/core';
+import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar, Container, Icon } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { useAuth } from '../contexts/AuthContext'
+
 
 const useStyles = makeStyles(theme => { 
     return {
@@ -12,11 +13,8 @@ const useStyles = makeStyles(theme => {
             height: '100%',
             width: '100%',            
             paddingBottom: '10vh',
-            // backgroundImage: `url(${process.env.PUBLIC_URL + "/assets/campus.jpeg"})`,
-            // backgroundRepeat: 'no-repeat',
-            // backgroundSize: 'cover'
         },
-        toolbar: theme.mixins.toolbar,        
+        toolbarHeight: theme.mixins.toolbar,        
         title: {
             flexGrow: 1,
             textDecoration: 'none',
@@ -189,30 +187,32 @@ function Layout(props) {
 
   
     return (
-        <div className={classes.page}>         
+        <Container>
+            {/* <div className={classes.page}>          */}
+            
+                <AppBar color="default"  elevation={1}> 
+                    <Container>
+                    <Toolbar >                                      
+                        <a href="/" style={{textDecoration: 'none'}}>
+                            <Typography 
+                                color="primary"
+                                variant='h4'
+                            >
+                                partnerUp           
+                            </Typography> 
+                        </a>
+                        <span className={classes.title}></span>
+                        {renderLogin()}
+                    </Toolbar>     
+                    </Container>                           
+                </AppBar>    
 
-            <AppBar color="default"  elevation={2}>                
-                <Toolbar>                                      
-                    {/* Website name */}
-                    <a href="/" style={{textDecoration: 'none'}}>
-                        <Typography 
-                            color="primary"
-                            variant='h4'
-                        >
-                            partnerUp           
-                        </Typography> 
-                    </a>
-                    <span className={classes.title}></span>
-                    {renderLogin()}
-                    
-                </Toolbar>                 
-            </AppBar>    
+                {/* don't remove this, this pushes the content of the page down by height of appbar*/}
+                <div className={classes.toolbarHeight}></div>             
 
-            {/* don't remove this, this pushes the content of the page down by height of appbar*/}
-            <div className={classes.toolbar}></div>             
-
-            {props.children}
-        </div>         
+                {props.children}
+            {/* </div>       */}
+        </Container>   
     );
   }
   
