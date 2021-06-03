@@ -14,7 +14,8 @@ import { PeopleAlt } from '@material-ui/icons';
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            border: '1px solid grey',
+            // border: '1px solid grey',
+            border: '1px solid rgba(0, 0, 0, .125)',
             borderRadius: '20px'
         },
         avatar: {

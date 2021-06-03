@@ -8,7 +8,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
     // console.log(hits)
 
     const renderLoadMore = () => {
-        if (hits.length >= 4 && hasMore) { //hits per page count
+        if (hits.length >= 8 && hasMore) { //hits per page count
             return (
                 <div align="center">
                     <Button style={{marginTop: '50px'}} onClick={refineNext} variant="contained" color="primary">
@@ -20,7 +20,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
     }
     return (
         <div >
-            <Grid container spacing={4} style={{width: '80%', margin: 'auto auto'}} >
+            <Grid container spacing={4} style={{margin: 'auto auto'}} >
                 {hits.map((hit, index) => (
                     <Grid item xs={12} sm={6}  key={index}>
                         <PostCard 
