@@ -9,7 +9,6 @@ import { useState } from 'react'
 import * as selections from '../components/Selections'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 const useStyles = makeStyles (theme => ({
   label: {
@@ -29,7 +28,7 @@ const initialFValues = {
   skills: [],
   education: "", 
   location: "",
-  schedule: "",
+  schedule: new Date(),
   current: "",
   total: "",
   description: ""
@@ -64,7 +63,7 @@ export default function PostDetails() {
   const {
     values,
     setValues,
-    errors,
+    //errors,
     setErrors,
     handleInputChange
   } = useForm(initialFValues);
@@ -142,20 +141,17 @@ export default function PostDetails() {
                         name="type"
                         label="Type"
                         value={values.type}
-                        placeholder="Competition or project?"
+                        placeholder="Please Specify"
                         onChange={handleInputChange}
                         options={selections.type()}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Controls.Input 
+                    <Controls.Date 
                         name="schedule"
-                        label="Commitment Period"
+                        label="Start Date"
                         value={values.schedule}
-                        variant="outlined"
-                        placeholder="21-26 June, etc"
                         onChange={handleInputChange}
-                        rows={1}
                     />
                 </Grid>
                 <Grid item xs={12}>

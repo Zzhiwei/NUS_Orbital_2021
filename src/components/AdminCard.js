@@ -126,7 +126,7 @@ export default function AdminCard({ id, title, current, total, location, schedul
                                 {education}
                             </div>
                             <div className={classes.content}>
-                                <PeopleAlt fontSize="medium" style={{marginLeft: '0px', marginRight: '15px'}} />
+                                <PeopleAlt fontSize="default" style={{marginLeft: '0px', marginRight: '15px'}} />
                                 {current} / {total}
                             </div>
                         </div>

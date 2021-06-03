@@ -173,7 +173,7 @@ export default function PostCard({ authorId, id, title, author, current, total, 
                             {education}
                         </div>
                         <div className={classes.content}>
-                            <PeopleAlt fontSize="medium" style={{marginLeft: '0px', marginRight: '15px'}} />
+                            <PeopleAlt fontSize="default" style={{marginLeft: '0px', marginRight: '15px'}} />
                             {current} / {total}
                         </div>
                     </div>

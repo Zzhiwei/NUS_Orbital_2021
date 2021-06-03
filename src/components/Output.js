@@ -22,22 +22,20 @@ export default function Output(props) {
 
   return (
     <div>
-      <div className={classes.label}>
-          <Typography>
+        <Typography className={classes.label}>
             {label}
-          </Typography>
-      </div>
-      <TextField
-        inputProps={{readOnly: true}}
-        //InputProps={{disableUnderline: true, classes: {input: classes.input}}}
-        variant="outlined"
-        className={classes.text}
-        name={name}
-        value={value}
-        rows={rows}
-        fullWidth
-        multiline
-      />
+        </Typography>
+        <TextField
+            inputProps={{readOnly: true}}
+            //InputProps={{disableUnderline: true, classes: {input: classes.input}}}
+            variant="outlined"
+            className={classes.text}
+            name={name}
+            value={value}
+            rows={rows}
+            fullWidth
+            multiline
+        />
     </div>
   )
 }

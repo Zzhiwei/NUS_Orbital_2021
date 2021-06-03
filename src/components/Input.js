@@ -19,24 +19,22 @@ export default function Input(props) {
 
   return (
     <div elevation={4}>
-      <div className={classes.label}>
-        <Typography>
-          {label}
+        <Typography className={classes.label}>
+            {label}
         </Typography>
+        <TextField
+            className={classes.text}
+            variant={variant}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={onChange}
+            rows={rows}
+            {...(error && {error:true, helperText:error})}
+            fullWidth
+            multiline
+            inputProps={inputProps}
+        />
       </div>
-      <TextField
-        className={classes.text}
-        variant={variant}
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        rows={rows}
-        {...(error && {error:true, helperText:error})}
-        fullWidth
-        multiline
-        inputProps={inputProps}
-      />
-    </div>
   )
 }
