@@ -19,14 +19,15 @@ export default function Input(props) {
 
   return (
     <div elevation={4}>
-        <Typography className={classes.label}>
+        {/* <Typography className={classes.label}>
             {label}
-        </Typography>
+        </Typography> */}
         <TextField
             className={classes.text}
             variant={variant}
             name={name}
             value={value}
+            label={label}
             placeholder={placeholder}
             onChange={onChange}
             rows={rows}

@@ -10,9 +10,6 @@ import { Paper, Button, makeStyles, Stepper, Step, StepLabel } from '@material-u
 import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
@@ -23,14 +20,19 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto',
     },
   },
-  pageContent: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(3),
+  paper: {
+    borderRadius: "10px",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
-    marginLeft: "10px",
-    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3, 0, 3),
   },
   buttons: {
     display: 'flex',
@@ -40,16 +42,17 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
-}));
+}))
 
 const initialFValues = {
     type: "",
+    category: "",
     title: "",
     skills: [],
     education: "", 
     location: "",
-    start: new Date(),
-    end: new Date(),  
+    start: null,
+    end: null,  
     current: "",
     total: "",
     description: JSON.stringify(convertToRaw(EditorState.createEmpty().getCurrentContent()))
@@ -98,13 +101,14 @@ export const MultiStepForm = () => {
 
   
   return (
+    
     <main className={classes.layout}>
+      <Paper elevation={2} className={classes.paper}>
       <PageHeader 
           title="Create a New Post"
           subTitle="Please fill in the required details below"
           icon={<CreateTwoToneIcon fontSize="large"/>}
         />
-      <div className={classes.pageContent}>
         <Stepper activeStep={activeStep} className={classes.stepper}>
           {steps.map((label) => (
             <Step key={label}>
@@ -133,9 +137,10 @@ export const MultiStepForm = () => {
               {activeStep === steps.length - 1 ? 'Post' : 'Next'}
             </Button>
         </div>
-      </div>
+      </Paper>
       <Copyright />
-    </main>     
+    </main>  
+   
   )
 }
 

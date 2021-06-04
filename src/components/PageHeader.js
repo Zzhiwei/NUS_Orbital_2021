@@ -3,7 +3,7 @@ import { makeStyles, Avatar, Typography, Container, CssBaseline } from '@materia
 
 const useStyles = makeStyles((theme) => ({
   header: {
-      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

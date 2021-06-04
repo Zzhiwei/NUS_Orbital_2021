@@ -17,6 +17,7 @@ Object.assign(darkTheme, {
   overrides: {
     MUIRichTextEditor: {
         root: {
+            marginTop: "1rem",
             backgroundColor: "#fff",
             borderRadius: "10px",
             border: "1px solid gray"
@@ -34,7 +35,10 @@ Object.assign(darkTheme, {
             display: "flex",
             justifyContent: "space-around",
             borderBottom: "1px solid gray",
-            marginTop: "-5px"
+            marginTop: "-8px",
+            borderTopLeftRadius: "10px",
+            borderTopRightRadius: "10px",
+            backgroundColor: "#ebebeb"
         },
         placeHolder: {
             backgroundColor: "#fff",
@@ -67,9 +71,9 @@ export const PartC = ({ values, setValues, handleBack, handleNext }) => {
         <Container component="main" maxWidth="sm">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography className={classes.label}>
+                    {/* <Typography className={classes.label}>
                         Description
-                    </Typography>
+                    </Typography> */}
                     <MuiThemeProvider theme={darkTheme}>
                         <MUIRichTextEditor
                             label="Some details ..."

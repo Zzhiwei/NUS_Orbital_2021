@@ -15,24 +15,24 @@ const useStyles = makeStyles(theme => ({
 export const PartA = ({ values, handleInputChange, handleNext }) => {
   
   const classes = useStyles()
-  const { title, type, start, end } = values
+  const { title, type, category, start, end } = values
 
   return(
-    <form className={classes.root} align="center" autoComplete="off">
-        <Container component="main" maxWidth="xs">
-            <Grid container spacing={2}>
+    
+        
+            <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Controls.Input 
                         name="title"
                         label="Title"
                         value={title}
-                        variant="outlined"
+                        //variant="outlined"
                         placeholder="Name of competition/project"
                         onChange={handleInputChange}
                         rows={1}
                     />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} sm={6}>
                       <Controls.Select 
                           name="type"
                           label="Type"
@@ -40,6 +40,16 @@ export const PartA = ({ values, handleInputChange, handleNext }) => {
                           placeholder="Please Specify"
                           onChange={handleInputChange}
                           options={selections.type()}
+                      />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                      <Controls.Select 
+                          name="category"
+                          label="Category"
+                          value={category}
+                          placeholder="Please Specify"
+                          onChange={handleInputChange}
+                          options={selections.category()}
                       />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -59,7 +69,7 @@ export const PartA = ({ values, handleInputChange, handleNext }) => {
                     />
                 </Grid>
             </Grid>
-        </Container>
-    </form>
+        
+   
   )
 }

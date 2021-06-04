@@ -41,12 +41,13 @@ export const PartB = ({ values, setValues, handleInputChange, handleBack, handle
         <Container component="main" maxWidth="sm">
             <Grid container spacing={2}>
             <Grid item xs={12}>
-                    <Typography className={classes.label}>
+                    {/* <Typography className={classes.label}>
                         Required Skills / Experience
-                    </Typography>
+                    </Typography> */}
                     <ChipInput
                         className={classes.chip}
                         name="skills"
+                        label="Required Skills / Experience"
                         placeholder="None, HTML/CSS, Photography, etc"
                         variant="outlined"
                         value={skills}
