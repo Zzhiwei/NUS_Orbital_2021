@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkedCard({ authorId, id, title, author, current, total, location, start, end, education, chips }) {
+export default function BookmarkedCard({ authorId, id, title, author, current, total, location, commitment, education, chips }) {
     console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -142,7 +142,7 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
                     </div>
                     <div className={classes.content}>
                         <DateRangeIcon style={{marginRight: '15px'}}/>
-                        {start.toDate().toString().substring(4, 15) + ' - ' + end.toDate().toString().substring(4, 15)}
+                        {commitment}
                     </div>
                     <div className={classes.content}>
                         <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>

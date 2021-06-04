@@ -38,8 +38,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
                             current={hit.current}
                             total={hit.total}
                             location={hit.location}
-                            start={hit.start}
-                            end={hit.end}
+                            commitment={hit.commitment}
                             education={hit.education}
                             proficiency={hit.proficiency}
                             chips={hit.skills}

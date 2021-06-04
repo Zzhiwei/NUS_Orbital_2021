@@ -115,6 +115,8 @@ export const PartC = ({ values, setValues, setActiveStep }) => {
       description
     } = values
 
+    const commitment = start.toString().substring(4,15) + " - " + end.toString().substring(4,15)
+
     setLoading(true)
     await db.collection("posts").add({
       type,
@@ -125,6 +127,7 @@ export const PartC = ({ values, setValues, setActiveStep }) => {
       location,
       start,
       end,
+      commitment,
       current,
       total,
       description,
