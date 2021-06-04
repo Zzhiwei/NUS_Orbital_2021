@@ -81,7 +81,8 @@ export default function MyPosts() {
                                         current={data.current}
                                         total={data.total}
                                         location={data.location}
-                                        schedule={data.schedule}
+                                        start={data.start}
+                                        end={data.end}
                                         education={data.education}
                                         chips={data.skills}
                                     />

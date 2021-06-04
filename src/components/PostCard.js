@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function PostCard({ authorId, id, title, author, current, total, location, schedule, education, chips }) {
+export default function PostCard({ authorId, id, title, author, current, total, location, start, end, education, chips }) {
     console.log("rendering postcard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -166,7 +166,7 @@ export default function PostCard({ authorId, id, title, author, current, total, 
                         </div>
                         <div className={classes.content}>
                             <DateRangeIcon style={{marginRight: '15px'}}/>
-                            {schedule}
+                            {}
                         </div>
                         <div className={classes.content}>
                             <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>
