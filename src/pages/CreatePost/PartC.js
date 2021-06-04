@@ -8,8 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useHistory }  from 'react-router-dom'
-import { db } from '../firebase'
-import { useAuth } from '../contexts/AuthContext'
+import { db } from '../../firebase'
+import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 

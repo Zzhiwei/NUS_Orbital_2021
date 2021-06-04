@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, makeStyles } from "@material-ui/core";
-import Controls from "../components/Controls"
-import * as selections from '../components/Selections'
+import Controls from "../../components/Controls"
+import * as selections from '../../components/Selections'
 
 const useStyles = makeStyles(theme => ({
   buttons: {
