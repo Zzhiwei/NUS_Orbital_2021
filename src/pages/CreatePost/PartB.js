@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, makeStyles, Button } from "@material-ui/core";
-import Controls from "../components/Controls"
-import * as selections from '../components/Selections'
+import Controls from "../../components/Controls"
+import * as selections from '../../components/Selections'
 import ChipInput from 'material-ui-chip-input'
 
 const useStyles = makeStyles(theme => ({

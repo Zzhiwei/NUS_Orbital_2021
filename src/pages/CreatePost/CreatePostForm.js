@@ -1,14 +1,14 @@
-import { useForm } from '../components/useForm'
+import { useForm } from '../../components/useForm'
 import { PartA } from './PartA'
 import { PartB } from './PartB'
 import { PartC } from './PartC'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
-import Copyright from '../components/Copyright';
-import PageHeader from '../components/PageHeader';
+import Copyright from '../../components/Copyright';
+import PageHeader from '../../components/PageHeader';
 import { Paper, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState } from 'react';
 import { EditorState, convertToRaw } from 'draft-js'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 import { useHistory }  from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -52,9 +52,9 @@ const initialFValues = {
     description: JSON.stringify(convertToRaw(EditorState.createEmpty().getCurrentContent()))
 }
 
-const steps = ['1', '2', '3']
+const steps = ['Basic Information', 'Additional Information', 'Description']
 
-export const MultiStepForm = () => {
+export const CreatePost = () => {
   
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
