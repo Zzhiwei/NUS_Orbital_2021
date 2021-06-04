@@ -2,12 +2,13 @@ import { useForm } from '../components/useForm'
 import { PartA } from './PartA'
 import { PartB } from './PartB'
 import { PartC } from './PartC'
-import { EditorState, convertToRaw } from 'draft-js';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../components/Copyright';
 import PageHeader from '../components/PageHeader';
-import { Paper, Button, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
+import { Paper, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState } from 'react';
+import { EditorState, convertToRaw } from 'draft-js'
+import { useAuth } from '../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -34,14 +35,6 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0, 3),
   },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
 }))
 
 const initialFValues = {
@@ -58,24 +51,16 @@ const initialFValues = {
     description: JSON.stringify(convertToRaw(EditorState.createEmpty().getCurrentContent()))
 }
 
-const steps = ['', '', '']
+const steps = ['1', '2', '3']
 
 export const MultiStepForm = () => {
   
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
+  const { currentUser } = useAuth()
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1)
-  }
-
-  const handleSubmit = () => {
-    console.log('submitted')  
-    setActiveStep(activeStep - 1)
+  if (!currentUser) {
+    history.push('/login')
   }
 
   const {
@@ -84,7 +69,7 @@ export const MultiStepForm = () => {
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, handleInputChange }
+  const props = { values, setValues, handleInputChange, setActiveStep }
 
   function getStepContent(step) {
     switch(step) {
@@ -99,7 +84,6 @@ export const MultiStepForm = () => {
     }
   }
 
-  
   return (
     
     <main className={classes.layout}>
@@ -117,26 +101,6 @@ export const MultiStepForm = () => {
           ))}
         </Stepper>
         {getStepContent(activeStep)}
-        <div className={classes.buttons}>
-            {activeStep !== 0 && (
-              <Button 
-                variant="contained"
-                color="secondary" 
-                onClick={handleBack}
-                className={classes.button}
-              >
-                Back
-              </Button>
-            )}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-              className={classes.button}
-            >
-              {activeStep === steps.length - 1 ? 'Post' : 'Next'}
-            </Button>
-        </div>
       </Paper>
       <Copyright />
     </main>  

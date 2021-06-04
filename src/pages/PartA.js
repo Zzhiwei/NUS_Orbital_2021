@@ -1,25 +1,30 @@
 import React from "react";
-import { Container, Grid, makeStyles } from "@material-ui/core";
+import { Button, Grid, makeStyles } from "@material-ui/core";
 import Controls from "../components/Controls"
 import * as selections from '../components/Selections'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiFormControl-root': {
-      width: '100%',
-      margin: theme.spacing(1) 
-    }
-  }
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing(5),
+    marginLeft: theme.spacing(1),
+  },
 }))
 
-export const PartA = ({ values, handleInputChange, handleNext }) => {
+export const PartA = ({ values, handleInputChange, setActiveStep }) => {
   
   const classes = useStyles()
   const { title, type, category, start, end } = values
 
+  const handleNext = () => {
+    setActiveStep(step => step + 1)
+  }
+
   return(
-    
-        
+      <>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Controls.Input 
@@ -69,7 +74,16 @@ export const PartA = ({ values, handleInputChange, handleNext }) => {
                     />
                 </Grid>
             </Grid>
-        
-   
+            <div className={classes.buttons}>
+                <Button 
+                    className={classes.button}
+                    variant="contained"
+                    color="primary" 
+                    onClick={handleNext}
+                    >
+                    Next
+                </Button>
+      </div>
+        </>     
   )
 }
