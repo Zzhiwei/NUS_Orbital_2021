@@ -14,6 +14,7 @@ import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
 import PictureCropper from './components/profile/Cropper/PictureCropper'
 import { MultiStepForm } from './pages/MultiStepForm';
+import Chat from './pages/Chat';
 
 const theme = createMuiTheme({
   palette: {
@@ -53,7 +54,8 @@ function App() {
               <Route path="/create" component={MultiStepForm}></Route>
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>
-              <Route path="/forgotpassword" component={ForgotPassword}></Route>   
+              <Route path="/forgotpassword" component={ForgotPassword}></Route>
+              <Route path="/chat" component={Chat}></Route>   
             </Switch>
           </Layout>   
         </AuthProvider>      
