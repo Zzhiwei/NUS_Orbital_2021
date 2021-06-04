@@ -8,6 +8,11 @@ export const type = () => ([
     {id: 7, value: "Others"}
 ])
 
+export const category = () => ([
+    {id: 1, value: "Project"},
+    {id: 2, value: "Competition"},
+])
+
 export const groupSize = () => ([
     {id: 1, value: 1},
     {id: 2, value: 2},

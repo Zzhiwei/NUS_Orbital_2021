@@ -28,16 +28,18 @@ export default function Date(props) {
 
     return (
         <div>
-            <Typography className={classes.label}>
+            {/* <Typography className={classes.label}>
                 {label}
-            </Typography>  
+            </Typography>   */}
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker 
                     className={classes.text}
                     autoOk
+                    fullWidth
+                    label={label}
                     disableToolbar 
                     variant='inline'
-                    inputVariant='outlined'
+                    //inputVariant='outlined'
                     format="dd MMM yyyy"
                     name={name}
                     value={value}
