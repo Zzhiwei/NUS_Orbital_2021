@@ -38,7 +38,8 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
                             current={hit.current}
                             total={hit.total}
                             location={hit.location}
-                            schedule={hit.schedule}
+                            start={hit.start}
+                            end={hit.end}
                             education={hit.education}
                             proficiency={hit.proficiency}
                             chips={hit.skills}
