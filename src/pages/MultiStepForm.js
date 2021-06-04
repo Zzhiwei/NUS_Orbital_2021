@@ -9,6 +9,7 @@ import { Paper, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState } from 'react';
 import { EditorState, convertToRaw } from 'draft-js'
 import { useAuth } from '../contexts/AuthContext'
+import { useHistory }  from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -58,6 +59,7 @@ export const MultiStepForm = () => {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const { currentUser } = useAuth()
+  const history = useHistory()
 
   if (!currentUser) {
     history.push('/login')
