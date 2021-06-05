@@ -123,7 +123,13 @@ function Layout(props) {
     const renderLogin = () => {
         if (currentUser) {
             return (
-                <div style={{marginRight: '50px'}}> 
+                <div style={{marginRight: '50px'}}>
+                    <Link to="/myposts" style={{textDecoration: 'none'}}>
+                        <Button>My Posts</Button>
+                    </Link> 
+                    <Link to="/mybookmarks" style={{textDecoration: 'none'}}>
+                        <Button>My Bookmarks</Button>
+                    </Link> 
                     <Link to="/newpost">
                         <Tooltip title="Create a New Post">
                             <IconButton aria-label="show 4 new mails" color="primary">

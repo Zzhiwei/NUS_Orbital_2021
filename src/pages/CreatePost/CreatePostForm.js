@@ -68,10 +68,12 @@ export const CreatePost = () => {
   const {
     values,
     setValues,
+    errors,
+    setErrors,
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, handleInputChange, setActiveStep }
+  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep }
 
   function getStepContent(step) {
     switch(step) {

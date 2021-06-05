@@ -173,16 +173,16 @@ export const PartC = ({ values, setValues, setActiveStep, docRef }) => {
                     color="primary" 
                     onClick={handleOpen}
                     >
-                    Post
+                    Save Changes
                 </Button>
             </div>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>
-                  Post Submission Confirmation
+                  Post Edit Confirmation
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Click 'Back' to review and edit your post or 'Post' to confirm
+                    Click 'Back' to review and edit your post or 'Save Changes' to confirm
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -190,7 +190,7 @@ export const PartC = ({ values, setValues, setActiveStep, docRef }) => {
                     Back
                   </Button>
                   <Button onClick={handleSubmit} color="primary" disabled={loading}>
-                    Post
+                    Save Changes
                   </Button>
                 </DialogActions>
             </Dialog>
