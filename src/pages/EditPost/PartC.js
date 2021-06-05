@@ -111,6 +111,8 @@ export const PartC = ({ values, setValues, setActiveStep, docRef }) => {
       description
     } = values
 
+    const commitment = start.toString().substring(4,15) + " - " + end.toString().substring(4,15)
+
     setLoading(true)
     
     docRef.update({
@@ -122,6 +124,7 @@ export const PartC = ({ values, setValues, setActiveStep, docRef }) => {
       location,
       start,
       end,
+      commitment,
       current,
       total,
       description,
