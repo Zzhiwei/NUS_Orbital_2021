@@ -31,7 +31,19 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) => {
+export const PartB = ({ values, setValues, errors, setErrors, handleInputChange, setActiveStep }) => {
+
+  const validate = () => {
+    let temp = {}
+    temp.current = values.current ? "" : "This field is required"
+    temp.total = values.total ? "" : "This field is required"
+    temp.education = values.education ? "" : "This field is required"
+    temp.location = values.location ? "" : "This field is required"
+    setErrors({
+      ...temp
+    })
+    return Object.values(temp).every(x => x === "");
+  }
   
   const classes = useStyles()
   const { current, total, skills, education, location } = values
@@ -46,6 +58,12 @@ export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) =
   }
 
   const handleNext = () => {
+    if (values.current > values.total) {
+      alert("current members cannot be more than total group size")
+      return
+    } else if (!validate()) {
+      return
+    }
     setActiveStep(step => step + 1)
   }
 
@@ -80,6 +98,7 @@ export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) =
                   placeholder="Number of current members?"
                   onChange={handleInputChange}
                   options={selections.groupSize()}
+                  error={errors.current}
               />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -90,6 +109,7 @@ export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) =
                   placeholder="Number of members in total?"
                   onChange={handleInputChange}
                   options={selections.groupSize()}
+                  error={errors.total}
               />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -100,6 +120,7 @@ export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) =
                   placeholder="Please specify"
                   onChange={handleInputChange}
                   options={selections.education()}
+                  error={errors.education}
               />
           </Grid>
           <Grid  item xs={12} sm={6}>
@@ -110,6 +131,7 @@ export const PartB = ({ values, setValues, handleInputChange, setActiveStep }) =
                   placeholder="Online or in-person?"
                   onChange={handleInputChange}
                   options={selections.location()}
+                  error={errors.location}
               />
           </Grid>
       </Grid>

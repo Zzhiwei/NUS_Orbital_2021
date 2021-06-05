@@ -72,6 +72,15 @@ Object.assign(darkTheme, {
 
 export const PartC = ({ values, setValues, setActiveStep }) => {
 
+  const validate = () => {
+    let temp = {}
+    temp.description = values.description ? "" : "This field is required"
+    // setErrors({
+    //   ...temp
+    // })
+    return Object.values(temp).every(x => x === "");
+  }
+
   const classes = useStyles()
   const { description } = values
   const ref = useRef()
@@ -91,6 +100,10 @@ export const PartC = ({ values, setValues, setActiveStep }) => {
   }
 
   const handleOpen = () => {
+    if (!validate()) {
+      alert('form not filled in correctly')
+      return
+    }
     ref.current?.save()
     setOpen(true)
   }

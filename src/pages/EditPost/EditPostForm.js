@@ -87,10 +87,12 @@ export const EditPostForm = ({ data }) => {
   const {
     values,
     setValues,
+    errors,
+    setErrors,
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, handleInputChange, setActiveStep, docRef }
+  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, docRef }
 
   function getStepContent(step) {
     switch(step) {
