@@ -5,18 +5,16 @@ import ChatListItem from './ChatListItem'
 
 const useStyles = makeStyles(theme => {
     return {
-        root: {
-            backgroundColor: 'orange'
-        }
     }
 })
 
 export default function ChatList({ chats, setCurrentChat }) {
+    console.log("rendering chat list")
     const classes = useStyles()
 
 
     return (
-        <div className={classes.root}>
+        <div className="chatListRoot">
             {chats.map(chat => {
                 return <ChatListItem setCurrentChat={setCurrentChat} chatId={chat} />
             })}
