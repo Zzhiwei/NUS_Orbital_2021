@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Grid, makeStyles } from "@material-ui/core";
 import Controls from "../../components/Controls"
 import * as selections from '../../components/Selections'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   buttons: {
@@ -32,10 +34,18 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
   
   const classes = useStyles()
   const { title, type, category, start, end } = values
+  const [open, setOpen] = useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const handleNext = () => {
     if (values.start > values.end) {
-      alert('invalid date range')
+      setOpen(true)
       return
     } else if (!validate()) {
       return
@@ -109,6 +119,11 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
                 Next
             </Button>
         </div>
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+            <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
+                End Date cannot be before Start Date
+            </MuiAlert>
+        </Snackbar>
       </>     
   )
 }
