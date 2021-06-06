@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, makeStyles, Button } from "@material-ui/core";
 import Controls from "../../components/Controls"
 import * as selections from '../../components/Selections'
 import ChipInput from 'material-ui-chip-input'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,6 +49,7 @@ export const PartB = ({ values, setValues, errors, setErrors, handleInputChange,
   
   const classes = useStyles()
   const { current, total, skills, education, location } = values
+  const [open, setOpen] = useState(false)
 
   const handleAddChip = (chip) => {
     setValues(val => ({...val, skills: [...val.skills, chip]}))
@@ -57,9 +60,16 @@ export const PartB = ({ values, setValues, errors, setErrors, handleInputChange,
     setValues(val => ({...val, skills: val.skills}))
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const handleNext = () => {
     if (values.current > values.total) {
-      alert("current members cannot be more than total group size")
+      setOpen(true)
       return
     } else if (!validate()) {
       return
@@ -153,6 +163,11 @@ export const PartB = ({ values, setValues, errors, setErrors, handleInputChange,
               Next
           </Button>
       </div>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
+              Current Members cannot be more than Total Group Size
+          </MuiAlert>
+      </Snackbar>
   </>
   )
 }
