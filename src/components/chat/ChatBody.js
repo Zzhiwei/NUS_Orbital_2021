@@ -1,4 +1,4 @@
-import { makeStyles, Paper, rgbToHex, TextField, Typography } from '@material-ui/core'
+import { Avatar, Grid, makeStyles, Paper, rgbToHex, TextField, Typography } from '@material-ui/core'
 import React, {useState, useEffect, useRef} from 'react'
 import firebase from 'firebase/app';
 
@@ -6,6 +6,7 @@ import firebase from 'firebase/app';
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 import { divide } from 'lodash';
+import { NaturePeopleOutlined } from '@material-ui/icons';
 
 
 const useStyles = makeStyles(theme => {
@@ -32,17 +33,19 @@ export default function ChatBody({ chat }) {
     const { currentUser } = useAuth()
     const autoScroll = useRef();
     const prevId = useRef("")
+    const unsubcriber = useRef(() => undefined)
     
     useEffect(() => {
-        autoScroll.current && autoScroll.current.scrollIntoView({ behavior: 'smooth' })
+        autoScroll.current && autoScroll.current.scrollIntoView()
     }, [renderList])
     
 
-    if (chat &&  prevId.current !== chat.chatId) {
+    if (chat.chatId &&  prevId.current !== chat.chatId) {
+        unsubcriber.current()
         console.log("getting chat messages")
         prevId.current = chat.chatId
         
-        db.collection("chats").doc(chat.chatId).collection("messages").orderBy("time")
+        unsubcriber.current = db.collection("chats").doc(chat.chatId).collection("messages").orderBy("time")
             .onSnapshot((snapshot) => {
                 let arr = []
                 snapshot.forEach(message => {
@@ -50,6 +53,7 @@ export default function ChatBody({ chat }) {
                 })
                 setRenderList(arr)
             })
+        
     } 
 
     const handleSubmit = (e) => {
@@ -68,16 +72,35 @@ export default function ChatBody({ chat }) {
         setCurrentMessage(e.target.value)
     }
         
-    const renderInput = () => {
+    const renderHeader = () => {
+        const hasInfo = Boolean(chat.userInfo)
+        if (hasInfo) {
+            return (
+                <div className="bodyHeader">
+                    <Grid container alignItems="center" >
+                        <Grid style={{marginRight: "10px"}}>
+                            <Avatar  src={chat.userInfo.profilePicture} />
+                        </Grid>
+                        <Grid className={classes.name}>
+                            <Typography variant="h6" >
+                                {chat.userInfo.firstName + " " + chat.userInfo.lastName}
+                            </Typography>
+                        </Grid> 
+                    </Grid>
+                </div>
+            )
+        }
+    }
+
+    const renderChatBody = () => {
         if (chat) {
             return (
-            <div>
+                <div>
+                {renderHeader()}
                 <div  className="bodyRoot">
                     <div>
                         {renderList && renderList.map(x => {
                             const outgoing = currentUser.uid === x.sender
-                            
-                            
                             return (
                                 <div  align={outgoing ? "right" : "left"}>
                                     <Paper 
@@ -89,7 +112,6 @@ export default function ChatBody({ chat }) {
                                         <Typography>
                                             {x.content}
                                         </Typography>
-                                    
                                     </Paper> 
                                 </div>
                             )
@@ -104,15 +126,12 @@ export default function ChatBody({ chat }) {
                             value={currentMessage}
                             onChange={handleChange}
                         />
-
-                    </form>
-                
+                </form>
             </div>
             )
-        } 
-        return <div>select a chat</div>
+        }
     }
     
 
-    return renderInput()    
+    return renderChatBody()
 }

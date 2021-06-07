@@ -1,28 +1,37 @@
 .bodyRoot {
     background-image: url("../../assets/chatBackground.jpeg");
     background-size: cover;
-    width: 100%;
-    padding: 10px;
+    padding: 30px;
     height: 500px;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
 }
 
-.none {
-    display: none;
+.bodyHeader {
+    background-color: rgb(238, 238, 238);
+    padding: 10px;
+
 }
 
-.chatListRoot {
-    background-color: white;
+.chatListScrollBody {
+    height: 572px;
+    
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
+
+
+
+
 
 
 .chatInputContainer {
     border-top: 2px solid grey;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: rgb(223, 219, 219);
+    background-color: rgb(238, 238, 238);
 
     
 }
