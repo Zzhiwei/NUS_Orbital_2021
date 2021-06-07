@@ -127,7 +127,7 @@ function Layout(props) {
                     <Link to="/myposts" style={{textDecoration: 'none'}}>
                         <Button>My Posts</Button>
                     </Link> 
-                    <Link to="/mybookmarks" style={{textDecoration: 'none'}}>
+                    <Link to="/bookmarks" style={{textDecoration: 'none'}}>
                         <Button>My Bookmarks</Button>
                     </Link> 
                     <Link to="/newpost">

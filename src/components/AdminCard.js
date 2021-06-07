@@ -10,6 +10,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { FaUserGraduate } from 'react-icons/fa'
 import { PeopleAlt } from '@material-ui/icons';
+import SubjectRoundedIcon from '@material-ui/icons/SubjectRounded';
 
 const useStyles = makeStyles(theme => {
     return {
@@ -27,14 +28,14 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: '-15px',
+            marginBottom: '-10px',
             '& > *': {
               margin: theme.spacing(0.5),
             },
         },
         contentBox: {
             display: 'flex',
-            marginTop: '-10px',
+            marginTop: '-5px',
         },
         members: {
             flex: 1,
@@ -50,6 +51,16 @@ const useStyles = makeStyles(theme => {
             marginBottom: "10px",
             marginLeft: "10px"
         },
+        category: {
+            display: 'flex', 
+            flex: 1, 
+            justifyContent: "center", 
+            alignItems: "center", 
+            border: "2px solid gray", 
+            borderRadius: "4px", 
+            margin: "5px 75px", 
+            color: "gray"
+        },
         link: {
             color: theme.palette.primary.main,
             textDecoration: "none",
@@ -57,7 +68,9 @@ const useStyles = makeStyles(theme => {
     }     
 })
 
-export default function AdminCard({ id, title, current, total, location, commitment, education, chips }) {
+export default function AdminCard({ data }) {
+
+    const { id, title, type, category, current, total, location, commitment, education, skills : chips } = data
     console.log("rendering admincard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -97,7 +110,7 @@ export default function AdminCard({ id, title, current, total, location, commitm
                 onMouseLeave={handleHoverOff}
                 elevation={hover}
                 className={classes.root}
-            >
+            >   
                 <CardHeader  
                     avatar={
                         <Avatar src={currentUserData.profilePicture} className={classes.avatar} >
@@ -105,16 +118,27 @@ export default function AdminCard({ id, title, current, total, location, commitm
                         </Avatar>
                     }
                     title={
-                        <Typography variant="h5">
-                        {title}
+                        <div style={{display: "flex"}}>
+                        <Typography variant="h5" style={{flex: 2}}>
+                            {title}
                         </Typography>
-                    }                    
+                        <div className={classes.category}>
+                            <Typography variant="subtitle2">
+                                {category}
+                            </Typography>
+                        </div>
+                        </div>
+                    }                 
                 />
                 <CardContent>
                     <div className={classes.contentBox}>
                         <div>
                             <div className={classes.content}>
-                                <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
+                                <SubjectRoundedIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
+                                {type}
+                            </div>
+                            <div className={classes.content}>
+                                <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15.5px'}}/>
                                 {location}
                             </div>
                             <div className={classes.content}>
@@ -126,7 +150,7 @@ export default function AdminCard({ id, title, current, total, location, commitm
                                 {education}
                             </div>
                             <div className={classes.content}>
-                                <PeopleAlt fontSize="default" style={{marginLeft: '0px', marginRight: '15px'}} />
+                                <PeopleAlt fontSize="default" style={{marginLeft: '0px', marginRight: '14.5px'}} />
                                 {current} / {total}
                             </div>
                         </div>

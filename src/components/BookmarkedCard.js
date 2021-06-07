@@ -64,7 +64,10 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function BookmarkedCard({ authorId, id, title, author, current, total, location, commitment, education, chips }) {
+export default function BookmarkedCard({ data }) {
+
+    const { author, id, title, name, current, total, location, commitment, education, chips } = data
+    
     console.log("rendering bookmarkcards")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -73,14 +76,14 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
     const [hover, setHover] = useState(1)
 
     useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
+        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
         if (dataUrl) {
             setProfilePic(dataUrl)
         } else {
             setProfilePic(null)
         }
         
-    }, [authorId])
+    }, [author])
 
     const handleRemoveBookmark = () => {
         userRef.update({
@@ -98,8 +101,8 @@ export default function BookmarkedCard({ authorId, id, title, author, current, t
     }
 
     const byline = (
-        <Link className={classes.profileLink} to={`/profile/${authorId}`}>
-            {`by: ${author}`}
+        <Link className={classes.profileLink} to={`/profile/${author}`}>
+            {`by: ${name}`}
         </Link>
     )
 

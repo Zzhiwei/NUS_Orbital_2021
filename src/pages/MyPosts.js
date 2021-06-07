@@ -72,17 +72,7 @@ export default function MyPosts() {
                             {posts.map((data, index) => {
                                 return (
                                 <Grid key={index} item xs={12} md={6}>
-                                    <AdminCard
-                                        key={data.id}
-                                        id={data.id}
-                                        title={data.title}
-                                        current={data.current}
-                                        total={data.total}
-                                        location={data.location}
-                                        commitment={data.commitment}
-                                        education={data.education}
-                                        chips={data.skills}
-                                    />
+                                    <AdminCard data={data}/>
                                 </Grid>
                             )})} 
                         </Grid>
