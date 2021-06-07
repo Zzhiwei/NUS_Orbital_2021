@@ -26,14 +26,12 @@ export default function MyPosts() {
     console.log("render myposts")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
-    console.log(currentUserData.posts)
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
     
     //sends query to backend when first mounting
     useEffect(async () => {
-        //if no user is logged in redirect to sign up
         if (!currentUser) {
             alert("Please log in first")
             history.push('/login')
