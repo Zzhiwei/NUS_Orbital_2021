@@ -1,6 +1,6 @@
 import { Grid, makeStyles, Paper } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { useHistory }  from 'react-router-dom'
+import { useHistory, useLocation }  from 'react-router-dom'
 
 
 import { useAuth } from '../contexts/AuthContext'
@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme => {
         root: {
             marginTop: '100px',
         },
+        chatListRoot: {
+            height: '648px',
+            backgroundColor: 'rgb(238, 238, 238)'
+        }
     }
 })
 
@@ -21,32 +25,42 @@ export default function Chat() {
     const classes = useStyles()
     const history = useHistory()
     const { currentUser, currentUserData } = useAuth()
-    const [currentChat, setCurrentChat] = useState(null)
-    const chatBody = document.getElementById('chatBody')
-    const chatListHeight = chatBody ? chatBody.clientHeight : 0;
-    console.log(chatListHeight)
+    const selected = new URLSearchParams(useLocation().search).get("selected")
+    const current =  selected 
+        ? selected 
+        : currentUserData.chats.length > 0
+            ? currentUserData.chats[0]
+            : null
+            
+    const [currentChat, setCurrentChat] = useState({chatId: current})
+    
 
+
+    
+    
+    
     useEffect(() => {
         if (!currentUser) {
             history.push('/login')
         }
+        // const selected = new URLSearchParams(useLocation().search).get("selected")
+        // const current = selected ? selected : currentUserData.chats[0];
     }, [])
 
     return (
         <div className={classes.root}>
-            <Grid container justify="center">
-                <Grid item xs={2}> 
-                    <Paper style={{height: "588px"}}>
-                    <ChatList setCurrentChat={setCurrentChat} chats={currentUserData.chats} />
+            <div style={{display: 'flex'}}>
+                <div style={{flex: 1}}>
+                    <Paper className={classes.chatListRoot}>
+                        <ChatList currentChat={currentChat} setCurrentChat={setCurrentChat} chats={currentUserData.chats} />
                     </Paper>
-                </Grid> 
-                
-                <Grid item xs={5}>
+                </div>
+                <div style={{flex: 2}}>
                     <Paper id="chatBody" >
                         <ChatBody chat={currentChat} />
                     </Paper>
-                </Grid>
-            </Grid>
+                </div>
+            </div>
         </div>
     )
 }

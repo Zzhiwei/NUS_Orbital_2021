@@ -7,8 +7,9 @@ import { Avatar, Grid, makeStyles } from '@material-ui/core'
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            padding: '10px',
-            borderBottom: "1px solid grey"
+            padding: '15px',
+            borderBottom: "1px solid grey",
+            backgroundColor: 'rgb(238, 238, 238)'
         },
         name: {
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function ChatListItem({chatId, setCurrentChat}) {
+export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
     const classes = useStyles()
     const chatRef = db.collection("chats").doc(chatId)
     const { currentUser } = useAuth()
@@ -42,21 +43,33 @@ export default function ChatListItem({chatId, setCurrentChat}) {
                     firstName: data.basicInfo.firstName,
                     lastName: data.basicInfo.lastName,
                 })
+                if (currentChat.chatId === chatId) {
+                    setCurrentChat({
+                        chatId,
+                        userInfo: {
+                            profilePicture: data.profilePicture,
+                            firstName: data.basicInfo.firstName,
+                            lastName: data.basicInfo.lastName,
+                        } 
+                    })
+                }
             })
+            
+            
         }
     }, [otherUserId])
 
     const handleClick = () => {
         setCurrentChat({
             chatId,
-            users: userIds.current
+            userInfo
         })
     }
 
     return (
         <div onClick={handleClick} className={classes.root}>
-            <Grid container>
-                <Grid>
+            <Grid container alignItems="center">
+                <Grid style={{marginRight: '10px'}}>
                     <Avatar src={userInfo.profilePicture} />
                 </Grid>
                 <Grid className={classes.name}>
