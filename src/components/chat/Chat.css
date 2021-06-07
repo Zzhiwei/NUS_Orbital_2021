@@ -1,0 +1,59 @@
+.bodyRoot {
+    background-image: url("../../assets/chatBackground.jpeg");
+    background-size: cover;
+    padding: 30px;
+    height: 500px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.bodyHeader {
+    background-color: rgb(238, 238, 238);
+    padding: 10px;
+
+}
+
+.chatListScrollBody {
+    height: 572px;
+    
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+.chatInputContainer {
+    border-top: 2px solid grey;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: rgb(238, 238, 238);
+
+    
+}
+
+.chatInput {
+    width: 80%;
+    background-color: #fefefe;
+    border-radius: 5px;
+    
+}
+
+
+.message {
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px;
+    margin: 10px 0px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: justify;
+    text-justify: inter-word;
+
+
+}
+

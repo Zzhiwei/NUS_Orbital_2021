@@ -12,6 +12,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
 import PictureCropper from './components/profile/Cropper/PictureCropper'
+import Chat from './pages/Chat';
 import { CreatePost } from './pages/CreatePost/CreatePostForm';
 
 const theme = createMuiTheme({
@@ -51,7 +52,8 @@ function App() {
               <Route path="/newpost" component={CreatePost}></Route>
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>
-              <Route path="/forgotpassword" component={ForgotPassword}></Route>   
+              <Route path="/forgotpassword" component={ForgotPassword}></Route>
+              <Route path="/chat" component={Chat}></Route>   
             </Switch>
           </Layout>   
         </AuthProvider>      

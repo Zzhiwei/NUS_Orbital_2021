@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { makeStyles, Paper, Typography } from '@material-ui/core';
-import { useParams } from 'react-router-dom';
+import { makeStyles, Paper, Typography, Button } from '@material-ui/core';
+import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash'
+import firebase from "firebase/app"
+
 
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -25,9 +27,10 @@ const useStyles = makeStyles((theme) => {
 
 function Profile() {
     console.log("rerender profile")
-    const { currentUser, currentUserData } = useAuth()
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const classes = useStyles()
     const { id } = useParams()
+    const history = useHistory()
 
     const viewingOwn = useRef(null)
 
@@ -79,6 +82,71 @@ function Profile() {
         getUserData()
     }
 
+
+    const handleMessageClick = async () => {
+        //check if database already has chat between these two users
+        const res1 = await db.collection('chats').where("user1", "==", id).where('user2', '==', currentUser.uid).get()
+        const res2 = await db.collection('chats').where("user1", "==", currentUser.uid).where('user2', '==', id).get()
+        let chatId = null
+        res1.forEach(x => {
+            if (!chatId) {
+                chatId = x.id
+            }
+        })
+        res2.forEach(x => {
+            if (!chatId) {
+                chatId = x.id
+            }
+        })
+
+        if (chatId) {
+            history.push(`/chat?selected=${chatId}`)
+        } else {
+            const docRef = await db.collection('chats').add({
+                user1: currentUser.uid,
+                user2: id
+            })
+            
+            /*
+                this kind of things should really be written in the backend not here
+                very bad practice
+                use firebase cloudFunctions
+            */
+            await db.collection('users').doc(currentUser.uid).update({
+                chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+            })
+
+            
+
+            await db.collection('users').doc(id).update({
+                chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+            })
+
+            setCurrentUserData({
+                ...currentUserData,
+                chats: [...currentUserData.chats, docRef.id]
+            })
+            
+            setTimeout(() => {
+                history.push(`/chat?selected=${docRef.id}`)
+            }, 500)
+        }
+
+        
+    }
+
+    const renderMessage = () => {
+        if (!renderOptions.enableEdit && currentUser) {
+            return (
+                <div align="center">
+                        <Button variant="outlined" onClick={handleMessageClick}> 
+                            Message
+                        </Button>
+                    </div>
+            )
+        }
+    }
+
     
     
     
@@ -90,6 +158,7 @@ function Profile() {
             <div>
                 <Paper className={classes.root} elevation={3}>                  
                     <ProfileAvatar userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
+                    {renderMessage()}
                     <BasicInfo userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     <Education userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>            
                     <Experience userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>

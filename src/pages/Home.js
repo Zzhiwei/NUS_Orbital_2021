@@ -22,8 +22,6 @@ export default function Home() {
                 > 
                 <Configure
                     hitsPerPage={8}
-                    // analytics={false}
-                    // enablePersonalization={true}
                 />
                 <SearchBox /> 
                 <Grid container>
