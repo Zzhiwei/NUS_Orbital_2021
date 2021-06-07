@@ -64,7 +64,9 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function PostCard({ authorId, id, title, author, current, total, location, commitment, education, chips }) {
+export default function PostCard({ data }) {
+
+    const { author, objectID : id, title, name, current, total, location, commitment, education, chips } = data
     console.log("rendering postcard")
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -80,9 +82,9 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     }, [])
 
     useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(authorId).get().then(res => res.data().profilePicture)
+        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
         setProfilePic(dataUrl)
-    }, [authorId])
+    }, [author])
     
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -119,8 +121,8 @@ export default function PostCard({ authorId, id, title, author, current, total, 
     }
 
     const byline = (
-        <Link className={classes.profileLink} to={`/profile/${authorId}`}>
-            {`by: ${author}`}
+        <Link className={classes.profileLink} to={`/profile/${author}`}>
+            {`by: ${name}`}
         </Link>
     )
 

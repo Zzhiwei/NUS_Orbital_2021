@@ -78,18 +78,7 @@ export default function MyBookmarks() {
                         {posts.map((data, index) => {
                                 return ( 
                                 <Grid item xs={12} md={6} key={index}>
-                                    <BookmarkedCard
-                                        id={data.id}
-                                        title={data.title}
-                                        author={data.name}
-                                        authorId={data.author}
-                                        current={data.current}
-                                        total={data.total}
-                                        location={data.location}
-                                        commitment={data.commitment}
-                                        education={data.education}
-                                        chips={data.skills}
-                                    />
+                                    <BookmarkedCard data={data}/>
                                 </Grid>
                             )})}
                     </Grid>
