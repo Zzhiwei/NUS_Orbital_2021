@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
-import usePostFetch from '../components/usePostFetch'
-import PostChange from './PostChange'
+import usePostFetch from '../../components/usePostFetch'
+import { EditPostForm } from './EditPostForm'
 
 export default function EditPost() {
 
@@ -11,7 +11,7 @@ export default function EditPost() {
     <div>
         { pending && <div>Loading...</div> }
         { error && <div>{ error } </div> }
-        { data && <PostChange data={data}/> }
+        { data && <EditPostForm data={data}/> }
     </div>    
   )
 }

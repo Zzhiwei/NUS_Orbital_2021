@@ -10,6 +10,9 @@ import firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => {
     return {
+        page: {
+            marginTop: theme.spacing(3),
+        },
         homeResults: {
             height: '100%',
             width: '80%',            
@@ -59,7 +62,7 @@ export default function MyPosts() {
         }
         return (
             <div>
-                <div>
+                <div className={classes.page}>
                     <PageHeader 
                         title="My Posts"
                         icon={<AllInboxRoundedIcon fontSize="large"/>}
@@ -76,7 +79,7 @@ export default function MyPosts() {
                                         current={data.current}
                                         total={data.total}
                                         location={data.location}
-                                        schedule={data.schedule}
+                                        commitment={data.commitment}
                                         education={data.education}
                                         chips={data.skills}
                                     />

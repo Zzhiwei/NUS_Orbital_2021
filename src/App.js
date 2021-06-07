@@ -4,17 +4,16 @@ import Register from './pages/Register';
 import Layout from './components/Layout';
 import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider } from '@material-ui/core';
-import NewPost from './pages/NewPost';
+import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { AuthProvider } from './contexts/AuthContext'
 import ViewPost from './pages/ViewPost';
-import EditPost from './pages/EditPost';
+import EditPost from './pages/EditPost/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
 import PictureCropper from './components/profile/Cropper/PictureCropper'
-import { MultiStepForm } from './pages/MultiStepForm';
 import Chat from './pages/Chat';
+import { CreatePost } from './pages/CreatePost/CreatePostForm';
 
 const theme = createMuiTheme({
   palette: {
@@ -50,8 +49,7 @@ function App() {
               <Route path="/profile/:id" component={Profile}></Route>
               <Route path="/myposts" component={MyPosts}></Route>
               <Route path="/bookmarks" component={MyBookmarks}></Route>
-              <Route path="/newpost" component={NewPost}></Route>
-              <Route path="/create" component={MultiStepForm}></Route>
+              <Route path="/newpost" component={CreatePost}></Route>
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>

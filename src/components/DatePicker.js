@@ -18,7 +18,7 @@ export default function Date(props) {
       }))
 
     const classes = useStyles()
-    const { name, label, value, onChange } = props
+    const { name, label, value, onChange, error=null } = props
 
     const convertToDefEventPara = (name, value) => ({
         target: {
@@ -28,20 +28,23 @@ export default function Date(props) {
 
     return (
         <div>
-            <Typography className={classes.label}>
+            {/* <Typography className={classes.label}>
                 {label}
-            </Typography>  
+            </Typography>   */}
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DatePicker 
                     className={classes.text}
                     autoOk
+                    fullWidth
+                    label={label}
                     disableToolbar 
                     variant='inline'
-                    inputVariant='outlined'
+                    //inputVariant='outlined'
                     format="dd MMM yyyy"
                     name={name}
                     value={value}
-                    onChange={date => onChange(convertToDefEventPara(name, date))}  
+                    onChange={date => onChange(convertToDefEventPara(name, date))}
+                    {...(error && {error:true, helperText:error})}  
                 />
             </MuiPickersUtilsProvider>
         </div>

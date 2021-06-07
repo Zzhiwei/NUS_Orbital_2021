@@ -10,6 +10,9 @@ import firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => {
     return {
+        page: {
+            marginTop: theme.spacing(3),
+        },
         homeResults: {
             height: '100%',
             width: '80%',            
@@ -65,7 +68,7 @@ export default function MyBookmarks() {
             return <div>Loading...</div>
         }
         return (
-            <div>
+            <div className={classes.page}>
                 <PageHeader 
                     title="My Bookmarks"
                     icon={<BookmarksIcon style={{fontSize: "28" }}/>}
@@ -83,7 +86,7 @@ export default function MyBookmarks() {
                                         current={data.current}
                                         total={data.total}
                                         location={data.location}
-                                        schedule={data.schedule}
+                                        commitment={data.commitment}
                                         education={data.education}
                                         chips={data.skills}
                                     />
