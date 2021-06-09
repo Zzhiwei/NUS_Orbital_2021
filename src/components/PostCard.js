@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Chip, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, IconButton, Card, CardContent, CardHeader, Chip, Divider, makeStyles, Typography, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext'
@@ -8,40 +8,47 @@ import 'firebase/firestore';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { FaUserGraduate } from 'react-icons/fa'
-import { PeopleAlt } from '@material-ui/icons';
+import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const useStyles = makeStyles(theme => {
     return {
         root: {
             border: '1px solid rgba(0, 0, 0, .125)',
-            borderRadius: '10px'
+            borderRadius: '4px'
         },
         avatar: {
             height: '50px',
             width: '50px',
             color: 'white',
-            backgroundColor: theme.palette.primary.main
+            backgroundColor: theme.palette.primary.main,
+            //marginTop: "0px"
         },
         chipStyle: {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginBottom: '-15px',
+            marginTop: "-50px",
+            marginBottom: '10px',
+            '& > *': {
+              margin: theme.spacing(0.5),
+            },
+        },
+        chipGuest: {
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            marginBottom: '10px',
             '& > *': {
               margin: theme.spacing(0.5),
             },
         },
         contentBox: {
             display: 'flex',
-            marginTop: '-15px',
-        },
-        members: {
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '-10px'
+            marginTop: '-5px',
         },
         content: {
             display: "flex", 
@@ -49,6 +56,25 @@ const useStyles = makeStyles(theme => {
             flexWrap: "wrap",
             marginBottom: "10px",
             marginLeft: "10px"
+        },
+        footerContent: {
+            display: "flex", 
+            alignItems: "center", 
+            flexWrap: "wrap",
+        },
+        icon: {
+            display: "flex", 
+            flex: 1, 
+            justifyContent: "flex-end", 
+            position: "relative", 
+            top: "-194px", 
+            left: "14px"
+        },
+        footer: {
+            display: "flex", 
+            justifyContent:"space-between", 
+            marginTop: "10px", 
+            marginBottom: "-10px"
         },
         link: {
             color: theme.palette.primary.main,
@@ -66,14 +92,15 @@ const useStyles = makeStyles(theme => {
 
 export default function PostCard({ data }) {
 
-    const { author, objectID : id, title, name, current, total, location, commitment, education, chips } = data
-    console.log("rendering postcard")
+    const { author, objectID : id, title, timestamp, name, current, total, location, commitment, education, skills : chips } = data
+    console.log("rendering postcard entitled " + data.title)
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
     const [hover, setHover] = useState(1)
+    const [time, setTime] = useState('some time ago')
  
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
@@ -86,6 +113,37 @@ export default function PostCard({ data }) {
         setProfilePic(dataUrl)
     }, [author])
     
+    useEffect(() => {
+        const now = new Date()
+        const timeStamp = timestamp._seconds * 1000
+        const secondsPast = (now.getTime() - timeStamp) / 1000
+        if (secondsPast < 60) {
+            setTime('<1 minute ago')
+        }
+        else if (secondsPast < 3600) {
+            setTime('<1 hour ago')
+        }
+        else if (secondsPast <= 86400) {
+            let hoursPast = parseInt(secondsPast / 3600)
+            setTime(hoursPast == 1 ? hoursPast + ' hour ago' : hoursPast + ' hours ago')
+        }
+        else if (secondsPast <= 604800) {
+            let daysPast = parseInt(secondsPast / 86400)
+            setTime(daysPast == 1 ? daysPast + ' day ago' : daysPast +  ' days ago')
+        } 
+        else if (secondsPast <= 2419200) {
+            let weeksPast = parseInt(secondsPast / 604800)
+            setTime(weeksPast == 1 ? weeksPast + ' week ago' : weeksPast + ' weeks ago')
+        } 
+        else if (secondsPast <= 29030400) {
+            let monthsPast = parseInt(secondsPast / 2419200)
+            setTime(monthsPast == 1 ? monthsPast + ' month ago' : monthsPast + ' months ago')
+        }
+        else {
+            setTime('>1 year ago')
+        }
+    }, [])
+
     const handleAddBookmark = async () => {
         await userRef.update({
             bookmarks: firebase.firestore.FieldValue.arrayUnion(id)
@@ -129,11 +187,13 @@ export default function PostCard({ data }) {
     const renderBookmark = () => {
         if (currentUser) {
             return (
-                <Link to='' style={{textDecoration: 'none'}}>
-                <Button size="small" color={bookmarked ? "secondary" : "primary"} onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}>
-                    {bookmarked ? 'Remove from bookmarks' : 'Bookmark'}
-                </Button>
-                </Link>
+            <Link to="" className={classes.link}>
+                <Tooltip title={bookmarked ? "Remove from Bookmarks" : "Add to Bookmarks"}>
+                <IconButton color="primary" onClick={ bookmarked ? handleRemoveBookmark : handleAddBookmark }>
+                    { bookmarked ? <BookmarkIcon style={{fontSize: 28}} /> : <BookmarkBorderIcon style={{fontSize: 28}} /> }
+                </IconButton>
+                </Tooltip>
+            </Link>
             )
         }
     }
@@ -163,36 +223,51 @@ export default function PostCard({ data }) {
                 <div className={classes.contentBox}>
                     <div>
                         <div className={classes.content}>
+                            <Tooltip title="Location">
                             <LocationOnIcon style={{marginLeft: '-0.5px', marginRight: '15px'}}/>
+                            </Tooltip>
                             {location}
                         </div>
                         <div className={classes.content}>
+                            <Tooltip title="Commitment Period">
                             <DateRangeIcon style={{marginRight: '15px'}}/>
+                            </Tooltip>
                             {commitment}
                         </div>
                         <div className={classes.content}>
-                            <FaUserGraduate fontSize="large" style={{marginLeft: '2px', marginRight: '19px'}}/>
+                            <Tooltip title="Education Level">
+                            <SchoolRoundedIcon style={{marginRight: '15px'}}/>
+                            </Tooltip>
                             {education}
-                        </div>
-                        <div className={classes.content}>
-                            <PeopleAlt fontSize="default" style={{marginLeft: '0px', marginRight: '15px'}} />
-                            {current} / {total}
                         </div>
                     </div>
                 </div>
-                <div className={classes.chipStyle}>
+                <div className={classes.icon}>
+                    <Link to="/bookmarks" className={classes.link}>
+                        {renderBookmark()}
+                    </Link>
+                </div>
+                <div className={currentUser ? classes.chipStyle : classes.chipGuest}>
                     {chips && chips.map((tag, index) => {
                         return <Chip key={index} label={tag}/>
                     })}
                 </div>
-            </CardContent>   
-            <CardActions> 
-                <Grid container justify="center">
-                    <Grid item>
-                        {renderBookmark()}
-                    </Grid>
-                </Grid>
-            </CardActions>                
+                <Divider variant="middle" />
+                <div className={classes.footer}>
+                    <span className={classes.footerContent}>
+                        <Tooltip title="Members">
+                            <PeopleAltRoundedIcon style={{marginRight: '10px'}}/>
+                        </Tooltip>
+                        {current} / {total}
+                    </span>
+                    <span className={classes.footerContent}>
+                        <Tooltip title="Last Update to Post">
+                            <ScheduleIcon style={{marginRight: '7px'}}/>
+                        </Tooltip>
+                        Updated {time}
+                    </span>
+                </div>
+            </CardContent>               
         </Card>
         </Link>
     );

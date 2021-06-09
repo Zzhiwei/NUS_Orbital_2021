@@ -19,6 +19,11 @@ export const groupSize = () => ([
     {id: 3, value: 3},
     {id: 4, value: 4},
     {id: 5, value: 5},
+    {id: 6, value: 6},
+    {id: 7, value: 7},
+    {id: 8, value: 8},
+    {id: 9, value: 9},
+    {id: 10, value: 10},
 ])
 
 export const location = () => ([
@@ -27,7 +32,7 @@ export const location = () => ([
 ])
 
 export const education = () => ([
-    {id: 1, value: "No Requirement"}, 
+    {id: 1, value: "Any"}, 
     {id: 3, value: "Secondary"}, 
     {id: 4, value: "Pre-University"}, 
     {id: 5, value: "Undergraduate"}, 
