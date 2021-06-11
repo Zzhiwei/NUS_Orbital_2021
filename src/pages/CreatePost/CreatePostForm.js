@@ -5,14 +5,14 @@ import { PartC } from './PartC'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../../components/Copyright';
 import PageHeader from '../../components/PageHeader';
-import { Paper, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
+import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState } from 'react';
 import { EditorState, convertToRaw } from 'draft-js'
 import { useAuth } from '../../contexts/AuthContext'
 import { useHistory }  from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
+  root: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto',
     },
   },
-  paper: {
-    borderRadius: "10px",
+  layout: {
+    //borderRadius: "10px",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(1),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
@@ -90,8 +90,8 @@ export const CreatePost = () => {
 
   return (
     
-    <main className={classes.layout}>
-      <Paper elevation={2} className={classes.paper}>
+    <main className={classes.root}>
+      <div className={classes.layout}>
       <PageHeader 
           title="Create a New Post"
           subTitle="Please fill in the required details below"
@@ -105,7 +105,7 @@ export const CreatePost = () => {
           ))}
         </Stepper>
         {getStepContent(activeStep)}
-      </Paper>
+      </div>
       <Copyright />
     </main>  
    
