@@ -21,21 +21,17 @@ export default function Output(props) {
   const {name, label, value, rows } = props;
 
   return (
-    <div>
-        <Typography className={classes.label}>
-            {label}
-        </Typography>
-        <TextField
-            inputProps={{readOnly: true}}
-            //InputProps={{disableUnderline: true, classes: {input: classes.input}}}
-            variant="outlined"
-            className={classes.text}
-            name={name}
-            value={value}
-            rows={rows}
-            fullWidth
-            multiline
-        />
-    </div>
+      <TextField
+          inputProps={{readOnly: true}}
+          //InputProps={{disableUnderline: true, classes: {input: classes.input}}}
+          //variant="outlined"
+          label={label}
+          className={classes.text}
+          name={name}
+          value={value}
+          rows={rows}
+          fullWidth
+          multiline
+      />
   )
 }

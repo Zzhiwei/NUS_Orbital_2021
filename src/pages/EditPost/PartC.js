@@ -27,9 +27,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const darkTheme = createMuiTheme()
+const rteTheme = createMuiTheme()
 
-Object.assign(darkTheme, {
+Object.assign(rteTheme, {
   overrides: {
     MUIRichTextEditor: {
         root: {
@@ -146,7 +146,7 @@ export const PartC = ({ values, setValues, setActiveStep, docRef }) => {
                     {/* <Typography className={classes.label}>
                         Description
                     </Typography> */}
-                    <MuiThemeProvider theme={darkTheme}>
+                    <MuiThemeProvider theme={rteTheme}>
                         <MUIRichTextEditor
                             label="Some details ..."
                             onSave={handleSave}

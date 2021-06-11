@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { AuthProvider } from './contexts/AuthContext'
-import ViewPost from './pages/ViewPost';
+import ViewPost from './pages/ViewPost/ViewPost';
 import EditPost from './pages/EditPost/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
 import MyPosts from './pages/MyPosts';
@@ -26,9 +26,9 @@ const theme = createMuiTheme({
       main: '#f44336'
     },
     background: {
-      default: '#d7e0eb',
-      // default: '#4FC3F7' 
-      
+      //thisdefault: '#d7e0eb',
+      //default: '#4FC3F7' 
+      default: 'white'
     }
   },
 });

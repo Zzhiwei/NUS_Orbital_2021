@@ -1,10 +1,12 @@
 import { Box, Container, Grid, makeStyles, Typography } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input'
-import Copyright from '../components/Copyright'
-import PageHeader from '../components/PageHeader'
+import Copyright from '../../components/Copyright'
+import PageHeader from '../../components/PageHeader'
 import DescriptionIcon from '@material-ui/icons/Description'
-import Controls from "../components/Controls"
+import Controls from "../../components/Controls"
 import { Link } from 'react-router-dom'
+import MUIRichTextEditor  from 'mui-rte'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 const useStyles = makeStyles (theme => ({
     root: {
@@ -20,11 +22,44 @@ const useStyles = makeStyles (theme => ({
     },
     byline: {
         color: theme.palette.primary.main,
-        textDecoration: "none"
+        textDecoration: "none",
+        '&:hover':{
+            textDecoration: "underline",
+        },
     }
 }))
 
+const rteTheme = createMuiTheme()
 
+Object.assign(rteTheme, {
+  overrides: {
+    MUIRichTextEditor: {
+        root: {
+            marginTop: "1rem",
+            backgroundColor: "#fff",
+            borderRadius: "10px",
+            border: "1px solid gray"
+        },
+        container: {
+            borderRadius: '4px'
+        },
+        editor: {
+            padding: "5px 15px",
+            height: "250px",
+            maxHeight: "250px",
+            overflow: "auto",
+        },
+        placeHolder: {
+            backgroundColor: "#fff",
+            padding: "5px 15px",
+        },
+        anchorLink: {
+            color: "#333333",
+            textDecoration: "underline"
+        }
+      }
+    }
+})
 
 export default function PostOutput({ data })  {
     const classes = useStyles()
@@ -110,12 +145,12 @@ export default function PostOutput({ data })  {
                             />  
                         </Grid>
                         <Grid item xs={12}>
-                            <Controls.Output 
-                                name="description"
-                                label="Description"
-                                value={data.description}
-                                rows={10}
-                            /> 
+                            <MuiThemeProvider theme={rteTheme}>
+                                <MUIRichTextEditor
+                                    defaultValue={data.description}
+                                    controls={[]}
+                                />
+                            </MuiThemeProvider>
                         </Grid>
                     </Grid>
                 </div>

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router'
-import usePostFetch from '../components/usePostFetch'
 import PostOutput from './PostOutput'
+import ViewPostForm from './ViewPostForm'
+import usePostFetch from '../../components/usePostFetch'
 
 function ViewPost() {
 
@@ -11,7 +12,7 @@ function ViewPost() {
     <div>
         { pending && <div>Loading...</div> }
         { error && <div>{ error } </div> }
-        { data && <PostOutput data={data}/> }
+        { data && <ViewPostForm data={data}/> }
     </div>    
   )
 }
