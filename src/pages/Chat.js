@@ -35,7 +35,13 @@ export default function Chat() {
     const [currentChat, setCurrentChat] = useState({chatId: current})
     
 
-
+    /*
+        The expensive part is really the snapshot listeners
+        (everytime things change is one read e.g. in bodychat new messages come in real time 
+            , in chatListitem unread count updates in real time ) 
+        for every message sent, both the user is reading 
+        
+    */
     
     
     
@@ -57,7 +63,7 @@ export default function Chat() {
                 </div>
                 <div style={{flex: 2}}>
                     <Paper id="chatBody" >
-                        <ChatBody chat={currentChat} />
+                        <ChatBody key={String(currentChat.chatId)} chat={currentChat} />
                     </Paper>
                 </div>
             </div>
