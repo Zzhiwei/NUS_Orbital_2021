@@ -187,12 +187,12 @@ export default function AdminCard({ data }) {
                     <div className={classes.icon}>
                         <Link className={classes.link} to={'/editpost/' + id}>
                             <IconButton color="primary">
-                                <EditIcon style={{fontSize: 28}}/>
+                                <EditIcon style={{fontSize: 22}}/>
                             </IconButton>
                         </Link>
                         <Link className={classes.link} to='/myposts'>
                             <IconButton color="secondary" onClick={handleDelete}>
-                                <DeleteIcon style={{fontSize: 28}}/>
+                                <DeleteIcon style={{fontSize: 24}}/>
                             </IconButton>
                         </Link>
                     </div>
