@@ -1,4 +1,4 @@
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import BookmarkedCard from '../components/BookmarkedCard';
 import { db } from '../firebase'
@@ -19,6 +19,11 @@ const useStyles = makeStyles((theme) => {
             margin: 'auto auto',
             padding: theme.spacing(5)
         },
+        loading: {
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+        }
     }
 });
 
@@ -65,7 +70,7 @@ export default function MyBookmarks() {
 
     const renderContent = () => {
         if (!render) {
-            return <div>Loading...</div>
+            return <CircularProgress className={classes.loading}/>
         }
         return (
             <div className={classes.page}>

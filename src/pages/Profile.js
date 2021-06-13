@@ -104,7 +104,8 @@ function Profile() {
         } else {
             const docRef = await db.collection('chats').add({
                 user1: currentUser.uid,
-                user2: id
+                user2: id,
+                messages: []
             })
             
             /*
@@ -116,7 +117,6 @@ function Profile() {
                 chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
             })
 
-            
 
             await db.collection('users').doc(id).update({
                 chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)

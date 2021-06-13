@@ -1,6 +1,7 @@
 import {
     Avatar,
     Grid,
+    IconButton,
     makeStyles,
     Paper,
     TextField,
@@ -8,9 +9,11 @@ import {
 } from "@material-ui/core";
 import React, { useState, useEffect, useRef } from "react";
 import firebase from "firebase/app";
+import SendIcon from '@material-ui/icons/Send';
 
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -20,28 +23,27 @@ const useStyles = makeStyles((theme) => {
         muiPaperIncoming: {
             background: "#ffffff",
         },
+        // textFieldRoot: {
+        //     borderRadius: '40px'
+        // }
     };
 });
 
 export default function ChatBody({ chat }) {
     console.log("rendering chat body");
     const classes = useStyles();
+    const { currentUser } = useAuth();
     const [renderList, setRenderList] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
-    const { currentUser } = useAuth();
     const autoScroll = useRef();
-    let unsubscriber
+    let unsubscriber = () => null
 
+    
 
-    const messagesRef = db
-        .collection("chats")
-        .doc(chat.chatId)
-        .collection("messages");
+    const chatRef = chat.chatId  !== "noneSelected"
+        ? db.collection("chats").doc(chat.chatId)
+        : null
 
-
-    const chatRef = db
-        .collection("chats")
-        .doc(chat.chatId)
         
 
     const handleSubmit = async (e) => {
@@ -123,39 +125,62 @@ export default function ChatBody({ chat }) {
     }
 
     const renderChatBody = () => {
-        if (!currentUser) {
-            return null;
-        } else if (chat) {
+        if (chat.chatId === "noneSelected") {
             return (
-                <div>
-                    {renderHeader()}
-                    <div className="bodyRoot">
-                        <div>
-                            {renderMessages()}
-                            <div ref={autoScroll}></div>
-                        </div>
+                <div style={{height: '648px', display: 'flex', alignItems: 'center'}} >
+                    <div style={{ flex: 1}}>
+                        <Typography align="center" variant="h3">
+                            No active chat
+                        </Typography>
+                        <Typography align="center" variant="h6">
+                            Start a conversation by visiting other user's profile!
+                        </Typography>
                     </div>
-                    <form
-                        className="chatInputContainer"
-                        onSubmit={handleSubmit}
-                        align="center"
-                    >
-                        <TextField
-                            className="chatInput"
-                            variant="outlined"
-                            value={currentMessage}
-                            onChange={handleChange}
-                        />
-                    </form>
                 </div>
+            )
+        } else {
+            return (
+                <Paper >
+                    <div>
+                        {renderHeader()}
+                        <div className="bodyRoot">
+                            <div>
+                                {renderMessages()}
+                                <div ref={autoScroll}></div>
+                            </div>
+                        </div>
+                        <form
+                            className="chatInputContainer"
+                            onSubmit={handleSubmit}
+                            align="center"
+                        >   
+                            {/* <div style={{display: 'flex'}}></div> */}
+                            <TextField
+                                // classes={{
+                                //     root: classes.textFieldRoot
+                                // }}
+                                className="chatInput"
+                                variant="outlined"
+                                size="small"
+                                value={currentMessage}
+                                onChange={handleChange}
+                            />
+                            <IconButton onClick={handleSubmit} style={{padding: "8px", marginLeft: '15px'}}>
+                                <SendIcon />
+                            </IconButton>
+                        </form>
+                    </div>
+                </Paper>
             );
         }
     };
 
-    useEffect(async () => {
-       
-
-        unsubscriber = await chatRef.onSnapshot(async doc => {
+    useEffect(() => {
+        if (chat.chatId === "noneSelected") {
+            return
+        }
+        
+        unsubscriber =  chatRef.onSnapshot(async doc => {
             const { messages } = doc.data()
             const updatedMessages = messages.map(msgObj => {
                 return {
@@ -169,17 +194,11 @@ export default function ChatBody({ chat }) {
                 messages: updatedMessages
             })
             setRenderList(messages)
+        }) 
 
-        })
-
-        
+        return unsubscriber
     }, [])
 
-    useEffect(() => {
-        return async () => {
-            await unsubscriber()
-        }
-    }, [])
 
     useEffect(() => {
         autoScroll.current && autoScroll.current.scrollIntoView();

@@ -3,7 +3,7 @@ import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, To
 import { fade } from '@material-ui/core/styles'; 
 import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
 
 
@@ -52,9 +52,12 @@ const useStyles = makeStyles(theme => {
             backgroundColor: theme.palette.primary.main,
             color: "white"
         },
-        notification: {
+        chat: {
             height: '25px',
-            width: '25px'
+            width: '25px',
+        },
+        chatButton: {
+            paddingTop: '17px'
         }
     }    
 });
@@ -101,6 +104,11 @@ function Layout(props) {
         handleMenuClose()
     }
 
+    const handleMyChats = () => {
+        history.push('/chat')
+        handleMenuClose()
+    }
+
     const renderMenu = (
         <Menu
           anchorEl={anchorEl}
@@ -111,19 +119,18 @@ function Layout(props) {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleProfile}>Profile</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Account Settings</MenuItem>
           <MenuItem onClick={handleMyPosts}>My Posts</MenuItem>
           <MenuItem onClick={handleMyBookmarks}>My Bookmarks</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Notifications</MenuItem>
+          <MenuItem onClick={handleMyChats}>My chats</MenuItem>
           <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-          <MenuItem onClick={handleMenuClose}>Help</MenuItem>
+          
         </Menu>
     );
     
-    const renderLogin = () => {
+    const renderUserOptions = () => {
         if (currentUser) {
             return (
-                <div style={{marginRight: '50px'}}>
+                <div >
                     <Link to="/myposts" style={{textDecoration: 'none'}}>
                         <Button>My Posts</Button>
                     </Link> 
@@ -137,18 +144,18 @@ function Layout(props) {
                             </IconButton>
                         </Tooltip>
                     </Link>
-                    <IconButton aria-label="show 17 new notifications" color="primary">
-                    {/* <Badge badgeContent={17} color="secondary"> */}
-                        <NotificationsIcon className={classes.notification} />
-                    {/* </Badge> */}
-                    </IconButton>
+                    <Link to="/chat">
+                        <IconButton className={classes.chatButton} aria-label="go to my chats" color="primary">
+                            <ForumIcon className={classes.chat} />
+                        </IconButton>
+                    </Link>
                     <IconButton
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={'primary-search-account-menu'}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    color="inherit"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={'primary-search-account-menu'}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
                     >
                     <Avatar src={currentUserData.profilePicture} className={classes.layoutAvatar}/> 
                     </IconButton>
@@ -192,22 +199,21 @@ function Layout(props) {
   
     return (
         <Container className={classes.page}>
-            
                 <AppBar color="default"  elevation={1}> 
                     <Container>
-                    <Toolbar >                                      
-                        <a href="/" style={{textDecoration: 'none'}}>
-                            <Typography 
-                                color="primary"
-                                variant='h4'
-                            >
-                                partnerUp           
-                            </Typography> 
-                        </a>
-                        <span className={classes.title}></span>
-                        {renderLogin()}
-                    </Toolbar>     
-                    </Container>                           
+                        <Toolbar >                                      
+                            <a href="/" style={{textDecoration: 'none'}}>
+                                <Typography 
+                                    color="primary"
+                                    variant='h4'
+                                >
+                                    partnerUp           
+                                </Typography> 
+                            </a>
+                            <span className={classes.title}></span>
+                            {renderUserOptions()}
+                        </Toolbar>    
+                    </Container> 
                 </AppBar>    
 
                 {/* don't remove this, this pushes the content of the page down by height of appbar*/}

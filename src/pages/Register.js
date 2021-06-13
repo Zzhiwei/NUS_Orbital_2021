@@ -105,6 +105,7 @@ function Register() {
                 skills: [],
                 posts: [],
                 bookmarks: [],
+                chats: []
             })
             
             history.push('/')
