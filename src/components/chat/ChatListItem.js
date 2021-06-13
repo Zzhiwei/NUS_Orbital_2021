@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
+import _ from 'lodash'
+import { Avatar, Grid, makeStyles, CircularProgress } from '@material-ui/core'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
-import { Avatar, Grid, makeStyles } from '@material-ui/core'
+
 
 const useStyles = makeStyles(theme => {
     return {
@@ -104,11 +106,13 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                 </Grid>
             )
         }
-        
     }
 
-    return (
-        <div onClick={handleClick} className={classes.root}>
+    function renderUserInfo() {
+        if (_.isEmpty(userInfo)) {
+            return <CircularProgress />
+        } 
+        return (
             <Grid container alignItems="center">
                 <Grid style={{marginRight: '10px'}}>
                     <Avatar src={userInfo.profilePicture} />
@@ -118,6 +122,12 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                 </Grid>
                 {renderUnreadCount()}
             </Grid>
+        )
+    }
+
+    return (
+        <div onClick={handleClick} className={classes.root}>
+            {renderUserInfo()}
         </div>
     )
 }
