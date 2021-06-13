@@ -22,6 +22,8 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
+    position: "relative",
+    left: "50px"
   },
   button: {
     marginTop: theme.spacing(5),
@@ -36,31 +38,36 @@ Object.assign(darkTheme, {
     MUIRichTextEditor: {
         root: {
             marginTop: "1rem",
+            marginLeft: "-3rem",
             backgroundColor: "#fff",
-            borderRadius: "10px",
-            border: "1px solid gray"
+            borderRadius: "4px",
+            border: "1px solid gray",
+            width: "119%",
         },
         container: {
             borderRadius: '4px'
         },
         editor: {
             padding: "5px 15px",
-            height: "250px",
-            maxHeight: "250px",
+            height: "300px",
+            maxHeight: "300px",
             overflow: "auto",
         },
         toolbar: {
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "space-evenly",
             borderBottom: "1px solid gray",
             marginTop: "-8px",
-            borderTopLeftRadius: "10px",
-            borderTopRightRadius: "10px",
-            backgroundColor: "#ebebeb"
+            borderTopLeftRadius: "4px",
+            borderTopRightRadius: "4px",
+            backgroundColor: "#ebebeb",
+            height: "35px",
         },
         placeHolder: {
             backgroundColor: "#fff",
             padding: "5px 15px",
+            height: "285px",
+            width: "595px"
         },
         anchorLink: {
             color: "#333333",
@@ -185,7 +192,7 @@ export const PartC = ({ values, setValues, setActiveStep }) => {
                             defaultValue={description}
                             ref={ref}
                             inlineToolbar={true}
-                            controls={['bold', 'italic', 'underline', 'highlight', 'link', 'numberList', 'bulletList']}
+                            controls={['bold', 'italic', 'underline', 'highlight', 'numberList', 'bulletList', 'quote', 'code']}
                           />
                     </MuiThemeProvider>
                 </Grid>

@@ -98,11 +98,7 @@ Object.assign(rteTheme, {
     MUIRichTextEditor: {
         root: { 
             backgroundColor: "#fff",
-        },
-        editor: {
-            height: "250px",
-            maxHeight: "250px",
-            overflow: "auto",
+            marginBottom: "70px"
         },
         anchorLink: {
             color: "#333333",
@@ -256,6 +252,7 @@ export default function ViewPostForm({ data })  {
                             <MUIRichTextEditor 
                                 defaultValue={description}
                                 controls={[]}
+                                readOnly
                             />
                         </MuiThemeProvider>
                     </div>
