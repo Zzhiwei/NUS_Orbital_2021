@@ -8,7 +8,8 @@ import AccordionWrapper from './AccordionWrapper'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            margin: '16px'
+            marginTop: '16px',
+            //boxShadow: 'none'
         },
         title: {
             padding: '10px',
@@ -26,8 +27,17 @@ export default function FilterSidebar() {
             <Typography className={classes.title}>
                 Filter your search
             </Typography>
+            <AccordionWrapper title="Category">
+                <Menu 
+                    attribute="category" 
+                    customItems={["All", "Competition", "Project"]} 
+                />
+            </AccordionWrapper>
             <AccordionWrapper title="Type">
-                <Menu attribute="type" customItems={["All", "Competition", "Project"]} />
+                <Menu
+                    attribute="type"
+                    customItems={["All", "Business", "IT & Software", "Photography & Film", "Music", "Health & Fitness", "Sciences", "Others"]}
+                />
             </AccordionWrapper>
             <AccordionWrapper title="Location">
                 <Menu attribute="location" customItems={["All", "Online", "In-Person"]} />
@@ -37,9 +47,6 @@ export default function FilterSidebar() {
                     attribute="education"
                     customItems={["All", "Any", "Primary", "Secondary", "Pre-University", "Undergraduate", "Professional"]}
                 />
-            </AccordionWrapper>
-            <AccordionWrapper title="Categories">
-                To be implemented after category is set up in create post
             </AccordionWrapper>
 
         </Paper>

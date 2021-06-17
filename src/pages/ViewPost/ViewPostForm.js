@@ -8,12 +8,15 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
 import PeopleAltRoundedIcon from '@material-ui/icons/PeopleAltRounded';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import SubjectRoundedIcon from '@material-ui/icons/SubjectRounded';
 import { db } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import BookmarkIcon from '@material-ui/icons/Bookmark'
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
+import ForumIcon from '@material-ui/icons/Forum'
+import ShareIcon from '@material-ui/icons/Share'
 
 const useStyles = makeStyles (theme => ({
     layout: {
@@ -46,7 +49,7 @@ const useStyles = makeStyles (theme => ({
     },
     contentBox: {
         display: "flex",
-        marginTop: "50px",
+        marginTop: "30px",
         marginLeft: "75px",
         marginBottom: "10px",
         boxSizing: "border-box",
@@ -173,7 +176,7 @@ export default function ViewPostForm({ data })  {
                         <div className={classes.title}>
                             <div>
                                 <Typography variant="h4">
-                                    {title}
+                                    {title} 
                                 </Typography>
                                 <div style={{display: "inline-block", marginLeft: "3px"}}>
                                     {byline}
@@ -188,7 +191,7 @@ export default function ViewPostForm({ data })  {
                                 <SubjectRoundedIcon style={{marginLeft: '-0.5px', marginRight: '28px', fontSize: 28}}/>
                                 </Tooltip>
                                 <Chip label={type} style={{marginRight: "10px", backgroundColor: "teal", color: "white"}}/>
-                                <Chip label={category} style={{marginRight: "10px", backgroundColor: "maroon", color: "white"}}/>
+                                <Chip label={category} style={{backgroundColor: "orange", color: "white"}}/>
                             </div>
                             <div className={classes.content}>
                                 <Tooltip title="Location">
@@ -217,13 +220,26 @@ export default function ViewPostForm({ data })  {
                         </div>
                     </div>
                     <div className={classes.buttonBox}>
-                        <Button variant="contained" style={{color: "white", backgroundColor: "green", minWidth: "111.45px"}}>
+                        <Button 
+                            variant="contained" 
+                            style={{color: "white", backgroundColor: "green", minWidth: "135.45px"}}
+                            startIcon={<ForumIcon />}
+                        >
                             Chat
                         </Button>
-                        <Button variant="contained" color={bookmarked ? "secondary" : "primary"} onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}>
-                            { bookmarked ? "Remove from Bookmarks" : "Bookmarks" }
+                        <Button 
+                            variant="contained" 
+                            color={bookmarked ? "secondary" : "primary"} 
+                            onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}
+                            startIcon={bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                        >
+                            { bookmarked ? "Remove from Bookmarks" : "Bookmark" }
                         </Button>
-                        <Button variant="contained" style={{color: "white", backgroundColor: "purple", minWidth: "111.45px"}}>
+                        <Button 
+                            variant="contained" 
+                            style={{color: "white", backgroundColor: "purple", minWidth: "135.45px"}}
+                            startIcon={<ShareIcon />}
+                        >
                             Share
                         </Button>
                     </div>
@@ -234,7 +250,7 @@ export default function ViewPostForm({ data })  {
                         </Typography>
                         <div className={classes.skillsBox}>
                             {chips && chips.map((tag, index) => {
-                                return <Chip key={index} label={tag}/>
+                                return <Chip key={index} label={tag} style={{backgroundColor: "maroon", color: "white"}} />
                             })}
                         </div>
                         {/* <Typography variant="h6">

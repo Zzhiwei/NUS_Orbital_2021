@@ -99,8 +99,10 @@ export default function PostCard({ data }) {
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
-    const [hover, setHover] = useState(1)
+    const [hover, setHover] = useState(0)
     const [time, setTime] = useState('some time ago')
+    const [timeColor, setTimeColor] = useState("green")
+    const [memColor, setMemColor] = useState("green")
  
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
@@ -134,13 +136,25 @@ export default function PostCard({ data }) {
         else if (secondsPast <= 2419200) {
             let weeksPast = parseInt(secondsPast / 604800)
             setTime(weeksPast == 1 ? weeksPast + ' week ago' : weeksPast + ' weeks ago')
+            setTimeColor('orange')
         } 
         else if (secondsPast <= 29030400) {
             let monthsPast = parseInt(secondsPast / 2419200)
             setTime(monthsPast == 1 ? monthsPast + ' month ago' : monthsPast + ' months ago')
+            setTimeColor('orange')
         }
         else {
             setTime('>1 year ago')
+            setTimeColor('grey')
+        }
+    }, [])
+
+    useEffect(() => {
+        const ratio = current / total
+        if (ratio > 0.75) {
+            setMemColor("red")
+        } else if (ratio > 0.5) {
+            setMemColor("orange")
         }
     }, [])
 
@@ -175,7 +189,7 @@ export default function PostCard({ data }) {
     }
 
     const handleHoverOff = () => {
-        setHover(1)
+        setHover(0)
     }
 
     const byline = (
@@ -254,13 +268,13 @@ export default function PostCard({ data }) {
                 </div>
                 <Divider variant="middle" />
                 <div className={classes.footer}>
-                    <span className={classes.footerContent}>
+                    <span className={classes.footerContent} style={{color: memColor}}>
                         <Tooltip title="Members">
                             <PeopleAltRoundedIcon style={{marginRight: '10px'}}/>
                         </Tooltip>
                         {current} / {total}
                     </span>
-                    <span className={classes.footerContent}>
+                    <span className={classes.footerContent} style={{color: timeColor}}>
                         <Tooltip title="Last Update to Post">
                             <ScheduleIcon style={{marginRight: '7px'}}/>
                         </Tooltip>
