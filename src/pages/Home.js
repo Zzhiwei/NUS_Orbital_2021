@@ -24,11 +24,11 @@ export default function Home() {
                     hitsPerPage={8}
                 />
                 <SearchBox /> 
-                <Grid container>
+                <Grid container justify="space-evenly">
                     <Grid item xs={12} sm={3}>
                         <FilterSidebar />
                     </Grid>
-                    <Grid item xs={12} sm={9}>
+                    <Grid item xs={12} sm={8}>
                         <InfiniteHits />
                     </Grid>
                 </Grid>

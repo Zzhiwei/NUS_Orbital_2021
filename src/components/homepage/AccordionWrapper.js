@@ -32,7 +32,9 @@ export default function AccordionWrapper({children, title}) {
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                 >
-                <Typography>{title}</Typography>
+                <Typography>
+                    {title}
+                </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                 <Typography>
