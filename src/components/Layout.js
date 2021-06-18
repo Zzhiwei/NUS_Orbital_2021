@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar, Container, Tabs } from '@material-ui/core';
+import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar, Container } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation  } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
@@ -57,6 +57,45 @@ const useStyles = makeStyles(theme => {
         },
         chatButton: {
             paddingTop: '17px'
+        },
+        inactiveTab: {
+            marginRight: 50,
+            fontSize: 18,
+            textTransform: 'none',
+            '&:hover': {
+                background: "white"
+            },
+            '&::after': {
+                content: "''",
+                position: 'absolute',
+                width: '100%',
+                height: '0.15rem',
+                left: 0,
+                bottom: 0,
+                background: theme.palette.primary.main,
+                transform: "scale(0,1)",
+                transition: 'transform 0.5s ease'
+            },
+            '&:hover::after': {
+                transform: "scale(1,1)"
+            },
+        },
+        activeTab: {
+            marginRight: 50,
+            fontSize: 18,
+            textTransform: 'none',
+            '&:hover': {
+                background: "white"
+            },
+            '&::after': {
+                content: "''",
+                position: 'absolute',
+                width: '100%',
+                height: '0.15rem',
+                left: 0,
+                bottom: 0,
+                background: theme.palette.primary.main,
+            },
         }
     }    
 });
@@ -65,6 +104,8 @@ function Layout(props) {
     const classes = useStyles();        
     const { currentUser, currentUserData, logout } = useAuth()
     const history = useHistory()
+    const location = useLocation()
+    console.log(location.pathname == '/myposts')
     const [anchorEl, setAnchorEl] = useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
@@ -131,11 +172,14 @@ function Layout(props) {
             return (
                 <div >
                     <Link to="/myposts" style={{textDecoration: 'none'}}>
-                        <Button>My Posts</Button>
+                        <Button disableRipple className={location.pathname =='/myposts' ? classes.activeTab : classes.inactiveTab}>My Posts</Button>
                     </Link> 
                     <Link to="/bookmarks" style={{textDecoration: 'none'}}>
-                        <Button>My Bookmarks</Button>
-                    </Link> 
+                        <Button disableRipple className={location.pathname == '/bookmarks' ? classes.activeTab : classes.inactiveTab}>My Bookmarks</Button>
+                    </Link>
+                    <Link to="/" style={{textDecoration: 'none'}}>
+                        <Button disableRipple className={location.pathname =='/' ? classes.activeTab : classes.inactiveTab}>Recommended</Button>
+                    </Link>  
                     <Link to="/newpost">
                         <Tooltip title="Create a New Post">
                             <IconButton aria-label="show 4 new mails" color="primary">
@@ -194,11 +238,10 @@ function Layout(props) {
             </Paper>
         );
     }
-
   
     return (
         <Container className={classes.page}>
-                <AppBar color="default"  elevation={1}> 
+                <AppBar color="white"  elevation={1}> 
                     <Container>
                         <Toolbar >                                      
                             <a href="/" style={{textDecoration: 'none'}}>
@@ -209,6 +252,7 @@ function Layout(props) {
                                     partnerUp           
                                 </Typography> 
                             </a>
+                            
                             <span className={classes.title}></span>
                             {renderUserOptions()}
                         </Toolbar>    

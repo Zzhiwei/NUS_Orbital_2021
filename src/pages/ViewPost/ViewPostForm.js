@@ -233,7 +233,7 @@ export default function ViewPostForm({ data })  {
                             onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}
                             startIcon={bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                         >
-                            { bookmarked ? "Remove from Bookmarks" : "Bookmark" }
+                            { bookmarked ? "Unbookmark" : "Bookmark" }
                         </Button>
                         <Button 
                             variant="contained" 
