@@ -40,8 +40,8 @@ export default function Chat() {
     const current =  selected 
         ? selected 
         : currentUserData.chats.length > 0
-            ? currentUserData.chats[0]
-            : "noneSelected"
+            ? "noneSelected"
+            : "noChats"
             
     const [currentChat, setCurrentChat] = useState({chatId: current})
     

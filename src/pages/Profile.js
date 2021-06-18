@@ -98,10 +98,14 @@ function Profile() {
                 chatId = x.id
             }
         })
+        
+        
 
         if (chatId) {
+            //if chat alr exists, just go to chat page and open the chat
             history.push(`/chat?selected=${chatId}`)
         } else {
+            //if not create a new chat
             const docRef = await db.collection('chats').add({
                 user1: currentUser.uid,
                 user2: id,
@@ -114,17 +118,21 @@ function Profile() {
                 use firebase cloudFunctions
             */
             await db.collection('users').doc(currentUser.uid).update({
-                chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                // chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                chats: [docRef.id, ...currentUserData.chats]
             })
 
-
+            const otherUserChats = await db.collection('users').doc(id).get()
+                .then(res => {
+                    return res.data().chats
+                })
             await db.collection('users').doc(id).update({
-                chats: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+                chats: [docRef.id, ...otherUserChats]
             })
 
             setCurrentUserData({
                 ...currentUserData,
-                chats: [...currentUserData.chats, docRef.id]
+                chats: [docRef.id, ...currentUserData.chats]
             })
             
             setTimeout(() => {

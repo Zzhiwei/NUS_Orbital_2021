@@ -1,9 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
-import _ from 'lodash'
-import { Avatar, Grid, makeStyles, CircularProgress } from '@material-ui/core'
+import _, { set } from 'lodash'
+import { Avatar, Menu, Grid, makeStyles, CircularProgress, MenuItem, IconButton } from '@material-ui/core'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+
+const initialState = {
+    mouseX: null,
+    mouseY: null,
+  };
 
 
 const useStyles = makeStyles(theme => {
@@ -33,6 +38,19 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
     const userIds = useRef() 
     let unsubscriber
 
+    const [openMenu, setOpenMenu] = useState(initialState)
+
+    const handleRightClick = (event) => {
+        event.preventDefault();
+        setOpenMenu({
+          mouseX: event.clientX - 2,
+          mouseY: event.clientY - 4,
+        });
+      };
+    const handleClose = () => {
+        setOpenMenu(initialState);
+    };
+
     useEffect(async () => {
         await chatRef.get().then( res => {
             const { user1, user2 } = res.data()
@@ -42,6 +60,8 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
         })
 
         unsubscriber = await chatRef.onSnapshot(async doc => {
+            
+
             const { messages } = doc.data()
             
             const filteredMessages = messages.filter(msgObj => {
@@ -71,6 +91,7 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                     profilePicture: data.profilePicture,
                     firstName: data.basicInfo.firstName,
                     lastName: data.basicInfo.lastName,
+                    otherUserId
                 })
                 //passing info to chatBody
                 if (currentChat.chatId === chatId) {
@@ -80,6 +101,7 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                             profilePicture: data.profilePicture,
                             firstName: data.basicInfo.firstName,
                             lastName: data.basicInfo.lastName,
+                            otherUserId
                         } 
                     })
                 }
@@ -113,21 +135,28 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
             return <CircularProgress />
         } 
         return (
-            <Grid container alignItems="center">
-                <Grid style={{marginRight: '10px'}}>
-                    <Avatar src={userInfo.profilePicture} />
+                <Grid container alignItems="center">
+                    <Grid item style={{marginRight: '10px'}} >
+                        <Avatar src={userInfo.profilePicture} />
+                    </Grid>
+                    <Grid item  className={classes.name} >
+                        {userInfo.firstName + " " + userInfo.lastName}
+                    </Grid>
+                    {renderUnreadCount()}
+                    
+                    
                 </Grid>
-                <Grid className={classes.name}>
-                    {userInfo.firstName + " " + userInfo.lastName}
-                </Grid>
-                {renderUnreadCount()}
-            </Grid>
         )
     }
 
+    const backgroundColor = currentChat.chatId === chatId ?  'rgb(220, 220, 220)' : 'rgb(238, 238, 238)'
+
     return (
-        <div onClick={handleClick} className={classes.root}>
+        <div onClick={handleClick} className={classes.root} style={{
+            backgroundColor
+        }}>
             {renderUserInfo()}
         </div>
+            
     )
 }
