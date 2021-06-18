@@ -61,6 +61,11 @@ const useStyles = makeStyles(theme => {
             top: "-194px", 
             left: "14px"
         },
+        delete: {
+            '&:hover': {
+                color: theme.palette.secondary.main
+            }
+        },
         footer: {
             display: "flex", 
             justifyContent:"space-between", 
@@ -187,12 +192,16 @@ export default function AdminCard({ data }) {
                     <div className={classes.icon}>
                         <Link className={classes.link} to={'/editpost/' + id}>
                             <IconButton color="primary">
-                                <EditIcon style={{fontSize: 22}}/>
+                                <Tooltip title="Edit Post">
+                                    <EditIcon style={{fontSize: 22}}/>
+                                </Tooltip>
                             </IconButton>
                         </Link>
                         <Link className={classes.link} to='/myposts'>
-                            <IconButton color="secondary" onClick={handleDelete}>
-                                <DeleteIcon style={{fontSize: 24}}/>
+                            <IconButton className={classes.delete} onClick={handleDelete}>
+                                <Tooltip title="Delete Post">
+                                    <DeleteIcon style={{fontSize: 24}}/>
+                                </Tooltip>
                             </IconButton>
                         </Link>
                     </div>

@@ -12,7 +12,7 @@ import { useHistory }  from 'react-router-dom'
 import { db } from '../../firebase'
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
+  root: {
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme) => ({
       marginRight: 'auto',
     },
   },
-  paper: {
-    borderRadius: "10px",
+  layout: {
+    //borderRadius: "10px",
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(1),
       marginBottom: theme.spacing(6),
       padding: theme.spacing(3),
     },
@@ -112,8 +112,8 @@ export const EditPostForm = ({ data }) => {
         return <div>Loading...</div>
     }
     return (
-      <main className={classes.layout}>
-        <Paper elevation={2} className={classes.paper}>
+      <main className={classes.root}>
+        <div className={classes.layout}>
         <PageHeader 
             title="Edit Your Post"
             subTitle="Change the fields below as required"
@@ -127,7 +127,7 @@ export const EditPostForm = ({ data }) => {
             ))}
           </Stepper>
           {getStepContent(activeStep)}
-        </Paper>
+        </div>
         <Copyright />
       </main>  
     )

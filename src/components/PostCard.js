@@ -101,7 +101,7 @@ export default function PostCard({ data }) {
     const [bookmarked, setBookmarked] = useState(false)
     const [hover, setHover] = useState(0)
     const [time, setTime] = useState('some time ago')
-    const [timeColor, setTimeColor] = useState("green")
+    //const [timeColor, setTimeColor] = useState("green")
     const [memColor, setMemColor] = useState("green")
  
     useEffect(() => {
@@ -136,16 +136,16 @@ export default function PostCard({ data }) {
         else if (secondsPast <= 2419200) {
             let weeksPast = parseInt(secondsPast / 604800)
             setTime(weeksPast == 1 ? weeksPast + ' week ago' : weeksPast + ' weeks ago')
-            setTimeColor('orange')
+            //setTimeColor('orange')
         } 
         else if (secondsPast <= 29030400) {
             let monthsPast = parseInt(secondsPast / 2419200)
             setTime(monthsPast == 1 ? monthsPast + ' month ago' : monthsPast + ' months ago')
-            setTimeColor('orange')
+            //setTimeColor('orange')
         }
         else {
             setTime('>1 year ago')
-            setTimeColor('grey')
+            //setTimeColor('grey')
         }
     }, [])
 
@@ -274,7 +274,7 @@ export default function PostCard({ data }) {
                         </Tooltip>
                         {current} / {total}
                     </span>
-                    <span className={classes.footerContent} style={{color: timeColor}}>
+                    <span className={classes.footerContent} style={{color: "#686868"}}>
                         <Tooltip title="Last Update to Post">
                             <ScheduleIcon style={{marginRight: '7px'}}/>
                         </Tooltip>

@@ -61,6 +61,7 @@ Object.assign(darkTheme, {
             borderTopLeftRadius: "4px",
             borderTopRightRadius: "4px",
             backgroundColor: "#ebebeb",
+            //backgroundColor: '#027dc5',
             height: "35px",
         },
         placeHolder: {

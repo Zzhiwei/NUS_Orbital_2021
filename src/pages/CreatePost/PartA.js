@@ -55,7 +55,7 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
 
   return(
       <>
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
             <Grid item xs={12}>
                 <Controls.Input 
                     name="title"
