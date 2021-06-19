@@ -92,6 +92,15 @@ export default function BookmarkedCard({ data }) {
     const [hover, setHover] = useState(1)
     const [time, setTime] = useState('some time ago')
 
+    // db.collection("users").get().then(function(querySnapshot) {
+    //     querySnapshot.forEach(async function(doc) {
+    //         await db.collection("users").doc(doc.id).update({
+    //             chats: []
+    //         });
+    //     });
+    // });
+
+
     useEffect(async () => {
         const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
         if (dataUrl) {

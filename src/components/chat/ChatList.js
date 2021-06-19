@@ -26,7 +26,7 @@ export default function ChatList({ chats, setCurrentChat, currentChat }) {
             <div className={classes.header}>Active chats</div>
             <div className="chatListScrollBody">
             {chats.map(chat => {
-                return <ChatListItem currentChat={currentChat} setCurrentChat={setCurrentChat} chatId={chat} />
+                return <ChatListItem key={chat} chats={chats} currentChat={currentChat} setCurrentChat={setCurrentChat} chatId={chat} />
             })}
             </div>
         </div>

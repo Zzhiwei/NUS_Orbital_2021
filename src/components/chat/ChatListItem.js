@@ -1,9 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react'
-import _ from 'lodash'
-import { Avatar, Grid, makeStyles, CircularProgress } from '@material-ui/core'
+import _, { set } from 'lodash'
+import { Avatar, Menu, Grid, makeStyles, CircularProgress, MenuItem, IconButton } from '@material-ui/core'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+import { Unsubscribe } from '@material-ui/icons'
+
+const initialState = {
+    mouseX: null,
+    mouseY: null,
+  };
 
 
 const useStyles = makeStyles(theme => {
@@ -23,15 +29,29 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
+export default function ChatListItem({chatId, setCurrentChat, currentChat, chats}) {
     const classes = useStyles()
     const chatRef = db.collection("chats").doc(chatId)
-    const { currentUser } = useAuth()
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const [otherUserId, setOtherUserId] = useState(null)
     const [userInfo, setUserInfo] = useState({})
     const [unreadCount, setUnreadCount] = useState(0)
+    const [deleted, setDeleted] = useState(false)
     const userIds = useRef() 
     let unsubscriber
+
+    const [openMenu, setOpenMenu] = useState(initialState)
+
+    const handleRightClick = (event) => {
+        event.preventDefault();
+        setOpenMenu({
+          mouseX: event.clientX - 2,
+          mouseY: event.clientY - 4,
+        });
+      };
+    const handleClose = () => {
+        setOpenMenu(initialState);
+    };
 
     useEffect(async () => {
         await chatRef.get().then( res => {
@@ -42,7 +62,12 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
         })
 
         unsubscriber = await chatRef.onSnapshot(async doc => {
-            const { messages } = doc.data()
+            const data = doc.data()
+            if (!data) {
+                return setDeleted(true)
+            }
+                
+            const { messages } = data
             
             const filteredMessages = messages.filter(msgObj => {
                 if (msgObj.sender !== currentUser.uid && !msgObj.read) {
@@ -51,15 +76,36 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                     return false
                 }
             })
+            
+           /*
+           An attempt to implement to  automatic rearrangement of chat
+            
+            if (filteredMessages.length) {
+                const index = currentUserData.chats.indexOf(chatId)
+                console.log({index})
+                // if (index > 0) {
+                    let chatsCopy = [...currentUserData.chats]
+                    chatsCopy.splice(index, 1)
+                    chatsCopy = [chatId, ...chatsCopy]
+                    setCurrentUserData({    
+                        ...currentUserData,
+                        chats: chatsCopy
+                    })
+                // }
+            }
+
+            */
+            
+
             setUnreadCount(filteredMessages.length)
+            
+            
         })
 
     }, [])
 
     useEffect(() => {
-        return async () => {
-            await unsubscriber()
-        }
+        return unsubscriber
     }, [])
 
     useEffect(() => {
@@ -71,6 +117,7 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                     profilePicture: data.profilePicture,
                     firstName: data.basicInfo.firstName,
                     lastName: data.basicInfo.lastName,
+                    otherUserId
                 })
                 //passing info to chatBody
                 if (currentChat.chatId === chatId) {
@@ -80,6 +127,7 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                             profilePicture: data.profilePicture,
                             firstName: data.basicInfo.firstName,
                             lastName: data.basicInfo.lastName,
+                            otherUserId
                         } 
                     })
                 }
@@ -108,26 +156,44 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
         }
     }
 
+    function renderDeleted() {
+        if (deleted) {
+            return (
+                <div style={{color: "red", marginLeft: '10px'}}>
+                    Deleted by other user
+                </div>
+            )
+        }
+    }
+
     function renderUserInfo() {
         if (_.isEmpty(userInfo)) {
             return <CircularProgress />
         } 
         return (
-            <Grid container alignItems="center">
-                <Grid style={{marginRight: '10px'}}>
-                    <Avatar src={userInfo.profilePicture} />
+                <Grid container alignItems="center">
+                    <Grid item style={{marginRight: '10px'}} >
+                        <Avatar src={userInfo.profilePicture} />
+                    </Grid>
+                    <Grid item  className={classes.name} >
+                        {userInfo.firstName + " " + userInfo.lastName}
+                    </Grid>
+                    {renderUnreadCount()}
+                    {renderDeleted()}
+                    
+                    
                 </Grid>
-                <Grid className={classes.name}>
-                    {userInfo.firstName + " " + userInfo.lastName}
-                </Grid>
-                {renderUnreadCount()}
-            </Grid>
         )
     }
 
+    const backgroundColor = currentChat.chatId === chatId ?  'rgb(220, 220, 220)' : 'rgb(238, 238, 238)'
+
     return (
-        <div onClick={handleClick} className={classes.root}>
+        <div onClick={handleClick} className={classes.root} style={{
+            backgroundColor
+        }}>
             {renderUserInfo()}
         </div>
+            
     )
 }
