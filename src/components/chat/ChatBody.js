@@ -21,7 +21,6 @@ import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
-import { set } from "lodash";
 
 
 const useStyles = makeStyles((theme) => {
@@ -32,9 +31,6 @@ const useStyles = makeStyles((theme) => {
         muiPaperIncoming: {
             background: "#ffffff",
         },
-        // textFieldRoot: {
-        //     borderRadius: '40px'
-        // }
         deleteButton: {
             '&:hover': {
                 color: 'red'
