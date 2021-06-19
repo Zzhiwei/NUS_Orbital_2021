@@ -12,7 +12,7 @@ const searchClient = algoliasearch(
 export default function SimilarPosts({ hit }) {
     return (
         <div>
-        <Typography variant="h6" style={{marginBottom: 20}}>
+        <Typography variant="h6" style={{marginBottom: 10}}>
             Similar Posts
         </Typography>
             <InstantSearch
@@ -23,9 +23,10 @@ export default function SimilarPosts({ hit }) {
                 hit={hit}
                 hitsPerPage={3}
                 matchingPatterns={{
-                    title: { score: 1 },
-                    type: { score: 2 },
-                    category: { score: 3 },
+                    type: { score: 4 },
+                    title: { score: 3 },
+                    skills: { score: 2 },
+                    education: { score: 1 },
                 }}
             />
             <Grid container justify="center">

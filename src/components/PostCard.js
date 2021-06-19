@@ -31,16 +31,7 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginTop: "-50px",
-            marginBottom: '10px',
-            '& > *': {
-              margin: theme.spacing(0.5),
-            },
-        },
-        chipGuest: {
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
+            marginTop: "-5px",
             marginBottom: '10px',
             '& > *': {
               margin: theme.spacing(0.5),
@@ -61,14 +52,6 @@ const useStyles = makeStyles(theme => {
             display: "flex", 
             alignItems: "center", 
             flexWrap: "wrap",
-        },
-        icon: {
-            display: "flex", 
-            flex: 1, 
-            justifyContent: "flex-end", 
-            position: "relative", 
-            top: "-194px", 
-            left: "14px"
         },
         footer: {
             display: "flex", 
@@ -234,7 +217,10 @@ export default function PostCard({ data }) {
                         {title}
                     </Typography>
                 }
-                subheader={byline}                    
+                subheader={byline}
+                action={
+                    renderBookmark()
+                }                    
             />
             <CardContent>
                 <div className={classes.contentBox}>
@@ -259,12 +245,7 @@ export default function PostCard({ data }) {
                         </div>
                     </div>
                 </div>
-                <div className={classes.icon}>
-                    <Link to="/bookmarks" className={classes.link}>
-                        {renderBookmark()}
-                    </Link>
-                </div>
-                <div className={currentUser ? classes.chipStyle : classes.chipGuest}>
+                <div className={classes.chipStyle}>
                     {chips && chips.map((tag, index) => {
                         return <Chip key={index} label={tag}/>
                     })}

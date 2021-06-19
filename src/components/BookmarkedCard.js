@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginTop: "-50px",
+            marginTop: "-5px",
             marginBottom: '10px',
             '& > *': {
               margin: theme.spacing(0.5),
@@ -51,14 +51,6 @@ const useStyles = makeStyles(theme => {
             display: "flex", 
             alignItems: "center", 
             flexWrap: "wrap",
-        },
-        icon: {
-            display: "flex", 
-            flex: 1, 
-            justifyContent: "flex-end", 
-            position: "relative", 
-            top: "-194px", 
-            left: "14px"
         },
         footer: {
             display: "flex", 
@@ -191,7 +183,16 @@ export default function BookmarkedCard({ data }) {
                         {title} 
                     </Typography>
                 }
-                subheader={byline}                    
+                subheader={byline}
+                action={
+                    <Link to="/bookmarks" className={classes.link}>
+                        <Tooltip title="Remove from Bookmarks">
+                        <IconButton color="primary" onClick={handleRemoveBookmark}>
+                            <BookmarkIcon style={{fontSize: 28}} />
+                        </IconButton>
+                        </Tooltip>
+                    </Link>
+                }                    
             />
             <CardContent>
                 <div className={classes.contentBox}>
@@ -215,15 +216,6 @@ export default function BookmarkedCard({ data }) {
                             {education}
                         </div>
                     </div>
-                </div>
-                <div className={classes.icon}>
-                    <Link to="/bookmarks" className={classes.link}>
-                        <Tooltip title="Remove from Bookmarks">
-                        <IconButton color="primary" onClick={handleRemoveBookmark}>
-                            <BookmarkIcon style={{fontSize: 28}} />
-                        </IconButton>
-                        </Tooltip>
-                    </Link>
                 </div>
                 <div className={classes.chipStyle}>
                     {chips && chips.map((tag, index) => {
