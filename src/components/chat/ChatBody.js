@@ -21,6 +21,7 @@ import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { set } from "lodash";
 
 
 const useStyles = makeStyles((theme) => {
@@ -34,6 +35,11 @@ const useStyles = makeStyles((theme) => {
         // textFieldRoot: {
         //     borderRadius: '40px'
         // }
+        deleteButton: {
+            '&:hover': {
+                color: 'red'
+            },
+        }
     };
 });
 
@@ -45,8 +51,11 @@ export default function ChatBody({ chat }) {
     const [renderList, setRenderList] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
     const autoScroll = useRef();
+    const [iDeleted, setIDeleted] = useState(false)
+    const [deleted, setDeleted] = useState(false)
     let unsubscriber = () => null
     const [dialogOpen, setDialogOpen] = useState(false)
+    
 
     
 
@@ -97,8 +106,8 @@ export default function ChatBody({ chat }) {
             ...currentUserData,
             chats
         })
-        history.push('./chat')
-        // window.location.assign('./chat')
+        setIDeleted(true)
+        window.location.assign('./chat')
     }
 
     const handleDialogOpen = () => {
@@ -129,7 +138,7 @@ export default function ChatBody({ chat }) {
 
                     </span>
                     <div style={{display: 'flex', alignItems: 'center'}}>
-                        <IconButton size="small" onClick={handleDialogOpen}>
+                        <IconButton className={classes.deleteButton} size="small" onClick={handleDialogOpen}>
                             <DeleteIcon />
                         </IconButton>
                     </div>
@@ -199,7 +208,7 @@ export default function ChatBody({ chat }) {
                 <div style={{height: '648px', display: 'flex', alignItems: 'center'}} >
                     <div style={{ flex: 1}}>
                         <Typography align="center" variant="h3" color="primary">
-                            Choose a chat to view
+                            Choose chat to view
                         </Typography>
                     </div>
                 </div>
@@ -257,10 +266,38 @@ export default function ChatBody({ chat }) {
                         </Button> 
                         </DialogActions>
                     </Dialog>
+                    {/* second dialog */}
+                    {renderDeleteDialog()}
+                    
                 </Paper>
             );
         }
     };
+
+    function renderDeleteDialog() {
+        if (!iDeleted) {
+            return (
+                <Dialog
+                    open={deleted}
+                    onClose={() => window.location.assign('/chat')}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Chat Deleted"}</DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        This chat has been deleted by the other user. 
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={() => window.location.assign('/chat')} color="primary">
+                        close
+                    </Button>
+                    </DialogActions>
+                </Dialog>
+            )
+        }
+    }
 
     useEffect(() => {
         if (chat.chatId === "noneSelected" || chat.chatId === "noChats") {
@@ -269,7 +306,7 @@ export default function ChatBody({ chat }) {
         
         unsubscriber =  chatRef.onSnapshot(async doc => {
             if (!doc.data()) { //look here tmr
-                window.location.assign('/chat')
+                return setDeleted(true)
             }
             const { messages } = doc.data()
             const updatedMessages = messages.map(msgObj => {

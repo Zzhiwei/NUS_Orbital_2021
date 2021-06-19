@@ -4,6 +4,7 @@ import { Avatar, Menu, Grid, makeStyles, CircularProgress, MenuItem, IconButton 
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+import { Unsubscribe } from '@material-ui/icons'
 
 const initialState = {
     mouseX: null,
@@ -28,13 +29,14 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
+export default function ChatListItem({chatId, setCurrentChat, currentChat, chats}) {
     const classes = useStyles()
     const chatRef = db.collection("chats").doc(chatId)
-    const { currentUser } = useAuth()
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const [otherUserId, setOtherUserId] = useState(null)
     const [userInfo, setUserInfo] = useState({})
     const [unreadCount, setUnreadCount] = useState(0)
+    const [deleted, setDeleted] = useState(false)
     const userIds = useRef() 
     let unsubscriber
 
@@ -60,9 +62,12 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
         })
 
         unsubscriber = await chatRef.onSnapshot(async doc => {
-            
-
-            const { messages } = doc.data()
+            const data = doc.data()
+            if (!data) {
+                return setDeleted(true)
+            }
+                
+            const { messages } = data
             
             const filteredMessages = messages.filter(msgObj => {
                 if (msgObj.sender !== currentUser.uid && !msgObj.read) {
@@ -71,15 +76,36 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                     return false
                 }
             })
+            
+           /*
+           An attempt to implement to  automatic rearrangement of chat
+            
+            if (filteredMessages.length) {
+                const index = currentUserData.chats.indexOf(chatId)
+                console.log({index})
+                // if (index > 0) {
+                    let chatsCopy = [...currentUserData.chats]
+                    chatsCopy.splice(index, 1)
+                    chatsCopy = [chatId, ...chatsCopy]
+                    setCurrentUserData({    
+                        ...currentUserData,
+                        chats: chatsCopy
+                    })
+                // }
+            }
+
+            */
+            
+
             setUnreadCount(filteredMessages.length)
+            
+            
         })
 
     }, [])
 
     useEffect(() => {
-        return async () => {
-            await unsubscriber()
-        }
+        return unsubscriber
     }, [])
 
     useEffect(() => {
@@ -130,6 +156,16 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
         }
     }
 
+    function renderDeleted() {
+        if (deleted) {
+            return (
+                <div style={{color: "red", marginLeft: '10px'}}>
+                    Deleted by other user
+                </div>
+            )
+        }
+    }
+
     function renderUserInfo() {
         if (_.isEmpty(userInfo)) {
             return <CircularProgress />
@@ -143,6 +179,7 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat}) {
                         {userInfo.firstName + " " + userInfo.lastName}
                     </Grid>
                     {renderUnreadCount()}
+                    {renderDeleted()}
                     
                     
                 </Grid>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { makeStyles, Paper, Typography, Button } from '@material-ui/core';
+import { makeStyles, Paper, Typography, Button, CircularProgress, Modal } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash'
 import firebase from "firebase/app"
@@ -20,7 +20,12 @@ const useStyles = makeStyles((theme) => {
             width: '1000px',
             margin: 'auto auto',            
             padding: '10px 100px'            
-            
+        },
+        modal: {
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
         }
     }
 });
@@ -31,7 +36,7 @@ function Profile() {
     const classes = useStyles()
     const { id } = useParams()
     const history = useHistory()
-
+    const [openModal, setOpenModal] = useState(false)
     const viewingOwn = useRef(null)
 
     const [renderOptions, setRenderOptions] = useState({
@@ -100,7 +105,7 @@ function Profile() {
         })
         
         
-
+        setOpenModal(true)
         if (chatId) {
             //if chat alr exists, just go to chat page and open the chat
             history.push(`/chat?selected=${chatId}`)
@@ -160,13 +165,21 @@ function Profile() {
     
     const renderContent = () => {
         if ( !renderOptions.infoReceived ) {
-            return <div align="center">Loading...</div>
+            return <CircularProgress className={classes.modal}/>
         } 
         return (
             <div>
                 <Paper className={classes.root} elevation={3}>                  
                     <ProfileAvatar userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     {renderMessage()}
+                    <Modal
+                        open={openModal}
+                        onClose={null}
+                    >
+                        <div className={classes.modal}>
+                            <CircularProgress />
+                        </div>
+                    </Modal>
                     <BasicInfo userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     <Education userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>            
                     <Experience userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
