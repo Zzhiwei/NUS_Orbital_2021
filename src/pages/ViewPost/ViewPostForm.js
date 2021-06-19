@@ -17,6 +17,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import ForumIcon from '@material-ui/icons/Forum'
 import ShareIcon from '@material-ui/icons/Share'
+import SimilarPosts from './SimilarPosts'
 
 const useStyles = makeStyles (theme => ({
     layout: {
@@ -114,7 +115,7 @@ Object.assign(rteTheme, {
 export default function ViewPostForm({ data })  {
 
     const classes = useStyles()
-    const { id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
+    const { objectID : id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
@@ -274,9 +275,7 @@ export default function ViewPostForm({ data })  {
                     </div>
                 </main>
                 <aside className={classes.asideContainer}>
-                    <Typography variant="h6">
-                        Similar Posts
-                    </Typography>
+                    <SimilarPosts hit={data}/>
                 </aside>
             </Container>
             <Box>

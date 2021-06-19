@@ -212,6 +212,9 @@ export default function PostCard({ data }) {
         }
     }
 
+    //const hitID = JSON.stringify(data)
+    //change hitID to id
+
     return (
         <Link className={classes.link} to={'/viewpost/' + id} >
         <Card  
