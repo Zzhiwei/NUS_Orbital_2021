@@ -1,5 +1,5 @@
 import React from 'react'
-import {  makeStyles, Typography, AccordionSummary, AccordionDetails, withStyles } from '@material-ui/core';
+import {  makeStyles, Typography, AccordionSummary, AccordionDetails, withStyles, Divider } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MuiAccordion from '@material-ui/core/Accordion';
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => {
 
 const Accordion = withStyles({
     root: {
-      border: '1px solid rgba(0, 0, 0, .125)',
+      //border: '1px solid rgba(0, 0, 0, .125)',
       boxShadow: 'none',
       '&:not(:last-child)': {
         borderBottom: 0,
@@ -37,11 +37,12 @@ export default function AccordionWrapper({children, title}) {
                 </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Typography>
+                <Typography style={{marginTop: "-20px"}}>
                     {children}
                 </Typography>
                 </AccordionDetails>
             </Accordion>
+            { title !== "Education Level" && <Divider variant="middle" />}
         </>
     )
 }

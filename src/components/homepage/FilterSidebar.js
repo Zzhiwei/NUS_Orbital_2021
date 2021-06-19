@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => {
         },
         title: {
             padding: '10px',
+            borderBottom: '1px solid rgba(128, 128, 128, 0.12)',
+            fontSize: 20
         }
     }
 });
@@ -21,9 +23,9 @@ export default function FilterSidebar() {
     const classes = useStyles()
 
     return (
-        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: "100px", height: '80vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto'}}>
+        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: "100px", height: '80vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px"}}>
             <Paper elevation={2} className={classes.root}>
-            <Typography className={classes.title}>
+            <Typography variant="h3" className={classes.title}>
                 Filter your search
             </Typography>
             <AccordionWrapper title="Category">
