@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => {
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            marginTop: "-50px",
+            marginTop: "-5px",
             marginBottom: '10px',
             '& > *': {
               margin: theme.spacing(0.5),
@@ -52,14 +52,6 @@ const useStyles = makeStyles(theme => {
             display: "flex", 
             alignItems: "center", 
             flexWrap: "wrap",
-        },
-        icon: {
-            display: "flex", 
-            flex: 1, 
-            justifyContent: "flex-end", 
-            position: "relative", 
-            top: "-194px", 
-            left: "14px"
         },
         delete: {
             '&:hover': {
@@ -163,9 +155,26 @@ export default function AdminCard({ data }) {
                         <Typography variant="h5">
                             {title}
                         </Typography>
+                    }
+                    action={
+                        <div>
+                        <Link className={classes.link} to={'/editpost/' + id}>
+                            <IconButton color="primary">
+                                <Tooltip title="Edit Post">
+                                    <EditIcon style={{fontSize: 24}}/>
+                                </Tooltip>
+                            </IconButton>
+                        </Link>
+                        <Link className={classes.link} to='/myposts'>
+                            <IconButton className={classes.delete} onClick={handleDelete}>
+                                <Tooltip title="Delete Post">
+                                    <DeleteIcon style={{fontSize: 24}}/>
+                                </Tooltip>
+                            </IconButton>
+                        </Link>
+                    </div>
                     }                 
                 />
-                {/*<Divider variant="middle" />*/}
                 <CardContent>
                     <div className={classes.contentBox}>
                         <div>
@@ -188,22 +197,6 @@ export default function AdminCard({ data }) {
                                 {education}
                             </div>
                         </div>
-                    </div>
-                    <div className={classes.icon}>
-                        <Link className={classes.link} to={'/editpost/' + id}>
-                            <IconButton color="primary">
-                                <Tooltip title="Edit Post">
-                                    <EditIcon style={{fontSize: 22}}/>
-                                </Tooltip>
-                            </IconButton>
-                        </Link>
-                        <Link className={classes.link} to='/myposts'>
-                            <IconButton className={classes.delete} onClick={handleDelete}>
-                                <Tooltip title="Delete Post">
-                                    <DeleteIcon style={{fontSize: 24}}/>
-                                </Tooltip>
-                            </IconButton>
-                        </Link>
                     </div>
                     <div className={classes.chipStyle}>
                         {chips && chips.map((tag, index) => {

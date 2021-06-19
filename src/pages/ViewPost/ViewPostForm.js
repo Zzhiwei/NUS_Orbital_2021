@@ -29,7 +29,7 @@ const useStyles = makeStyles (theme => ({
         boxSizing: "border-box"
     },
     asideContainer: {
-        width: "70%", 
+        width: "50%", 
         boxSizing: "border-box",
         paddingLeft: "64px"
     },
@@ -120,6 +120,7 @@ export default function ViewPostForm({ data })  {
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
+    const [memColor, setMemColor] = useState("green")
     
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
@@ -131,6 +132,15 @@ export default function ViewPostForm({ data })  {
         const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
         setProfilePic(dataUrl)
     }, [author])
+
+    useEffect(() => {
+        const ratio = current / total
+        if (ratio > 0.75) {
+            setMemColor("red")
+        } else if (ratio > 0.5) {
+            setMemColor("orange")
+        }
+    }, [])
 
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -158,11 +168,12 @@ export default function ViewPostForm({ data })  {
     }
 
     const byline = (
-        <Link className={classes.byline} to={`/profile/${author}`}>
-            <Typography variant="h6">
-            {`by: ${name}`}
-            </Typography>
-        </Link>   
+        <Typography variant="h6">
+            <Chip label={category} size="small" style={{backgroundColor: "grey", color: "white", marginLeft: "-1.5px", marginRight: "10px", marginBottom: "4px"}}/>
+            <Link className={classes.byline} to={`/profile/${author}`}>
+            {`by ${name}`}
+            </Link>   
+        </Typography>
     )
 
     return (
@@ -188,11 +199,12 @@ export default function ViewPostForm({ data })  {
                     <div className={classes.contentBox}>
                         <div>
                             <div className={classes.content}>
-                                <Tooltip title="Type and Category">
-                                <SubjectRoundedIcon style={{marginLeft: '-0.5px', marginRight: '28px', fontSize: 28}}/>
+                                <Tooltip title="Type">
+                                <SubjectRoundedIcon style={{marginLeft: '-0.5px', marginRight: '30px', fontSize: 28}}/>
                                 </Tooltip>
-                                <Chip label={type} style={{marginRight: "10px", backgroundColor: "teal", color: "white"}}/>
-                                <Chip label={category} style={{backgroundColor: "orange", color: "white"}}/>
+                                {/* <Chip label={type} style={{marginRight: "10px", backgroundColor: "teal", color: "white"}}/> */}
+                                {/* <Chip label={category} style={{backgroundColor: "orange", color: "white"}}/> */}
+                                {type}
                             </div>
                             <div className={classes.content}>
                                 <Tooltip title="Location">
@@ -212,7 +224,7 @@ export default function ViewPostForm({ data })  {
                                 </Tooltip>
                                 {education}
                             </div>
-                            <div className={classes.content}>
+                            <div className={classes.content} style={{color: memColor}}>
                                 <Tooltip title="Members">
                                 <PeopleAltRoundedIcon style={{marginRight: '30px', fontSize: 28}}/>
                                 </Tooltip>
@@ -251,7 +263,7 @@ export default function ViewPostForm({ data })  {
                         </Typography>
                         <div className={classes.skillsBox}>
                             {chips && chips.map((tag, index) => {
-                                return <Chip key={index} label={tag} style={{backgroundColor: "maroon", color: "white"}} />
+                                return <Chip key={index} label={tag} style={{backgroundColor: "#027dc5", color: "white", margin: "10px"}} />
                             })}
                         </div>
                         {/* <Typography variant="h6">
