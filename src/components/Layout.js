@@ -105,7 +105,6 @@ function Layout(props) {
     const { currentUser, currentUserData, logout } = useAuth()
     const history = useHistory()
     const location = useLocation()
-    console.log(location.pathname == '/myposts')
     const [anchorEl, setAnchorEl] = useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
