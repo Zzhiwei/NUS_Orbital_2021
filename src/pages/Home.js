@@ -24,14 +24,15 @@ export default function Home() {
                     hitsPerPage={8}
                 />
                 <SearchBox /> 
-                <Grid container justify="space-evenly">
-                    <Grid item xs={12} sm={3}>
+                <div style={{display: 'flex'}}>
+                    <div style={{flex: 1, marginRight: '10px'}}>
                         <FilterSidebar />
-                    </Grid>
-                    <Grid item xs={12} sm={8}>
+                    </div>
+                    <div style={{flex: 3, height: '5000px'}}>
                         <InfiniteHits />
-                    </Grid>
-                </Grid>
+                        
+                    </div>
+                </div>
                 </InstantSearch>
             </div>
     )
