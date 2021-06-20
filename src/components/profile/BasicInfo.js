@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => {
             justifyContent: 'space-between'
         },
         sectionHeader: {
-            borderBottom: '2px solid #a0c3e2',
+            borderBottom: '2px solid #4C4556',
             margin: '20px 0px',
             
         },
@@ -55,9 +55,7 @@ function BasicInfo({ userData, enableEdit }) {
             return (
                 <Tooltip title="Edit basic info" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
                     <IconButton onClick={() => setOpen(true)}>            
-                        <EditIcon  style={{
-                            color: '#027dc5',
-                        }}/>
+                        <EditIcon color="primary"/>
                     </IconButton>
                 </Tooltip>
             )

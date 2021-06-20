@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => {
         root: {
             width: '1000px',
             margin: 'auto auto',            
-            padding: '10px 100px',
+            padding: '1px 100px',
             backgroundColor: '#f6eee3'          
         },
         modal: {

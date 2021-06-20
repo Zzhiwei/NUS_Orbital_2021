@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => {
             },
         },
         title: {
-            borderBottom: '2px solid #a0c3e2',
+            borderBottom: '2px solid #4C4556',
             margin: '20px auto'
         }
     }
@@ -48,9 +48,7 @@ export default function Skills({ userData, enableEdit }) {
             return (
                 <Tooltip title="Edit Skills" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
                     <IconButton onClick={() => setOpen(true)}>
-                        <EditIcon  style={{
-                            color: '#027dc5'
-                        }}/>
+                        <EditIcon  color="primary"/>
                     </IconButton>
                 </Tooltip>
             )
