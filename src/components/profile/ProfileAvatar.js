@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Zoom, Tooltip, makeStyles, Avatar, Modal, Menu, MenuItem, IconButton, Typography } from '@material-ui/core';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
+import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 import PictureCropper from './Cropper/PictureCropper'
 import { useAuth } from '../../contexts/AuthContext'
@@ -23,14 +24,14 @@ const useStyles = makeStyles((theme) => {
         },
         avatarOptions: {
             position: 'absolute',
-            width: theme.spacing(5),
-            height: theme.spacing(5),
+            width: theme.spacing(6),
+            height: theme.spacing(6),
             right: '300px',
             bottom: '60px',
             color: 'black',
-            backgroundColor: 'white',
+            backgroundColor: '#f6eee3',
             '&:hover': {
-                backgroundColor: 'white'
+                backgroundColor: '#f6eee3'
             }
         }
     }
@@ -61,7 +62,7 @@ export default function ProfileAvatar({ userData, enableEdit}) {
             return (
                 <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }} placement="right">
                     <IconButton className={classes.avatarOptions} size="small" onClick={handleCropperOpen}>
-                        <SwapVertIcon color="primary"  fontSize="large" />
+                        <CropOriginalIcon color="primary"  fontSize="large" />
                     </IconButton>
                 </Tooltip>
             )

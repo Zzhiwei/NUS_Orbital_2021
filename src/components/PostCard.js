@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => {
     return {
         root: {
             border: '1px solid rgba(0, 0, 0, .125)',
-            borderRadius: '4px'
+            borderRadius: '4px',
+            backgroundColor: 'rgb(246,238,227, 0.5)'
         },
         avatar: {
             height: '50px',

@@ -1,9 +1,18 @@
 import React, { useState } from 'react'
 import { connectSearchBox } from 'react-instantsearch-dom'
-import { Grid, TextField, Button, InputAdornment } from '@material-ui/core'
+import { Grid, TextField, Button, InputAdornment, makeStyles, CircularProgress } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+const useStyles = makeStyles(() => {
+    return {
+        input: {
+            backgroundColor: 'rgb(246,238,227, 0.5)'
+        }
+    }
+})
+
 function SearchBox({ isSearchStalled, refine }) {
+    const classes = useStyles()
     const [input, setInput] = useState('')
 
     const handleChange = (e) => {
@@ -21,44 +30,43 @@ function SearchBox({ isSearchStalled, refine }) {
     }
 
     return (
-        <Grid container spacing={2} justify="center" style={{marginBottom: "20px"}}>
-            <Grid item style={{marginBottom: '20px'}} xs={8} >
-                <form noValidate action="" role="search" onSubmit={handleSubmit}>
-                    <Grid container>
-                        <Grid item xs={8} style={{margin: "auto 0px auto auto"}}>
-                        <TextField 
-                            style={{background: "white", borderRadius: "4px"}}
-                            size="small"
-                            value={input}
-                            variant="outlined"
-                            placeholder="Search for posts"
-                            fullWidth
-                            onChange={handleChange}
-                            InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <SearchIcon />
-                                  </InputAdornment>
-                                ),
-                            }}
-                            inputProps={{
-                                style: {
-                                    fontSize: "18px",
-                                    marginLeft: "5px"
-                                }
-                            }}
-                        />
-                        </Grid>
-                        <Grid item xs={2} style={{margin: "auto auto auto auto"}}>
-                            <Button onClick={handleReset} color="primary" variant="contained" disableElevation>
-                                reset
-                            </Button>
-                        </Grid>
-                    </Grid>
-                    {isSearchStalled ? 'Loading...' : ''}
-                </form>
+        <form noValidate action="" role="search" onSubmit={handleSubmit}>
+            <Grid container style={{paddingBottom: '10px', paddingRight: '10px'}} justify="center">
+                <Grid item xs={8}>
+                    <TextField 
+                        fullWidth
+                        classes={{
+                            
+                        }}
+                        autoFocus
+                        style={{background: "white", borderRadius: "4px"}}
+                        size="small"
+                        value={input}
+                        variant="outlined"
+                        placeholder="Search for posts"
+                        onChange={handleChange}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                <SearchIcon />
+                                </InputAdornment>
+                            ),
+                            className: classes.input
+                        }}
+                        inputProps={{
+                            style: {
+                                fontSize: "18px",
+                                marginLeft: "5px"
+                            }
+                        }}
+                    />
+                </Grid>
+                <Button onClick={handleReset} color="primary" variant="outlined" disableElevation style={{marginLeft: '10px', padding: "0px"}}>
+                    reset
+                </Button>
             </Grid>
-        </Grid>
+            {isSearchStalled ? <CircularProgress /> : ''}
+        </form>
     )
 }
 

@@ -128,8 +128,8 @@ function Layout(props) {
     
     const handleProfile = () => {
         //there's some issue with this when redirecting to your profile from other profile
-        // history.push(`/profile/${currentUser.uid}`)  
-        window.location.assign(`/profile/${currentUser.uid}`)
+        history.push(`/profile/${currentUser.uid}`)  
+        // window.location.assign(`/profile/${currentUser.uid}`)
         handleMenuClose()
     }
 
@@ -240,17 +240,17 @@ function Layout(props) {
   
     return (
         <Container className={classes.page}>
-                <AppBar color="inherit" elevation={1}> 
+                <AppBar color="inherit"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
                     <Container>
                         <Toolbar >                                      
-                            <a href="/" style={{textDecoration: 'none'}}>
+                            <Link to="/" style={{textDecoration: 'none'}}>
                                 <Typography 
                                     color="primary"
                                     variant='h4'
                                 >
                                     partnerUp           
                                 </Typography> 
-                            </a>
+                            </Link>
                             
                             <span className={classes.title}></span>
                             {renderUserOptions()}
