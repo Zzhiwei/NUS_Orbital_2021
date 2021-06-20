@@ -240,7 +240,7 @@ function Layout(props) {
   
     return (
         <Container className={classes.page}>
-                <AppBar color="white"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
+                <AppBar color="inherit"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
                     <Container>
                         <Toolbar >                                      
                             <Link to="/" style={{textDecoration: 'none'}}>

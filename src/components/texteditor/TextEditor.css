@@ -1,0 +1,15 @@
+.wrapper-class {
+	border-radius: 4px;
+	border: 1px solid gray;
+	width: 700px;
+}
+.editor-class {
+	padding: 0px 20px 0px 20px;
+	min-height: 275px;
+	max-height: 275px;
+}
+.toolbar-class {
+	border-bottom: 1px solid gray;
+	display: flex;
+	justify-content: space-between;
+}
