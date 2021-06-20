@@ -8,7 +8,7 @@ import AccordionWrapper from './AccordionWrapper'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            //boxShadow: 'none'
+            backgroundColor: '#f6eee3',
         },
         title: {
             padding: '10px',
@@ -23,7 +23,7 @@ export default function FilterSidebar() {
     const classes = useStyles()
 
     return (
-        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: "100px", height: '80vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px"}}>
+        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: "100px", height: '80vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px" }}>
             <Paper elevation={2} className={classes.root}>
             <Typography variant="h3" className={classes.title}>
                 Filter your search
@@ -49,7 +49,6 @@ export default function FilterSidebar() {
                     customItems={["All", "Any", "Secondary", "Pre-University", "Undergraduate"]}
                 />
             </AccordionWrapper>
-
         </Paper>
         </div>
     )

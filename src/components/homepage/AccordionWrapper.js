@@ -6,6 +6,9 @@ import MuiAccordion from '@material-ui/core/Accordion';
 
 const useStyles = makeStyles((theme) => {
     return {
+      root: {
+        // backgroundColor: '#eee7d7'
+      }
     }
 })
 
@@ -19,6 +22,7 @@ const Accordion = withStyles({
       '&$expanded': {
         margin: 'auto',
       },
+      backgroundColor: '#f6eee3'
     },
     expanded: {},
   })(MuiAccordion);
@@ -27,7 +31,7 @@ export default function AccordionWrapper({children, title}) {
     const classes = useStyles()
 
     return (
-        <>
+        <div className={classes.root}>
              <Accordion defaultExpanded>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -43,6 +47,6 @@ export default function AccordionWrapper({children, title}) {
                 </AccordionDetails>
             </Accordion>
             { title !== "Education Level" && <Divider variant="middle" />}
-        </>
+        </div>
     )
 }

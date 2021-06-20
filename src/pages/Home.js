@@ -25,7 +25,7 @@ export default function Home() {
                 />
                 <SearchBox /> 
                 <div style={{display: 'flex'}}>
-                    <div style={{flex: 1, marginRight: '10px'}}>
+                    <div style={{flex: 1, marginRight: '2vw', marginTop: '16px'}}>
                         <FilterSidebar />
                     </div>
                     <div style={{flex: 3, height: '5000px'}}>
