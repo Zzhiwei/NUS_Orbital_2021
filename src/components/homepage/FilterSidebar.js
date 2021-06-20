@@ -8,7 +8,7 @@ import AccordionWrapper from './AccordionWrapper'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            backgroundColor: '#f6eee3',
+            backgroundColor: 'rgb(246,238,227)',
         },
         title: {
             padding: '10px',
