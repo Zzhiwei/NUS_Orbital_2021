@@ -113,7 +113,6 @@ Object.assign(rteTheme, {
 })
 
 export default function ViewPostForm({ data })  {
-
     const classes = useStyles()
     const { objectID : id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
