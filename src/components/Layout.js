@@ -240,7 +240,7 @@ function Layout(props) {
   
     return (
         <Container className={classes.page}>
-                <AppBar color="white"  elevation={1}> 
+                <AppBar color="inherit" elevation={1}> 
                     <Container>
                         <Toolbar >                                      
                             <a href="/" style={{textDecoration: 'none'}}>

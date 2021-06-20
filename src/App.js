@@ -13,7 +13,7 @@ import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
 import PictureCropper from './components/profile/Cropper/PictureCropper'
 import Chat from './pages/Chat';
-import { CreatePost } from './pages/CreatePost/CreatePostForm';
+import { CreatePost } from './pages/CreatePost/CreatePostForm'; 
 
 const theme = createMuiTheme({
   palette: {

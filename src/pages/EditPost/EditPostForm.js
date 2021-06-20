@@ -5,11 +5,13 @@ import { PartC } from './PartC'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../../components/Copyright';
 import PageHeader from '../../components/PageHeader';
-import { Paper, makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
+import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext'
 import { useHistory }  from 'react-router-dom'
 import { db } from '../../firebase'
+import { convertFromRaw, EditorState } from 'draft-js'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 3),
+    padding: theme.spacing(3, 0, 5),
   },
 }))
 
@@ -48,6 +50,9 @@ export const EditPostForm = ({ data }) => {
   const history = useHistory()
   const [docRef, setDocRef] = useState(null)
   const [render, setRender] = useState(false)
+
+  const contentState = convertFromRaw(data.description)
+  const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState))
 
   useEffect(() => {
     if (currentUser) {
@@ -92,7 +97,7 @@ export const EditPostForm = ({ data }) => {
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, docRef }
+  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, docRef, editorState, setEditorState }
 
   function getStepContent(step) {
     switch(step) {
@@ -114,11 +119,13 @@ export const EditPostForm = ({ data }) => {
     return (
       <main className={classes.root}>
         <div className={classes.layout}>
-        <PageHeader 
+        { activeStep == 0 &&
+          <PageHeader 
             title="Edit Your Post"
             subTitle="Change the fields below as required"
             icon={<CreateTwoToneIcon fontSize="large"/>}
           />
+        }
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>

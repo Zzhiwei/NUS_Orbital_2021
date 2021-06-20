@@ -1,7 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Container, Grid, makeStyles, Button } from "@material-ui/core";
-import MUIRichTextEditor  from 'mui-rte'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import React, { useState } from "react";
+import { Container, makeStyles, Button } from "@material-ui/core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,18 +10,18 @@ import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { convertToRaw } from "draft-js";
+import TextEditor from "../../components/texteditor/TextEditor";
 
 const useStyles = makeStyles(theme => ({
-  label: {
-    textAlign: "left", 
-    marginLeft: "15px",
-    marginBottom: "10px"
+  editor: {
+    marginLeft: "-6rem",
   },
   buttons: {
     display: 'flex',
     justifyContent: 'flex-end',
     position: "relative",
-    left: "50px"
+    left: "102px"
   },
   button: {
     marginTop: theme.spacing(5),
@@ -31,88 +29,26 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const darkTheme = createMuiTheme()
-
-Object.assign(darkTheme, {
-  overrides: {
-    MUIRichTextEditor: {
-        root: {
-            marginTop: "1rem",
-            marginLeft: "-3rem",
-            backgroundColor: "#fff",
-            borderRadius: "4px",
-            border: "1px solid gray",
-            width: "119%",
-        },
-        container: {
-            borderRadius: '4px'
-        },
-        editor: {
-            padding: "5px 15px",
-            height: "300px",
-            maxHeight: "300px",
-            overflow: "auto",
-        },
-        toolbar: {
-            display: "flex",
-            justifyContent: "space-evenly",
-            borderBottom: "1px solid gray",
-            marginTop: "-8px",
-            borderTopLeftRadius: "4px",
-            borderTopRightRadius: "4px",
-            backgroundColor: "#ebebeb",
-            //backgroundColor: '#027dc5',
-            height: "35px",
-        },
-        placeHolder: {
-            backgroundColor: "#fff",
-            padding: "5px 15px",
-            height: "285px",
-            width: "595px"
-        },
-        anchorLink: {
-            color: "#333333",
-            textDecoration: "underline"
-        }
-      }
-    }
-})
-
-export const PartC = ({ values, setValues, setActiveStep }) => {
-
-  const validate = () => {
-    let temp = {}
-    temp.description = values.description ? "" : "This field is required"
-    // setErrors({
-    //   ...temp
-    // })
-    return Object.values(temp).every(x => x === "");
-  }
+export const PartC = ({ values, setValues, setActiveStep, editorState, setEditorState }) => {
 
   const classes = useStyles()
-  const { description } = values
-  const ref = useRef()
   const [open, setOpen] = useState(false)
   const { currentUser, currentUserData, setCurrentUserData } = useAuth()
   const history = useHistory()
   const docRef = db.collection("users").doc(currentUser.uid)
   const [loading, setLoading] = useState(false)
-
-  const handleSave = (content) => {
-    setValues({...values, description: content})
-  }
   
+  const handleSave = async () => {
+    const content = convertToRaw(editorState.getCurrentContent())
+    await setValues({ ...values, description: content })
+  }
+
   const handlePrev = () => {
-    ref.current?.save()
     setActiveStep(step => step - 1)
   }
 
   const handleOpen = () => {
-    if (!validate()) {
-      alert('form not filled in correctly')
-      return
-    }
-    ref.current?.save()
+    handleSave()
     setOpen(true)
   }
 
@@ -177,27 +113,13 @@ export const PartC = ({ values, setValues, setActiveStep }) => {
     }, 1000)
   }
 
+  const props = { editorState, setEditorState }
 
   return(
-    
-        <Container component="main" maxWidth="sm">
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    {/* <Typography className={classes.label}>
-                        Description
-                    </Typography> */}
-                    <MuiThemeProvider theme={darkTheme}>
-                        <MUIRichTextEditor
-                            label="Some details ..."
-                            onSave={handleSave}
-                            defaultValue={description}
-                            ref={ref}
-                            inlineToolbar={true}
-                            controls={['bold', 'italic', 'underline', 'highlight', 'numberList', 'bulletList', 'quote', 'code']}
-                          />
-                    </MuiThemeProvider>
-                </Grid>
-            </Grid>
+        <Container component="main">
+            <div className={classes.editor}>
+                <TextEditor {...props}/>
+            </div>
             <div className={classes.buttons}>
                 <Button 
                     className={classes.button}
