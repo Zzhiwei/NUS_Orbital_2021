@@ -15,7 +15,7 @@ const searchClient = algoliasearch(
 export default function Home() {
     console.log("rerendering home")
     return (
-            <div style={{marginTop: '50px'}}>
+            <div style={{marginTop: '40px'}}>
                 <InstantSearch
                     indexName="posts"
                     searchClient={searchClient}
@@ -23,12 +23,13 @@ export default function Home() {
                 <Configure
                     hitsPerPage={8}
                 />
-                <SearchBox /> 
+                
                 <div style={{display: 'flex'}}>
-                    <div style={{flex: 1, marginRight: '2vw', marginTop: '16px'}}>
+                    <div style={{flex: 1, marginRight: '2vw'}}>
                         <FilterSidebar />
                     </div>
                     <div style={{flex: 3, height: '5000px'}}>
+                        <SearchBox /> 
                         <InfiniteHits />
                         
                     </div>

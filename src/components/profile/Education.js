@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
     return {
         title: {
             paddingBottom: '10px',
-            borderBottom: '2px solid #a0c3e2',
+            borderBottom: '2px solid #4C4556',
             margin: '20px auto'
         }
     }

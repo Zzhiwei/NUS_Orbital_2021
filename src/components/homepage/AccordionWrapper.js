@@ -22,7 +22,7 @@ const Accordion = withStyles({
       '&$expanded': {
         margin: 'auto',
       },
-      backgroundColor: '#f6eee3'
+      backgroundColor: 'rgb(246,238,227)'
     },
     expanded: {},
   })(MuiAccordion);
