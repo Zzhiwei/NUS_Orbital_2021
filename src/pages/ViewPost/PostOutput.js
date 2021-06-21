@@ -10,11 +10,11 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 
 const useStyles = makeStyles (theme => ({
     root: {
-        '& .MuiFormControl-root': {
-          width: '100%',
-          margin: theme.spacing(1) 
+        // '& .MuiFormControl-root': {
+        //   width: '100%',
+        //   margin: theme.spacing(1) 
           
-        }
+        // }
     },
     pageContent: {
       marginTop: theme.spacing(1),

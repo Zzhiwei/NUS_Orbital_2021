@@ -8,10 +8,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    '& .MuiFormControl-root': {
-      width: '100%',
-      margin: theme.spacing(1) 
-    }
+    // '& .MuiFormControl-root': {
+    //   width: '100%',
+    //   margin: theme.spacing(1) 
+    // }
   },
   label: {
     textAlign: "left", 

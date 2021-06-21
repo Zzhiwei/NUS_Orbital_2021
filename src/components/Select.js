@@ -31,11 +31,13 @@ export default function Select(props) {
         {...(error && {error: true})}>
         <InputLabel>{label}</InputLabel>
         <MuiSelect 
+          style={{backgroundColor: '#f6eee3'}}
           name={name}
           value={value}
           label={label}
           onChange={onChange}
           displayEmpty
+          
         >
             {/* <MenuItem value="" disabled>
               <div className={classes.unselected}>
