@@ -55,10 +55,18 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditEducation({ customProps, handleClose, open }) {
+export default function EditEducation({ handleClose, open }) {
     const classes = useStyles()
-    console.log(customProps)
-    const initialFValues = customProps
+    
+    const initialFValues = {       
+        category: "",
+        organization: "",
+        fromMonth: "",
+        fromYear: "",
+        toMonth: "",
+        toYear: "",
+        description: ""
+    }
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
     const [loading, setLoading] = useState(false)
@@ -130,7 +138,7 @@ export default function EditEducation({ customProps, handleClose, open }) {
             <Select
                 fullWidth
                 name={"category"}
-                value={values.category}
+                value={values.from}
                 variant="filled"
                 onChange={handleInputChange}
                 error={errors.category}

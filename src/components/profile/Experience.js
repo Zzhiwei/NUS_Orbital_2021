@@ -4,7 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import ExperienceBlock from './ExperienceBlock'
-import EditExperience from './modals/EditExperience'
+import AddExperience from './modals/AddExperience'
 
 
 
@@ -32,7 +32,7 @@ function Experience({ userData, enableEdit }) {
         
         return (
             <div key={index}>
-                <ExperienceBlock  customProps={exp} enableEdit={enableEdit}/>
+                <ExperienceBlock index={index}  customProps={exp} enableEdit={enableEdit}/>
             </div>
         )
     })
@@ -62,7 +62,7 @@ function Experience({ userData, enableEdit }) {
                     onClose={null}
                 >   
                     <div>
-                        <EditExperience handleClose={handleClose} open={open}/>
+                        <AddExperience handleClose={handleClose} open={open}/>
                     </div>
                 </Modal>
                 {experienceList}

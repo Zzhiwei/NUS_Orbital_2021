@@ -1,11 +1,22 @@
-import React from 'react';
-import {  IconButton, Grid, InputLabel, makeStyles , TextField, Button } from '@material-ui/core';
+import React, {useState} from 'react';
+import {  IconButton, Grid, InputLabel, makeStyles , TextField,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Dialog,
+    Button,
+    Modal
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import firebase from "firebase/app"
 import _ from 'lodash'
+import EditIcon from '@material-ui/icons/Edit';
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+import EditExperience from './modals/EditExperience'
+
 
 
 
@@ -18,28 +29,24 @@ const useStyles = makeStyles((theme) => {
     return {
         root: {
             marginBottom: '50px',
-            // padding: '10px',
-            // border: '2px dotted black'
         },
-        deleteButton: {
+        iconRoot: {
             '&:hover': {
                 color: 'red'
             },
-            marginLeft: 'auto'
-        },
-        iconRoot: {
-            
         },
         delete: {
-            '&:hover': {
-                color: 'red'
-            }
+            
         }
     }
 });
 
-function ExperienceBlock({ customProps, enableEdit }) {
+function ExperienceBlock({ customProps, enableEdit, key }) {
     const classes = useStyles();
+    const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
+
 
     const {  
         category,
@@ -53,8 +60,10 @@ function ExperienceBlock({ customProps, enableEdit }) {
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     
-    const handleDelete = () => {
-        db.collection('users').doc(currentUser.uid).update({
+    const handleDelete = async () => {
+
+        setLoading(true)
+        await db.collection('users').doc(currentUser.uid).update({
             experience: firebase.firestore.FieldValue.arrayRemove(customProps)
         })
 
@@ -66,29 +75,70 @@ function ExperienceBlock({ customProps, enableEdit }) {
            ...currentUserData,
            experience: filteredList
        })
+       setOpen(false)
+       setLoading(false)
+    }
 
+    function renderEdit() {
+        if (enableEdit) {
+            return (
+                <div>
+                    <IconButton 
+                        classes={{
+                            root: classes.iconRoot
+                        }}
+                        onClick={() => setModalOpen(true)}
+                    >
+                        <EditIcon className={classes.delete}/>
+                    </IconButton>
+                    <Modal
+                        open={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                    >
+                        <div>
+                            <EditExperience customProps={customProps} handleClose={() => setModalOpen(false)} open={modalOpen}/>
+                        </div>
+                    </Modal>
+                </div>
+            )
+        }
     }
 
     const renderDelete = () => {
         if (enableEdit) {
             return (
-                // <Button
-                //     className={classes.deleteButton}
-                //     variant="outlined"
-                //     startIcon={<DeleteIcon />}
-                //     size="small"
-                //     onClick={handleDelete}
-                // >
-                //     Delete
-                // </Button>
-                <IconButton 
-                    classes={{
-                        root: classes.iconRoot
-                    }}
-                    onClick={handleDelete}
-                >
-                    <DeleteIcon className={classes.delete}/>
-                </IconButton>
+                <div>
+                    <IconButton 
+                        classes={{
+                            root: classes.iconRoot
+                        }}
+                        onClick={() => setOpen(true)}
+                    >
+                        <DeleteIcon className={classes.delete}/>
+                    </IconButton>
+                     <Dialog
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Confirm Delete"}</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure you want to delete this?
+                        </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                        <Button disabled={loading} onClick={handleDelete} color="primary">
+                            Yes
+                        </Button>
+                        <Button onClick={() => setOpen(false)} color="primary">
+                            No
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+                
             )
         }
     }
@@ -121,9 +171,11 @@ function ExperienceBlock({ customProps, enableEdit }) {
                         />
                     </Grid>
                     <Grid item xs={2}>
-                        <Grid container >
-                            <Grid item xs={6}></Grid>
-                            <Grid item xs={6}>
+                        <Grid container spacing={0}>
+                            <Grid item >
+                                {renderEdit()}
+                            </Grid>
+                            <Grid item >
                                 {renderDelete()}
                             </Grid>
                         </Grid>

@@ -25,7 +25,7 @@ function Education({ userData, enableEdit }) {
     const educationList = userData.education.map((edu, index) => {
         return (
             <div key={index}>
-                <EducationBlock institution={edu.institution} from={edu.from} to={edu.to} enableEdit={enableEdit}/>
+                <EducationBlock index={index} institution={edu.institution} from={edu.from} to={edu.to} enableEdit={enableEdit}/>
             </div>
         )
     })

@@ -112,15 +112,6 @@ export default function EditEducation({ handleClose, open }) {
             setCurrentUserData(res.data())
         })
         
-        //update local => causes infiniteloop when creating duplicate
-        
-        // setCurrentUserData({
-        //     ...currentUserData,
-        //     education: [
-        //         ...currentUserData.education,
-        //         values
-        //     ]
-        // })
         
         handleClose()
 
@@ -145,7 +136,7 @@ export default function EditEducation({ handleClose, open }) {
                             name={"institution"}
                             value={values.institution}
                             onChange={handleInputChange}
-                            variant="outlined"
+                            variant="filled"
                             error={errors.institution}
                             helperText={errors.institution}
                         />
@@ -165,7 +156,7 @@ export default function EditEducation({ handleClose, open }) {
                             fullWidth
                             name={"from"}
                             value={values.from}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
                             error={errors.from}
                         >
@@ -196,9 +187,9 @@ export default function EditEducation({ handleClose, open }) {
                             fullWidth
                             name={"to"}
                             value={values.to}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
-                            error={errors.from}
+                            error={errors.to}
                         >
                             {getYearsEnd()}
                         </Select>

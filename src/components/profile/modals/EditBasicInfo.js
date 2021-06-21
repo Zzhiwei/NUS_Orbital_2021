@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
         },
         root: {
+            height: '90vh',
             padding: "30px",
             position: "absolute",
             width: "500px",
@@ -45,15 +46,9 @@ const useStyles = makeStyles((theme) => {
             top: "50%",
             transform: "translate(-50%, -50%)",
             backgroundColor: "#f6eee3",
+            overflowY: 'scroll'
         },
-        input: {
-            margin: "0px",
-        },
-        global: {
-            "& .MuiFormControl-marginNormal": {
-                margin: "0px",
-            },
-        },
+        
     };
 });
 
@@ -72,6 +67,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const [selectedDate, setSelectedDate] = React.useState(basicInfo.dateOfBirth.toDate());
     const [showEmail, setShowEmail] = useState(basicInfo.showEmail)
+    const [loading, setLoading] = useState(false)
     console.log({selectedDate})
 
     const initialFValues = {
@@ -86,6 +82,17 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
     const { values, setValues, errors, setErrors, handleInputChange } =
     useForm(initialFValues);
 
+    const validate = () => {
+        let temp = {}
+        temp.firstName = values.firstName ? "" : "You can't leave this empty"
+
+        setErrors({
+          ...temp
+        })
+    
+        return Object.values(temp).every(x => x === "");
+      }
+
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
@@ -97,6 +104,10 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validate()) {
+            return
+        }
+        setLoading(true)
 
         const toUpload = {
             firstName: checkUndefined(values.firstName),
@@ -113,12 +124,14 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
             basicInfo: toUpload,
         });
 
-        handleClose();
-
         setCurrentUserData({
             ...currentUserData,
             basicInfo: toUpload,
         });
+        setLoading(false)
+        handleClose();
+
+        
 
     };
 
@@ -128,17 +141,24 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
 
     return (
         <Paper className={classes.root}>
-            <Form onSubmit={handleSubmit}>
                 {/* first name & last name */}
                 <div className={classes.flex}>
                     <div style={{ flex: "4" }}>
-                        <InputLabel align="left">First name</InputLabel>
+                        <InputLabel align="left">
+                            <Typography
+                                color={errors.firstName ? "secondary" : ""}
+                            >
+                                First name
+                            </Typography>
+                        </InputLabel>
                         <TextField
                             name={"firstName"}
-                            variant="outlined"
+                            variant="filled"
                             fullWidth
                             value={values.firstName}
                             onChange={handleInputChange}
+                            error={errors.firstName}
+                            helperText={errors.firstName}
                         />
                     </div>
                     <div style={{ flex: 0.5 }}></div>
@@ -151,7 +171,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                             fullWidth
                             name={"lastName"}
                             value={values.lastName}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -184,7 +204,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                         <Select
                             name="gender"
                             value={values.gender}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
                             fullWidth
                         >
@@ -203,7 +223,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                                     style={{ margin: "0px" }}
                                     disableToolbar
                                     variant="dialog"
-                                    inputVariant="outlined"
+                                    inputVariant="filled"
                                     format="dd/MM/yyyy"
                                     id="date-picker-inline"
                                     value={selectedDate}
@@ -227,7 +247,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                             fullWidth
                             name={"location"}
                             value={values.location}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -240,7 +260,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                             fullWidth
                             name={"nationality"}
                             value={values.nationality}
-                            variant="outlined"
+                            variant="filled"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -255,7 +275,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                     fullWidth
                     name={"bio"}
                     value={values.bio}
-                    variant="outlined"
+                    variant="filled"
                     onChange={handleInputChange}
                     multiline
                     rows="12"
@@ -270,7 +290,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                         variant="contained"
                         color="primary"
                         style={{ marginRight: "10px", width: "170px" }}
-                        type="submit"
+                        onClick={handleSubmit}
                     >
                         save
                     </Button>
@@ -283,7 +303,6 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                         discard changes
                     </Button>
                 </div>
-            </Form>
         </Paper>
     );
 }

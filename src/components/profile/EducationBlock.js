@@ -33,8 +33,10 @@ function EducationBlock({ institution, from, to, enableEdit }) {
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleDelete = async () => {
+        setLoading(true)
         const currentUserRef = db.collection("users").doc(currentUser.uid);
 
         await currentUserRef.update({
@@ -57,6 +59,8 @@ function EducationBlock({ institution, from, to, enableEdit }) {
             ...currentUserData,
             education: filteredList,
         });
+        setOpen(false)
+        setLoading(false)
     };
 
     const renderDelete = () => {
@@ -93,7 +97,7 @@ function EducationBlock({ institution, from, to, enableEdit }) {
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleDelete} color="primary">
+                        <Button disabled={loading} onClick={handleDelete} color="primary">
                             Yes
                         </Button>
                         <Button onClick={() => setOpen(false)} color="primary">
