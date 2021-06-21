@@ -46,16 +46,6 @@ const useStyles = makeStyles((theme) => {
             transform: "translate(-50%, -50%)",
             backgroundColor: "#f6eee3",
         },
-        root2: {
-            padding: "50px",
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            height: "80vh",
-            width: "30vw",
-            backgroundColor: "#f6eee3",
-        },
         input: {
             margin: "0px",
         },
