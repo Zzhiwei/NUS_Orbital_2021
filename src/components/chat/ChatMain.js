@@ -37,7 +37,6 @@ export default function ChatMain({setKey}) {
         history.push('/login')
     }
     const classes = useStyles()
-    const [mounting, setMounting] = useState(true)
     const selected = new URLSearchParams(useLocation().search).get("selected")
     const current =  selected 
         ? selected 
@@ -47,28 +46,12 @@ export default function ChatMain({setKey}) {
             
     const [currentChat, setCurrentChat] = useState({chatId: current})
     
-
-    /*
-        The expensive part is  the snapshot listeners (or is it?)
-        (everytime things change is one read e.g. in bodychat new messages come in real time 
-            , in chatListitem unread count updates in real time ) 
-        for every message sent, both the user is reading 
-        
-    */
-    // setTimeout(() => {
-    //     setMounting(false) 
-    // }, 500)
-
-    // if (mounting) {
-    //     return <CircularProgress className={classes.loading}/>
-    // }
- 
     return (
         <div className={classes.root}>
             <div style={{display: 'flex'}}>
                 <div style={{flex: 1}}>
                     <Paper className={classes.chatListRoot}>
-                        <ChatList currentChat={currentChat} setCurrentChat={setCurrentChat} chats={currentUserData.chats} />
+                        <ChatList  setKey={setKey} currentChat={currentChat} setCurrentChat={setCurrentChat} chats={currentUserData.chats} />
                     </Paper>
                 </div>
                 <div style={{flex: 3}}>
