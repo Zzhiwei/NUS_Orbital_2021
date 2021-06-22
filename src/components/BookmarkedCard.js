@@ -67,6 +67,7 @@ const useStyles = makeStyles(theme => {
         profileLink: {
             color: theme.palette.primary.main,
             textDecoration: "none",
+            textTransform: "none",
             '&:hover':{
                 textDecoration: "underline",
                 backgroundColor: "rgb(246,238,227, 0.5)"
