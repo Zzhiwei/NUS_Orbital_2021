@@ -1,9 +1,9 @@
 import React from 'react';
-import { Tooltip, Zoom, IconButton, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
+import { Zoom, IconButton, Tooltip, InputLabel, makeStyles, Modal, TextField, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 
 import EditBasicInfo from './modals/EditBasicInfo'
-
+import HelpIcon from '@material-ui/icons/Help';
 
 
 const useStyles = makeStyles((theme) => {
@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
+function cutDate(str) {
+    const commaIndex = str.indexOf(',')
+    return str.substring(0, commaIndex)
+
+
+}
+
 function BasicInfo({ userData, enableEdit }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -30,25 +37,7 @@ function BasicInfo({ userData, enableEdit }) {
         setOpen(false)
     }
 
-    const monthToNum = {
-        "January": "01",
-        'February': "02",
-        'March': "03",
-        'April': "04",
-        'May': "05",
-        'June': "06",
-        'July': "07",
-        'August': "08",
-        'September': "09",
-        'October': "10",
-        'November': "11",
-        'December': "12"
-    }
-
-    const addZero = n => n < 10 ? "0" + n : n 
-    const { day, month, year } = userData.basicInfo.dateOfBirth
-    const dobNotReady = !day || !month || !year
-    const dob = dobNotReady ? "" : addZero(day) + '/' + monthToNum[month] + '/' +  year
+    
 
     const renderEdit = () => {
         if (enableEdit) {
@@ -62,8 +51,47 @@ function BasicInfo({ userData, enableEdit }) {
         }
     }
 
- 
-  
+    const { showEmail } = userData.basicInfo  
+
+    function renderEmail() {
+        if (enableEdit) {
+            return (
+                <div style={{flex: '2'}}>
+                    <div className={classes.flex}>
+                        <div style={{flex: 3}}>
+                        <InputLabel>Email</InputLabel> 
+                            <TextField  value={userData.email}   InputProps={{readOnly: true}} fullWidth />   
+                        </div>
+                        <div style={{flex: 2}}>
+                            {!showEmail && (
+                                <Tooltip title="you have hidden your email, this is only visible to you" placement="bottom">
+                                    <HelpIcon fontSize="large" />
+                                </Tooltip>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <div style={{flex: '2'}}>
+                <div className={classes.flex}>
+                    <div style={{flex: 3}}>
+                    <InputLabel>Email</InputLabel> 
+                        <TextField  value={showEmail ? userData.email : ""}   InputProps={{readOnly: true}} fullWidth />   
+                    </div>
+                    <div style={{flex: 2}}>
+                        {!showEmail && (
+                            <Tooltip title="if you are not seeing the email, it means the user has hidden it" placement="bottom">
+                                <HelpIcon fontSize="large" />
+                            </Tooltip>
+                        )}
+                    
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div style={{marginBottom: '50px'}}>
@@ -77,7 +105,7 @@ function BasicInfo({ userData, enableEdit }) {
                     onClose={null}
                 >   
                     <div>
-                        <EditBasicInfo basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
+                        <EditBasicInfo email={userData.email} basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
                     </div>
                 </Modal>
         
@@ -100,17 +128,13 @@ function BasicInfo({ userData, enableEdit }) {
                     <br />
                     <div className={classes.flex}>
                         <div style={{flex: '1'}}>
-                            <div>
                             <InputLabel>Date of Birth</InputLabel> 
-                            <TextField  value={dob}  InputProps={{readOnly: true}} />   
-                            </div>                                
+                            <TextField  value={cutDate(userData.basicInfo.dateOfBirth.toDate().toLocaleString())}  InputProps={{readOnly: true}} />   
                         </div>
-                        <div style={{flex: '2'}}>
-                            <div style={{ width: "300px"}}>
-                            <InputLabel>Email</InputLabel> 
-                            <TextField  value={userData.email}   InputProps={{readOnly: true}} fullWidth />   
-                            </div>                                
-                        </div>                            
+                    {renderEmail()}
+                            
+                            
+                                      
                     </div>
                     <br />
                     <div style={{display: 'flex', justifyContent: 'left'}}>

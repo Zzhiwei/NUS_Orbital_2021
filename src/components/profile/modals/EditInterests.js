@@ -12,20 +12,33 @@ const useStyles = makeStyles(() => {
             justifyContent: 'space-between'
         },
         root: {
-            padding: '50px',
+            padding: '30px',
             position: 'absolute',
             left: '50%',
-            width: '800px',
+            width: '500px',
             top: '50%',
-            transform: 'translate(-50%, -50%)'
-        }
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#f6eee3',
+            overflowY: 'auto'
+        },
+        chips: {
+            backgroundColor: '#d9bda5',
+            '&:hover': {
+              backgroundColor: '#d9bda5'
+                
+            },
+        },
+        inputRoot: {
+            padding: '20px'
+        },
+        
 
     }
 });
 
 export default function EditInterests({handleClose, interests}) {
     const classes = useStyles()
-    const [chips, setChips] = useState([...interests])
+    const [chips, setChips] = useState(interests)
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const [rerender, setRerender] = useState(false)
  
@@ -62,17 +75,26 @@ export default function EditInterests({handleClose, interests}) {
 
     return (
         <Paper className={classes.root}>
-            <Form onSubmit={handleSubmit}>
+            
                 <ChipInput
+                    // disabled
                     fullWidthInput	
-                    style={{background: "white", borderRadius: "4px"}}
+                    style={{background: "#d9bda5", borderRadius: "4px"}}
                     name="chips"
-                    label="interests"
+                    label="Interests"
                     variant="outlined"
                     value={chips}
                     onAdd={(chip) => handleAddChip(chip)}
                     onDelete={(chip, index) => handleDeleteChip(chip, index)}
-                    fullWidthInput={true}
+                    // fullWidthInput={true}
+                    fullWidth
+                    style={{
+                        backgroundColor: '#f6eee3'
+                    }}
+                    classes={{
+                        chip: classes.chips,
+                        inputRoot: classes.inputRoot,
+                    }}
                 />  
                 
 
@@ -83,7 +105,7 @@ export default function EditInterests({handleClose, interests}) {
                         variant="contained"
                         color="primary"
                         style={{marginRight: '10px', width: '170px'}}
-                        type="submit"
+                        onClick={handleSubmit}
                     >
                         save
                     </Button>
@@ -96,7 +118,6 @@ export default function EditInterests({handleClose, interests}) {
                         discard changes
                     </Button>
                 </div>   
-            </Form>    
         </Paper> 
     )
 }

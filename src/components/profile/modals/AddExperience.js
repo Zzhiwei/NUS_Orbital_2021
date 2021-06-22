@@ -1,14 +1,12 @@
-
 import { FormHelperText, Typography, MenuItem, withStyles, Button, Grid, IconButton, InputLabel, makeStyles, Paper, Select } from '@material-ui/core'
 import React, {useState} from 'react'
-
 import firebase from "firebase/app"
+
 import Controls from "../../Controls"
 import { useForm, Form } from '../../useForm'
 import {expCategory, month, year } from '../../Selections'
 import { useAuth } from '../../../contexts/AuthContext'
 import { db } from '../../../firebase'
-
 
 import MuiTextField from "@material-ui/core/TextField";
 
@@ -37,7 +35,6 @@ const TextField = withStyles({
 })(MuiTextField);
 
 const useStyles = makeStyles((theme) => {
-
     return {
         flex: {
             display: 'flex',
@@ -58,18 +55,27 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditExperience({ customProps, handleClose, open, index} ) {
+export default function EditEducation({ handleClose, open }) {
     const classes = useStyles()
-    console.log(customProps)
-    const initialFValues = customProps
-
+    
+    const initialFValues = {       
+        category: "",
+        organization: "",
+        fromMonth: "",
+        fromYear: "",
+        toMonth: "",
+        toYear: "",
+        description: ""
+    }
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
     const [loading, setLoading] = useState(false)
 
-
     const {
         values,
+        setValues,
+        errors,
+        setErrors,
         handleInputChange
     } = useForm(initialFValues);
 
@@ -80,18 +86,23 @@ export default function EditExperience({ customProps, handleClose, open, index} 
         }
         setLoading(true)
 
-        let { experience } = currentUserData
-        experience[index] = values
-        
         await db.collection('users').doc(currentUser.uid).update({
-            experience
+            experience: firebase.firestore.FieldValue.arrayUnion(values)
         })
 
-        setCurrentUserData({
-            ...currentUserData,
-            experience
+        await db.collection('users').doc(currentUser.uid).get().then(res => {
+            setCurrentUserData(res.data())
         })
-
+        
+        //update local => causes infiniteloop when creating duplicate
+        
+        // setCurrentUserData({
+        //     ...currentUserData,
+        //     experience: [
+        //         ...currentUserData.experience,
+        //         values
+        //     ]
+        // })
 
         setLoading(false)
         handleClose()
@@ -127,7 +138,7 @@ export default function EditExperience({ customProps, handleClose, open, index} 
             <Select
                 fullWidth
                 name={"category"}
-                value={values.category}
+                value={values.from}
                 variant="filled"
                 onChange={handleInputChange}
                 error={errors.category}
@@ -316,7 +327,7 @@ export default function EditExperience({ customProps, handleClose, open, index} 
                     style={{marginRight: '10px', width: '100px'}}
                     onClick={handleSubmit}
                 >
-                    save
+                    add
                 </Button>
                 <Button
                     variant="contained"

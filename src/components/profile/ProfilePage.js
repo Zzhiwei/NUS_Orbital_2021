@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { makeStyles, Paper, Button, CircularProgress, Modal } from '@material-ui/core';
+
+import React, { useEffect, useRef, useState } from 'react';
+import { makeStyles, Paper, Typography, Button, CircularProgress, Modal } from '@material-ui/core';
+
 import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash'
 
@@ -36,7 +38,7 @@ function ProfilePage() {
     const { id } = useParams()
     const history = useHistory()
     const [openModal, setOpenModal] = useState(false)
-    const viewingOwn = useRef(null)
+    const [viewingOwn, setViewingOwn] = useState(null)
 
     const [renderOptions, setRenderOptions] = useState({
         userData: null,
@@ -50,42 +52,69 @@ function ProfilePage() {
         if yes: enable edit options, pass currentUserData as prop down to various section components
         if no: disable edit options, pass other user's data as prop
     */
-    if (viewingOwn.current === null) {
+    if (viewingOwn === null) {
         if (currentUser === null || id !== currentUser.uid) {
-            viewingOwn.current = false
+            setViewingOwn(false)
         } else {
-            viewingOwn.current = true
+            setViewingOwn(true)
         }
     }
 
-    
-    
-    //tricky part: surprisingly setState() triggers rerender even though state nv changed, so have to resort to manual checking
-    //or else would have infinite loop
-    const getUserData = async () => {
-        await db.collection('users').doc(id).get().then(res => {
-            const otherUserData = res.data()
-            if (!_.isEqual(renderOptions.userData, otherUserData)) { //manual check
+    useEffect(async () => {
+        if (viewingOwn !== null) {
+            if (viewingOwn) {
                 setRenderOptions({
-                    userData: res.data(),
-                    enableEdit: false,
+                    userData: currentUserData,
+                    enableEdit: true,
                     infoReceived: true
                 })
+            } else {
+                 await db.collection('users').doc(id).get().then(res => {
+                    const otherUserData = res.data()
+                    setRenderOptions({
+                        userData: otherUserData,
+                        enableEdit: false,
+                        infoReceived: true
+                    })
+                }) 
             }
-            
-        }) 
-    }
+        }
+    }, [viewingOwn])
+    
 
-    if (viewingOwn.current && !_.isEqual(renderOptions.userData, currentUserData)) { //manual check
+    
+    if (viewingOwn && !_.isEqual(renderOptions.userData, currentUserData)) {
+        console.log({
+            renderData: renderOptions.userData,
+            currentUserData
+        })
         setRenderOptions({
             userData: currentUserData,
             enableEdit: true,
             infoReceived: true
         })
-    } else {
-        getUserData()
     }
 
+    
+    
+    
+    //tricky part: surprisingly setState() triggers rerender even though state nv changed, so have to resort to manual checking
+    //or else would have infinite loop
+    // const getUserData = async () => {
+    //     await db.collection('users').doc(id).get().then(res => {
+    //         const otherUserData = res.data()
+    //         if (!_.isEqual(renderOptions.userData, otherUserData)) { //manual check
+    //             setRenderOptions({
+    //                 userData: res.data(),
+    //                 enableEdit: false,
+    //                 infoReceived: true
+    //             })
+    //         }
+            
+    //     }) 
+    // }
+
+   
 
     const handleMessageClick = async () => {
         //check if database already has chat between these two users
