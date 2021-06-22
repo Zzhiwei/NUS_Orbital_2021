@@ -11,7 +11,8 @@ const useStyles = makeStyles(theme => {
             alignItems: 'center',
             justifyContent: 'center',
             borderBottom: '1px solid rgb(128, 128, 128, 0.5)',
-            fontSize: '20px'
+            fontSize: '20px',
+            height: '60px'
         }
     }
 })

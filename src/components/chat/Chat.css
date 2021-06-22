@@ -1,29 +1,21 @@
 .bodyRoot {
-    background-image: url("../../assets/chatBackground.jpeg");
+    background-image: url("../../assets/background.jpeg");
     background-size: cover;
     padding: 30px;
-    height: 500px;
-    overflow-y: scroll;
+    height: calc(44/56 * (98vh - 64px));
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
 
 .bodyHeader {
-    background-color: rgb(238, 238, 238);
+    background-color: #f2e6d5;
+    /* height: calc(5/56 * (98 - 64px)); */
     padding: 10px;
     display: flex;
-}
-
-.chatListScrollBody {
-    height: 583px;
+    align-items: center;
     
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
 }
-
-
-
 
 
 
@@ -31,10 +23,27 @@
     border-top: 2px solid grey;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: rgb(238, 238, 238);
+    background-color: #f2e6d5;
+    /* height: calc(7/56 * (98 - 64px)); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     
 }
+
+.chatListScrollBody {
+    height: calc(44/56 * (98vh - 64px) + 72px) ;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
+
+
 
 .chatInput {
     width: 80%;

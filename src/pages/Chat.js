@@ -13,11 +13,13 @@ import { SelectionState } from 'draft-js'
 const useStyles = makeStyles(theme => {
     return {
         root: {
-            marginTop: '100px',
+            
+            marginTop: '2vh',
+            marginBottom: '2vh'
         },
+        
         chatListRoot: {
-            height: '632px',
-            backgroundColor: 'rgb(238, 238, 238)'
+            backgroundColor: '#f2e6d5'
         },
         loading: {
             position: 'absolute',
@@ -69,7 +71,7 @@ export default function Chat() {
                         <ChatList currentChat={currentChat} setCurrentChat={setCurrentChat} chats={currentUserData.chats} />
                     </Paper>
                 </div>
-                <div style={{flex: 2}}>
+                <div style={{flex: 3}}>
                         <ChatBody key={String(currentChat.chatId)} chat={currentChat} />
                 </div>
             </div>
