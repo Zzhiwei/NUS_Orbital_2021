@@ -13,13 +13,25 @@ const useStyles = makeStyles((theme) => {
             justifyContent: 'space-between'
         },
         root: {
-            padding: '50px',
+            padding: '30px',
             position: 'absolute',
             left: '50%',
-            width: '800px',
+            width: '500px',
             top: '50%',
-            transform: 'translate(-50%, -50%)'
-        }
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#f6eee3',
+            overflowY: 'auto'
+        },
+        chips: {
+            backgroundColor: '#d9bda5',
+            '&:hover': {
+                backgroundColor: '#d9bda5'
+                  
+              },
+        },
+        inputRoot: {
+            padding: '20px'
+        },
 
     }
 });
@@ -61,7 +73,6 @@ export default function EditSkills({handleClose, skills}) {
 
     return (
         <Paper className={classes.root}>
-            <Form onSubmit={handleSubmit}>
                 <ChipInput
                     style={{background: "white", borderRadius: "4px"}}
                     name="chips"
@@ -70,6 +81,14 @@ export default function EditSkills({handleClose, skills}) {
                     value={chips}
                     onAdd={(chip) => handleAddChip(chip)}
                     onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                    fullWidth
+                    style={{
+                        backgroundColor: '#f6eee3'
+                    }}
+                    classes={{
+                        chip: classes.chips,
+                        inputRoot: classes.inputRoot
+                    }}
                 />  
                 
 
@@ -80,7 +99,7 @@ export default function EditSkills({handleClose, skills}) {
                         variant="contained"
                         color="primary"
                         style={{marginRight: '10px', width: '170px'}}
-                        type="submit"
+                        onClick={handleSubmit}
                     >
                         save
                     </Button>
@@ -93,7 +112,6 @@ export default function EditSkills({handleClose, skills}) {
                         discard changes
                     </Button>
                 </div>   
-            </Form>    
         </Paper> 
     )
 }

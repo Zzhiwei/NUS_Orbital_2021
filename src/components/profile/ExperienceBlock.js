@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-function ExperienceBlock({ customProps, enableEdit, key }) {
+function ExperienceBlock({ customProps, enableEdit, index }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -96,7 +96,7 @@ function ExperienceBlock({ customProps, enableEdit, key }) {
                         onClose={() => setModalOpen(false)}
                     >
                         <div>
-                            <EditExperience customProps={customProps} handleClose={() => setModalOpen(false)} open={modalOpen}/>
+                            <EditExperience index={index} customProps={customProps} handleClose={() => setModalOpen(false)} open={modalOpen}/>
                         </div>
                     </Modal>
                 </div>

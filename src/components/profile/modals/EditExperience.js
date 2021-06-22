@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditEducation({ customProps, handleClose, open }) {
+export default function EditExperience({ customProps, handleClose, open, index} ) {
     const classes = useStyles()
     console.log(customProps)
     const initialFValues = customProps
@@ -78,23 +78,18 @@ export default function EditEducation({ customProps, handleClose, open }) {
         }
         setLoading(true)
 
+        let { experience } = currentUserData
+        experience[index] = values
+        
         await db.collection('users').doc(currentUser.uid).update({
-            experience: firebase.firestore.FieldValue.arrayUnion(values)
+            experience
         })
 
-        await db.collection('users').doc(currentUser.uid).get().then(res => {
-            setCurrentUserData(res.data())
+        setCurrentUserData({
+            ...currentUserData,
+            experience
         })
-        
-        //update local => causes infiniteloop when creating duplicate
-        
-        // setCurrentUserData({
-        //     ...currentUserData,
-        //     experience: [
-        //         ...currentUserData.experience,
-        //         values
-        //     ]
-        // })
+
 
         setLoading(false)
         handleClose()
@@ -319,7 +314,7 @@ export default function EditEducation({ customProps, handleClose, open }) {
                     style={{marginRight: '10px', width: '100px'}}
                     onClick={handleSubmit}
                 >
-                    add
+                    save
                 </Button>
                 <Button
                     variant="contained"
