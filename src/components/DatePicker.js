@@ -12,8 +12,8 @@ export default function Date(props) {
           marginLeft: "20px"
         },
         text: {
-          background: "white",
-          borderRadius: "4px",
+        //   background: "white",
+        //   borderRadius: "4px",
         }
       }))
 

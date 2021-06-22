@@ -1,6 +1,6 @@
 import { Grid, makeStyles, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import BookmarkedCard from '../components/BookmarkedCard';
+import BookmarkedCard from '../components/cards/BookmarkedCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';

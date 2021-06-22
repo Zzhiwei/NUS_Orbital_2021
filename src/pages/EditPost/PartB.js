@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
       marginTop: "15px",
-      background: "white", 
+      //background: "white", 
       borderRadius: "4px", 
       height: "53px",
   },

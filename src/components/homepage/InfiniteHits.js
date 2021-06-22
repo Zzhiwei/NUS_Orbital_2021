@@ -1,8 +1,7 @@
 import { Grid, Button } from '@material-ui/core'
 import React from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
-
-import PostCard from '../PostCard'
+import PostCard from '../cards/PostCard'
 import NoResults from './NoResults'
 
 function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) {

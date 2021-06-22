@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
 import { connectHits } from 'react-instantsearch-dom'
-import PostCard from '../../components/PostCard';
+import PostCard from '../../components/cards/PostCard';
 
 function CustomHits({ hits }) {
 

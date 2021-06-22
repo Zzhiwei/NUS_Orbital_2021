@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     padding: theme.spacing(3, 0, 5),
+    background: "inherit"
   },
 }))
 

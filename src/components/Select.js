@@ -1,15 +1,13 @@
 import React from 'react';
 import { makeStyles, FormControl, Select as MuiSelect, MenuItem, InputLabel, FormHelperText } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   label : {
     textAlign: "left",
     marginLeft: "20px"
   },
   select: {
     textAlign: "left",
-    background: "white",
-    borderRadius: "4px",
   },
   unselected: {
     opacity: "0.5",
@@ -28,7 +26,7 @@ export default function Select(props) {
         {...(error && {error: true})}>
         <InputLabel>{label}</InputLabel>
         <MuiSelect 
-          style={{backgroundColor: '#f6eee3'}}
+          //style={{backgroundColor: '#f6eee3'}}
           name={name}
           value={value}
           label={label}
