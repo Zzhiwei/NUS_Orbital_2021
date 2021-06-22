@@ -80,7 +80,9 @@ export default function EditEducation({ handleClose, open }) {
 
     const {
         values,
-        handleInputChange
+        handleInputChange,
+        setErrors,
+        errors
     } = useForm(initialFValues);
 
     const validate = () => {

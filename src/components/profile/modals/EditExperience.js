@@ -70,7 +70,9 @@ export default function EditExperience({ customProps, handleClose, open, index} 
 
     const {
         values,
-        handleInputChange
+        handleInputChange,
+        setErrors,
+        errors
     } = useForm(initialFValues);
 
     const handleSubmit = async (e) => {
