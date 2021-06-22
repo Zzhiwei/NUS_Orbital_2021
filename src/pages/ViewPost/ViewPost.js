@@ -2,6 +2,15 @@ import { useParams } from 'react-router'
 import ViewPostForm from './ViewPostForm'
 import algoliasearch from 'algoliasearch';
 import React, { useState, useEffect } from 'react';
+import { makeStyles, CircularProgress } from '@material-ui/core'
+
+const useStyles = makeStyles (() => ({
+  loading: {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+  },
+}))
 
 const searchClient = algoliasearch(
   'ES79ODFVNM',
@@ -11,24 +20,26 @@ const searchClient = algoliasearch(
 const index = searchClient.initIndex('posts')
 
 function ViewPost() {
+  const classes = useStyles()
   const { id } = useParams()
   const [hit, setHit] = useState()
+  const [render, setRender] = useState(false)
 
   useEffect(() => {
     index.getObject(id).then(doc => {
       setHit(doc)
+      setRender(true)
     })
   }, [id])
 
-  //const data = JSON.parse(id)
+  const renderContent = () => {
+    if (!render) {
+      return <CircularProgress className={classes.loading}/>
+    }
+    return <ViewPostForm data={hit}/>
+  }
 
-  return (
-    <div>
-        { !hit && <div>Loading...</div>}
-        { hit && <ViewPostForm data={hit}/> }
-    </div>    
-  )
-  
+  return renderContent()
 }
   
 export default ViewPost;

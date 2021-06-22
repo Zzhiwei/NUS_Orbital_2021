@@ -94,7 +94,7 @@ const useStyles = makeStyles (theme => ({
         '&:hover':{
             textDecoration: "underline",
         },
-    }
+    },
 }))
 
 export default function ViewPostForm({ data })  {
