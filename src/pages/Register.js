@@ -97,7 +97,6 @@ function Register() {
                 basicInfo: {
                     firstName,
                     lastName,
-                    dateOfBirth: {}
                 },
                 education: [],
                 experience: [],
