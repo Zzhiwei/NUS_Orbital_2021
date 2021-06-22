@@ -46,7 +46,9 @@ const useStyles = makeStyles (theme => ({
     },
     avatar: {
         height: "72px", 
-        width: "72px"
+        width: "72px",
+        color: '#fffcf5',
+        backgroundColor: '#fffcf5'
     },
     contentBox: {
         display: "flex",
@@ -100,9 +102,8 @@ export default function ViewPostForm({ data })  {
     const { objectID : id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
-    const [profilePic, setProfilePic] = useState("")
+    const [profilePic, setProfilePic] = useState("unloaded")
     const [bookmarked, setBookmarked] = useState(false)
-    const [memColor, setMemColor] = useState("green")
     
     console.log(description)
     
@@ -115,19 +116,14 @@ export default function ViewPostForm({ data })  {
     useEffect(() => {
         async function fetchProfilePic() {
             const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-            setProfilePic(dataUrl)
+            if (dataUrl) {
+                setProfilePic(dataUrl)
+            } else {
+                setProfilePic(null)
+            }
         }
         fetchProfilePic()
     }, [author])
-
-    useEffect(() => {
-        const ratio = current / total
-        if (ratio > 0.75) {
-            setMemColor("red")
-        } else if (ratio > 0.5) {
-            setMemColor("orange")
-        }
-    }, [current, total])
 
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -169,9 +165,11 @@ export default function ViewPostForm({ data })  {
             <Container className={classes.layout}>
                 <main className={classes.mainContainer}>
                     <div className={classes.topFold}>
-                        <Avatar src={profilePic} className={classes.avatar}>
-                            X
-                        </Avatar>
+                        <Avatar 
+                            src={profilePic} 
+                            className={classes.avatar}
+                            style={profilePic ? {} : {color: "white", backgroundColor: "#4C4556"}}
+                        />
                         <div className={classes.title}>
                             <div>
                                 <Typography variant="h4">
@@ -211,7 +209,7 @@ export default function ViewPostForm({ data })  {
                                 </Tooltip>
                                 {education}
                             </div>
-                            <div className={classes.content} style={{color: memColor}}>
+                            <div className={classes.content}>
                                 <Tooltip title="Members">
                                 <PeopleAltRoundedIcon style={{marginRight: '30px', fontSize: 28}}/>
                                 </Tooltip>

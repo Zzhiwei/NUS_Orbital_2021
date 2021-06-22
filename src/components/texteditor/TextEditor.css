@@ -1,7 +1,7 @@
 .wrapper-class {
-	border-radius: 4px;
 	border: 1px solid gray;
 	width: 700px;
+	background-color: white;
 }
 .editor-class {
 	padding: 0px 20px 0px 20px;

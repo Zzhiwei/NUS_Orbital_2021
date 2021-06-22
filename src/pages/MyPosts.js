@@ -1,6 +1,6 @@
 import { Grid, makeStyles, CircularProgress } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import AdminCard from '../components/AdminCard';
+import AdminCard from '../components/cards/AdminCard';
 import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
