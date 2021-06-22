@@ -1,12 +1,8 @@
 import React from 'react';
 import {  Tooltip, Zoom, IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
 import EditEducation from './modals/EditEducation'
 import EducationBlock from './EducationBlock'
-
-
-
 
 const useStyles = makeStyles((theme) => {
     return {

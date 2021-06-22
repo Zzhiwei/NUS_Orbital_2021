@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, IconButton, Card, CardContent, CardHeader, Chip, Divider, makeStyles, Typography, Tooltip } from '@material-ui/core';
-import { Link } from 'react-router-dom' 
+import { Avatar, IconButton, Card, CardContent, CardHeader, Chip, Divider, makeStyles, Typography, Tooltip, Button } from '@material-ui/core';
+import { useHistory, Link } from 'react-router-dom' 
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext'
 import firebase from 'firebase/app';
@@ -67,6 +67,7 @@ const useStyles = makeStyles(theme => {
         profileLink: {
             color: theme.palette.primary.main,
             textDecoration: "none",
+            textTransform: "none",
             '&:hover':{
                 textDecoration: "underline",
             },
@@ -80,6 +81,7 @@ export default function PostCard({ data }) {
     console.log("rendering postcard entitled " + data.title)
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
+    const history = useHistory()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("")
     const [bookmarked, setBookmarked] = useState(false)
@@ -92,11 +94,18 @@ export default function PostCard({ data }) {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
-    }, [])
+    }, [currentUser, currentUserData, currentUserData.bookmarks, id])
 
-    useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-        setProfilePic(dataUrl)
+    useEffect(() => {
+        async function fetchProfilePic() {
+            const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
+            if (dataUrl) {
+                setProfilePic(dataUrl)
+            } else {
+                setProfilePic(null)
+            }
+        }
+        fetchProfilePic()
     }, [author])
     
     useEffect(() => {
@@ -111,27 +120,43 @@ export default function PostCard({ data }) {
         }
         else if (secondsPast <= 86400) {
             let hoursPast = parseInt(secondsPast / 3600)
-            setTime(hoursPast == 1 ? hoursPast + ' hour ago' : hoursPast + ' hours ago')
+            setTime(
+                hoursPast === 1 
+                    ? hoursPast + ' hour ago' 
+                    : hoursPast + ' hours ago'
+                )
         }
         else if (secondsPast <= 604800) {
             let daysPast = parseInt(secondsPast / 86400)
-            setTime(daysPast == 1 ? daysPast + ' day ago' : daysPast +  ' days ago')
+            setTime(
+                daysPast === 1 
+                    ? daysPast + ' day ago' 
+                    : daysPast +  ' days ago'
+                )
         } 
         else if (secondsPast <= 2419200) {
             let weeksPast = parseInt(secondsPast / 604800)
-            setTime(weeksPast == 1 ? weeksPast + ' week ago' : weeksPast + ' weeks ago')
+            setTime(
+                weeksPast === 1 
+                    ? weeksPast + ' week ago' 
+                    : weeksPast + ' weeks ago'
+                )
             //setTimeColor('orange')
         } 
         else if (secondsPast <= 29030400) {
             let monthsPast = parseInt(secondsPast / 2419200)
-            setTime(monthsPast == 1 ? monthsPast + ' month ago' : monthsPast + ' months ago')
+            setTime(
+                monthsPast === 1 
+                    ? monthsPast + ' month ago' 
+                    : monthsPast + ' months ago'
+                )
             //setTimeColor('orange')
         }
         else {
             setTime('>1 year ago')
             //setTimeColor('grey')
         }
-    }, [])
+    }, [timestamp._seconds])
 
     useEffect(() => {
         const ratio = current / total
@@ -140,7 +165,7 @@ export default function PostCard({ data }) {
         } else if (ratio > 0.5) {
             setMemColor("orange")
         }
-    }, [])
+    }, [current, total])
 
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -177,21 +202,35 @@ export default function PostCard({ data }) {
     }
 
     const byline = (
-        <Link className={classes.profileLink} to={`/profile/${author}`}>
+        <Button 
+            className={classes.profileLink} 
+            disableRipple 
+            onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                history.push(`/profile/${author}`)
+            }}
+        >
             {`by: ${name}`}
-        </Link>
+        </Button>
     )
 
     const renderBookmark = () => {
         if (currentUser) {
             return (
-            <Link to="" className={classes.link}>
                 <Tooltip title={bookmarked ? "Remove from Bookmarks" : "Add to Bookmarks"}>
-                <IconButton color="primary" onClick={ bookmarked ? handleRemoveBookmark : handleAddBookmark }>
-                    { bookmarked ? <BookmarkIcon style={{fontSize: 28}} /> : <BookmarkBorderIcon style={{fontSize: 28}} /> }
-                </IconButton>
+                    <IconButton 
+                        color="primary" 
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            bookmarked ? handleRemoveBookmark() : handleAddBookmark()
+                            history.push('/')
+                        }}
+                    >
+                        { bookmarked ? <BookmarkIcon style={{fontSize: 28}} /> : <BookmarkBorderIcon style={{fontSize: 28}} /> }
+                    </IconButton>
                 </Tooltip>
-            </Link>
             )
         }
     }

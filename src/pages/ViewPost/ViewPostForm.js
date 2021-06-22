@@ -16,7 +16,6 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import ForumIcon from '@material-ui/icons/Forum'
 import ShareIcon from '@material-ui/icons/Share'
 import SimilarPosts from './SimilarPosts'
-import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import TextViewer from '../../components/texteditor/TextViewer';
 
@@ -111,11 +110,14 @@ export default function ViewPostForm({ data })  {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
-    }, [])
+    }, [currentUser, currentUserData, id])
 
-    useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-        setProfilePic(dataUrl)
+    useEffect(() => {
+        async function fetchProfilePic() {
+            const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
+            setProfilePic(dataUrl)
+        }
+        fetchProfilePic()
     }, [author])
 
     useEffect(() => {
@@ -125,7 +127,7 @@ export default function ViewPostForm({ data })  {
         } else if (ratio > 0.5) {
             setMemColor("orange")
         }
-    }, [])
+    }, [current, total])
 
     const handleAddBookmark = async () => {
         await userRef.update({

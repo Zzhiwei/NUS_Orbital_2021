@@ -119,7 +119,7 @@ export const EditPostForm = ({ data }) => {
     return (
       <main className={classes.root}>
         <div className={classes.layout}>
-        { activeStep == 0 &&
+        { activeStep === 0 &&
           <PageHeader 
             title="Edit Your Post"
             subTitle="Change the fields below as required"

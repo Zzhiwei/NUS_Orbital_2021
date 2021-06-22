@@ -17,7 +17,7 @@ import {
     Dialog,
     Button
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { db } from "../firebase";
 import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import { useAuth } from "../contexts/AuthContext";
@@ -90,6 +90,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 export default function AdminCard({ data }) {
+
     const {
         id,
         title,
@@ -101,9 +102,11 @@ export default function AdminCard({ data }) {
         education,
         skills: chips,
     } = data;
+
     console.log("rendering admincard entitled " + data.title);
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
+    const history = useHistory()
     const userRef = currentUser
         ? db.collection("users").doc(currentUser.uid)
         : null;
@@ -153,33 +156,35 @@ export default function AdminCard({ data }) {
         } else if (secondsPast <= 86400) {
             let hoursPast = parseInt(secondsPast / 3600);
             setTime(
-                hoursPast == 1
+                hoursPast === 1
                     ? hoursPast + " hour ago"
                     : hoursPast + " hours ago"
             );
         } else if (secondsPast <= 604800) {
             let daysPast = parseInt(secondsPast / 86400);
             setTime(
-                daysPast == 1 ? daysPast + " day ago" : daysPast + " days ago"
+                daysPast === 1 
+                    ? daysPast + " day ago" 
+                    : daysPast + " days ago"
             );
         } else if (secondsPast <= 2419200) {
             let weeksPast = parseInt(secondsPast / 604800);
             setTime(
-                weeksPast == 1
+                weeksPast === 1
                     ? weeksPast + " week ago"
                     : weeksPast + " weeks ago"
             );
         } else if (secondsPast <= 29030400) {
             let monthsPast = parseInt(secondsPast / 2419200);
             setTime(
-                monthsPast == 1
+                monthsPast === 1
                     ? monthsPast + " month ago"
                     : monthsPast + " months ago"
             );
         } else {
             setTime(">1 year ago");
         }
-    }, []);
+    }, [timestamp]);
 
     return (
         <Link className={classes.link} to={"/viewpost/" + id}>
@@ -201,26 +206,30 @@ export default function AdminCard({ data }) {
                     title={<Typography variant="h5">{title}</Typography>}
                     action={
                         <div>
-                            <Link
-                                className={classes.link}
-                                to={"/editpost/" + id}
+                            <IconButton 
+                                color="primary"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    history.push(`/editpost/${id}`)
+                                }}
                             >
-                                <IconButton color="primary">
-                                    <Tooltip title="Edit Post">
-                                        <EditIcon style={{ fontSize: 24 }} />
-                                    </Tooltip>
-                                </IconButton>
-                            </Link>
-                            <Link className={classes.link} to="/myposts">
-                                <IconButton
-                                    className={classes.delete}
-                                    onClick={() => setConfirmDialog(true)}
-                                >
-                                    <Tooltip title="Delete Post">
-                                        <DeleteIcon style={{ fontSize: 24 }} />
-                                    </Tooltip>
-                                </IconButton>
-                            </Link>
+                                <Tooltip title="Edit Post">
+                                    <EditIcon style={{ fontSize: 24 }} />
+                                </Tooltip>
+                            </IconButton>
+                            <IconButton
+                                className={classes.delete}
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    setConfirmDialog(true)
+                                }}
+                            >
+                                <Tooltip title="Delete Post">
+                                    <DeleteIcon style={{ fontSize: 24 }} />
+                                </Tooltip>
+                            </IconButton>
                         </div>
                     }
                 />
@@ -281,7 +290,6 @@ export default function AdminCard({ data }) {
                     </div>
                 </CardContent>
             </Card>
-            <Link to="/myposts" className={classes.link}>
             <Dialog
                 open={confirmDialog}
                 onClose={() => setConfirmDialog(false)}
@@ -297,24 +305,31 @@ export default function AdminCard({ data }) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Link to="/myposts" className={classes.link}>
-                    <Button disabled={deleting} onClick={handleDelete} color="primary">
+                    
+                    <Button 
+                        disabled={deleting} 
+                        color="primary"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            handleDelete()
+                            history.push('/myposts')
+                        }} 
+                    >
                         Yes
                     </Button>
-                    </Link>
-                    <Link to="/myposts" className={classes.link}>
                     <Button
-                        onClick={() => setConfirmDialog(false)}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            setConfirmDialog(false)
+                        }}
                         color="primary"
                     >
                         No
                     </Button>
-                    </Link>
                 </DialogActions>
             </Dialog>
-            </Link>
         </Link>
     );
 }
-
-//export const MemoizedAdminCard = React.memo(AdminCard)

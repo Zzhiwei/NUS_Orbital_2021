@@ -1,9 +1,8 @@
 import React from 'react';
 import algoliasearch from 'algoliasearch';
-import { InstantSearch, Configure, RefinementList } from 'react-instantsearch-dom';
+import { InstantSearch, Configure } from 'react-instantsearch-dom';
 import SearchBox from '../components/homepage/SearchBox'
 import InfiniteHits from '../components/homepage/InfiniteHits'
-import { Grid } from '@material-ui/core';
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
 

@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import { Zoom, Tooltip, makeStyles, Avatar, Modal, Menu, MenuItem, IconButton, Typography } from '@material-ui/core';
-import SwapVertIcon from '@material-ui/icons/SwapVert';
+import { Zoom, Tooltip, makeStyles, Avatar, Modal, IconButton, Typography } from '@material-ui/core';
 import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 import PictureCropper from './Cropper/PictureCropper'
-import { useAuth } from '../../contexts/AuthContext'
-
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -40,8 +37,6 @@ const useStyles = makeStyles((theme) => {
 export default function ProfileAvatar({ userData, enableEdit}) {
     console.log("rendering profileAvatar")
     const classes = useStyles()
-
-    const { currentUserData } = useAuth()
     //cropper
     const [open, setOpen] = useState(false);
 

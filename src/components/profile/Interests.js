@@ -1,8 +1,6 @@
 import { Tooltip, Zoom, makeStyles, Typography, Chip, Modal, IconButton } from '@material-ui/core';
 import React from 'react'
 import EditIcon from '@material-ui/icons/Edit';
-
-import { useAuth } from '../../contexts/AuthContext';
 import EditInterests from './modals/EditInterests'
 
 

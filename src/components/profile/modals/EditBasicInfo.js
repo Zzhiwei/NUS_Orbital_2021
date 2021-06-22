@@ -1,27 +1,18 @@
 import { Button, InputLabel, makeStyles, Paper, withStyles, Select, MenuItem, Grid } from '@material-ui/core'
 import React from 'react'
-
-import { day, month, year } from '../../Selections'
 import { useAuth } from '../../../contexts/AuthContext';
 import { db } from '../../../firebase'
 import Controls from "../../Controls"
 import { useForm, Form } from '../../useForm'
-
 import MuiTextField from '@material-ui/core/TextField';
-
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import 'date-fns';
 
-
-
-
-
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         flex: {
             display: 'flex',
@@ -35,7 +26,6 @@ const useStyles = makeStyles((theme) => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#f6eee3'
-
         },
         root2: {
             padding: '50px',
@@ -55,20 +45,14 @@ const useStyles = makeStyles((theme) => {
                 margin: "0px",
             }
         }
-        
-        
     }
 });
-
 
 const TextField = withStyles({
     root: {
         margin: '0px'
     }
   })(MuiTextField);
-
-  
-
 
 export default function EditBasicInfo({ handleClose, basicInfo }) {
     const classes = useStyles()
@@ -78,7 +62,6 @@ export default function EditBasicInfo({ handleClose, basicInfo }) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
 
     const initialFValues = {
         firstName: basicInfo.firstName,
@@ -94,12 +77,8 @@ export default function EditBasicInfo({ handleClose, basicInfo }) {
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
 
-
     const {
         values,
-        setValues,
-        errors,
-        setErrors,
         handleInputChange
     } = useForm(initialFValues);
 

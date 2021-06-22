@@ -3,7 +3,6 @@ import { Grid, IconButton, makeStyles, TextField } from '@material-ui/core';
 import firebase from "firebase/app"
 import _ from 'lodash'
 import DeleteIcon from '@material-ui/icons/Delete';
-
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 

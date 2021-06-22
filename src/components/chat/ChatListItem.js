@@ -1,10 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
-import _, { set } from 'lodash'
-import { Avatar, Menu, Grid, makeStyles, CircularProgress, MenuItem, IconButton } from '@material-ui/core'
+import _ from 'lodash'
+import { Avatar, Grid, makeStyles, CircularProgress } from '@material-ui/core'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
-import { Unsubscribe } from '@material-ui/icons'
 
 const initialState = {
     mouseX: null,
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => {
 export default function ChatListItem({chatId, setCurrentChat, currentChat, chats}) {
     const classes = useStyles()
     const chatRef = db.collection("chats").doc(chatId)
-    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
+    const { currentUser } = useAuth()
     const [otherUserId, setOtherUserId] = useState(null)
     const [userInfo, setUserInfo] = useState({})
     const [unreadCount, setUnreadCount] = useState(0)
@@ -40,18 +39,18 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat, chats
     const userIds = useRef() 
     let unsubscriber
 
-    const [openMenu, setOpenMenu] = useState(initialState)
+    //const [openMenu, setOpenMenu] = useState(initialState)
 
-    const handleRightClick = (event) => {
-        event.preventDefault();
-        setOpenMenu({
-          mouseX: event.clientX - 2,
-          mouseY: event.clientY - 4,
-        });
-      };
-    const handleClose = () => {
-        setOpenMenu(initialState);
-    };
+    // const handleRightClick = (event) => {
+    //     event.preventDefault();
+    //     setOpenMenu({
+    //       mouseX: event.clientX - 2,
+    //       mouseY: event.clientY - 4,
+    //     });
+    //   };
+    // const handleClose = () => {
+    //     setOpenMenu(initialState);
+    // };
 
     useEffect(async () => {
         await chatRef.get().then( res => {

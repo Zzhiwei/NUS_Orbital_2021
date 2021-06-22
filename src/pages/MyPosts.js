@@ -36,15 +36,14 @@ export default function MyPosts() {
     const history = useHistory()
     
     //sends query to backend when first mounting
-    useEffect(async () => {
+    useEffect(() => {
         if (!currentUser) {
             alert("Please log in first")
             history.push('/login')
         } 
 
-        let renderList = []
-
         async function fetch() {
+            let renderList = []
             for (const post of currentUserData.posts) {
                 const postData =  await db.collection("posts").doc(post).get().then(res => res.data())
                 if (postData) {
@@ -55,11 +54,11 @@ export default function MyPosts() {
                     })
                 }
             }
+            setPosts(renderList)
         }
-        await fetch()
-        setPosts(renderList)
+        fetch()
         setRender(true)
-    }, [currentUserData.posts])
+    }, [currentUserData.posts, currentUser, history])
 
     const renderContent = () => {
         if (!render) {

@@ -1,18 +1,13 @@
-import { Button, Grid, IconButton, InputLabel, makeStyles, Paper, TextField } from '@material-ui/core'
+import { Button, Grid, InputLabel, makeStyles, Paper } from '@material-ui/core'
 import React from 'react'
 import firebase from "firebase/app"
-
 import Controls from "../../Controls"
 import { useForm, Form } from '../../useForm'
 import {expCategory, month, year } from '../../Selections'
 import { useAuth } from '../../../contexts/AuthContext'
 import { db } from '../../../firebase'
 
-
-
-
-
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         flex: {
             display: 'flex',
@@ -44,13 +39,10 @@ export default function EditEducation({ handleClose, open }) {
         description: ""
     }
 
-    const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
+    const { currentUser, setCurrentUserData } = useAuth() 
 
     const {
         values,
-        setValues,
-        errors,
-        setErrors,
         handleInputChange
     } = useForm(initialFValues);
 
