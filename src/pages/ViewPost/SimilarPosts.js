@@ -1,6 +1,6 @@
 import React from 'react';
 import algoliasearch from 'algoliasearch';
-import { InstantSearch, ExperimentalConfigureRelatedItems, Configure } from 'react-instantsearch-dom';
+import { InstantSearch, ExperimentalConfigureRelatedItems } from 'react-instantsearch-dom';
 import { Grid, Typography } from '@material-ui/core';
 import CustomHits from './CustomHits'
 

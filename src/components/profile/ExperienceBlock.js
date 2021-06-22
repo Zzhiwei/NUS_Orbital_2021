@@ -1,5 +1,5 @@
 import React from 'react';
-import {  IconButton, Grid, InputLabel, makeStyles , TextField, Button } from '@material-ui/core';
+import {  IconButton, Grid, InputLabel, makeStyles , TextField } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import firebase from "firebase/app"
 import _ from 'lodash'
@@ -7,14 +7,7 @@ import _ from 'lodash'
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 
-
-
-
-
-
-
-
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         root: {
             marginBottom: '50px',

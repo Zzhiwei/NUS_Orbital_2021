@@ -1,6 +1,6 @@
-import { ListItemSecondaryAction, Radio, Typography } from '@material-ui/core';
+import { Radio} from '@material-ui/core';
 import React, { useState } from 'react'
-import { Highlight, connectMenu } from 'react-instantsearch-dom';
+import { connectMenu } from 'react-instantsearch-dom';
 
 
 const Menu = ({ items, currentRefinement, refine, customItems  }) => {
@@ -17,9 +17,9 @@ const Menu = ({ items, currentRefinement, refine, customItems  }) => {
 
   return (
     <div>
-      {customItems.map(item => {
+      {customItems.map((item, index) => {
         return (
-          <div>
+          <div key={index}>
             <Radio
                 color="primary"
                 checked={selectedValue === item}

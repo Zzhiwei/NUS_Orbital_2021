@@ -14,17 +14,11 @@ function ViewPost() {
   const { id } = useParams()
   const [hit, setHit] = useState()
 
-  const searchClient = algoliasearch(
-    'ES79ODFVNM',
-    'c57f19049ad61dad541fc8f7659c0f92'
-  );
-  const index = searchClient.initIndex('posts')
-
   useEffect(() => {
     index.getObject(id).then(doc => {
       setHit(doc)
     })
-  }, [])
+  }, [id])
 
   //const data = JSON.parse(id)
 

@@ -93,7 +93,7 @@ export const CreatePost = () => {
     
     <main className={classes.root}>
       <div className={classes.layout}>
-        { activeStep == 0 &&
+        { activeStep === 0 &&
           <PageHeader 
               title="Create a New Post"
               subTitle="Please fill in the required details below"

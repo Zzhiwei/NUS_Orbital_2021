@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, FormControl, Select as MuiSelect, MenuItem, Typography, InputLabel, FormHelperText } from '@material-ui/core';
+import { makeStyles, FormControl, Select as MuiSelect, MenuItem, InputLabel, FormHelperText } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   label : {
@@ -24,9 +24,6 @@ export default function Select(props) {
 
   return (
     <div>
-      {/* <Typography className={classes.label}>
-          {label}
-      </Typography> */}
       <FormControl className={classes.select} fullWidth/*variant="outlined*/ 
         {...(error && {error: true})}>
         <InputLabel>{label}</InputLabel>

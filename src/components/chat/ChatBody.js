@@ -1,6 +1,5 @@
 import {
     Avatar,
-    Grid,
     IconButton,
     makeStyles,
     Paper,
@@ -19,7 +18,6 @@ import SendIcon from '@material-ui/icons/Send';
 
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
-import { useHistory } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -42,7 +40,6 @@ const useStyles = makeStyles((theme) => {
 export default function ChatBody({ chat }) {
     console.log("rendering chat body");
     const classes = useStyles();
-    const history = useHistory()
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const [renderList, setRenderList] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
