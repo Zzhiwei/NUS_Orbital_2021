@@ -37,6 +37,10 @@ function BasicInfo({ userData, enableEdit }) {
         setOpen(false)
     }
 
+    const dob = userData.basicInfo.dateOfBirth
+        ? cutDate(userData.basicInfo.dateOfBirth.toDate().toLocaleString())
+        : ""
+
     
 
     const renderEdit = () => {
@@ -64,7 +68,7 @@ function BasicInfo({ userData, enableEdit }) {
                         </div>
                         <div style={{flex: 2}}>
                             {!showEmail && (
-                                <Tooltip title="you have hidden your email, this is only visible to you" placement="bottom">
+                                <Tooltip title="Your email is hidden and is only visible to you, you can change your setting by clicking on edit" placement="bottom">
                                     <HelpIcon fontSize="large" />
                                 </Tooltip>
                             )}
@@ -82,7 +86,7 @@ function BasicInfo({ userData, enableEdit }) {
                     </div>
                     <div style={{flex: 2}}>
                         {!showEmail && (
-                            <Tooltip title="if you are not seeing the email, it means the user has hidden it" placement="bottom">
+                            <Tooltip title="This user's email has been hidden" placement="bottom">
                                 <HelpIcon fontSize="large" />
                             </Tooltip>
                         )}
@@ -129,7 +133,7 @@ function BasicInfo({ userData, enableEdit }) {
                     <div className={classes.flex}>
                         <div style={{flex: '1'}}>
                             <InputLabel>Date of Birth</InputLabel> 
-                            <TextField  value={cutDate(userData.basicInfo.dateOfBirth.toDate().toLocaleString())}  InputProps={{readOnly: true}} />   
+                            <TextField  value={dob}  InputProps={{readOnly: true}} />   
                         </div>
                     {renderEmail()}
                             

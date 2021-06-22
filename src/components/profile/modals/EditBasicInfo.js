@@ -69,7 +69,11 @@ const TextField = withStyles({
 export default function EditBasicInfo({ handleClose, basicInfo, email }) {
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
-    const [selectedDate, setSelectedDate] = React.useState(basicInfo.dateOfBirth.toDate());
+    const [selectedDate, setSelectedDate] = React.useState(
+        basicInfo.dateOfBirth
+            ? basicInfo.dateOfBirth.toDate()
+            : null
+    );
     const [showEmail, setShowEmail] = useState(basicInfo.showEmail)
     const [loading, setLoading] = useState(false)
     console.log({selectedDate})
