@@ -4,6 +4,7 @@ import { Avatar, Grid, makeStyles, CircularProgress } from '@material-ui/core'
 
 import { db } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
+import { setWeekYear } from 'date-fns'
 
 const initialState = {
     mouseX: null,
@@ -59,6 +60,10 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat, chats
 
     useEffect(async () => {
         await chatRef.get().then( res => {
+            if (!res.data()) {
+                
+            }
+            
             const { user1, user2 } = res.data()
             const id = user1 !== currentUser.uid ? user1 : user2
             setOtherUserId(id)

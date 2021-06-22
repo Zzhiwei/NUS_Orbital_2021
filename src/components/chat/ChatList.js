@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => {
     }
 })
 
-export default function ChatList({ chats, setCurrentChat, currentChat }) {
+export default function ChatList({ chats, setCurrentChat, currentChat, setKey }) {
     console.log("rendering chat list")
     const classes = useStyles()
 
@@ -27,7 +27,7 @@ export default function ChatList({ chats, setCurrentChat, currentChat }) {
             <div className={classes.header}>Active chats</div>
             <div className="chatListScrollBody">
             {chats.map(chat => {
-                return <ChatListItem key={chat} chats={chats} currentChat={currentChat} setCurrentChat={setCurrentChat} chatId={chat} />
+                return <ChatListItem setKey={setKey} key={chat} chats={chats} currentChat={currentChat} setCurrentChat={setCurrentChat} chatId={chat} />
             })}
             </div>
         </div>

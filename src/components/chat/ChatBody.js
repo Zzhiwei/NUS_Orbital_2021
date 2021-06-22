@@ -15,6 +15,7 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import firebase from "firebase/app";
 import SendIcon from '@material-ui/icons/Send';
+import {useHistory} from 'react-router-dom'
 
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
@@ -44,10 +45,12 @@ export default function ChatBody({ chat, setKey }) {
     const [renderList, setRenderList] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
     const autoScroll = useRef();
-    const [iDeleted, setIDeleted] = useState(false)
+    // const [iDeleted, setIDeleted] = useState(false)
+    const iDeleted = useRef(false)
     const [deleted, setDeleted] = useState(false)
     let unsubscriber = () => null
     const [dialogOpen, setDialogOpen] = useState(false)
+    const history = useHistory()
     
 
     
@@ -81,16 +84,16 @@ export default function ChatBody({ chat, setKey }) {
     };
 
     const handleDeleteChat = async () => {
-        
+        // unsubscriber() ...Why is this unsubscriber not working?
+        iDeleted.current = true
         await db.collection("users").doc(chat.userInfo.otherUserId).update({
             chats: firebase.firestore.FieldValue.arrayRemove(chat.chatId)
         })
-        console.log("after delet otheruser")
         await db.collection("users").doc(currentUser.uid).update({
             chats: firebase.firestore.FieldValue.arrayRemove(chat.chatId)
         })
         await db.collection("chats").doc(chat.chatId).delete()
-        
+
         const chats = [...currentUserData.chats]
         const index  = chats.indexOf(chat.chatId)
         chats.splice(index, 1)
@@ -98,8 +101,13 @@ export default function ChatBody({ chat, setKey }) {
             ...currentUserData,
             chats
         })
-        setIDeleted(true)
+        //if you don't do this, if query string exists then it will try to listen for deleted chat
+        history.push('/chat') 
         setKey((prev) => prev + 1)
+        
+        
+        
+        
         //this is a nice trick of forcing remounting without refreshing
         // window.location.assign('./chat')
     }
@@ -268,23 +276,27 @@ export default function ChatBody({ chat, setKey }) {
         }
     };
 
+    async function refresh() {
+        window.location.assign("/chat")
+    }
+
     function renderDeleteDialog() {
-        if (!iDeleted) {
+        if (!iDeleted.current) {
             return (
                 <Dialog
                     open={deleted}
-                    onClose={() => window.location.assign('/chat')}
+                    onClose={refresh}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">{"Chat Deleted"}</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        This chat has been deleted by the other user. 
+                        This chat has been deleted.
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={() => window.location.assign('/chat')} color="primary">
+                    <Button onClick={refresh} color="primary">
                         close
                     </Button>
                     </DialogActions>
@@ -299,8 +311,9 @@ export default function ChatBody({ chat, setKey }) {
         }
         
         unsubscriber =  chatRef.onSnapshot(async doc => {
-            if (!doc.data()) { //look here tmr
-                return setDeleted(true)
+            if (!doc.data()) { 
+                setDeleted(true)
+                return
             }
             const { messages } = doc.data()
             const updatedMessages = messages.map(msgObj => {
@@ -317,7 +330,10 @@ export default function ChatBody({ chat, setKey }) {
             setRenderList(messages)
         }) 
 
-        return unsubscriber
+        return () => {
+            unsubscriber()
+        }
+        
     }, [])
 
 
