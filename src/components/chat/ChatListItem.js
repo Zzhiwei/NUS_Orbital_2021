@@ -16,7 +16,11 @@ const useStyles = makeStyles(theme => {
         root: {
             padding: '15px',
             borderBottom: "1px solid grey",
-            backgroundColor: 'rgb(238, 238, 238)'
+            backgroundColor: '#f2e6d5',
+            '&:hover': {
+                backgroundColor: '#e5decf'
+            }
+            
         },
         unreadCount: {
             marginLeft: '20px',
@@ -24,7 +28,8 @@ const useStyles = makeStyles(theme => {
             borderRadius: '5px',
             padding: '5px',
             color: 'white'
-        }
+        },
+        
     }
 })
 
@@ -156,10 +161,10 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat, chats
     }
 
     function renderDeleted() {
-        if (deleted) {
+        if (deleted && otherUserId  ) {
             return (
                 <div style={{color: "red", marginLeft: '10px'}}>
-                    Deleted by other user
+                    Deleted 
                 </div>
             )
         }
@@ -185,12 +190,10 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat, chats
         )
     }
 
-    const backgroundColor = currentChat.chatId === chatId ?  'rgb(220, 220, 220)' : 'rgb(238, 238, 238)'
+    const isSelected = currentChat.chatId === chatId 
 
     return (
-        <div onClick={handleClick} className={classes.root} style={{
-            backgroundColor
-        }}>
+        <div onClick={handleClick} className={classes.root} style={isSelected ? {backgroundColor: "#d9bda5"} : {}}>
             {renderUserInfo()}
         </div>
             

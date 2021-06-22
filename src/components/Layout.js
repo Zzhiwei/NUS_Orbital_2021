@@ -9,7 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 const useStyles = makeStyles(theme => { 
     return {
         page: {        
-            paddingBottom: '10vh',
+            // paddingBottom: '10vh',
         },
         toolbarHeight: theme.mixins.toolbar,        
         title: {
