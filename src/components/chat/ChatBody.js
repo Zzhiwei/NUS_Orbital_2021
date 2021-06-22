@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => {
     };
 });
 
-export default function ChatBody({ chat }) {
+export default function ChatBody({ chat, setKey }) {
     console.log("rendering chat body");
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
@@ -81,8 +81,7 @@ export default function ChatBody({ chat }) {
     };
 
     const handleDeleteChat = async () => {
-        console.log("deleting chat")
-        console.log(chat.userInfo.otherUserId)
+        
         await db.collection("users").doc(chat.userInfo.otherUserId).update({
             chats: firebase.firestore.FieldValue.arrayRemove(chat.chatId)
         })
@@ -100,7 +99,9 @@ export default function ChatBody({ chat }) {
             chats
         })
         setIDeleted(true)
-        window.location.assign('./chat')
+        setKey((prev) => prev + 1)
+        //this is a nice trick of forcing remounting without refreshing
+        // window.location.assign('./chat')
     }
 
     const handleDialogOpen = () => {
