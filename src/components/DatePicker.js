@@ -1,7 +1,7 @@
 import React from 'react'
-import { MuiPickersUtilsProvider, DatePicker, KeyboardDatePicker } from '@material-ui/pickers'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import { makeStyles, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core"
 
 
 export default function Date(props) {
@@ -28,9 +28,6 @@ export default function Date(props) {
 
     return (
         <div>
-            {/* <Typography className={classes.label}>
-                {label}
-            </Typography>   */}
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker 
                     className={classes.text}

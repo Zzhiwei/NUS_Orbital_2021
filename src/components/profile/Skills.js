@@ -3,9 +3,6 @@ import React from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 
 import EditSkills from './modals/EditSkills'
-import { useAuth } from '../../contexts/AuthContext';
-
-
 
 const useStyles = makeStyles((theme) => {
     return {

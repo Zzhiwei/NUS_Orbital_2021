@@ -23,8 +23,8 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
     temp.type = values.type ? "" : "This field is required"
     temp.title = values.title ? "" : "This field is required"
     temp.category = values.category ? "" : "This field is required"
-    temp.start = values.start ? "" : "This field is required"
-    temp.end = values.end ? "" : "This field is required"
+    temp.current = values.current ? "" : "This field is required"
+    temp.total = values.total ? "" : "This field is required"
     setErrors({
       ...temp
     })
@@ -33,7 +33,7 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
   }
   
   const classes = useStyles()
-  const { title, type, category, start, end } = values
+  const { title, type, category, current, total } = values
   const [open, setOpen] = useState(false)
 
   const handleClose = (event, reason) => {
@@ -44,7 +44,7 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
   };
 
   const handleNext = () => {
-    if (values.start > values.end) {
+    if (values.current >= values.total) {
       setOpen(true)
       return
     } else if (!validate()) {
@@ -91,22 +91,26 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
                   />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Controls.Date 
-                    name="start"
-                    label="Start Date"
-                    value={start}
-                    onChange={handleInputChange}
-                    error={errors.start}
-                />
+                <Controls.Select 
+                  name="current"
+                  label="Current Members"
+                  value={current}
+                  placeholder="Number of current members?"
+                  onChange={handleInputChange}
+                  options={selections.groupSize()}
+                  error={errors.current}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <Controls.Date 
-                    name="end"
-                    label="End Date"
-                    value={end}
-                    onChange={handleInputChange}
-                    error={errors.end}
-                />
+                <Controls.Select 
+                  name="total"
+                  label="Total Group Size"
+                  value={total}
+                  placeholder="Number of members in total?"
+                  onChange={handleInputChange}
+                  options={selections.groupSize()}
+                  error={errors.total}
+              />
             </Grid>
         </Grid>
         <div className={classes.buttons}>
@@ -120,9 +124,9 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
             </Button>
         </div>
         <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-            <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
-                End Date cannot be before Start Date
-            </MuiAlert>
+          <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
+              Current Members cannot be more than or equal to Total Group Size
+          </MuiAlert>
         </Snackbar>
       </>     
   )

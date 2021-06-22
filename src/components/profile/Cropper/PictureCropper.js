@@ -1,4 +1,4 @@
-import React, {useState, useRef} from "react"
+import React, { useState } from "react"
 import { Slider, Button, makeStyles, IconButton, Snackbar, Tooltip } from '@material-ui/core'
 import Cropper from "react-easy-crop"
 import CancelIcon from '@material-ui/icons/Cancel';

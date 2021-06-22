@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => {
             fontSize: 18,
             textTransform: 'none',
             '&:hover': {
-                background: "white"
+                background: "#d9bda5"
             },
             '&::after': {
                 content: "''",
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => {
             fontSize: 18,
             textTransform: 'none',
             '&:hover': {
-                background: "white"
+                backgroundColor: "#d9bda5"
             },
             '&::after': {
                 content: "''",
@@ -171,13 +171,13 @@ function Layout(props) {
             return (
                 <div >
                     <Link to="/myposts" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname =='/myposts' ? classes.activeTab : classes.inactiveTab}>My Posts</Button>
+                        <Button disableRipple className={location.pathname === '/myposts' ? classes.activeTab : classes.inactiveTab}>My Posts</Button>
                     </Link> 
                     <Link to="/bookmarks" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname == '/bookmarks' ? classes.activeTab : classes.inactiveTab}>My Bookmarks</Button>
+                        <Button disableRipple className={location.pathname === '/bookmarks' ? classes.activeTab : classes.inactiveTab}>My Bookmarks</Button>
                     </Link>
                     <Link to="/" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname =='/' ? classes.activeTab : classes.inactiveTab}>Recommended</Button>
+                        <Button disableRipple className={location.pathname ==='/' ? classes.activeTab : classes.inactiveTab}>Recommended</Button>
                     </Link>  
                     <Link to="/newpost">
                         <Tooltip title="Create a New Post">
@@ -240,7 +240,7 @@ function Layout(props) {
   
     return (
         <Container className={classes.page}>
-                <AppBar color="white"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
+                <AppBar color="inherit"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
                     <Container>
                         <Toolbar >                                      
                             <Link to="/" style={{textDecoration: 'none'}}>

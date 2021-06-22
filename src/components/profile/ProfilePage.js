@@ -1,9 +1,9 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles, Paper, Typography, Button, CircularProgress, Modal } from '@material-ui/core';
+
 import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash'
-import firebase from "firebase/app"
-
 
 import { db } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext';

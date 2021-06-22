@@ -18,8 +18,8 @@ function ViewPost() {
     index.getObject(id).then(doc => {
       setHit(doc)
     })
-  }, [])
-  
+  }, [id])
+
   //const data = JSON.parse(id)
 
   return (

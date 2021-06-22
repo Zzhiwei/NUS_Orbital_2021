@@ -9,7 +9,7 @@ import { useHistory }  from 'react-router-dom'
 import firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => {
-    return {
+    return {        
         page: {
             marginTop: theme.spacing(3),
         },
@@ -34,19 +34,18 @@ export default function MyBookmarks() {
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
-
     /*
         right now it is in working state but not efficient 
         since every deletions triggers another fetch action
         and for some reason mybookmarks is rendered three times
     */
-    useEffect(async () => {
+    useEffect(() => {
         if (!currentUser) {
             return history.push('/login')
         }
-        let renderList = []
-
+        
         async function fetch() {
+            let renderList = []
             for (const post of currentUserData.bookmarks) {
                 const postData =  await  db.collection("posts").doc(post).get().then(res => res.data())
                 if (postData) {
@@ -55,17 +54,16 @@ export default function MyBookmarks() {
                     await db.collection("users").doc(currentUser.uid).update({
                         bookmarks: firebase.firestore.FieldValue.arrayRemove(post)
                     })
-                }
-                
+                } 
             }
+            setPosts(renderList)
         }
-        await fetch()
+        fetch()
         console.log("setting up posts")
-        setPosts(renderList)
         if (!render) {
             setRender(true)
         }
-    }, [currentUserData.bookmarks]) 
+    }, [currentUser, currentUserData.bookmarks, history, render]) 
 
 
     const renderContent = () => {

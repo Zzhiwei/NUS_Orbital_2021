@@ -1,6 +1,5 @@
 import React from 'react';
 import {  Zoom, IconButton, makeStyles, Modal, Tooltip, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import ExperienceBlock from './ExperienceBlock'

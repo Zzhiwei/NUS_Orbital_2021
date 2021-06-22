@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react';
 import {  IconButton, Grid, InputLabel, makeStyles , TextField,
     DialogActions,
@@ -8,6 +9,7 @@ import {  IconButton, Grid, InputLabel, makeStyles , TextField,
     Button,
     Modal
 } from '@material-ui/core';
+
 import DeleteIcon from '@material-ui/icons/Delete';
 import firebase from "firebase/app"
 import _ from 'lodash'
@@ -18,14 +20,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import EditExperience from './modals/EditExperience'
 
 
-
-
-
-
-
-
-
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         root: {
             marginBottom: '50px',

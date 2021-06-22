@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
-import { Avatar, Divider, Card,CardContent, CardHeader, Chip, makeStyles, Typography, IconButton, Tooltip } from '@material-ui/core';
-import { Link } from 'react-router-dom' 
+import { Avatar, Divider, Card,CardContent, CardHeader, Chip, makeStyles, Typography, IconButton, Tooltip, Button } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom' 
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext'
 import firebase from 'firebase/app';
@@ -67,8 +67,10 @@ const useStyles = makeStyles(theme => {
         profileLink: {
             color: theme.palette.primary.main,
             textDecoration: "none",
+            textTransform: "none",
             '&:hover':{
                 textDecoration: "underline",
+                backgroundColor: "rgb(246,238,227, 0.5)"
             },
         },
     }    
@@ -81,6 +83,7 @@ export default function BookmarkedCard({ data }) {
     console.log("rendering bookmarkcard entitled " + data.title)
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
+    const history = useHistory()
     const [profilePic, setProfilePic] = useState("")
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [hover, setHover] = useState(1)
@@ -95,14 +98,16 @@ export default function BookmarkedCard({ data }) {
     // });
 
 
-    useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-        if (dataUrl) {
-            setProfilePic(dataUrl)
-        } else {
-            setProfilePic(null)
+    useEffect(() => {
+        async function fetchProfilePic() {
+            const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
+            if (dataUrl) {
+                setProfilePic(dataUrl)
+            } else {
+                setProfilePic(null)
+            }
         }
-        
+        fetchProfilePic()
     }, [author])
 
     const handleRemoveBookmark = () => {
@@ -121,9 +126,17 @@ export default function BookmarkedCard({ data }) {
     }
 
     const byline = (
-        <Link className={classes.profileLink} to={`/profile/${author}`}>
+        <Button 
+            className={classes.profileLink} 
+            disableRipple 
+            onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                history.push(`/profile/${author}`)
+            }}
+        >
             {`by: ${name}`}
-        </Link>
+        </Button>
     )
 
     //hoverEffect
@@ -147,24 +160,40 @@ export default function BookmarkedCard({ data }) {
         }
         else if (secondsPast <= 86400) {
             let hoursPast = parseInt(secondsPast / 3600)
-            setTime(hoursPast == 1 ? hoursPast + ' hour ago' : hoursPast + ' hours ago')
+            setTime(
+                hoursPast === 1 
+                    ? hoursPast + ' hour ago' 
+                    : hoursPast + ' hours ago'
+            )
         }
         else if (secondsPast <= 604800) {
             let daysPast = parseInt(secondsPast / 86400)
-            setTime(daysPast == 1 ? daysPast + ' day ago' : daysPast +  ' days ago')
+            setTime(
+                daysPast === 1 
+                    ? daysPast + ' day ago' 
+                    : daysPast +  ' days ago'
+            )
         } 
         else if (secondsPast <= 2419200) {
             let weeksPast = parseInt(secondsPast / 604800)
-            setTime(weeksPast == 1 ? weeksPast + ' week ago' : weeksPast + ' weeks ago')
+            setTime(
+                weeksPast === 1 
+                    ? weeksPast + ' week ago' 
+                    : weeksPast + ' weeks ago'
+            )
         } 
         else if (secondsPast <= 29030400) {
             let monthsPast = parseInt(secondsPast / 2419200)
-            setTime(monthsPast == 1 ? monthsPast + ' month ago' : monthsPast + ' months ago')
+            setTime(
+                monthsPast === 1 
+                    ? monthsPast + ' month ago' 
+                    : monthsPast + ' months ago'
+            )
         }
         else {
             setTime('>1 year ago')
         }
-    }, [])
+    }, [timestamp])
 
     return (
         <Link className={classes.link} to={'/viewpost/' + id} >
@@ -187,13 +216,19 @@ export default function BookmarkedCard({ data }) {
                 }
                 subheader={byline}
                 action={
-                    <Link to="/bookmarks" className={classes.link}>
                         <Tooltip title="Remove from Bookmarks">
-                        <IconButton color="primary" onClick={handleRemoveBookmark}>
-                            <BookmarkIcon style={{fontSize: 28}} />
-                        </IconButton>
+                            <IconButton 
+                                color="primary" 
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    handleRemoveBookmark()
+                                    history.push('/bookmarks')
+                                }}
+                            >
+                                <BookmarkIcon style={{fontSize: 28}} />
+                            </IconButton>
                         </Tooltip>
-                    </Link>
                 }                    
             />
             <CardContent>

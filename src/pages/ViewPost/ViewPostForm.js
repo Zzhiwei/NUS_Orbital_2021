@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Box, Container, CssBaseline, makeStyles, Typography, Avatar, Tooltip, Chip, Divider, Button } from '@material-ui/core'
 import Copyright from '../../components/Copyright'
 import { Link } from 'react-router-dom'
-import MUIRichTextEditor  from 'mui-rte'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
@@ -18,6 +16,8 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder'
 import ForumIcon from '@material-ui/icons/Forum'
 import ShareIcon from '@material-ui/icons/Share'
 import SimilarPosts from './SimilarPosts'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import TextViewer from '../../components/texteditor/TextViewer';
 
 const useStyles = makeStyles (theme => ({
     layout: {
@@ -95,23 +95,6 @@ const useStyles = makeStyles (theme => ({
     }
 }))
 
-const rteTheme = createMuiTheme()
-
-Object.assign(rteTheme, {
-  overrides: {
-    MUIRichTextEditor: {
-        root: { 
-            backgroundColor: "#fff",
-            marginBottom: "70px"
-        },
-        anchorLink: {
-            color: "#333333",
-            textDecoration: "underline"
-        }
-      }
-    }
-})
-
 export default function ViewPostForm({ data })  {
     const classes = useStyles()
     const { objectID : id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
@@ -121,15 +104,20 @@ export default function ViewPostForm({ data })  {
     const [bookmarked, setBookmarked] = useState(false)
     const [memColor, setMemColor] = useState("green")
     
+    console.log(description)
+    
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
             setBookmarked(currentUserData.bookmarks.includes(id))
         }
-    }, [])
+    }, [currentUser, currentUserData, id])
 
-    useEffect(async () => {
-        const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-        setProfilePic(dataUrl)
+    useEffect(() => {
+        async function fetchProfilePic() {
+            const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
+            setProfilePic(dataUrl)
+        }
+        fetchProfilePic()
     }, [author])
 
     useEffect(() => {
@@ -139,7 +127,7 @@ export default function ViewPostForm({ data })  {
         } else if (ratio > 0.5) {
             setMemColor("orange")
         }
-    }, [])
+    }, [current, total])
 
     const handleAddBookmark = async () => {
         await userRef.update({
@@ -276,20 +264,14 @@ export default function ViewPostForm({ data })  {
                         <Typography variant="h6">
                             About the {category}
                         </Typography>
-                        <MuiThemeProvider theme={rteTheme}>
-                            <MUIRichTextEditor 
-                                defaultValue={description}
-                                controls={[]}
-                                readOnly
-                            />
-                        </MuiThemeProvider>
+                        <TextViewer content={description}/>
                     </div>
                 </main>
                 <aside className={classes.asideContainer}>
                     <SimilarPosts hit={data}/>
                 </aside>
             </Container>
-            <Box>
+            <Box style={{marginTop: 50, marginBottom: -30}}>
                 <Copyright />
             </Box>
         </Container>

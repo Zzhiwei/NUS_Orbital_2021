@@ -1,12 +1,14 @@
+
 import { Button, FormHelperText, Typography, Grid, IconButton, InputLabel, makeStyles, Paper, withStyles, Select, MenuItem } from '@material-ui/core'
 import React, {useState} from 'react'
-import firebase from "firebase/app"
 
+import firebase from "firebase/app"
 import Controls from "../../Controls"
 import { useForm, Form } from '../../useForm'
 import { eduYearEnd, eduYearStart } from '../../Selections'
 import { useAuth } from '../../../contexts/AuthContext'
 import { db } from '../../../firebase'
+
 
 import MuiTextField from "@material-ui/core/TextField";
 
@@ -35,6 +37,7 @@ function getYearsEnd() {
 
 
 const useStyles = makeStyles((theme) => {
+
     return {
         flex: {
             display: 'flex',
@@ -68,16 +71,15 @@ export default function EditEducation({ handleClose, open }) {
         to: ''
     }
 
+
    
     // const [errors, setErrors] = useState({})
     const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
     const [loading, setLoading] = useState(false)
 
+
     const {
         values,
-        setValues,
-        errors,
-        setErrors,
         handleInputChange
     } = useForm(initialFValues);
 

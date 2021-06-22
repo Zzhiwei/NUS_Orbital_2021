@@ -1,12 +1,11 @@
 import { Button, makeStyles, Paper } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input';
 import React, { useState } from 'react'
-
 import { Form } from '../../useForm';
 import { useAuth } from '../../../contexts/AuthContext'
 import { db } from '../../../firebase'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         flex: {
             display: 'flex',
@@ -54,7 +53,6 @@ export default function EditInterests({handleClose, interests}) {
             //interestingly this doesn't trigger rerender, dk why
             return chipsCopy
         })
-
         //had to use this to force rerender
         setRerender(!rerender)
     }
@@ -74,8 +72,6 @@ export default function EditInterests({handleClose, interests}) {
         handleClose()
 
     }
-    
-
 
     return (
         <Paper className={classes.root}>

@@ -1,4 +1,4 @@
-import { TextField, makeStyles, Typography } from "@material-ui/core";
+import { TextField, makeStyles } from "@material-ui/core";
 import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +19,6 @@ export default function Input(props) {
 
   return (
     <div elevation={4}>
-        {/* <Typography className={classes.label}>
-            {label}
-        </Typography> */}
         <TextField
             className={classes.text}
             variant={variant}
