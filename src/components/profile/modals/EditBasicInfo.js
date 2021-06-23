@@ -152,6 +152,9 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
     return (
         <Paper className={classes.root}>
                 {/* first name & last name */}
+                <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                    Edit Basic Info
+                </Typography>
                 <div className={classes.flex}>
                     <div style={{ flex: "4" }}>
                         <InputLabel align="left">
@@ -173,7 +176,11 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                     </div>
                     <div style={{ flex: 0.5 }}></div>
                     <div style={{ flex: "4" }}>
-                        <InputLabel align="left">Last name</InputLabel>
+                        <InputLabel align="left">
+                        <Typography>
+                                Last name
+                            </Typography>
+                        </InputLabel>
                         <TextField
                             inputProps={{
                                 root: classes.input,

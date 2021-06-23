@@ -1,7 +1,7 @@
 import React from 'react';
 import {  Tooltip, Zoom, IconButton, makeStyles, Modal, Typography } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import EditEducation from './modals/EditEducation'
+import AddEducation from './modals/AddEducation'
 import EducationBlock from './EducationBlock'
 
 const useStyles = makeStyles((theme) => {
@@ -54,7 +54,7 @@ function Education({ userData, enableEdit }) {
                     onClose={null}
                 >
                     <div>
-                        <EditEducation handleClose={handleClose} open={open}/>
+                        <AddEducation handleClose={handleClose} open={open}/>
                     </div>
                 </Modal>
                 {educationList}

@@ -91,7 +91,7 @@ function ExperienceBlock({ customProps, enableEdit, index }) {
                         onClose={() => setModalOpen(false)}
                     >
                         <div>
-                            <EditExperience index={index} customProps={customProps} handleClose={() => setModalOpen(false)} open={modalOpen}/>
+                            <EditExperience index={index} customProps={customProps} handleClose={() => setModalOpen(false)} />
                         </div>
                     </Modal>
                 </div>
