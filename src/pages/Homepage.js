@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => {
         height: '50px',
         backgroundColor: 'rgb(222, 209, 193)',
         borderBottom: '1px solid rgb(0, 0, 0, 0.1)',
-        marginBottom: '30px'
       },
       btn: {
         textDecoration: 'none',

@@ -62,8 +62,6 @@ function App() {
               <Route path="/login" exact component={Login}></Route>
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
-              {/* <Route path="/myposts" component={MyPosts}></Route> */}
-              {/* <Route path="/bookmarks" component={MyBookmarks}></Route> */}
               <Route path="/newpost" component={CreatePost}></Route>
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>

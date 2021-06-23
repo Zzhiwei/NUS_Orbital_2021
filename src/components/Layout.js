@@ -106,6 +106,7 @@ function Layout(props) {
     const history = useHistory()
     const location = useLocation()
     const [anchorEl, setAnchorEl] = useState(false);
+    
 
     const isMenuOpen = Boolean(anchorEl);
 
@@ -134,12 +135,12 @@ function Layout(props) {
     }
 
     const handleMyPosts = () => {
-        history.push('/myposts')
+        history.push('/home/myposts')
         handleMenuClose()
     }
 
     const handleMyBookmarks = () => {
-        history.push('/bookmarks')
+        history.push('/home/bookmarks')
         handleMenuClose()
     }
 

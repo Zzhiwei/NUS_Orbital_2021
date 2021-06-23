@@ -113,7 +113,7 @@ export default function AdminCard({ data }) {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 handleDelete()
-                                history.push('/myposts')
+                                history.push('/home/myposts')
                             }} 
                         >
                             Yes

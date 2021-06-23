@@ -129,7 +129,7 @@ export default function PostChange({ data })  {
         setLoading(false)
 
         setTimeout(() => {
-            history.push('/myposts')
+            history.push('/home/myposts')
         }, 300)
 
         }

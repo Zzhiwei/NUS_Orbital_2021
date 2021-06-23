@@ -3,6 +3,7 @@ import { makeStyles, Paper, Typography } from '@material-ui/core';
 
 import Menu from './Menu'
 import AccordionWrapper from './AccordionWrapper'
+import { useAuth } from '../../contexts/AuthContext';
 
 
 const useStyles = makeStyles(() => {
@@ -21,9 +22,11 @@ const useStyles = makeStyles(() => {
 
 export default function FilterSidebar() {
     const classes = useStyles()
+    const { currentUser } = useAuth()
+    const stickFromTop = currentUser ? "144px" : "95px"
 
     return (
-        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: "94px", height: '80vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px" }}>
+        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: stickFromTop, height: '77vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px" }}>
             <Paper elevation={2} className={classes.root}>
             <Typography variant="h3" className={classes.title}>
                 Filter your search
