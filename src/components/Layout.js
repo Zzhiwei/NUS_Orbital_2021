@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Button, Grid, IconButton, makeStyles, Menu, MenuItem, Paper, Toolbar, Typography, Tooltip, Divider, Avatar, Container } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles'; 
-import { Link, useHistory, useLocation  } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
@@ -104,7 +104,6 @@ function Layout(props) {
     const classes = useStyles();        
     const { currentUser, currentUserData, logout } = useAuth()
     const history = useHistory()
-    const location = useLocation()
     const [anchorEl, setAnchorEl] = useState(false);
     
 
