@@ -64,7 +64,7 @@ export const EditPostForm = ({ data }) => {
             //if user is not author redirect to homepage
             if (author !== currentUser.uid) {
                 alert("You can only edit your own posts")
-                history.push('/')   
+                history.push('/home')   
             } else {
                 setRender(true)
             }
@@ -72,7 +72,7 @@ export const EditPostForm = ({ data }) => {
     //if no user is logged in redirect to homepage
     } else {
         alert("You can only edit your own posts")
-        history.push('/')
+        history.push('/home')
     }
   }, [currentUser, data.id, history])
 

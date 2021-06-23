@@ -64,7 +64,7 @@ export default function PostCard({ data }) {
                             e.preventDefault()
                             e.stopPropagation()
                             bookmarked ? handleRemoveBookmark() : handleAddBookmark()
-                            history.push('/')
+                            history.push('/home')
                         }}
                     >
                         { bookmarked ? <BookmarkIcon style={{fontSize: 28}} /> : <BookmarkBorderIcon style={{fontSize: 28}} /> }
