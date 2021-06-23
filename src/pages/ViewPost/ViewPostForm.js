@@ -217,6 +217,7 @@ export default function ViewPostForm({ setKey, data })  {
                             </div>
                         </div>
                     </div>
+                    { currentUser &&
                     <div className={classes.buttonBox}>
                         <Button 
                             variant="contained" 
@@ -241,6 +242,7 @@ export default function ViewPostForm({ setKey, data })  {
                             Share
                         </Button>
                     </div>
+                    }
                     <Divider />
                     <div className={classes.pageBody}>
                         <Typography variant="h6">

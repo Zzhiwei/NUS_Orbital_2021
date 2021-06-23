@@ -13,3 +13,6 @@
 	display: flex;
 	justify-content: space-between;
 }
+.viewer-class {
+	max-width: 764px;
+}

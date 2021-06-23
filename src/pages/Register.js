@@ -108,7 +108,7 @@ function Register() {
                 chats: []
             })
             
-            history.push('/')
+            history.push('/home')
         } catch (err) {
             setError(err.message)
         }

@@ -72,7 +72,7 @@ function Login() {
             setLoading(true)
             setError('')
             await login(email, password)
-            history.push('/')
+            history.push('/home')
         } catch (err) {
             setError(err.message)
         }

@@ -1,16 +1,11 @@
-import { AppBar, Container, Toolbar, makeStyles, Button, Typography } from '@material-ui/core';
+import { AppBar, Container, makeStyles, Typography } from '@material-ui/core';
 import React, {useState} from 'react'
 import ExploreIcon from '@material-ui/icons/Explore';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
-
-
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useParams,
   useRouteMatch,
   useHistory
 } from "react-router-dom";
@@ -33,7 +28,7 @@ const useStyles = makeStyles((theme) => {
         textDecoration: 'none',
         cursor: 'pointer',
         height: '50px',
-        width: '150px',
+        width: '200px',
         border: '0px',
         backgroundColor: 'rgb(222, 209, 193)',
         textTransform: 'none',
@@ -44,7 +39,7 @@ const useStyles = makeStyles((theme) => {
       selectedBtn: {
         cursor: 'pointer',
         height: '50px',
-        width: '150px',
+        width: '200px',
         border: '0px',
         backgroundColor: '#fffcf5',
         borderTopLeftRadius: '5px',

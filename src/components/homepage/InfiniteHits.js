@@ -26,7 +26,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }
 
     return (
         <div >
-            <Grid container spacing={4} style={{margin: 'auto auto'}} justify="center">
+            <Grid container spacing={4} style={{margin: "15px -8px"}} justify="center">
                 {hits.map((hit, index) => (
                     <Grid item xs={12} sm={6} key={index} style={{paddingLeft: 0}}>
                         <PostCard data={hit}/>

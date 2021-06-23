@@ -7,6 +7,7 @@ export default function TextViewer({ content }) {
 
     return (
         <Editor     
+            editorClassName="viewer-class"
             initialContentState={content}
             toolbarHidden
             readOnly

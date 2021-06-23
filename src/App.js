@@ -1,4 +1,3 @@
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './components/Layout';
@@ -9,8 +8,6 @@ import { AuthProvider } from './contexts/AuthContext'
 import ViewPost from './pages/ViewPost/ViewPost';
 import EditPost from './pages/EditPost/EditPost';
 import ForgotPassword from './pages/ForgotPassword';
-import MyPosts from './pages/MyPosts';
-import MyBookmarks from './pages/MyBookmarks';
 import Chat from './pages/Chat';
 import { CreatePost } from './pages/CreatePost/CreatePostForm'; 
 import LoadingPage from './pages/LoadingPage';
