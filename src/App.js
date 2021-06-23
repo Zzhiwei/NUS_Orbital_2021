@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Layout from './components/Layout';
 import Profile from './pages/Profile';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { createMuiTheme, CssBaseline, ThemeProvider } from '@material-ui/core';
 import { AuthProvider } from './contexts/AuthContext'
 import ViewPost from './pages/ViewPost/ViewPost';
@@ -55,12 +55,15 @@ function App() {
         <AuthProvider>
           <Layout >
             <Switch>
-              <Route path="/" exact component={Homepage}></Route>
+              <Route exact path="/" >
+                <Redirect to="/home" />
+              </Route>
+              <Route path="/home" component={Homepage}></Route>
               <Route path="/login" exact component={Login}></Route>
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>
-              <Route path="/myposts" component={MyPosts}></Route>
-              <Route path="/bookmarks" component={MyBookmarks}></Route>
+              {/* <Route path="/myposts" component={MyPosts}></Route> */}
+              {/* <Route path="/bookmarks" component={MyBookmarks}></Route> */}
               <Route path="/newpost" component={CreatePost}></Route>
               <Route path="/viewpost/:id" component={ViewPost}></Route>
               <Route path="/editpost/:id" component={EditPost}></Route>

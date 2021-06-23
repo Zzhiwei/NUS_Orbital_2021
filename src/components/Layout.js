@@ -8,9 +8,6 @@ import { useAuth } from '../contexts/AuthContext'
 
 const useStyles = makeStyles(theme => { 
     return {
-        page: {        
-            // paddingBottom: '10vh',
-        },
         toolbarHeight: theme.mixins.toolbar,        
         title: {
             flexGrow: 1,
@@ -96,6 +93,9 @@ const useStyles = makeStyles(theme => {
                 bottom: 0,
                 background: theme.palette.primary.main,
             },
+        },
+        gutters: {
+            padding: '0px'
         }
     }    
 });
@@ -170,15 +170,7 @@ function Layout(props) {
         if (currentUser) {
             return (
                 <div >
-                    {/* <Link to="/myposts" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname === '/myposts' ? classes.activeTab : classes.inactiveTab}>My Posts</Button>
-                    </Link> 
-                    <Link to="/bookmarks" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname === '/bookmarks' ? classes.activeTab : classes.inactiveTab}>My Bookmarks</Button>
-                    </Link>
-                    <Link to="/" style={{textDecoration: 'none'}}>
-                        <Button disableRipple className={location.pathname ==='/' ? classes.activeTab : classes.inactiveTab}>Recommended</Button>
-                    </Link>   */}
+                    
                     <Link to="/newpost">
                         <Tooltip title="Create a New Post">
                             <IconButton aria-label="show 4 new mails" color="primary">
@@ -239,30 +231,35 @@ function Layout(props) {
     }
   
     return (
-        <Container className={classes.page}>
-                <AppBar color="inherit"  elevation={1} style={{backgroundColor: '#d9bda5'}}> 
-                    <Container>
-                        <Toolbar >                                      
-                            <Link to="/" style={{textDecoration: 'none'}}>
-                                <Typography 
-                                    color="primary"
-                                    variant='h4'
-                                >
-                                    partnerUp           
-                                </Typography> 
-                            </Link>
-                            
-                            <span className={classes.title}></span>
-                            {renderUserOptions()}
-                        </Toolbar>    
-                    </Container> 
-                </AppBar>    
+        <div>
+                    <AppBar  elevation={1}  style={{backgroundColor: '#d9bda5', height: '64px'}}> 
+                        <Container>
+                            <Toolbar classes={{
+                                gutters: classes.gutters
+                            }}>                                      
+                                <Link to="/" style={{textDecoration: 'none'}}>
+                                    <Typography 
+                                        // color="primary"
+                                        variant='h4'
+                                        style={{
+                                            color: 'black'
+                                        }}
+                                    >
+                                        partnerUp           
+                                    </Typography> 
+                                </Link>
+                                
+                                <span className={classes.title}></span>
+                                {renderUserOptions()}
+                            </Toolbar>    
+                        </Container> 
+                    </AppBar>    
 
-                {/* don't remove this, this pushes the content of the page down by height of appbar*/}
-                <div className={classes.toolbarHeight}></div>             
-
-                {props.children}
-        </Container>   
+                    {/* don't remove this, this pushes the content of the page down by height of appbar*/}
+                    <div className={classes.toolbarHeight}></div>             
+        
+            {props.children}
+        </div>
     );
   }
   
