@@ -61,17 +61,17 @@ function BasicInfo({ userData, enableEdit }) {
         if (enableEdit) {
             return (
                 <div style={{flex: '2'}}>
-                    <div className={classes.flex}>
-                        <div style={{flex: 3}}>
+                    <div className={classes.flex} style={{alignItems: 'flex-end'}}>
+                        <div style={{flex: 4}}>
                         <InputLabel>Email</InputLabel> 
                             <TextField  value={userData.email}   InputProps={{readOnly: true}} fullWidth />   
                         </div>
-                        <div style={{flex: 2}}>
-                            {!showEmail && (
-                                <Tooltip title="Your email is hidden and is only visible to you, you can change your setting by clicking on edit" placement="bottom">
-                                    <HelpIcon fontSize="large" />
-                                </Tooltip>
-                            )}
+                        <div style={{flex: 3}}>
+                                {!showEmail && (
+                                    <Tooltip title="Your email is hidden and is only visible to you, you can change your setting by clicking on edit" placement="bottom">
+                                        <HelpIcon style={{height: '30px', width: '30px'}}/>
+                                    </Tooltip>
+                                )}
                         </div>
                     </div>
                 </div>

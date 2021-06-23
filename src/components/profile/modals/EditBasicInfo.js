@@ -124,7 +124,9 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
             nationality: checkUndefined(values.nationality),
             bio: checkUndefined(values.bio),
             gender: checkUndefined(values.gender),
-            dateOfBirth: firebase.firestore.Timestamp.fromDate(selectedDate),
+            dateOfBirth: selectedDate
+                ? firebase.firestore.Timestamp.fromDate(selectedDate)
+                : null,
             showEmail: showEmail
         };
 
@@ -299,6 +301,7 @@ export default function EditBasicInfo({ handleClose, basicInfo, email }) {
                         color="primary"
                         style={{ marginRight: "10px", width: "170px" }}
                         onClick={handleSubmit}
+                        disabled={loading}
                     >
                         save
                     </Button>

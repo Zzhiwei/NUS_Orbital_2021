@@ -1,6 +1,7 @@
-import { Button, makeStyles, Paper } from '@material-ui/core'
+import { Button, makeStyles, Paper, InputLabel, Typography, Tooltip } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input';
 import React, { useState } from 'react'
+import HelpIcon from '@material-ui/icons/Help';
 
 import { Form } from '../../useForm';
 import { useAuth } from '../../../contexts/AuthContext'
@@ -73,11 +74,24 @@ export default function EditSkills({handleClose, skills}) {
 
     return (
         <Paper className={classes.root}>
+                <div style={{display: "flex", alignItems: 'flex-end'}}>
+                    <div style={{marginRight: '5px'}}>
+                        <InputLabel align="left">
+                            <Typography variant="h6">
+                                Skills
+                            </Typography>
+                        </InputLabel>
+                    </div>
+                    <div >
+                        <Tooltip title='type in a skill and press "Enter"' placement="right">
+                            <HelpIcon fontSize="medium" />
+                        </Tooltip>
+                    </div>
+                </div>
                 <ChipInput
                     style={{background: "white", borderRadius: "4px"}}
                     name="chips"
-                    label="skills"
-                    variant="outlined"
+                    variant="filled"
                     value={chips}
                     onAdd={(chip) => handleAddChip(chip)}
                     onDelete={(chip, index) => handleDeleteChip(chip, index)}

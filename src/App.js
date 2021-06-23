@@ -14,6 +14,7 @@ import MyBookmarks from './pages/MyBookmarks';
 import Chat from './pages/Chat';
 import { CreatePost } from './pages/CreatePost/CreatePostForm'; 
 import LoadingPage from './pages/LoadingPage';
+import Homepage from './pages/Homepage';
 
 /*
 https://www.color-hex.com/color-palette/104061
@@ -54,7 +55,7 @@ function App() {
         <AuthProvider>
           <Layout >
             <Switch>
-              <Route path="/" exact component={Home}></Route>
+              <Route path="/" exact component={Homepage}></Route>
               <Route path="/login" exact component={Login}></Route>
               <Route path="/register" exact component={Register}></Route>
               <Route path="/profile/:id" component={Profile}></Route>

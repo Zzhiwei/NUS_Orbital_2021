@@ -97,6 +97,7 @@ function Register() {
                 basicInfo: {
                     firstName,
                     lastName,
+                    showEmail: false
                 },
                 education: [],
                 experience: [],
