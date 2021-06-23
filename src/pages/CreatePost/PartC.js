@@ -106,11 +106,8 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
             posts
         })
     })
-  
-    //set timeout because it takes time for algolia index to update
-    setTimeout(() => {
-      history.push('/myposts')
-    }, 1000)
+    
+    history.push('/loading')
   }
 
   const props = { editorState, setEditorState }
