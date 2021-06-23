@@ -118,7 +118,7 @@ export default function PostDetails() {
     
     //set timeout because it takes time for algolia index to update
     setTimeout(() => {
-      history.push('/myposts')
+      history.push('/home/myposts')
     }, 1000)
   }
 

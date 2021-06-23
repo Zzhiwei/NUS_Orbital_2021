@@ -5,6 +5,8 @@ import SearchBox from '../components/homepage/SearchBox'
 import InfiniteHits from '../components/homepage/InfiniteHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
+import { Container } from '@material-ui/core';
+import { useAuth } from '../contexts/AuthContext';
 
 const searchClient = algoliasearch(
   'ES79ODFVNM',
@@ -12,9 +14,16 @@ const searchClient = algoliasearch(
 );
 
 export default function Home() {
+    const { currentUser } = useAuth()
     console.log("rerendering home")
+
+    //if log in marginTop = 40
+    //if not =
+    
+
     return (
-            <div style={{marginTop: '40px'}}>
+            <div style={{marginTop: "40px"}}>
+                <Container>
                 <InstantSearch
                     indexName="posts"
                     searchClient={searchClient}
@@ -34,6 +43,7 @@ export default function Home() {
                     </div>
                 </div>
                 </InstantSearch>
+                </Container>
             </div>
     )
 }
