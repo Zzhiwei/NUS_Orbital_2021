@@ -1,9 +1,13 @@
-import { Button, makeStyles, Paper } from '@material-ui/core'
+import { Tooltip, Button, makeStyles, Paper, InputLabel, Typography } from '@material-ui/core'
 import ChipInput from 'material-ui-chip-input';
 import React, { useState } from 'react'
+import HelpIcon from '@material-ui/icons/Help';
+
+
 import { Form } from '../../useForm';
 import { useAuth } from '../../../contexts/AuthContext'
 import { db } from '../../../firebase'
+
 
 const useStyles = makeStyles(() => {
     return {
@@ -75,49 +79,61 @@ export default function EditInterests({handleClose, interests}) {
 
     return (
         <Paper className={classes.root}>
+            <div style={{display: "flex", alignItems: 'flex-end'}}>
+                <div style={{marginRight: '5px'}}>
+                    <InputLabel align="left">
+                        <Typography variant="h6">
+                            Interests
+                        </Typography>
+                    </InputLabel>
+                </div>
+                <div >
+                    <Tooltip title='type in a skill and press "Enter"' placement="right">
+                        <HelpIcon fontSize="medium" />
+                    </Tooltip>
+                </div>
+            </div>
+            <ChipInput
+                // disabled
+                fullWidthInput	
+                style={{background: "#d9bda5", borderRadius: "4px"}}
+                name="chips"
+                variant="filled"
+                value={chips}
+                onAdd={(chip) => handleAddChip(chip)}
+                onDelete={(chip, index) => handleDeleteChip(chip, index)}
+                // fullWidthInput={true}
+                fullWidth
+                style={{
+                    backgroundColor: '#f6eee3'
+                }}
+                classes={{
+                    chip: classes.chips,
+                    inputRoot: classes.inputRoot,
+                }}
+            />  
             
-                <ChipInput
-                    // disabled
-                    fullWidthInput	
-                    style={{background: "#d9bda5", borderRadius: "4px"}}
-                    name="chips"
-                    label="Interests"
-                    variant="outlined"
-                    value={chips}
-                    onAdd={(chip) => handleAddChip(chip)}
-                    onDelete={(chip, index) => handleDeleteChip(chip, index)}
-                    // fullWidthInput={true}
-                    fullWidth
-                    style={{
-                        backgroundColor: '#f6eee3'
-                    }}
-                    classes={{
-                        chip: classes.chips,
-                        inputRoot: classes.inputRoot,
-                    }}
-                />  
-                
 
-                <br />
-                <br />
-                <div align="center">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        style={{marginRight: '10px', width: '170px'}}
-                        onClick={handleSubmit}
-                    >
-                        save
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        style={{ width: '170px'}}
-                        onClick={handleClose}
-                    >
-                        discard changes
-                    </Button>
-                </div>   
+            <br />
+            <br />
+            <div align="center">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    style={{marginRight: '10px', width: '170px'}}
+                    onClick={handleSubmit}
+                >
+                    save
+                </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    style={{ width: '170px'}}
+                    onClick={handleClose}
+                >
+                    discard changes
+                </Button>
+            </div>   
         </Paper> 
     )
 }

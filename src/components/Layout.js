@@ -170,7 +170,7 @@ function Layout(props) {
         if (currentUser) {
             return (
                 <div >
-                    <Link to="/myposts" style={{textDecoration: 'none'}}>
+                    {/* <Link to="/myposts" style={{textDecoration: 'none'}}>
                         <Button disableRipple className={location.pathname === '/myposts' ? classes.activeTab : classes.inactiveTab}>My Posts</Button>
                     </Link> 
                     <Link to="/bookmarks" style={{textDecoration: 'none'}}>
@@ -178,7 +178,7 @@ function Layout(props) {
                     </Link>
                     <Link to="/" style={{textDecoration: 'none'}}>
                         <Button disableRipple className={location.pathname ==='/' ? classes.activeTab : classes.inactiveTab}>Recommended</Button>
-                    </Link>  
+                    </Link>   */}
                     <Link to="/newpost">
                         <Tooltip title="Create a New Post">
                             <IconButton aria-label="show 4 new mails" color="primary">
