@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, makeStyles, Button } from "@material-ui/core";
+import { Container, makeStyles, Button, CircularProgress } from "@material-ui/core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -10,6 +10,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import TextEditor from "../../components/texteditor/TextEditor";
 import { convertToRaw } from "draft-js";
+import LoadingPage from "../LoadingPage";
 
 const useStyles = makeStyles(theme => ({
   editor: {
@@ -51,6 +52,7 @@ export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, s
   }
 
   const handleSubmit = (e) => {
+
     e.preventDefault()
     const {
       type,
@@ -84,18 +86,14 @@ export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, s
       total,
       description,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  })
-  
-    //set timeout because it takes time for algolia index to update
-    setTimeout(() => {
-      history.push('/myposts')
-    }, 1000)
+    })
+
+    history.push('/loading')
   }
 
   const props = { editorState, setEditorState }
 
   return(
-    
         <Container component="main" maxWidth="sm">
             <div className={classes.editor}>
                 <TextEditor { ...props }/>
@@ -118,17 +116,17 @@ export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, s
                     Save Changes
                 </Button>
             </div>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={handleClose} minWidth={'sm'}>
                 <DialogTitle>
                   Post Edit Confirmation
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Click 'Back' to review and edit your post or 'Save Changes' to confirm
+                      Click 'Back' to review and edit your post or 'Save Changes' to confirm 
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={handleClose} color="secondary">
+                  <Button onClick={handleClose} color="secondary" disabled={loading}>
                     Back
                   </Button>
                   <Button onClick={handleSubmit} color="primary" disabled={loading}>

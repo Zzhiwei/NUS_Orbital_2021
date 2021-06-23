@@ -13,6 +13,7 @@ import MyPosts from './pages/MyPosts';
 import MyBookmarks from './pages/MyBookmarks';
 import Chat from './pages/Chat';
 import { CreatePost } from './pages/CreatePost/CreatePostForm'; 
+import LoadingPage from './pages/LoadingPage';
 
 /*
 https://www.color-hex.com/color-palette/104061
@@ -64,6 +65,7 @@ function App() {
               <Route path="/editpost/:id" component={EditPost}></Route>
               <Route path="/forgotpassword" component={ForgotPassword}></Route>
               <Route path="/chat" component={Chat}></Route>   
+              <Route path="/loading" component={LoadingPage}></Route>   
             </Switch>
           </Layout>   
         </AuthProvider>      

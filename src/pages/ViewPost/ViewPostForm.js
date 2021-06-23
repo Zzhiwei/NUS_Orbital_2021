@@ -97,7 +97,7 @@ const useStyles = makeStyles (theme => ({
     },
 }))
 
-export default function ViewPostForm({ data })  {
+export default function ViewPostForm({ setKey, data })  {
     const classes = useStyles()
     const { objectID : id, title, name, author, type, category, location, commitment, education, current, total, skills : chips, description } = data
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
@@ -262,7 +262,7 @@ export default function ViewPostForm({ data })  {
                         <Typography variant="h6">
                             About the {category}
                         </Typography>
-                        <TextViewer content={description}/>
+                        <TextViewer key={id} content={description}/>
                     </div>
                 </main>
                 <aside className={classes.asideContainer}>
