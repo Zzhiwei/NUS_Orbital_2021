@@ -134,11 +134,11 @@ export default function EditExperience({ customProps, handleClose, open, index} 
                 onChange={handleInputChange}
                 error={errors.category}
             >
-                <MenuItem value="work">Work</MenuItem>
-                <MenuItem value="internship">internship</MenuItem>
-                <MenuItem value="personal project">personal project</MenuItem>
-                <MenuItem value="volunteering">volunteering</MenuItem>
-                <MenuItem value="others">others</MenuItem>
+                <MenuItem value="Work">Work</MenuItem>
+                <MenuItem value="Internship">Internship</MenuItem>
+                <MenuItem value="Personal project">Personal project</MenuItem>
+                <MenuItem value="Volunteering">Volunteering</MenuItem>
+                <MenuItem value="Others">Others</MenuItem>
             </Select>
             <FormHelperText style={{marginLeft: '10px'}}>
                 <Typography
