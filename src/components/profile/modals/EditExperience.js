@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditExperience({ customProps, handleClose, open, index} ) {
+export default function EditExperience({ customProps, handleClose, index} ) {
     const classes = useStyles()
     console.log(customProps)
     const initialFValues = customProps
@@ -119,6 +119,9 @@ export default function EditExperience({ customProps, handleClose, open, index} 
 
     return (
         <Paper className={classes.root}>
+            <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                Edit Experience
+            </Typography>
             <InputLabel align="left" >
                 <Typography
                     color={ errors.category ? "secondary" : ""}

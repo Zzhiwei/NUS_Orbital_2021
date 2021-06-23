@@ -62,12 +62,18 @@ const TextField = withStyles({
     },
 })(MuiTextField);
 
-export default function EditEducation({ info, index, handleClose }) {
+export default function AddEducation({ handleClose, open }) {
     const classes = useStyles()
     
-    const initialFValues = info
+    const initialFValues = {       
+        institution: '',
+        from: '',
+        to: ''
+    }
+
 
    
+    // const [errors, setErrors] = useState({})
     const { currentUser, currentUserData, setCurrentUserData } = useAuth() 
     const [loading, setLoading] = useState(false)
 
@@ -99,22 +105,18 @@ export default function EditEducation({ info, index, handleClose }) {
 
         setLoading(true)
 
-        let { education } = currentUserData
-        education[index] = values
-
 
         //update db
         await db.collection('users').doc(currentUser.uid).update({
-            education
+            education: firebase.firestore.FieldValue.arrayUnion(values)
         })
 
 
-        setCurrentUserData({
-          ...currentUserData,
-          education
-      })
+        await db.collection('users').doc(currentUser.uid).get().then(res => {
+            setCurrentUserData(res.data())
+        })
         
-        setLoading(false)
+        
         handleClose()
 
     }
@@ -125,10 +127,11 @@ export default function EditEducation({ info, index, handleClose }) {
 
     return (
         <Paper className={classes.root}>
-                <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
-                    Edit Education
+              <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                    Add Education
                 </Typography>
                 <div id="container">
+                    
                     <div id="institution">
                         <InputLabel align="left"> 
                             <Typography color={ errors.institution ? "secondary" : ""}>

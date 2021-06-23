@@ -6,15 +6,18 @@ import { Grid, IconButton, makeStyles, TextField,
     DialogContentText,
     DialogTitle,
     Dialog,
-    Button
+    Button,
+    Modal
 } from "@material-ui/core";
 import firebase from "firebase/app";
 import _ from "lodash";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from '@material-ui/icons/Edit';
 
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { findAllByDisplayValue } from "@testing-library/react";
+import EditEducation from "./modals/EditEducation";
 
 
 const useStyles = makeStyles((theme) => {
@@ -30,12 +33,15 @@ const useStyles = makeStyles((theme) => {
     };
 });
 
-function EducationBlock({ institution, from, to, enableEdit }) {
+function EducationBlock({ institution, from, to, enableEdit, index }) {
     const classes = useStyles();
 
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [modalOpen, setModalOpen] = useState(false)
+    const info = {institution, from, to}
+    
 
     const handleDelete = async () => {
         setLoading(true)
@@ -81,9 +87,19 @@ function EducationBlock({ institution, from, to, enableEdit }) {
                             classes={{
                                 root: classes.iconRoot,
                             }}
+                            className={classes.delete} 
+                            onClick={() => setModalOpen(true)}
+                        >
+                            <EditIcon  />
+                        </IconButton>
+                        <IconButton
+                            classes={{
+                                root: classes.iconRoot,
+                            }}
+                            className={classes.delete} 
                             onClick={() => setOpen(true)}
                         >
-                            <DeleteIcon className={classes.delete} />
+                            <DeleteIcon />
                         </IconButton>
                     </div>
                     <Dialog
@@ -107,6 +123,14 @@ function EducationBlock({ institution, from, to, enableEdit }) {
                         </Button>
                         </DialogActions>
                     </Dialog>
+                    <Modal
+                        open={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                    >
+                        <div>
+                            <EditEducation index={index} info={info} handleClose={() => setModalOpen(false)} />
+                        </div>
+                    </Modal>
                 </Grid>
             );
         }

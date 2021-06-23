@@ -128,6 +128,9 @@ export default function EditEducation({ handleClose, open }) {
 
     return (
         <Paper className={classes.root}>
+            <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                Add Experience
+            </Typography>
             <InputLabel align="left" >
                 <Typography
                     color={ errors.category ? "secondary" : ""}
