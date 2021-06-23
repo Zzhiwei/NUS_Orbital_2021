@@ -43,7 +43,7 @@ export default function BookmarkedCard({ data }) {
                         e.preventDefault()
                         e.stopPropagation()
                         handleRemoveBookmark()
-                        history.push('home/bookmarks')
+                        history.push('/home/bookmarks')
                     }}
                 >
                     <BookmarkIcon style={{fontSize: 28}} />

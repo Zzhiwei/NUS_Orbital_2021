@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { IconButton, Tooltip } from '@material-ui/core';
-import { useHistory } from 'react-router-dom' 
+import { useHistory, useLocation } from 'react-router-dom' 
 import { db } from '../../firebase';
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/app';
@@ -15,6 +15,8 @@ export default function PostCard({ data }) {
     console.log("rendering postcard entitled " + data.title)
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const history = useHistory()
+    const location = useLocation()
+    console.log(location.pathname)
     const userRef = currentUser 
         ? db.collection("users").doc(currentUser.uid) 
         : null
@@ -64,7 +66,7 @@ export default function PostCard({ data }) {
                             e.preventDefault()
                             e.stopPropagation()
                             bookmarked ? handleRemoveBookmark() : handleAddBookmark()
-                            history.push('/home')
+                            history.push(location.pathname)
                         }}
                     >
                         { bookmarked ? <BookmarkIcon style={{fontSize: 28}} /> : <BookmarkBorderIcon style={{fontSize: 28}} /> }
