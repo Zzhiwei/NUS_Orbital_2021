@@ -54,7 +54,6 @@ export default function AdminCard({ data }) {
                 const posts = [...currentUserData.posts];
                 const index = posts.indexOf(id);
                 posts.splice(index, 1);
-                console.log("deleted post");
                 setCurrentUserData({
                     ...currentUserData,
                     posts,

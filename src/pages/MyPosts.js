@@ -36,7 +36,7 @@ export default function MyPosts({ selected, setSelected }) {
     const history = useHistory()
     
     //sends query to backend when first mounting
-    useEffect(() => {
+    useEffect(async () => {
         if (!currentUser) {
             alert("Please log in first")
             history.push('/login')
@@ -60,7 +60,7 @@ export default function MyPosts({ selected, setSelected }) {
             }
             setPosts(renderList)
         }
-        fetch()
+        await fetch()
         setRender(true)
     }, [currentUserData.posts, currentUser, history])
 
