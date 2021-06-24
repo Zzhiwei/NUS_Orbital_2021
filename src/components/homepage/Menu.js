@@ -3,15 +3,17 @@ import React, { useState } from 'react'
 import { connectMenu } from 'react-instantsearch-dom';
 
 
-const Menu = ({ items, currentRefinement, refine, customItems  }) => {
+const Menu = ({ items, currentRefinement, refine, customItems, scrollToTop  }) => {
   const [selectedValue, setSelectedValue] = useState(customItems[0]);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     if (event.target.value === "All") {
       refine("")
+      scrollToTop()
     } else {
       refine(event.target.value)
+      scrollToTop()
     }
   };
 

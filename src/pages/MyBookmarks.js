@@ -39,7 +39,7 @@ export default function MyBookmarks({ selected, setSelected }) {
         since every deletions triggers another fetch action
         and for some reason mybookmarks is rendered three times
     */
-    useEffect(() => {
+    useEffect(async () => {
         if (!currentUser) {
             return history.push('/login')
         }
@@ -61,8 +61,7 @@ export default function MyBookmarks({ selected, setSelected }) {
             }
             setPosts(renderList)
         }
-        fetch()
-        console.log("setting up posts")
+        await fetch()
         if (!render) {
             setRender(true)
         }

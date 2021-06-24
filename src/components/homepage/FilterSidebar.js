@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => {
 });
 
 
-export default function FilterSidebar() {
+export default function FilterSidebar({ scrollToTop }) {
     const classes = useStyles()
     const { currentUser } = useAuth()
     const stickFromTop = currentUser ? "144px" : "95px"
@@ -33,21 +33,24 @@ export default function FilterSidebar() {
             </Typography>
             <AccordionWrapper title="Category">
                 <Menu 
+                    scrollToTop={scrollToTop}
                     attribute="category" 
                     customItems={["All", "Competition", "Project"]} 
                 />
             </AccordionWrapper>
             <AccordionWrapper title="Type">
                 <Menu
+                    scrollToTop={scrollToTop}
                     attribute="type"
                     customItems={["All", "Business", "IT & Software", "Photography and Film", "Music", "Health & Fitness", "Sciences", "Others"]}
                 />
             </AccordionWrapper>
             <AccordionWrapper title="Location">
-                <Menu attribute="location" customItems={["All", "Online", "In-Person"]} />
+                <Menu scrollToTop={scrollToTop} attribute="location" customItems={["All", "Online", "In-Person"]} />
             </AccordionWrapper>
             <AccordionWrapper title="Education Level">
                 <Menu 
+                    scrollToTop={scrollToTop}
                     attribute="education"
                     customItems={["All", "Any", "Secondary", "Pre-University", "Undergraduate"]}
                 />

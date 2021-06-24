@@ -1,28 +1,28 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch, Configure } from 'react-instantsearch-dom';
 import SearchBox from '../components/homepage/SearchBox'
 import InfiniteHits from '../components/homepage/InfiniteHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
-import { Container } from '@material-ui/core';
-import { useAuth } from '../contexts/AuthContext';
+import { Button, Container } from '@material-ui/core';
+import UseIntersection from '../utils/UseIntersection'
 
 const searchClient = algoliasearch(
-  'ES79ODFVNM',
-  'c57f19049ad61dad541fc8f7659c0f92'
+  process.env.REACT_APP_ALGOLIA_APP_ID,
+  process.env.REACT_APP_ALGOLIA_API_KEY
 );
 
-export default function Home() {
-    const { currentUser } = useAuth()
+export default function Home({autoScrollToTop}) {
     console.log("rerendering home")
-
-    //if log in marginTop = 40
-    //if not =
     
+    function scrollToTop() {
+            autoScrollToTop.current && autoScrollToTop.current.scrollIntoView(false)
+    }
 
     return (
             <div style={{marginTop: "40px"}}>
+                
                 <Container>
                 <InstantSearch
                     indexName="posts"
@@ -34,7 +34,7 @@ export default function Home() {
                 
                 <div style={{display: 'flex'}}>
                     <div style={{flex: 1, marginRight: '2vw'}}>
-                        <FilterSidebar />
+                        <FilterSidebar scrollToTop={scrollToTop} />
                     </div>
                     <div style={{flex: 3, height: '5000px'}}>
                         <SearchBox /> 

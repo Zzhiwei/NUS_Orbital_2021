@@ -1,5 +1,5 @@
 import { AppBar, Container, makeStyles, Typography } from '@material-ui/core';
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import ExploreIcon from '@material-ui/icons/Explore';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
@@ -53,6 +53,7 @@ export default function Homepage() {
   const classes = useStyles()
   const [selected, setSelected] = useState(0)
   const history = useHistory()
+  const autoScrollToTop = useRef()
   let { path, url } = useRouteMatch();
   
 
@@ -83,6 +84,7 @@ export default function Homepage() {
     }
     return (
       <div >
+        <div ref={autoScrollToTop}></div>
         <AppBar className={classes.appbar} elevation={0}>
           <Container>
           
@@ -119,7 +121,11 @@ export default function Homepage() {
         </AppBar>
      
       <Switch>
-        <Route exact path={path} component={Home}/>
+        <Route exact path={path}>
+          <Home 
+            autoScrollToTop={autoScrollToTop}
+          />
+        </Route>
         <Route exact path={`${path}/myposts`} >
           <MyPosts selected={selected} setSelected={setSelected} />
         </Route>
