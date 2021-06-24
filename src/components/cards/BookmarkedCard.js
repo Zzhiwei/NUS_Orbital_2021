@@ -8,7 +8,7 @@ import 'firebase/firestore';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Card from './Card'
 
-export default function BookmarkedCard({ data }) {
+export default function BookmarkedCard({ data, setOpen }) {
 
     const { id, timestamp } = data
     console.log("rendering bookmarkcard entitled " + data.title)
@@ -31,7 +31,8 @@ export default function BookmarkedCard({ data }) {
                 ...currentUserData,
                 bookmarks
             })
-        })      
+        }) 
+        setOpen(true)     
     }
 
     function action() {

@@ -7,6 +7,7 @@ import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import { useHistory }  from 'react-router-dom'
 import firebase from 'firebase/app';
+import { UnbookmarkSnackBar } from '../components/SnackBar'
 
 const useStyles = makeStyles((theme) => {
     return {        
@@ -33,6 +34,7 @@ export default function MyBookmarks({ selected, setSelected }) {
     const { currentUser, currentUserData } = useAuth()
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
+    const [open , setOpen] = useState(false)
     const history = useHistory()
     /*
         right now it is in working state but not efficient 
@@ -67,7 +69,6 @@ export default function MyBookmarks({ selected, setSelected }) {
         }
     }, [currentUser, currentUserData.bookmarks, history, render]) 
 
-
     const renderContent = () => {
         if (!render) {
             return <CircularProgress className={classes.loading}/>
@@ -83,11 +84,12 @@ export default function MyBookmarks({ selected, setSelected }) {
                         {posts.map((data, index) => {
                                 return ( 
                                 <Grid item xs={12} md={6} key={index}>
-                                    <BookmarkedCard data={data}/>
+                                    <BookmarkedCard data={data} setOpen={setOpen}/>
                                 </Grid>
                             )})}
                     </Grid>
                 </div>
+                <UnbookmarkSnackBar open={open} setOpen={setOpen}/>
             </div>
         )
     }

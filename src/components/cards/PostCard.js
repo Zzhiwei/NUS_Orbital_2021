@@ -9,7 +9,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark'
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import Card from './Card'
 
-export default function PostCard({ data }) {
+export default function PostCard({ data, setOpenB, setOpenUb }) {
 
     const { objectID : id, timestamp } = data
     console.log("rendering postcard entitled " + data.title)
@@ -40,6 +40,8 @@ export default function PostCard({ data }) {
             bookmarks: [...currentUserData.bookmarks, id]
         })
         setBookmarked(true)
+        setOpenUb(false)
+        setOpenB(true)
     }
 
     const handleRemoveBookmark = async () => {
@@ -54,6 +56,8 @@ export default function PostCard({ data }) {
             bookmarks
         })
         setBookmarked(false)
+        setOpenB(false)
+        setOpenUb(true)
     }
 
     const renderBookmark = () => {
