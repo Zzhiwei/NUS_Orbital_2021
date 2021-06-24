@@ -35,9 +35,6 @@ function SearchBox({ isSearchStalled, refine }) {
                 <Grid item xs={8}>
                     <TextField 
                         fullWidth
-                        classes={{
-                            
-                        }}
                         autoFocus
                         style={{background: "white", borderRadius: "4px"}}
                         size="small"
@@ -62,7 +59,7 @@ function SearchBox({ isSearchStalled, refine }) {
                     />
                 </Grid>
                 <Button onClick={handleReset} color="primary" variant="outlined" disableElevation style={{marginLeft: '10px', padding: "0px"}}>
-                    reset
+                    Reset
                 </Button>
             </Grid>
             {isSearchStalled ? <CircularProgress /> : ''}
