@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function MyBookmarks() {
+export default function MyBookmarks({ selected, setSelected }) {
     console.log("render bookmarks")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
@@ -42,6 +42,9 @@ export default function MyBookmarks() {
     useEffect(() => {
         if (!currentUser) {
             return history.push('/login')
+        }
+        if (selected !== 1) {
+            setSelected(1)
         }
         
         async function fetch() {

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function MyPosts() {
+export default function MyPosts({ selected, setSelected }) {
     console.log("render myposts")
     const classes = useStyles();
     const { currentUser, currentUserData } = useAuth()
@@ -41,6 +41,10 @@ export default function MyPosts() {
             alert("Please log in first")
             history.push('/login')
         } 
+
+        if (selected !== 2) {
+            setSelected(2)
+        }
 
         async function fetch() {
             let renderList = []

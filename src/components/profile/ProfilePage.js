@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => {
             width: '1000px',
             margin: 'auto auto',            
             padding: '1px 100px',
-            backgroundColor: '#f6eee3'          
+            backgroundColor: '#f6eee3',
+            marginBottom: "50px",
+            paddingBottom: '40px'         
         },
         modal: {
             position: 'absolute',
@@ -53,6 +55,7 @@ function ProfilePage() {
         if no: disable edit options, pass other user's data as prop
     */
     if (viewingOwn === null) {
+
         if (currentUser === null || id !== currentUser.uid) {
             setViewingOwn(false)
         } else {
@@ -98,23 +101,6 @@ function ProfilePage() {
     
     
     
-    //tricky part: surprisingly setState() triggers rerender even though state nv changed, so have to resort to manual checking
-    //or else would have infinite loop
-    // const getUserData = async () => {
-    //     await db.collection('users').doc(id).get().then(res => {
-    //         const otherUserData = res.data()
-    //         if (!_.isEqual(renderOptions.userData, otherUserData)) { //manual check
-    //             setRenderOptions({
-    //                 userData: res.data(),
-    //                 enableEdit: false,
-    //                 infoReceived: true
-    //             })
-    //         }
-            
-    //     }) 
-    // }
-
-   
 
     const handleMessageClick = async () => {
         //check if database already has chat between these two users
@@ -180,8 +166,15 @@ function ProfilePage() {
         if (!renderOptions.enableEdit && currentUser) {
             return (
                 <div align="center">
-                        <Button variant="outlined" onClick={handleMessageClick}> 
-                            Message
+                        <Button 
+                            size="large"
+                            variant="outlined"
+                            onClick={handleMessageClick}
+                            style={{
+                                border: '2px solid black'
+                            }}
+                        > 
+                            { "Message " + (renderOptions.userData ? renderOptions.userData.basicInfo.firstName : "")}
                         </Button>
                     </div>
             )
@@ -217,7 +210,6 @@ function ProfilePage() {
             </div>
         )
     }
-
     return renderContent()
   }
   

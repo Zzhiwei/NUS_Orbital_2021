@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
             textDecoration: "underline",
         }
     },
+    root: {
+        marginTop: '40px'
+    }
   }));
 
 function Register() {
@@ -117,7 +120,7 @@ function Register() {
     }
 
     return (
-        <Container component="main" maxWidth="xs"> 
+        <Container className={classes.root} component="main" maxWidth="xs"> 
             <CssBaseline />
             <PageHeader 
                 title="Sign Up"

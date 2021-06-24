@@ -51,11 +51,10 @@ function Experience({ userData, enableEdit }) {
     }
     
     return (
-        <div style={{marginBottom: '30px'}}>
+        <div style={{marginBottom: '50px'}}>
                 <Typography className={classes.title} color="primary" variant="h4">
                     Experience
                 </Typography>
-
                 <Modal
                     open={open}
                     onClose={null}
@@ -66,7 +65,6 @@ function Experience({ userData, enableEdit }) {
                 </Modal>
                 {experienceList}
                 {renderAdd()}
-                
                 
         </div>
     );

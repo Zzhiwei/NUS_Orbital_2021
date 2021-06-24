@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => {
 });
 
 
-export default function EditEducation({ handleClose, open }) {
+export default function EditEducation({ handleClose }) {
     const classes = useStyles()
     
     const initialFValues = {       
