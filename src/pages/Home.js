@@ -6,7 +6,6 @@ import InfiniteHits from '../components/homepage/InfiniteHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
-import UseIntersection from '../utils/UseIntersection'
 
 const searchClient = algoliasearch(
   process.env.REACT_APP_ALGOLIA_APP_ID,
