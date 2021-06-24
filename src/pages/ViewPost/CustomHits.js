@@ -3,7 +3,7 @@ import React from 'react'
 import { connectHits } from 'react-instantsearch-dom'
 import PostCard from '../../components/cards/PostCard';
 
-function CustomHits({ hits }) {
+function CustomHits({ hits, setOpenB, setOpenUb }) {
 
     var posts = hits
 
@@ -15,7 +15,7 @@ function CustomHits({ hits }) {
         <Grid container spacing={4} style={{margin: 'auto auto'}} justify="center">
             {posts.map((hit, index) => (
                 <Grid item xs={12} key={index} style={{paddingLeft: 0}}>
-                    <PostCard data={hit}/>
+                    <PostCard data={hit} setOpenB={setOpenB} setOpenUb={setOpenUb}/>
                 </Grid>
             ))}
         </Grid> 

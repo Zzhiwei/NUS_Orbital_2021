@@ -9,7 +9,7 @@ const searchClient = algoliasearch(
     'c57f19049ad61dad541fc8f7659c0f92'
   );
   
-export default function SimilarPosts({ hit }) {
+export default function SimilarPosts({ hit, setOpenB, setOpenUb }) {
     return (
         <div>
         <Typography variant="h6" style={{marginBottom: 10}}>
@@ -31,7 +31,7 @@ export default function SimilarPosts({ hit }) {
             />
             <Grid container justify="center">
                 <Grid item xs={12}>
-                    <CustomHits />
+                    <CustomHits setOpenB={setOpenB} setOpenUb={setOpenUb}/>
                 </Grid>
             </Grid>
             </InstantSearch>

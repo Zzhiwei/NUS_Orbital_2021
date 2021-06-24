@@ -18,6 +18,7 @@ import ShareIcon from '@material-ui/icons/Share'
 import SimilarPosts from './SimilarPosts'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import TextViewer from '../../components/texteditor/TextViewer';
+import { BookmarkSnackBar, UnbookmarkSnackBar } from '../../components/SnackBar'
 
 const useStyles = makeStyles (theme => ({
     layout: {
@@ -111,6 +112,8 @@ export default function ViewPostForm({ setKey, data })  {
     const [profilePic, setProfilePic] = useState("unloaded")
     const [openModal, setOpenModal] = useState(false)
     const [bookmarked, setBookmarked] = useState(false)
+    const [openB, setOpenB] = useState(false)
+    const [openUb, setOpenUb] = useState(false)
     const history = useHistory()
     
     
@@ -141,6 +144,8 @@ export default function ViewPostForm({ setKey, data })  {
             bookmarks: [...currentUserData.bookmarks, id]
         })
         setBookmarked(true)
+        setOpenUb(false)
+        setOpenB(true)
     }
 
     const handleRemoveBookmark = async () => {
@@ -155,6 +160,8 @@ export default function ViewPostForm({ setKey, data })  {
             bookmarks
         })
         setBookmarked(false)
+        setOpenB(false)
+        setOpenUb(true)
     }
 
     async function handleChat() {
@@ -324,12 +331,14 @@ export default function ViewPostForm({ setKey, data })  {
                     </div>
                 </main>
                 <aside className={classes.asideContainer}>
-                    <SimilarPosts hit={data}/>
+                    <SimilarPosts hit={data} setOpenB={setOpenB} setOpenUb={setOpenUb}/>
                 </aside>
             </Container>
             <Box style={{marginTop: 50, marginBottom: -30}}>
                 <Copyright />
             </Box>
+            <BookmarkSnackBar open={openB} setOpen={setOpenB}/>
+            <UnbookmarkSnackBar open={openUb} setOpen={setOpenUb}/>
             <Modal
                 open={openModal}
                 onClose={null}
