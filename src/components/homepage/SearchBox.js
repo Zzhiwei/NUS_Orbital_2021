@@ -7,6 +7,13 @@ const useStyles = makeStyles(() => {
     return {
         input: {
             backgroundColor: 'rgb(246,238,227, 0.5)'
+        },
+        btn: {
+            marginLeft: '10px',
+            padding: "0px",
+            '&:hover': {
+                backgroundColor: '#ff9999'
+            }
         }
     }
 })
@@ -35,9 +42,6 @@ function SearchBox({ isSearchStalled, refine }) {
                 <Grid item xs={8}>
                     <TextField 
                         fullWidth
-                        classes={{
-                            
-                        }}
                         autoFocus
                         style={{background: "white", borderRadius: "4px"}}
                         size="small"
@@ -61,8 +65,15 @@ function SearchBox({ isSearchStalled, refine }) {
                         }}
                     />
                 </Grid>
-                <Button onClick={handleReset} color="primary" variant="outlined" disableElevation style={{marginLeft: '10px', padding: "0px"}}>
-                    reset
+                <Button
+                    onClick={handleReset}
+                    color="primary"
+                    variant="outlined"
+                    disableElevation
+                    className={classes.btn}
+                    
+                >
+                    Reset
                 </Button>
             </Grid>
             {isSearchStalled ? <CircularProgress /> : ''}

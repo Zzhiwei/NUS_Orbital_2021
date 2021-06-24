@@ -91,26 +91,27 @@ export default function Homepage() {
            <div style={{display: 'flex'}}>
               <button className={selected === 0 ? classes.selectedBtn : classes.btn} onClick={handleExplore}>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Typography variant="h6" style={{marginRight: '5px'}}>
+                  <ExploreIcon style={{marginRight: '5px'}}/>
+                  <Typography variant="h6">
                     Explore
                   </Typography>
-                  <ExploreIcon />
+                  
                 </div>
               </button>
               <button className={selected === 1 ? classes.selectedBtn : classes.btn} onClick={handleBookmarks}>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Typography variant="h6" style={{marginRight: '5px'}}>
+                  <BookmarksIcon style={{marginRight: '5px'}}/>
+                  <Typography variant="h6" >
                     Bookmarks
                   </Typography>
-                  <BookmarksIcon />
                 </div>
               </button>
               <button className={selected === 2 ? classes.selectedBtn : classes.btn} onClick={handleMyposts}>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <Typography variant="h6" style={{marginRight: '5px'}}>
+                  <AllInboxRoundedIcon style={{marginRight: '5px'}}/>
+                  <Typography variant="h6" >
                     My Posts
                   </Typography>
-                  <AllInboxRoundedIcon />
                 </div>
               </button>
               

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Container, CssBaseline, makeStyles, Typography, Avatar, Tooltip, Chip, Divider, Button } from '@material-ui/core'
+import { Modal, CircularProgress, Box, Container, CssBaseline, makeStyles, Typography, Avatar, Tooltip, Chip, Divider, Button } from '@material-ui/core'
 import Copyright from '../../components/Copyright'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import SchoolRoundedIcon from '@material-ui/icons/SchoolRounded';
@@ -95,6 +95,12 @@ const useStyles = makeStyles (theme => ({
             textDecoration: "underline",
         },
     },
+    modal: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)'
+    }
 }))
 
 export default function ViewPostForm({ setKey, data })  {
@@ -103,9 +109,10 @@ export default function ViewPostForm({ setKey, data })  {
     const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     const userRef = currentUser ? db.collection("users").doc(currentUser.uid) : null
     const [profilePic, setProfilePic] = useState("unloaded")
+    const [openModal, setOpenModal] = useState(false)
     const [bookmarked, setBookmarked] = useState(false)
+    const history = useHistory()
     
-    console.log(description)
     
     useEffect(() => {
         if (currentUser && currentUserData && currentUserData.bookmarks) {
@@ -148,6 +155,54 @@ export default function ViewPostForm({ setKey, data })  {
             bookmarks
         })
         setBookmarked(false)
+    }
+
+    async function handleChat() {
+        setOpenModal(true)
+        const id = author
+        const res1 = await db.collection('chats').where("user1", "==", id).where('user2', '==', currentUser.uid).get()
+        const res2 = await db.collection('chats').where("user1", "==", currentUser.uid).where('user2', '==', id).get()
+        let chatId = null
+        res1.forEach(x => {
+            if (!chatId) {
+                chatId = x.id
+            }
+        })
+        res2.forEach(x => {
+            if (!chatId) {
+                chatId = x.id
+            }
+        })
+        
+        if (chatId) {
+            history.push(`/chat?selected=${chatId}`)
+        } else {
+            const docRef = await db.collection('chats').add({
+                user1: currentUser.uid,
+                user2: id,
+                messages: []
+            })
+            
+            await db.collection('users').doc(currentUser.uid).update({
+                chats: [docRef.id, ...currentUserData.chats]
+            })
+
+            const otherUserChats = await db.collection('users').doc(id).get()
+                .then(res => {
+                    return res.data().chats
+                })
+
+            await db.collection('users').doc(id).update({
+                chats: [docRef.id, ...otherUserChats]
+            })
+
+            setCurrentUserData({
+                ...currentUserData,
+                chats: [docRef.id, ...currentUserData.chats]
+            })
+            
+            history.push(`/chat?selected=${docRef.id}`)
+        }
     }
 
     const byline = (
@@ -223,6 +278,7 @@ export default function ViewPostForm({ setKey, data })  {
                             variant="contained" 
                             style={{color: "white", backgroundColor: "green", minWidth: "135.45px"}}
                             startIcon={<ForumIcon />}
+                            onClick={handleChat}
                         >
                             Chat
                         </Button>
@@ -274,6 +330,14 @@ export default function ViewPostForm({ setKey, data })  {
             <Box style={{marginTop: 50, marginBottom: -30}}>
                 <Copyright />
             </Box>
+            <Modal
+                open={openModal}
+                onClose={null}
+            >
+                <div className={classes.modal}>
+                    <CircularProgress />
+                </div>
+            </Modal>
         </Container>
     )
 }
