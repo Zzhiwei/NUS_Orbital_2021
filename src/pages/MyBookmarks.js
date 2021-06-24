@@ -1,4 +1,4 @@
-import { Grid, makeStyles, CircularProgress } from '@material-ui/core';
+import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import BookmarkedCard from '../components/cards/BookmarkedCard';
 import { db } from '../firebase'
@@ -78,7 +78,17 @@ export default function MyBookmarks({ selected, setSelected }) {
                 <PageHeader 
                     title="My Bookmarks"
                     icon={<BookmarksIcon style={{fontSize: "28" }}/>}
-                />        
+                />
+                { posts.length === 0 &&
+                    <div align="center">        
+                        <Typography variant="h2" style={{marginTop: 100, marginBottom: 10, fontSize: 40}}>
+                            No bookmarked posts
+                        </Typography>
+                        <Typography variant="h6">
+                            Try bookmarking some posts from the Explore page
+                        </Typography>
+                    </div>
+                }
                 <div className={classes.homeResults}>
                     <Grid container spacing={4}>
                         {posts.map((data, index) => {

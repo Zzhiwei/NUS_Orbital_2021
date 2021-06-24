@@ -1,4 +1,4 @@
-import { Grid, makeStyles, CircularProgress } from '@material-ui/core';
+import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import AdminCard from '../components/cards/AdminCard';
 import { db } from '../firebase'
@@ -74,7 +74,17 @@ export default function MyPosts({ selected, setSelected }) {
                     <PageHeader 
                         title="My Posts"
                         icon={<AllInboxRoundedIcon fontSize="large"/>}
-                    />        
+                    />
+                    { posts.length === 0 &&
+                        <div align="center">        
+                            <Typography variant="h2" style={{marginTop: 100, marginBottom: 10, fontSize: 40}}>
+                                No posts
+                            </Typography>
+                            <Typography variant="h6">
+                                Try creating some posts by clicking the + icon at the top right of the page
+                            </Typography>
+                        </div>
+                    }       
                     <div className={classes.homeResults}>
                         <Grid container spacing={4}>
                             {posts.map((data, index) => {
