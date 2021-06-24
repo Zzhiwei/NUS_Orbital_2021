@@ -1,10 +1,19 @@
 import { Radio} from '@material-ui/core';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connectMenu } from 'react-instantsearch-dom';
 
 
-const Menu = ({ items, currentRefinement, refine, customItems, scrollToTop  }) => {
+const Menu = ({ items, currentRefinement, refine, customItems, scrollToTop, setResetFunctions }) => {
   const [selectedValue, setSelectedValue] = useState(customItems[0]);
+
+  useEffect(() => {
+    setResetFunctions(arr => [...arr, (
+      () => {
+        refine("")
+        setSelectedValue("All")
+      }
+    )])
+  }, [])
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
