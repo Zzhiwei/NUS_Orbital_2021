@@ -74,6 +74,9 @@ export default function EditSkills({handleClose, skills}) {
 
     return (
         <Paper className={classes.root}>
+                <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                    Edit Skills
+                </Typography>
                 <div style={{display: "flex", alignItems: 'flex-end'}}>
                     <div style={{marginRight: '5px'}}>
                         <InputLabel align="left">

@@ -42,6 +42,7 @@ function ExperienceBlock({ customProps, enableEdit, index }) {
     const [loading, setLoading] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
 
+    console.log({customProps})
 
     const {  
         category,

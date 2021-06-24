@@ -45,7 +45,7 @@ function Education({ userData, enableEdit }) {
     }
 
     return (
-        <div style={{marginBottom: '30px'}}>
+        <div style={{marginBottom: '50px'}}>
                 <Typography className={classes.title} color="primary" variant="h4">
                     Education
                 </Typography>
@@ -58,7 +58,6 @@ function Education({ userData, enableEdit }) {
                     </div>
                 </Modal>
                 {educationList}
-                <br />
                 {renderAdd()}
         </div>
     );

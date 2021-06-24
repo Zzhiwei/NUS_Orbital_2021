@@ -79,6 +79,9 @@ export default function EditInterests({handleClose, interests}) {
 
     return (
         <Paper className={classes.root}>
+            <Typography align="center" variant="h4" style={{marginBottom: '15px'}}>
+                Edit Interests
+            </Typography>
             <div style={{display: "flex", alignItems: 'flex-end'}}>
                 <div style={{marginRight: '5px'}}>
                     <InputLabel align="left">

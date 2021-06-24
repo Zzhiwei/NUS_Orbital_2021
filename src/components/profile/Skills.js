@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => {
             },
         },
         title: {
+            paddingBottom: '10px',
             borderBottom: '2px solid #4C4556',
             margin: '20px auto'
         }

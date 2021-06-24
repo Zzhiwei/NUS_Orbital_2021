@@ -120,9 +120,11 @@ export default function Homepage() {
      
       <Switch>
         <Route exact path={path} component={Home}/>
-        <Route exact path={`${path}/myposts`} component={MyPosts}/>
+        <Route exact path={`${path}/myposts`} >
+          <MyPosts selected={selected} setSelected={setSelected} />
+        </Route>
         <Route path={`${path}/bookmarks`}>
-          <MyBookmarks />
+          <MyBookmarks selected={selected} setSelected={setSelected} />
         </Route>
       </Switch>
     </div>

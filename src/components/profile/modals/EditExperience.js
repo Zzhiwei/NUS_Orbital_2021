@@ -60,7 +60,6 @@ const useStyles = makeStyles((theme) => {
 
 export default function EditExperience({ customProps, handleClose, index} ) {
     const classes = useStyles()
-    console.log(customProps)
     const initialFValues = customProps
 
 
@@ -137,11 +136,11 @@ export default function EditExperience({ customProps, handleClose, index} ) {
                 onChange={handleInputChange}
                 error={errors.category}
             >
-                <MenuItem value="Work">Work</MenuItem>
-                <MenuItem value="Internship">Internship</MenuItem>
-                <MenuItem value="Personal project">Personal project</MenuItem>
-                <MenuItem value="Volunteering">Volunteering</MenuItem>
-                <MenuItem value="Others">Others</MenuItem>
+                <MenuItem value="work">Work</MenuItem>
+                <MenuItem value="internship">Internship</MenuItem>
+                <MenuItem value="personal project">Personal project</MenuItem>
+                <MenuItem value="volunteering">Volunteering</MenuItem>
+                <MenuItem value="others">Others</MenuItem>
             </Select>
             <FormHelperText style={{marginLeft: '10px'}}>
                 <Typography
