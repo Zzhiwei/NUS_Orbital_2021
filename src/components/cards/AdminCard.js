@@ -11,7 +11,7 @@ import {
     Button
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import "firebase/firestore";
 import firebase from "firebase/app";
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => {
 export default function AdminCard({ data }) {
 
     const { id, timestamp, } = data;
-    console.log("rendering admincard entitled " + data.title);
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const history = useHistory()
@@ -44,15 +43,26 @@ export default function AdminCard({ data }) {
     const timeStamp = timestamp.toDate()
 
     const handleDelete = async () => {
+
         setDeleting(true)
+
+        const posts = [...currentUserData.posts];
+        const postIDs = posts.map(post => post.id)
+        const index = postIDs.indexOf(id);
+        const imageuid = posts[index].imageuid
+        const images = posts[index].images
+        if (images.length > 0) {
+            for (const image of images) {
+                await storage.ref(`images/${imageuid}/${image}`).delete()
+            }
+        }
+        
         await db.collection("posts").doc(id).delete();
         await userRef
             .update({
                 posts: firebase.firestore.FieldValue.arrayRemove(id),
             })
             .then(() => {
-                const posts = [...currentUserData.posts];
-                const index = posts.indexOf(id);
                 posts.splice(index, 1);
                 setCurrentUserData({
                     ...currentUserData,

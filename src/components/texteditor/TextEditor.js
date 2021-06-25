@@ -4,7 +4,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { storage } from '../../firebase';
 import './TextEditor.css'
 
-export default function TextEditor({ editorState, setEditorState }) {
+export default function TextEditor({ editorState, setEditorState, uid }) {
 
     const handleChange = value => {
         setEditorState(value)
@@ -16,7 +16,7 @@ export default function TextEditor({ editorState, setEditorState }) {
                 if (!file) {
                     reject('Invalid file')
                 }
-                const uploadTask = storage.ref(`images/${file.name}`).put(file)
+                const uploadTask = storage.ref(`images/${uid}/${file.name}`).put(file)
                 uploadTask.on('state_changed',
                     (snapShot) => {
                         console.log(snapShot)
