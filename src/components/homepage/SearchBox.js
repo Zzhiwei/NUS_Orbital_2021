@@ -3,6 +3,8 @@ import { connectSearchBox, PoweredBy } from 'react-instantsearch-dom'
 import { Grid, TextField, Tooltip, Button, InputAdornment, makeStyles, CircularProgress } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
+import algoliaLogo from '../../assets/Algolia-logo.svg'
+
 
 
 const useStyles = makeStyles(() => {
@@ -16,6 +18,10 @@ const useStyles = makeStyles(() => {
             '&:hover': {
                 backgroundColor: '#ff9999'
             }
+        },
+        link: {
+            textDecoration: 'none',
+            color: 'black'
         }
     }
 })
@@ -40,7 +46,8 @@ function SearchBox({ isSearchStalled, refine }) {
 
     return (
         <form noValidate action="" role="search" onSubmit={handleSubmit}>
-            <Grid container style={{paddingBottom: '10px', paddingRight: '10px'}} justify="center">
+             
+            <Grid container style={{ paddingRight: '10px'}} justify="center">
                 <Grid item xs={8}>
                     <TextField 
                         fullWidth
@@ -60,11 +67,11 @@ function SearchBox({ isSearchStalled, refine }) {
                             endAdornment: (
                                 <Tooltip title="search engine powered by algolia">
                                     <InputAdornment position="end">
-                                        <PoweredBy
+                                        {/* <PoweredBy
                                             translations={{
                                                 searchBy: '',
                                             }}
-                                        />
+                                        /> */}
                                     </InputAdornment>
                                 </Tooltip>
                             ),
@@ -89,6 +96,21 @@ function SearchBox({ isSearchStalled, refine }) {
                     Reset
                 </Button>
                 
+            </Grid>
+           
+           <Grid container  justify="center">
+               
+                <Grid item xs={8}>
+                    <Grid container  justify="flex-end" alignItems="flex-end">
+                        <span style={{marginBottom: '16px', marginRight: '5px'}}>
+                        Search by
+                        </span>
+                        <a className={classes.link} href="https://www.algolia.com/">
+                        <img src={algoliaLogo} style={{height: '50px', width: '100px'}}/>
+                        </a>
+                        <Grid item xs={1}></Grid>
+                    </Grid>
+                </Grid>
             </Grid>
             {/* <div align="center">
                 {isSearchStalled ? <CircularProgress /> : ''}
