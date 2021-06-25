@@ -8,7 +8,7 @@ export default function NoResults() {
               No results found
             </Typography>   
             <Typography variant="h6">
-              Try a different search term or filter!
+              Try a different search term or filter.
             </Typography>   
         </div>
     )

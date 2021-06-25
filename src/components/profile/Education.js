@@ -34,7 +34,7 @@ function Education({ userData, enableEdit }) {
         if (enableEdit) {
             return (
                 <div align="center">
-                    <Tooltip title="Add education" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                    <Tooltip title="Add education" TransitionComponent={Zoom} TransitionProps={{ timeout: 300 }}>
                         <IconButton onClick={() => setOpen(true)} size="medium">
                             <AddCircleOutlineIcon color="primary" fontSize="large" />
                         </IconButton> 

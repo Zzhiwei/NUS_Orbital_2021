@@ -40,7 +40,7 @@ function Experience({ userData, enableEdit }) {
         if (enableEdit) {
             return (
                 <div align="center">
-                    <Tooltip title="Add an experience" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                    <Tooltip title="Add an experience" TransitionComponent={Zoom} TransitionProps={{ timeout: 300 }}>
                         <IconButton onClick={() => setOpen(true)} size="medium">
                             <AddCircleOutlineIcon color="primary" fontSize="large" />
                         </IconButton> 

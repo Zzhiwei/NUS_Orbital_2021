@@ -1,5 +1,5 @@
 import { Grid, Button } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
 import PostCard from '../cards/PostCard'
 import NoResults from './NoResults'
