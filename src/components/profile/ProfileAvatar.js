@@ -55,7 +55,7 @@ export default function ProfileAvatar({ userData, enableEdit}) {
     const renderCameraIcon = () => {
         if (enableEdit) {
             return (
-                <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }} placement="right">
+                <Tooltip title="Change Profile Picture" TransitionComponent={Zoom} TransitionProps={{ timeout: 300 }} placement="right">
                     <IconButton className={classes.avatarOptions} size="small" onClick={handleCropperOpen}>
                         <CropOriginalIcon color="primary"  fontSize="large" />
                     </IconButton>

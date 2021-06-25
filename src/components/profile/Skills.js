@@ -44,7 +44,7 @@ export default function Skills({ userData, enableEdit }) {
     const renderEdit = () => {
         if (enableEdit) {
             return (
-                <Tooltip title="Edit Skills" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 600 }}>
+                <Tooltip title="Edit Skills" placement="right" TransitionComponent={Zoom} TransitionProps={{ timeout: 300 }}>
                     <IconButton onClick={() => setOpen(true)}>
                         <EditIcon  color="primary"/>
                     </IconButton>

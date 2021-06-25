@@ -179,20 +179,24 @@ function Layout(props) {
                         </Tooltip>
                     </Link>
                     <Link to="/chat">
-                        <IconButton className={classes.chatButton} aria-label="go to my chats" color="primary">
-                            <ForumIcon className={classes.chat} />
-                        </IconButton>
+                        <Tooltip title="Go to chats">
+                            <IconButton className={classes.chatButton} aria-label="go to my chats" color="primary">
+                                <ForumIcon className={classes.chat} />
+                            </IconButton>
+                        </Tooltip>
                     </Link>
-                    <IconButton
-                        edge="end"
-                        aria-label="account of current user"
-                        aria-controls={'primary-search-account-menu'}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}
-                        color="inherit"
-                    >
-                    <Avatar src={currentUserData.profilePicture} className={classes.layoutAvatar}/> 
-                    </IconButton>
+                    <Tooltip title="Open Menu">
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={'primary-search-account-menu'}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <Avatar src={currentUserData.profilePicture} className={classes.layoutAvatar}/> 
+                        </IconButton>
+                    </Tooltip>
                     {renderMenu}
                   </div>
             )

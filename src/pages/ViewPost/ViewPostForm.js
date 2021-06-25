@@ -279,33 +279,37 @@ export default function ViewPostForm({ setKey, data })  {
                             </div>
                         </div>
                     </div>
-                    { currentUser &&
                     <div className={classes.buttonBox}>
-                        <Button 
-                            variant="contained" 
-                            style={{color: "white", backgroundColor: "green", minWidth: "135.45px"}}
-                            startIcon={<ForumIcon />}
-                            onClick={handleChat}
-                        >
-                            Chat
-                        </Button>
-                        <Button 
-                            variant="contained" 
-                            color={bookmarked ? "secondary" : "primary"} 
-                            onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}
-                            startIcon={bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-                        >
-                            { bookmarked ? "Unbookmark" : "Bookmark" }
-                        </Button>
-                        <Button 
-                            variant="contained" 
-                            style={{color: "white", backgroundColor: "purple", minWidth: "135.45px"}}
-                            startIcon={<ShareIcon />}
-                        >
-                            Share
-                        </Button>
+                        { currentUser && currentUser.uid !== author &&
+                                <Button 
+                                    variant="contained" 
+                                    style={{color: "white", backgroundColor: "green", minWidth: "135.45px"}}
+                                    startIcon={<ForumIcon />}
+                                    onClick={handleChat}
+                                >
+                                    Chat
+                                </Button>
+                        }
+                         { currentUser && 
+                            <>
+                            <Button 
+                                variant="contained" 
+                                color={bookmarked ? "secondary" : "primary"} 
+                                onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}
+                                startIcon={bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+                            >
+                                { bookmarked ? "Unbookmark" : "Bookmark" }
+                            </Button>
+                            <Button 
+                                variant="contained" 
+                                style={{color: "white", backgroundColor: "purple", minWidth: "135.45px"}}
+                                startIcon={<ShareIcon />}
+                            >
+                                Share
+                            </Button>
+                            </>
+                         }   
                     </div>
-                    }
                     <Divider />
                     <div className={classes.pageBody}>
                         <Typography variant="h6">

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect} from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch, Configure } from 'react-instantsearch-dom';
 import SearchBox from '../components/homepage/SearchBox'
@@ -7,17 +7,25 @@ import InfiniteHits from '../components/homepage/InfiniteHits'
 import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
 
-const searchClient = algoliasearch(
-  process.env.REACT_APP_ALGOLIA_APP_ID,
-  process.env.REACT_APP_ALGOLIA_API_KEY
-);
+
 
 export default function Home({autoScrollToTop}) {
     console.log("rerendering home")
+
+    const searchClient = algoliasearch(
+        process.env.REACT_APP_ALGOLIA_APP_ID,
+        process.env.REACT_APP_ALGOLIA_API_KEY
+      );
     
     function scrollToTop() {
             autoScrollToTop.current && autoScrollToTop.current.scrollIntoView(false)
     }
+
+    useEffect(() => {
+        return () => {
+            console.log("unmounting home")
+        }
+    }, [])
 
     return (
             <div style={{marginTop: "40px"}}>
