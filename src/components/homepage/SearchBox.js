@@ -64,17 +64,7 @@ function SearchBox({ isSearchStalled, refine }) {
                                 <SearchIcon />
                                 </InputAdornment>
                             ),
-                            endAdornment: (
-                                <Tooltip title="search engine powered by algolia">
-                                    <InputAdornment position="end">
-                                        {/* <PoweredBy
-                                            translations={{
-                                                searchBy: '',
-                                            }}
-                                        /> */}
-                                    </InputAdornment>
-                                </Tooltip>
-                            ),
+                            
                             className: classes.input
                         }}
                         inputProps={{
@@ -105,7 +95,7 @@ function SearchBox({ isSearchStalled, refine }) {
                         <span style={{marginBottom: '12px', marginRight: '5px'}}>
                         Search by
                         </span>
-                        <a className={classes.link} href="https://www.algolia.com/">
+                        <a target="_blank" className={classes.link} href="https://www.algolia.com/">
                         <img src={algoliaLogo} style={{height: '40px', width: '80px'}}/>
                         </a>
                         <Grid item xs={1}></Grid>
