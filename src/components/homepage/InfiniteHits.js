@@ -5,7 +5,7 @@ import PostCard from '../cards/PostCard'
 import NoResults from './NoResults'
 import { BookmarkSnackBar, UnbookmarkSnackBar } from '../SnackBar'
 
-function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext }) {
+function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) {
     
     const [openB, setOpenB] = useState(false)
     const [openUb, setOpenUb] = useState(false)

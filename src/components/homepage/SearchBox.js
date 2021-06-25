@@ -90,7 +90,10 @@ function SearchBox({ isSearchStalled, refine }) {
                 </Button>
                 
             </Grid>
-            {isSearchStalled ? <CircularProgress /> : ''}
+            {/* <div align="center">
+                {isSearchStalled ? <CircularProgress /> : ''}
+            </div> */}
+            
         </form>
     )
 }
