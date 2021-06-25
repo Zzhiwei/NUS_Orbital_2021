@@ -66,7 +66,7 @@ export default function FilterSidebar({ scrollToTop }) {
                     setResetFunctions={setResetFunctions}
                     scrollToTop={scrollToTop}
                     attribute="category" 
-                    customItems={["All", "Competition", "Project"]} 
+                    customItems={["All", "Competition", "Project", "Leisure Activity"]} 
                 />
             </AccordionWrapper>
             <AccordionWrapper title="Type">
@@ -74,7 +74,7 @@ export default function FilterSidebar({ scrollToTop }) {
                     setResetFunctions={setResetFunctions}
                     scrollToTop={scrollToTop}
                     attribute="type"
-                    customItems={["All", "Business", "IT & Software", "Photography and Film", "Music", "Health & Fitness", "Sciences", "Others"]}
+                    customItems={["All", "Business", "IT & Software", "Photography & Film", "Arts & Crafts", "Music", "Health & Fitness", "Sports", "Gaming", "Volunteer Work", "Others"]}
                 />
             </AccordionWrapper>
             <AccordionWrapper title="Location">
@@ -82,7 +82,7 @@ export default function FilterSidebar({ scrollToTop }) {
                     setResetFunctions={setResetFunctions}
                     scrollToTop={scrollToTop} 
                     attribute="location" 
-                    customItems={["All", "Online", "In-Person"]} 
+                    customItems={["All", "Online", "North", "South", "East", "West"]} 
                 />
             </AccordionWrapper>
             <AccordionWrapper title="Education Level">

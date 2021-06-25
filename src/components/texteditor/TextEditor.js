@@ -25,7 +25,7 @@ export default function TextEditor({ editorState, setEditorState, uid }) {
                         console.log(error)
                     },
                     (complete) => {
-                        storage.ref('images').child(file.name).getDownloadURL().then(
+                        storage.ref(`images/${uid}`).child(file.name).getDownloadURL().then(
                             (url) => {
                                 resolve(url)
                             }
@@ -70,7 +70,7 @@ export default function TextEditor({ editorState, setEditorState, uid }) {
                 image: { 
                     uploadCallback: uploadImage, 
                     previewImage: true,
-                    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg', 
+                    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg,image/jfif'
                 }
             }}
         />

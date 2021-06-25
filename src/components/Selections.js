@@ -1,16 +1,20 @@
 export const type = () => ([
     {id: 1, value: "Business"},
     {id: 2, value: "IT & Software"},
-    {id: 3, value: "Photography and Film"},
-    {id: 4, value: "Music"},
-    {id: 5, value: "Health & Fitness"},
-    {id: 6, value: "Sciences"},
-    {id: 7, value: "Others"}
+    {id: 3, value: "Photography & Film"},
+    {id: 4, value: "Arts & Crafts"},
+    {id: 5, value: "Music"},
+    {id: 6, value: "Health & Fitness"},
+    {id: 7, value: "Sports"},
+    {id: 8, value: "Gaming"},
+    {id: 9, value: "Volunteer Work"},
+    {id: 10, value: "Others"},
 ])
 
 export const category = () => ([
-    {id: 1, value: "Project"},
-    {id: 2, value: "Competition"},
+    {id: 1, value: "Leisure Activity"},
+    {id: 2, value: "Project"},
+    {id: 3, value: "Competition"},
 ])
 
 export const groupSize = () => ([
@@ -28,7 +32,10 @@ export const groupSize = () => ([
 
 export const location = () => ([
     {id: 1, value: "Online"},
-    {id: 2, value: "In-Person"},
+    {id: 2, value: "North"},
+    {id: 3, value: "South"},
+    {id: 4, value: "East"},
+    {id: 5, value: "West"}, 
 ])
 
 export const education = () => ([
