@@ -78,65 +78,64 @@ export default function Homepage() {
     }
   }
   
-  function render() {
-    if (!currentUser) {
-      return <Home />
-    }
-    return (
-      <div >
-        <div ref={autoScrollToTop}></div>
-        <AppBar className={classes.appbar} elevation={0}>
-          <Container>
-          
-           <div style={{display: 'flex'}}>
-              <button className={selected === 0 ? classes.selectedBtn : classes.btn} onClick={handleExplore}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <ExploreIcon style={{marginRight: '5px'}}/>
-                  <Typography variant="h6">
-                    Explore
-                  </Typography>
-                  
-                </div>
-              </button>
-              <button className={selected === 1 ? classes.selectedBtn : classes.btn} onClick={handleBookmarks}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <BookmarksIcon style={{marginRight: '5px'}}/>
-                  <Typography variant="h6" >
-                    Bookmarks
-                  </Typography>
-                </div>
-              </button>
-              <button className={selected === 2 ? classes.selectedBtn : classes.btn} onClick={handleMyposts}>
-                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                  <AllInboxRoundedIcon style={{marginRight: '5px'}}/>
-                  <Typography variant="h6" >
-                    My Posts
-                  </Typography>
-                </div>
-              </button>
-              
-            </div>
+
+  return (
+    <>
+      <div ref={autoScrollToTop}></div>
+      {!currentUser && <Home autoScrollToTop={autoScrollToTop}/>}
+      {currentUser && (
+        <div >
+          <AppBar className={classes.appbar} elevation={0}>
+            <Container>
             
-          </Container>
+            <div style={{display: 'flex'}}>
+                <button className={selected === 0 ? classes.selectedBtn : classes.btn} onClick={handleExplore}>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <ExploreIcon style={{marginRight: '5px'}}/>
+                    <Typography variant="h6">
+                      Explore
+                    </Typography>
+                    
+                  </div>
+                </button>
+                <button className={selected === 1 ? classes.selectedBtn : classes.btn} onClick={handleBookmarks}>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <BookmarksIcon style={{marginRight: '5px'}}/>
+                    <Typography variant="h6" >
+                      Bookmarks
+                    </Typography>
+                  </div>
+                </button>
+                <button className={selected === 2 ? classes.selectedBtn : classes.btn} onClick={handleMyposts}>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <AllInboxRoundedIcon style={{marginRight: '5px'}}/>
+                    <Typography variant="h6" >
+                      My Posts
+                    </Typography>
+                  </div>
+                </button>
+                
+              </div>
+              
+            </Container>
 
-        </AppBar>
-     
-      <Switch>
-        <Route exact path={path}>
-          <Home 
-            autoScrollToTop={autoScrollToTop}
-          />
-        </Route>
-        <Route exact path={`${path}/myposts`} >
-          <MyPosts selected={selected} setSelected={setSelected} />
-        </Route>
-        <Route path={`${path}/bookmarks`}>
-          <MyBookmarks selected={selected} setSelected={setSelected} />
-        </Route>
-      </Switch>
-    </div>
-    )
-  }
-
-  return render()
+          </AppBar>
+      
+        <Switch>
+          <Route exact path={path}>
+            <Home 
+              autoScrollToTop={autoScrollToTop}
+            />
+          </Route>
+          <Route exact path={`${path}/myposts`} >
+            <MyPosts selected={selected} setSelected={setSelected} />
+          </Route>
+          <Route path={`${path}/bookmarks`}>
+            <MyBookmarks selected={selected} setSelected={setSelected} />
+          </Route>
+        </Switch>
+      </div>
+      )}
+    </>
+  )
 }
