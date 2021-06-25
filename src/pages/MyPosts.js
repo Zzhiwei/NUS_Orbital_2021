@@ -62,7 +62,7 @@ export default function MyPosts({ selected, setSelected }) {
         }
         await fetch()
         setRender(true)
-    }, [currentUserData.posts, currentUser, history])
+    }, [6, currentUser, history])
 
     const renderContent = () => {
         if (!render) {

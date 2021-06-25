@@ -83,7 +83,9 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
         console.log(src)
         const first = src.indexOf('%2F') + 3
         const last = src.indexOf('?')
-        images.push(src.slice(first, last))
+        const sliced = src.slice(first, last)
+        const index = sliced.indexOf('%2F') + 3
+        images.push(sliced.slice(index))
       }
     }
 
