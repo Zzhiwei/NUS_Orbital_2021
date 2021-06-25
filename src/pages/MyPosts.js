@@ -5,7 +5,7 @@ import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
-import { useHistory }  from 'react-router-dom'
+import { useHistory, Link }  from 'react-router-dom'
 import firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => {
@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => {
             position: 'absolute',
             left: '50%',
             top: '50%',
+        },
+        link: {
+            marginLeft: '7px',
+            textDecoration: 'none',
+            color: 'black',
+            fontSize: '23px'
         }
     }
 });
@@ -81,7 +87,12 @@ export default function MyPosts({ selected, setSelected }) {
                                 No posts
                             </Typography>
                             <Typography variant="h6">
-                                Try creating some posts by clicking the + icon at the top right of the page
+                                You can create post 
+                                <Link to="/newpost" className={classes.link}>
+                                    <b>
+                                    here
+                                    </b>
+                                </Link>
                             </Typography>
                         </div>
                     }       

@@ -5,7 +5,7 @@ import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import { useHistory }  from 'react-router-dom'
+import { useHistory, Link }  from 'react-router-dom'
 import firebase from 'firebase/app';
 import { UnbookmarkSnackBar } from '../components/SnackBar'
 
@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => {
             position: 'absolute',
             left: '50%',
             top: '50%',
+        },
+        link: {
+            marginLeft: '7px',
+            textDecoration: 'none',
+            color: 'black',
+            fontSize: '23px'
         }
     }
 });
@@ -85,7 +91,13 @@ export default function MyBookmarks({ selected, setSelected }) {
                             No bookmarked posts
                         </Typography>
                         <Typography variant="h6">
-                            Try bookmarking some posts from the Explore page
+                            You can bookmark posts from the 
+                            <Link to="/" className={classes.link}>
+                                <b>
+                                    explore page
+                                </b>
+                            </Link>
+                            
                         </Typography>
                     </div>
                 }
