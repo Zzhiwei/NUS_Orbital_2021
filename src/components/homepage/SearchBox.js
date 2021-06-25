@@ -102,11 +102,11 @@ function SearchBox({ isSearchStalled, refine }) {
                
                 <Grid item xs={8}>
                     <Grid container  justify="flex-end" alignItems="flex-end">
-                        <span style={{marginBottom: '16px', marginRight: '5px'}}>
+                        <span style={{marginBottom: '12px', marginRight: '5px'}}>
                         Search by
                         </span>
                         <a className={classes.link} href="https://www.algolia.com/">
-                        <img src={algoliaLogo} style={{height: '50px', width: '100px'}}/>
+                        <img src={algoliaLogo} style={{height: '40px', width: '80px'}}/>
                         </a>
                         <Grid item xs={1}></Grid>
                     </Grid>
