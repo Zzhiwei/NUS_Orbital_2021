@@ -21,11 +21,6 @@ export default function Home({autoScrollToTop}) {
             autoScrollToTop.current && autoScrollToTop.current.scrollIntoView(false)
     }
 
-    useEffect(() => {
-        return () => {
-            console.log("unmounting home")
-        }
-    }, [])
 
     return (
             <div style={{marginTop: "40px"}}>
