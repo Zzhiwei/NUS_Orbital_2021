@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const PartC = ({ values, setValues, setActiveStep, editorState, setEditorState }) => {
+export const PartC = ({ values, setValues, setActiveStep, editorState, setEditorState, uid }) => {
 
   const classes = useStyles()
   const [open, setOpen] = useState(false)
@@ -69,10 +69,25 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
       end,
       current,
       total,
-      description
+      description,
     } = values
 
     const commitment = start.toString().substring(4,15) + " - " + end.toString().substring(4,15)
+
+    let images = []
+
+    async function setImages() {
+      const entityMap = description.entityMap
+      for (const entity in entityMap) {
+        const src = entityMap[entity].data.src
+        console.log(src)
+        const first = src.indexOf('%2F') + 3
+        const last = src.indexOf('?')
+        images.push(src.slice(first, last))
+      }
+    }
+
+    await setImages() 
 
     setLoading(true)
     
@@ -95,11 +110,12 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
     })
     .then(
       post => {
+        const postObj = { id: post.id, imageuid: uid, images: images }
         docRef.update({
-          posts: firebase.firestore.FieldValue.arrayUnion(post.id)
+          posts: firebase.firestore.FieldValue.arrayUnion(postObj)
         })
         const posts = [...currentUserData.posts]
-        posts.push(post.id)
+        posts.push(postObj)
         console.log("deleted post")
         setCurrentUserData({
             ...currentUserData, 
@@ -110,7 +126,7 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
     history.push('/loading')
   }
 
-  const props = { editorState, setEditorState }
+  const props = { editorState, setEditorState, uid }
 
   return(
         <Container component="main">

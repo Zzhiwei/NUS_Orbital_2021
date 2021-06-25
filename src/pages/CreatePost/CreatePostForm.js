@@ -6,10 +6,11 @@ import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../../components/Copyright';
 import PageHeader from '../../components/PageHeader';
 import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { EditorState } from 'draft-js'
 import { useAuth } from '../../contexts/AuthContext'
 import { useHistory }  from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,10 +63,15 @@ export const CreatePost = () => {
   const { currentUser } = useAuth()
   const history = useHistory()
   const [editorState, setEditorState] = useState(EditorState.createEmpty())
+  const [uid, setUid] = useState(0)
 
   if (!currentUser) {
     history.push('/login')
   }
+
+  useEffect(() => {
+    setUid(uuidv4())
+  }, [])
 
   const {
     values,
@@ -75,7 +81,7 @@ export const CreatePost = () => {
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, editorState, setEditorState }
+  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, editorState, setEditorState, uid }
 
   function getStepContent(step) {
     switch(step) {
