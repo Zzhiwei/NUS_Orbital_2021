@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { connectSearchBox } from 'react-instantsearch-dom'
-import { Grid, TextField, Button, InputAdornment, makeStyles, CircularProgress } from '@material-ui/core'
+import { connectSearchBox, PoweredBy } from 'react-instantsearch-dom'
+import { Grid, TextField, Tooltip, Button, InputAdornment, makeStyles, CircularProgress } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
+
+
 
 const useStyles = makeStyles(() => {
     return {
@@ -55,6 +57,17 @@ function SearchBox({ isSearchStalled, refine }) {
                                 <SearchIcon />
                                 </InputAdornment>
                             ),
+                            endAdornment: (
+                                <Tooltip title="search engine powered by algolia">
+                                    <InputAdornment position="end">
+                                        <PoweredBy
+                                            translations={{
+                                                searchBy: '',
+                                            }}
+                                        />
+                                    </InputAdornment>
+                                </Tooltip>
+                            ),
                             className: classes.input
                         }}
                         inputProps={{
@@ -75,6 +88,7 @@ function SearchBox({ isSearchStalled, refine }) {
                 >
                     Reset
                 </Button>
+                
             </Grid>
             {isSearchStalled ? <CircularProgress /> : ''}
         </form>
