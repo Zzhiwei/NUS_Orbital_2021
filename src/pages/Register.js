@@ -62,6 +62,11 @@ function Register() {
     const [confirmPassowrd, setConfirmPassword] = useState('');
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    const [firstNamError, setFirstNameError] = useState(false)
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+
+    
 
     const onEmailChange = (e) => {
         setEmail(e.target.value)
@@ -83,12 +88,28 @@ function Register() {
         setLastName(e.target.value)
     }
 
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setFirstNameError(false)
+        setEmailError(false)
+        setPasswordError(false)
+
+        if (!firstName) {
+            setError("First name cannot be empty")
+            return setFirstNameError(true)
+        }
+
+        if (!email) {
+            setError("Email cannot be empty")
+            return setEmailError(true)
+        }
 
         if (password !== confirmPassowrd) {
+            setPasswordError(true)
             return setError("Passwords do not match")
         }
+
 
         try {
             setLoading(true)
@@ -113,10 +134,17 @@ function Register() {
             
             history.push('/home')
         } catch (err) {
+            if (err.message === "The email address is badly formatted.") {
+                setError(err.message)
+                setEmailError(true)
+                return setLoading(false)
+            }
+            setPasswordError(true)
             setError(err.message)
+            setLoading(false)
         }
 
-        setLoading(false)
+        
     }
 
     return (
@@ -134,31 +162,31 @@ function Register() {
                     <Grid item xs={12} sm={6}>
                         <Typography className={classes.label}>First name</Typography>
                         <FormControl className={classes.field} variant="outlined">
-                            <OutlinedInput id="firstName" value={firstName} onChange={onFirstNameChange} />
+                            <OutlinedInput error={firstNamError} id="firstName" value={firstName} onChange={onFirstNameChange} />
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <Typography className={classes.label}>Last name</Typography>
                         <FormControl className={classes.field} variant="outlined">
-                            <OutlinedInput id="lastName" value={lastName} onChange={onLastNameChange} />
+                            <OutlinedInput  id="lastName" value={lastName} onChange={onLastNameChange} />
                         </FormControl>    
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.label}>Email</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <OutlinedInput type="email" id="email" onChange={onEmailChange} value={email}/>
+                            <OutlinedInput error={emailError} type="email" id="email" onChange={onEmailChange} value={email}/>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography className={classes.label}>Password</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <OutlinedInput required type="password" id="password" onChange={onPasswordChange} value={password}/>
+                            <OutlinedInput error={passwordError} required type="password" id="password" onChange={onPasswordChange} value={password}/>
                         </FormControl>
                     </Grid>                                           
                     <Grid item xs={12}>
                         <Typography className={classes.label}>Confirm password</Typography>
                         <FormControl fullWidth className={classes.field} variant="outlined">
-                            <OutlinedInput required type="password" id="confirmPassword" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
+                            <OutlinedInput error={passwordError} required type="password" id="confirmPassword" onChange={onConfirmPasswordChange} value={confirmPassowrd} />
                         </FormControl>
                     </Grid> 
                 </Grid>
