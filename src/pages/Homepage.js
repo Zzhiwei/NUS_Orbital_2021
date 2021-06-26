@@ -21,7 +21,9 @@ const useStyles = makeStyles((theme) => {
         position: 'sticky',
         top: "64px",
         height: '50px',
-        backgroundColor: 'rgb(222, 209, 193)',
+        // backgroundColor: 'rgb(222, 209, 193)',
+        backgroundColor: '#eee7d7',
+        // backgroundImage: 'linear-gradient(to right, , #d9bda5)',
         borderBottom: '1px solid rgb(0, 0, 0, 0.1)',
       },
       btn: {
@@ -30,10 +32,12 @@ const useStyles = makeStyles((theme) => {
         height: '50px',
         width: '200px',
         border: '0px',
-        backgroundColor: 'rgb(222, 209, 193)',
+        // backgroundColor: 'rgb(222, 209, 193)',
+        backgroundColor: '#eee7d7',
         textTransform: 'none',
         '&:hover': {
-            background: "#c3aa94"
+            // background: "#c3aa94"
+            background: '#e5decf'
         },
       },
       selectedBtn: {

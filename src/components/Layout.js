@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
+import logo from '../assets/Logo.png'
 
 const useStyles = makeStyles(theme => { 
     return {
@@ -96,6 +97,12 @@ const useStyles = makeStyles(theme => {
         },
         gutters: {
             padding: '0px'
+        },
+        appbar: {
+            // backgroundColor: '#d9bda5',
+            // backgroundColor: 'rgb(71, 135, 235)',
+            height: '64px',
+            backgroundImage: 'linear-gradient(to right, #d9bda5,  #eee7d7)'
         }
     }    
 });
@@ -236,13 +243,19 @@ function Layout(props) {
   
     return (
         <div>
-                    <AppBar  elevation={1}  style={{backgroundColor: '#d9bda5', height: '64px'}}> 
+                    <AppBar  elevation={1}  className={classes.appbar} > 
                         <Container>
-                            <Toolbar classes={{
+                            <Toolbar 
+                                classes={{
                                 gutters: classes.gutters
-                            }}>                                      
-                                <Link to="/" style={{textDecoration: 'none'}}>
-                                    <Typography 
+                                }}
+                                style={{
+                                    display: 'flex'
+                                }}
+                            >
+                                <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
+                                    <img src={logo} style={{height: "54px"}} />
+                                    {/* <Typography 
                                         // color="primary"
                                         variant='h4'
                                         style={{
@@ -250,7 +263,7 @@ function Layout(props) {
                                         }}
                                     >
                                         partnerUp           
-                                    </Typography> 
+                                    </Typography>  */}
                                 </Link>
                                 
                                 <span className={classes.title}></span>
