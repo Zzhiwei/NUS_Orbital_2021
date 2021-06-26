@@ -51,7 +51,7 @@ export const EditPostForm = ({ data }) => {
   const history = useHistory()
   const [docRef, setDocRef] = useState(null)
   const [render, setRender] = useState(false)
-
+  const uid = data.imageuid
   const contentState = convertFromRaw(data.description)
   const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState))
 
@@ -98,7 +98,7 @@ export const EditPostForm = ({ data }) => {
     handleInputChange
   } = useForm(initialFValues)
 
-  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, docRef, editorState, setEditorState }
+  const props = { values, setValues, errors, setErrors, handleInputChange, setActiveStep, docRef, editorState, setEditorState, uid }
 
   function getStepContent(step) {
     switch(step) {

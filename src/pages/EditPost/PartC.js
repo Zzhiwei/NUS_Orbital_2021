@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Container, makeStyles, Button, CircularProgress } from "@material-ui/core";
+import { Container, makeStyles, Button } from "@material-ui/core";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useHistory }  from 'react-router-dom'
+import { storage } from '../../firebase'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import TextEditor from "../../components/texteditor/TextEditor";
 import { convertToRaw } from "draft-js";
-import LoadingPage from "../LoadingPage";
 
 const useStyles = makeStyles(theme => ({
   editor: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, setEditorState }) => {
+export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, setEditorState, uid }) => {
 
   const classes = useStyles()
   const [open, setOpen] = useState(false)
@@ -70,6 +70,29 @@ export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, s
 
     const commitment = start.toString().substring(4,15) + " - " + end.toString().substring(4,15)
 
+    let images = []
+
+    const entityMap = description.entityMap
+    for (const entity in entityMap) {
+      const src = entityMap[entity].data.src
+      const first = src.indexOf('%2F') + 3
+      const last = src.indexOf('?')
+      const sliced = src.slice(first, last)
+      const index = sliced.indexOf('%2F') + 3
+      images.push(sliced.slice(index))
+    }
+
+    const storageRef = storage.ref(`images/${uid}`)
+    storageRef.listAll()
+      .then(res => {
+        res.items.forEach(file => {
+          if (!images.includes(file.name)) {
+            console.log('deleting ' + file.name)
+            storageRef.child(file.name).delete()
+          }
+        })
+       })
+
     setLoading(true)
     
     docRef.update({
@@ -85,13 +108,14 @@ export const PartC = ({ values, setValues, setActiveStep, docRef, editorState, s
       current,
       total,
       description,
+      images,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     })
 
     history.push('/loading')
   }
 
-  const props = { editorState, setEditorState }
+  const props = { editorState, setEditorState, uid }
 
   return(
         <Container component="main" maxWidth="sm">

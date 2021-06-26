@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function AdminCard({ data }) {
 
-    const { id, timestamp, } = data;
+    const { id, timestamp, imageuid, images } = data;
     const classes = useStyles();
     const { currentUser, currentUserData, setCurrentUserData } = useAuth();
     const history = useHistory()
@@ -46,14 +46,11 @@ export default function AdminCard({ data }) {
 
         setDeleting(true)
 
-        const posts = [...currentUserData.posts];
-        const postIDs = posts.map(post => post.id)
-        const index = postIDs.indexOf(id);
-        const imageuid = posts[index].imageuid
-        const images = posts[index].images
+        const posts = [...currentUserData.posts]
+        const index = posts.indexOf(id);
         if (images.length > 0) {
             for (const image of images) {
-                await storage.ref(`images/${imageuid}/${image}`).delete()
+                storage.ref(`images/${imageuid}/${image}`).delete()
             }
         }
         
@@ -69,8 +66,10 @@ export default function AdminCard({ data }) {
                     posts,
                 });
             });
+
         setDeleting(false)
         setConfirmDialog(false)
+        history.push('/home/myposts')
     };
 
     function action() {
@@ -122,7 +121,6 @@ export default function AdminCard({ data }) {
                                 e.preventDefault()
                                 e.stopPropagation()
                                 handleDelete()
-                                history.push('/home/myposts')
                             }} 
                         >
                             Yes
