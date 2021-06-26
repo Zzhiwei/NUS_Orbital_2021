@@ -1,4 +1,4 @@
-import { Button, makeStyles, FormControl, Grid, Typography, OutlinedInput, Box, Container, CssBaseline } from '@material-ui/core';
+import { Button, makeStyles, FormControl, Grid, Typography, OutlinedInput, Container, CssBaseline } from '@material-ui/core';
 import { useHistory, Link }  from 'react-router-dom';
 import React, { useState } from 'react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -6,7 +6,6 @@ import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext'
 import Alert from '@material-ui/lab/Alert';
 import { db } from '../firebase'
-import Copyright from '../components/Copyright'
 import PageHeader from '../components/PageHeader';
 
 
@@ -210,9 +209,6 @@ function Register() {
                     </Grid>
                 </Grid>
             </form>
-            <Box align="center" mt={5}>
-                <Copyright />
-            </Box>
     </Container>
     );
   }

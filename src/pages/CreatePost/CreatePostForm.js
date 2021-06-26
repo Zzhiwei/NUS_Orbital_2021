@@ -3,7 +3,6 @@ import { PartA } from './PartA'
 import { PartB } from './PartB'
 import { PartC } from './PartC'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
-import Copyright from '../../components/Copyright';
 import PageHeader from '../../components/PageHeader';
 import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
 import { useState, useEffect } from 'react';
@@ -116,7 +115,6 @@ export const CreatePost = () => {
         </Stepper>
         {getStepContent(activeStep)}
       </div>
-      <Copyright />
     </main>  
    
   )

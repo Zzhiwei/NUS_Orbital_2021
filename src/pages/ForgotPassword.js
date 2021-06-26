@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Grid, Box, makeStyles } from '@material-ui/core';
+import { Button, Container, CssBaseline, FormControl, InputLabel, OutlinedInput, Grid, makeStyles } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import { useAuth } from '../contexts/AuthContext';
 import Alert from '@material-ui/lab/Alert';
-import Copyright from '../components/Copyright';
 import PageHeader from '../components/PageHeader';
 
 const useStyles = makeStyles((theme) => ({
@@ -115,9 +114,6 @@ function Login() {
                         Reset
                     </Button>
                 </form>
-                <Box mt={5} align="center">
-                    <Copyright />
-                </Box>
         </Container>
     );
   }

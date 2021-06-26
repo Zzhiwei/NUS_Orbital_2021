@@ -2,11 +2,11 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const handleClose = (event, reason, setOpen) => {
+function handleClose(reason, setOpen) {
     if (reason === 'clickaway') {
-      return;
+        return
     }
-    setOpen(false);
+    setOpen(false)
 }
 
 export function ValidationSnackBar({ open, setOpen, message, autoHideDuration=5000 }) {
@@ -15,9 +15,14 @@ export function ValidationSnackBar({ open, setOpen, message, autoHideDuration=50
         <Snackbar 
             open={open} 
             autoHideDuration={autoHideDuration} 
-            onClose={(event, reason) => handleClose(event, reason, setOpen)}
+            onClose={(reason) => handleClose(reason, setOpen)}
         >
-            <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
+            <MuiAlert 
+                elevation={6} 
+                variant="filled" 
+                onClose={(reason) => handleClose(reason, setOpen)}
+                severity="warning"
+            >
                 {message}
             </MuiAlert>
         </Snackbar>
@@ -31,12 +36,12 @@ export function BookmarkSnackBar({ open, setOpen, autoHideDuration=2000 }) {
         <Snackbar 
             open={open} 
             autoHideDuration={autoHideDuration} 
-            onClose={(event, reason) => handleClose(event, reason, setOpen)}
+            onClose={(reason) => handleClose(reason, setOpen)}
         >
             <MuiAlert 
                 elevation={6} 
                 variant="filled" 
-                onClose={handleClose} 
+                onClose={(reason) => handleClose(reason, setOpen)}
                 severity="success"
             >
                 Post bookmarked!
@@ -52,12 +57,12 @@ export function UnbookmarkSnackBar({ open, setOpen, autoHideDuration=2000 }) {
         <Snackbar 
             open={open} 
             autoHideDuration={autoHideDuration} 
-            onClose={(event, reason) => handleClose(event, reason, setOpen)}
+            onClose={(reason) => handleClose(reason, setOpen)}
         >
             <MuiAlert 
                 elevation={6} 
                 variant="filled" 
-                onClose={handleClose} 
+                onClose={(reason) => handleClose(reason, setOpen)} 
                 severity="info"
             >
                 Post removed from bookmarks
