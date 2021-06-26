@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => {
             display: 'flex',
         },
         root: {
-            height: '90vh',
             padding: '30px',
             position: 'absolute',
             width: "500px",
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#f6eee3',
-            overflowY: 'scroll'
+            overflowY: 'auto'
         }
 
     }

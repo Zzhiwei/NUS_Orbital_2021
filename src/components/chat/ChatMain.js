@@ -7,7 +7,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import ChatList from './ChatList'
 import ChatBody from './ChatBody'
 import './Chat.css'
-import { SelectionState } from 'draft-js'
+import { db } from "../../firebase";
+
 
 
 const useStyles = makeStyles(theme => {
@@ -32,7 +33,7 @@ const useStyles = makeStyles(theme => {
 export default function ChatMain({setKey}) {
     console.log("rendering chat")
     const history = useHistory()
-    const { currentUser, currentUserData } = useAuth()
+    const { currentUser, currentUserData, setCurrentUserData } = useAuth()
     if (!currentUser) {
         history.push('/login')
     }
@@ -45,6 +46,21 @@ export default function ChatMain({setKey}) {
             : "noChats"
             
     const [currentChat, setCurrentChat] = useState({chatId: current})
+
+    useEffect(() => {
+        const unsubscriber = db.collection("users").doc(currentUser.uid).onSnapshot(doc => {
+            const beforeLen = currentUserData.chats.length
+            const afterLen = doc.data().chats.length
+            if (beforeLen < afterLen) {
+                setCurrentUserData(doc.data())
+            }
+        })
+
+        return () => {
+            unsubscriber()
+        }
+
+    }, [])
     
     return (
         <div className={classes.root}>

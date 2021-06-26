@@ -20,6 +20,7 @@ import {useHistory} from 'react-router-dom'
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import DeleteIcon from '@material-ui/icons/Delete';
+import _ from 'lodash'
 
 
 const useStyles = makeStyles((theme) => {
@@ -50,8 +51,10 @@ export default function ChatBody({ chat, setKey }) {
     const [deleted, setDeleted] = useState(false)
     let unsubscriber = () => null
     const [dialogOpen, setDialogOpen] = useState(false)
+    const [deleting, setDeleting] = useState(false)
     const history = useHistory()
     
+
 
     
 
@@ -85,6 +88,7 @@ export default function ChatBody({ chat, setKey }) {
 
     const handleDeleteChat = async () => {
         // unsubscriber() ...Why is this unsubscriber not working?
+        setDeleting(true)
         iDeleted.current = true
         await db.collection("users").doc(chat.userInfo.otherUserId).update({
             chats: firebase.firestore.FieldValue.arrayRemove(chat.chatId)
@@ -105,11 +109,6 @@ export default function ChatBody({ chat, setKey }) {
         history.push('/chat') 
         setKey((prev) => prev + 1)
         
-        
-        
-        
-        //this is a nice trick of forcing remounting without refreshing
-        // window.location.assign('./chat')
     }
 
     const handleDialogOpen = () => {
@@ -260,7 +259,7 @@ export default function ChatBody({ chat, setKey }) {
                         </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleDeleteChat} color="primary">
+                        <Button disabled={deleting} onClick={handleDeleteChat} color="primary">
                             Yes
                         </Button>
                         <Button onClick={handleDialogClose} color="primary" autoFocus>
@@ -277,13 +276,25 @@ export default function ChatBody({ chat, setKey }) {
     };
 
     async function refresh() {
-        window.location.assign("/chat")
+        setKey(prev => prev + 1)
+        history.push("/chat")
     }
 
     function renderDeleteDialog() {
-        if (!iDeleted.current) {
+        if (deleted && !iDeleted.current) {
+            const chats = [...currentUserData.chats]
+            const index  = chats.indexOf(chat.chatId)
+            chats.splice(index, 1)
+            if (index !== -1) {
+                setCurrentUserData({
+                    ...currentUserData,
+                    chats
+                })
+            }
+         }
+
             return (
-                <Dialog
+                <Dialog 
                     open={deleted}
                     onClose={refresh}
                     aria-labelledby="alert-dialog-title"
@@ -303,7 +314,6 @@ export default function ChatBody({ chat, setKey }) {
                 </Dialog>
             )
         }
-    }
 
     useEffect(() => {
         if (chat.chatId === "noneSelected" || chat.chatId === "noChats") {
@@ -341,7 +351,7 @@ export default function ChatBody({ chat, setKey }) {
         autoScroll.current && autoScroll.current.scrollIntoView();
     }, [renderList]);
 
-
+    
        
     
 

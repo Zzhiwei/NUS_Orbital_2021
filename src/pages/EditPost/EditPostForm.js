@@ -5,7 +5,7 @@ import { PartC } from './PartC'
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
 import Copyright from '../../components/Copyright';
 import PageHeader from '../../components/PageHeader';
-import { makeStyles, Stepper, Step, StepLabel } from '@material-ui/core';
+import { makeStyles, Stepper, CircularProgress, Step, StepLabel } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext'
 import { useHistory }  from 'react-router-dom'
@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0, 5),
     background: "inherit"
+  },
+  loading: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
   },
 }))
 
@@ -115,7 +120,7 @@ export const EditPostForm = ({ data }) => {
 
   const renderContent = () => {
     if (!render) {
-        return <div>Loading...</div>
+        return <CircularProgress className={classes.loading}/>
     }
     return (
       <main className={classes.root}>

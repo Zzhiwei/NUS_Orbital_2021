@@ -78,13 +78,16 @@ export default function ChatListItem({chatId, setCurrentChat, currentChat, chats
                 
             const { messages } = data
             
+            let count = 0
             const filteredMessages = messages.filter(msgObj => {
+                
                 if (msgObj.sender !== currentUser.uid && !msgObj.read) {
                     return true
                 } else {
                     return false
                 }
             })
+
             
            /*
            An attempt to implement to  automatic rearrangement of chat
