@@ -50,7 +50,7 @@ export default function AdminCard({ data }) {
         const index = posts.indexOf(id);
         if (images.length > 0) {
             for (const image of images) {
-                storage.ref(`images/${imageuid}/${image}`).delete()
+                await storage.ref(`images/${imageuid}/${image}`).delete()
             }
         }
         
@@ -61,7 +61,9 @@ export default function AdminCard({ data }) {
             })
             .then(() => {
                 posts.splice(index, 1);
+                console.log("setting currentUserData")
                 setCurrentUserData({
+                    
                     ...currentUserData,
                     posts,
                 });
