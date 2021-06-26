@@ -1,7 +1,7 @@
 import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import BookmarkedCard from '../components/cards/BookmarkedCard';
-import { db } from '../firebase'
+import { db, storage } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
@@ -47,6 +47,7 @@ export default function MyBookmarks({ selected, setSelected }) {
         since every deletions triggers another fetch action
         and for some reason mybookmarks is rendered three times
     */
+
     useEffect(async () => {
         if (!currentUser) {
             return history.push('/login')

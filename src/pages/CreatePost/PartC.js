@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useHistory }  from 'react-router-dom'
-import { db } from '../../firebase'
+import { db, storage } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -76,20 +76,27 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
 
     let images = []
 
-    async function setImages() {
-      const entityMap = description.entityMap
-      for (const entity in entityMap) {
-        const src = entityMap[entity].data.src
-        console.log(src)
-        const first = src.indexOf('%2F') + 3
-        const last = src.indexOf('?')
-        const sliced = src.slice(first, last)
-        const index = sliced.indexOf('%2F') + 3
-        images.push(sliced.slice(index))
-      }
+    const entityMap = description.entityMap
+    for (const entity in entityMap) {
+      const src = entityMap[entity].data.src
+      const first = src.indexOf('%2F') + 3
+      const last = src.indexOf('?')
+      const sliced = src.slice(first, last)
+      const index = sliced.indexOf('%2F') + 3
+      images.push(sliced.slice(index))
     }
 
-    await setImages() 
+
+    const storageRef = storage.ref(`images/${uid}`)
+    storageRef.listAll()
+      .then(res => {
+        res.items.forEach(file => {
+          if (!images.includes(file.name)) {
+            console.log('deleting ' + file.name)
+            storageRef.child(file.name).delete()
+          }
+        })
+       })
 
     setLoading(true)
     
@@ -106,19 +113,19 @@ export const PartC = ({ values, setValues, setActiveStep, editorState, setEditor
       current,
       total,
       description,
+      images,
+      imageuid: uid,
       author: currentUser.uid,
       name: currentUserData.basicInfo.firstName + " " + currentUserData.basicInfo.lastName,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     })
     .then(
       post => {
-        const postObj = { id: post.id, imageuid: uid, images: images }
         docRef.update({
-          posts: firebase.firestore.FieldValue.arrayUnion(postObj)
+          posts: firebase.firestore.FieldValue.arrayUnion(post.id)
         })
         const posts = [...currentUserData.posts]
-        posts.push(postObj)
-        console.log("deleted post")
+        posts.push(post.id)
         setCurrentUserData({
             ...currentUserData, 
             posts

@@ -55,9 +55,9 @@ export default function MyPosts({ selected, setSelected }) {
         async function fetch() {
             let renderList = []
             for (const post of currentUserData.posts) {
-                const postData =  await db.collection("posts").doc(post.id).get().then(res => res.data())
+                const postData =  await db.collection("posts").doc(post).get().then(res => res.data())
                 if (postData) {
-                    renderList.push({...postData, id: post.id})
+                    renderList.push({...postData, id: post})
                 } else {
                     await db.collection("users").doc(currentUser.uid).update({
                         posts: firebase.firestore.FieldValue.arrayRemove(post)
