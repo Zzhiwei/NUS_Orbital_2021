@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
             textDecoration: "underline",
         }
     },
+    root: {
+        marginTop: '40px'
+    }
   }));
 
 function Login() {
@@ -57,6 +60,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+
         try {
             setLoading(true)
             setError('')
@@ -71,7 +75,7 @@ function Login() {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" className={classes.root}>
             <CssBaseline />
             <PageHeader 
                 title="Reset password"
