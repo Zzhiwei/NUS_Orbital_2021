@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { connectSearchBox, PoweredBy } from 'react-instantsearch-dom'
-import { Grid, TextField, Tooltip, Button, InputAdornment, makeStyles, CircularProgress } from '@material-ui/core'
+import { connectSearchBox } from 'react-instantsearch-dom'
+import { Grid, TextField, Button, InputAdornment, makeStyles } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
 
 import algoliaLogo from '../../assets/Algolia-logo.svg'
@@ -95,8 +95,8 @@ function SearchBox({ isSearchStalled, refine }) {
                         <span style={{marginBottom: '12px', marginRight: '5px'}}>
                         Search by
                         </span>
-                        <a target="_blank" className={classes.link} href="https://www.algolia.com/">
-                        <img src={algoliaLogo} style={{height: '40px', width: '80px'}}/>
+                        <a target="_blank" rel="noreferrer" className={classes.link} href="https://www.algolia.com/">
+                        <img src={algoliaLogo} style={{height: '40px', width: '80px'}} alt="algolia-logo"/>
                         </a>
                         <Grid item xs={1}></Grid>
                     </Grid>

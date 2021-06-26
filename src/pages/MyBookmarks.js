@@ -1,7 +1,7 @@
 import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import BookmarkedCard from '../components/cards/BookmarkedCard';
-import { db, storage } from '../firebase'
+import { db } from '../firebase'
 import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';

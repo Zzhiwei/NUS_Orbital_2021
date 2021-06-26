@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, makeStyles } from "@material-ui/core";
 import Controls from "../../components/Controls"
 import * as selections from '../../components/Selections'
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
+import { ValidationSnackBar } from "../../components/SnackBar";
 
 const useStyles = makeStyles(theme => ({
   buttons: {
@@ -35,13 +34,6 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
   const classes = useStyles()
   const { title, type, category, current, total } = values
   const [open, setOpen] = useState(false)
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
 
   const handleNext = () => {
     if (values.current >= values.total) {
@@ -123,11 +115,7 @@ export const PartA = ({ values, errors, setErrors, handleInputChange, setActiveS
                 Next
             </Button>
         </div>
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-          <MuiAlert elevation={6} variant="filled" onClose={handleClose} severity="warning">
-              Current Members cannot be more than or equal to Total Group Size
-          </MuiAlert>
-        </Snackbar>
+       <ValidationSnackBar open={open} setOpen={setOpen} message={"Current members cannot be greater than or equal to total members"}/>
       </>     
   )
 }

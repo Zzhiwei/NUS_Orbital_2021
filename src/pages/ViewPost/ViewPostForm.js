@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, CircularProgress, Box, Container, CssBaseline, makeStyles, Typography, Avatar, Tooltip, Chip, Divider, Button } from '@material-ui/core'
-import Copyright from '../../components/Copyright'
 import { Link, useHistory } from 'react-router-dom'
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -338,9 +337,6 @@ export default function ViewPostForm({ setKey, data })  {
                     <SimilarPosts hit={data} setOpenB={setOpenB} setOpenUb={setOpenUb}/>
                 </aside>
             </Container>
-            <Box style={{marginTop: 50, marginBottom: -30}}>
-                <Copyright />
-            </Box>
             <BookmarkSnackBar open={openB} setOpen={setOpenB}/>
             <UnbookmarkSnackBar open={openUb} setOpen={setOpenUb}/>
             <Modal

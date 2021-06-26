@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Card as MuiCard, CardHeader,  makeStyles, Typography, CircularProgress } from '@material-ui/core';
+import { Avatar, Card as MuiCard, CardHeader,  makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom' 
 import { db } from '../../firebase';
 import 'firebase/firestore';

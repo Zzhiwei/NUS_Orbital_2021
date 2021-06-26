@@ -1,6 +1,5 @@
-import { makeStyles, Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import CreateTwoToneIcon from '@material-ui/icons/CreateTwoTone';
-import Copyright from '../components/Copyright';
 import PageHeader from '../components/PageHeader';
 import PostDetails from './PostDetails';
 
@@ -26,9 +25,6 @@ function NewPost() {
       <div className={classes.pageContent}>
         <PostDetails />
       </div>
-      <Box mt={5} align="center">
-        <Copyright />
-      </Box>
     </>      
   )
 }

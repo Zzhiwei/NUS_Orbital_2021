@@ -6,6 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
 import logo from '../assets/Logo.png'
+import Copyright from './Copyright'
 
 const useStyles = makeStyles(theme => { 
     return {
@@ -254,7 +255,7 @@ function Layout(props) {
                                 }}
                             >
                                 <Link to="/" style={{textDecoration: 'none', display: 'flex', alignItems: 'center'}}>
-                                    <img src={logo} style={{height: "54px"}} />
+                                    <img src={logo} style={{height: "54px"}} alt="logo"/>
                                     {/* <Typography 
                                         // color="primary"
                                         variant='h4'
@@ -276,6 +277,7 @@ function Layout(props) {
                     <div className={classes.toolbarHeight}></div>             
         
             {props.children}
+            <Copyright />
         </div>
     );
   }
