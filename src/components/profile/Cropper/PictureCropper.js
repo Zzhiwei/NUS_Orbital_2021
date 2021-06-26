@@ -94,7 +94,6 @@ export default function PictureCropper({ closeCropper }) {
 		await db.collection('users').doc(currentUser.uid).update({
 			profilePicture: canvasDataUrl
 		})
-		console.log("successfully uploaded picture")
 		setCurrentUserData({
 			...currentUserData,
 			profilePicture: canvasDataUrl
