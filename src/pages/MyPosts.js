@@ -43,8 +43,8 @@ export default function MyPosts({ selected, setSelected }) {
     
     //sends query to backend when first mounting
     useEffect(async () => {
+        console.log("inside useEffect of mypost")
         if (!currentUser) {
-            alert("Please log in first")
             history.push('/login')
         } 
 
@@ -56,19 +56,13 @@ export default function MyPosts({ selected, setSelected }) {
             let renderList = []
             for (const post of currentUserData.posts) {
                 const postData =  await db.collection("posts").doc(post).get().then(res => res.data())
-                if (postData) {
                     renderList.push({...postData, id: post})
-                } else {
-                    await db.collection("users").doc(currentUser.uid).update({
-                        posts: firebase.firestore.FieldValue.arrayRemove(post)
-                    })
-                }
             }
             setPosts(renderList)
         }
         await fetch()
         setRender(true)
-    }, [6, currentUser, history])
+    }, [currentUserData])
 
     const renderContent = () => {
         if (!render) {
