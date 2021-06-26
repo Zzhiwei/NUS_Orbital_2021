@@ -63,7 +63,6 @@ export default function AdminCard({ data }) {
                 posts.splice(index, 1);
                 console.log("setting currentUserData")
                 setCurrentUserData({
-                    
                     ...currentUserData,
                     posts,
                 });
