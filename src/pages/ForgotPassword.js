@@ -52,6 +52,8 @@ function Login() {
     const history = useHistory()
     
     const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = useState(false)
+
 
     const onEmailChange = (e) => {        
         setEmail(e.target.value);
@@ -59,6 +61,12 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setEmailError(false)
+
+        if (!email) {
+            setError("You have not entered an email")
+            return setEmailError(true)
+        }
 
 
         try {
@@ -68,6 +76,7 @@ function Login() {
             alert('check your inbox to complete reset')
             history.push('/login')
         } catch (err) {
+            setEmailError(true)
             setError(err.message)
         }
 
@@ -88,7 +97,7 @@ function Login() {
                         <Grid item xs={12}>
                             <FormControl className={classes.field} variant="outlined" required fullWidth>
                                 <InputLabel htmlFor="component-outlined">Email</InputLabel>
-                                <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} label="Email" />
+                                <OutlinedInput error={emailError} className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} label="Email" />
                             </FormControl>
                         </Grid>
                     </Grid>

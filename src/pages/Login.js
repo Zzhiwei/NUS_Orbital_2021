@@ -55,6 +55,7 @@ function Login() {
     
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [emailError, setEmailError] = useState(false)
     
 
     const onEmailChange = (e) => {        
@@ -67,6 +68,12 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setEmailError(false)
+
+        if (!email) {
+            setError("You have not entered an email")
+            return setEmailError(true)
+        }
         
         try {
             setLoading(true)
@@ -74,6 +81,11 @@ function Login() {
             await login(email, password)
             history.push('/home')
         } catch (err) {
+            if (err.message === "The email address is badly formatted.") {
+                setEmailError(true)
+                setError(err.message)
+                return setLoading(false)
+            }
             setError(err.message)
         }
 
@@ -94,7 +106,7 @@ function Login() {
                         <Grid item xs={12}>
                             <Typography className={classes.label}>Email</Typography>
                             <FormControl className={classes.field} variant="outlined" required fullWidth>
-                                <OutlinedInput className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} />
+                                <OutlinedInput error={emailError} className={classes.input} id="component-outlined" value={email} onChange={onEmailChange} />
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
