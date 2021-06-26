@@ -348,7 +348,7 @@ export default function ChatBody({ chat, setKey }) {
 
 
     useEffect(() => {
-        autoScroll.current && autoScroll.current.scrollIntoView();
+        autoScroll.current && autoScroll.current.scrollIntoView(false);
     }, [renderList]);
 
     
