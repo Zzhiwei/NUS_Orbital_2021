@@ -6,7 +6,6 @@ import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from '../contexts/AuthContext'
 import logo from '../assets/Logo.png'
-import Copyright from './Copyright'
 
 const useStyles = makeStyles(theme => { 
     return {
@@ -277,7 +276,7 @@ function Layout(props) {
                     <div className={classes.toolbarHeight}></div>             
         
             {props.children}
-            <Copyright />
+            
         </div>
     );
   }

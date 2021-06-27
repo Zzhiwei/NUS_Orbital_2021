@@ -9,6 +9,7 @@ import { useHistory, Link }  from 'react-router-dom'
 import firebase from 'firebase/app';
 import { UnbookmarkSnackBar } from '../components/SnackBar'
 
+
 const useStyles = makeStyles((theme) => {
     return {        
         page: {

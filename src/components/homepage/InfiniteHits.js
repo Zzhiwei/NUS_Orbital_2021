@@ -5,6 +5,10 @@ import PostCard from '../cards/PostCard'
 import NoResults from './NoResults'
 import { BookmarkSnackBar, UnbookmarkSnackBar } from '../SnackBar'
 
+import './Masonry.css'
+import Masonry from 'react-masonry-css'
+
+
 function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) {
     
     const [openB, setOpenB] = useState(false)
@@ -28,15 +32,24 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext, 
         return <NoResults />
     }
 
+    const breakpointColumnsObj = {
+        default: 2,
+        992: 1,
+    };
+
+      
     return (
         <div >
-            <Grid container spacing={4} style={{margin: "15px -8px"}} justify="center">
+            <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
                 {hits.map((hit, index) => (
-                    <Grid item xs={12} sm={6} key={index} style={{paddingLeft: 0}}>
+                    <div  key={index} >
                         <PostCard data={hit} setOpenB={setOpenB} setOpenUb={setOpenUb}/>
-                    </Grid>
+                    </div>
                 ))}
-            </Grid>
+            </Masonry>
             {renderLoadMore()}
             <BookmarkSnackBar open={openB} setOpen={setOpenB}/>
             <UnbookmarkSnackBar open={openUb} setOpen={setOpenUb}/>
