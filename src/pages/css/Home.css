@@ -1,0 +1,46 @@
+.homeContainer {
+  display: flex;
+}
+
+.filterbar {
+  flex: 1;
+  margin-right: 2vw;
+}
+
+.posts {
+  flex: 3;
+}
+
+.filterRoot {
+  display: block;
+  position: -webkit-sticky;
+  position: sticky;
+  height: 77vh;
+  /* top: s */
+}
+
+@media screen and (max-width: 992px) {
+  .filterbar {
+    flex: 1;
+
+  }
+
+  .posts {
+    flex: 2;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .homeContainer {
+    display: block;
+  }
+  
+  .filterRoot {
+    height: 35vh;
+    margin-bottom: 20px;
+  }
+
+  .posts {
+    flex: 2;
+  }
+}
