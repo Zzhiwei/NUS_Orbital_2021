@@ -6,6 +6,7 @@ import InfiniteHits from '../components/homepage/InfiniteHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
+import Copyright from '../components/Copyright'
 
 
 
@@ -38,13 +39,14 @@ export default function Home({autoScrollToTop}) {
                     <div style={{flex: 1, marginRight: '2vw'}}>
                         <FilterSidebar scrollToTop={scrollToTop} />
                     </div>
-                    <div style={{flex: 3, height: '5000px'}}>
+                    <div style={{flex: 3}}>
                         <SearchBox /> 
                         <InfiniteHits />
                         
                     </div>
                 </div>
                 </InstantSearch>
+                <Copyright />
                 </Container>
             </div>
     )
