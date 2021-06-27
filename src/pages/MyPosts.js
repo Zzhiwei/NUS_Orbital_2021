@@ -1,4 +1,4 @@
-import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
+import { Grid, makeStyles, CircularProgress, Typography, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import AdminCard from '../components/cards/AdminCard';
 import { db } from '../firebase'
@@ -6,7 +6,10 @@ import { useAuth } from '../contexts/AuthContext'
 import PageHeader from '../components/PageHeader';
 import AllInboxRoundedIcon from '@material-ui/icons/AllInboxRounded';
 import { useHistory, Link }  from 'react-router-dom'
-import firebase from 'firebase/app';
+
+import Masonry from 'react-masonry-css';
+
+import './css/Bookmarks.css'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -40,6 +43,10 @@ export default function MyPosts({ selected, setSelected }) {
     const [posts, setPosts] = useState([]);
     const [render, setRender] = useState(false)
     const history = useHistory()
+    const breakpointColumnsObj = {
+        default: 2,
+        850: 1
+    }
     
     //sends query to backend when first mounting
     useEffect(async () => {
@@ -90,16 +97,22 @@ export default function MyPosts({ selected, setSelected }) {
                             </Typography>
                         </div>
                     }       
-                    <div className={classes.homeResults}>
-                        <Grid container spacing={4}>
-                            {posts.map((data, index) => {
-                                return (
-                                <Grid key={index} item xs={12} md={6}>
-                                    <AdminCard data={data}/>
-                                </Grid>
-                            )})} 
-                        </Grid>
-                    </div>
+                    <Container>
+                        <div className="container">
+                        <Masonry
+                                breakpointCols={breakpointColumnsObj}
+                                className="my-masonry-grid"
+                                columnClassName="my-masonry-grid_column"
+                                >
+                                {posts.map((data, index) => {
+                                    return (
+                                    <Grid key={index} >
+                                        <AdminCard data={data}/>
+                                    </Grid>
+                                )})} 
+                        </Masonry> 
+                        </div>
+                    </Container>
                 </div>
             </div>
         )

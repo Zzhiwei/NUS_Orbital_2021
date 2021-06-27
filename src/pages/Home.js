@@ -8,7 +8,7 @@ import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
 import Copyright from '../components/Copyright'
 
-import './Home.css'
+import './css/Home.css'
 
 
 

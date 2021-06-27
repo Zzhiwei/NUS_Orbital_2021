@@ -1,4 +1,4 @@
-import { Grid, makeStyles, CircularProgress, Typography } from '@material-ui/core';
+import { Grid, makeStyles, CircularProgress, Typography, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import BookmarkedCard from '../components/cards/BookmarkedCard';
 import { db } from '../firebase'
@@ -9,17 +9,14 @@ import { useHistory, Link }  from 'react-router-dom'
 import firebase from 'firebase/app';
 import { UnbookmarkSnackBar } from '../components/SnackBar'
 
+import Masonry from 'react-masonry-css';
+
+import './css/Bookmarks.css'
 
 const useStyles = makeStyles((theme) => {
     return {        
         page: {
             marginTop: theme.spacing(3),
-        },
-        homeResults: {
-            height: '100%',
-            width: '80%',            
-            margin: 'auto auto',
-            padding: theme.spacing(5)
         },
         loading: {
             position: 'absolute',
@@ -43,6 +40,10 @@ export default function MyBookmarks({ selected, setSelected }) {
     const [render, setRender] = useState(false)
     const [open , setOpen] = useState(false)
     const history = useHistory()
+    const breakpointColumnsObj = {
+        default: 2,
+        850: 1
+    }
     /*
         right now it is in working state but not efficient 
         since every deletions triggers another fetch action
@@ -103,16 +104,21 @@ export default function MyBookmarks({ selected, setSelected }) {
                         </Typography>
                     </div>
                 }
-                <div className={classes.homeResults}>
-                    <Grid container spacing={4}>
+                <Container>
+                <div className="container" >
+                    <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className="my-masonry-grid"
+                        columnClassName="my-masonry-grid_column">
                         {posts.map((data, index) => {
                                 return ( 
-                                <Grid item xs={12} md={6} key={index}>
+                                <Grid key={index}>
                                     <BookmarkedCard data={data} setOpen={setOpen}/>
                                 </Grid>
                             )})}
-                    </Grid>
+                    </Masonry>  
                 </div>
+                </Container>
                 <UnbookmarkSnackBar open={open} setOpen={setOpen}/>
             </div>
         )
