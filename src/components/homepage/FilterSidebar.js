@@ -43,7 +43,7 @@ export default function FilterSidebar({ scrollToTop }) {
     }
 
     return (
-        <div   style={{display: 'block', position: '-webkit-sticky', position: 'sticky', top: stickFromTop, height: '77vh', border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px" }}>
+        <div className="filterRoot"  style={{ top: stickFromTop, border: '1px solid rgb(128, 128, 128, 0.12)', overflowY: 'auto', borderRadius: "4px" }}>
             <Paper elevation={2} className={classes.root}>
             <div id="filterHeader" align="center">
                 <Typography  variant="h3" className={classes.title}>

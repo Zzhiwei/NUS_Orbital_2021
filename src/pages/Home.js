@@ -8,6 +8,8 @@ import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
 import Copyright from '../components/Copyright'
 
+import './Home.css'
+
 
 
 export default function Home({autoScrollToTop}) {
@@ -35,11 +37,11 @@ export default function Home({autoScrollToTop}) {
                     hitsPerPage={8}
                 />
                 
-                <div style={{display: 'flex'}}>
-                    <div style={{flex: 1, marginRight: '2vw'}}>
+                <div className="homeContainer" >
+                    <div className="filterbar"  >
                         <FilterSidebar scrollToTop={scrollToTop} />
                     </div>
-                    <div style={{flex: 3}}>
+                    <div className="posts" style={{height: "5000px"}}>
                         <SearchBox /> 
                         <InfiniteHits />
                         
