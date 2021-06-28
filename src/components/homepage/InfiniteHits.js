@@ -39,7 +39,7 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext, 
 
       
     return (
-        <div >
+        <div style={{marginTop: 20}}>
             <Masonry
                 breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"

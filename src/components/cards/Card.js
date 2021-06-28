@@ -27,12 +27,14 @@ const useStyles = makeStyles(theme => {
     }    
 })
 
-export default function Card({ data, action, timeStamp }) {
+export default function Card({ data, action, timeStamp, newTab=false }) {
 
     const { author, id, title, name } = data
     const classes = useStyles();
     const [profilePic, setProfilePic] = useState("unloaded")
     const [hover, setHover] = useState(0)
+    const target = newTab ? "_blank" : ""
+    const rel = newTab ? "noopener noreferrer" : ""
 
     useEffect(() => {
         async function fetchProfilePic() {
@@ -56,7 +58,7 @@ export default function Card({ data, action, timeStamp }) {
     }
     
     return (
-        <Link className={classes.link} to={'/viewpost/' + id} >
+        <Link className={classes.link} to={'/viewpost/' + id} target={target} rel={rel}>
             <MuiCard  
                 onMouseEnter={handleHoverOn}
                 onMouseLeave={handleHoverOff}
