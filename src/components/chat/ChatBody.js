@@ -22,6 +22,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import DeleteIcon from '@material-ui/icons/Delete';
 import _ from 'lodash'
 
+function convertEpochToSpecificTimezone(timeEpoch, offset){
+    var d = new Date(timeEpoch);
+    var utc = d.getTime() + (d.getTimezoneOffset() * 60000);  //This converts to UTC 00:00
+    var nd = new Date(utc + (3600000*offset));
+    return nd.toLocaleString();
+}
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -155,6 +161,8 @@ export default function ChatBody({ chat, setKey }) {
         }
     };
 
+    
+
     function renderMessages() {
         if (!currentUser) {
             return
@@ -162,12 +170,15 @@ export default function ChatBody({ chat, setKey }) {
 
         if (renderList) {
             return renderList.map((x) => {
+                const {time, sender} = x
                 const outgoing =
-                    currentUser.uid === x.sender;
-
+                    currentUser.uid === sender;
+                const alignment = outgoing ? "right" : "left"
+                
+                
                 return (
                     <div
-                        align={outgoing ? "right" : "left"}
+                        align={alignment}
                     >
                         <Paper
                             classes={
@@ -181,8 +192,11 @@ export default function ChatBody({ chat, setKey }) {
                             }
                             className="message"
                         >
-                            <Typography>
+                            <Typography >
                                 {x.content}
+                            </Typography>
+                            <Typography align={alignment} style={{fontSize: '10px', color: 'grey'}}>
+                                {convertEpochToSpecificTimezone(time, 8)}
                             </Typography>
                         </Paper>
                     </div>
