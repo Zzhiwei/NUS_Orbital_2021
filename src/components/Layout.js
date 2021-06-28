@@ -127,6 +127,7 @@ function Layout(props) {
     const handleLogout = async () => {
         try {
             await logout()
+            handleMenuClose()
             history.push('/login')
         } catch (e) {
             alert('failed to log out')
