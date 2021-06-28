@@ -23,10 +23,12 @@ export default function SimilarPosts({ hit, setOpenB, setOpenUb }) {
                 hit={hit}
                 hitsPerPage={3}
                 matchingPatterns={{
-                    type: { score: 4 },
-                    title: { score: 3 },
-                    skills: { score: 2 },
-                    education: { score: 1 },
+                    type: { score: 6 },
+                    title: { score: 5 },
+                    category: { score: 4 },
+                    skills: { score : 3 },
+                    education: { score: 2 },
+                    location: { score: 1 }
                 }}
             />
             <Grid container justify="center">
