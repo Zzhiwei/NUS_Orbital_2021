@@ -282,7 +282,7 @@ export default function ViewPostForm({ setKey, data })  {
                         { currentUser && currentUser.uid !== author &&
                                 <Button 
                                     variant="contained" 
-                                    style={{color: "white", backgroundColor: "green", minWidth: "135.45px"}}
+                                    style={{color: "white", backgroundColor: "yellowgreen", minWidth: "135.45px"}}
                                     startIcon={<ForumIcon />}
                                     onClick={handleChat}
                                 >
@@ -293,15 +293,15 @@ export default function ViewPostForm({ setKey, data })  {
                             <>
                             <Button 
                                 variant="contained" 
-                                color={bookmarked ? "secondary" : "primary"} 
-                                onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark} style={{margin: " 0px 30px"}}
+                                style = {{margin: "0px 30px", color: "white", backgroundColor: bookmarked ? "#f44366" : "skyblue"}}
+                                onClick={bookmarked ? handleRemoveBookmark : handleAddBookmark}
                                 startIcon={bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                             >
                                 { bookmarked ? "Unbookmark" : "Bookmark" }
                             </Button>
                             <Button 
                                 variant="contained" 
-                                style={{color: "white", backgroundColor: "purple", minWidth: "135.45px"}}
+                                style={{color: "white", backgroundColor: "sandybrown", minWidth: "135.45px"}}
                                 startIcon={<ShareIcon />}
                             >
                                 Share
@@ -316,7 +316,7 @@ export default function ViewPostForm({ setKey, data })  {
                         </Typography>
                         <div className={classes.skillsBox}>
                             {chips && chips.map((tag, index) => {
-                                return <Chip key={index} label={tag} style={{backgroundColor: "#027dc5", color: "white", margin: "10px"}} />
+                                return <Chip key={index} label={tag} style={{backgroundColor: "#d4bea8", margin: "10px"}} />
                             })}
                         </div>
                         {/* <Typography variant="h6">
