@@ -58,7 +58,7 @@ export default function BookmarkedCard({ data, setOpen }) {
             data={data} 
             action={action()} 
             timeStamp={timeStamp} 
-            newtab={true}
+            newTab={true}
         />
     );
   }  
