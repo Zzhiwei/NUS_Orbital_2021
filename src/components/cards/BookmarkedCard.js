@@ -54,11 +54,11 @@ export default function BookmarkedCard({ data, setOpen }) {
     }
 
     return (
-        <Card 
+        <Card
             data={data} 
             action={action()} 
             timeStamp={timeStamp} 
-            newtab={true}
+            newTab={true}
         />
     );
   }  
