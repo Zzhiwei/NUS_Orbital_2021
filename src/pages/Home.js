@@ -41,7 +41,7 @@ export default function Home({autoScrollToTop}) {
                     <div className="filterbar"  >
                         <FilterSidebar scrollToTop={scrollToTop} />
                     </div>
-                    <div className="posts" style={{height: "5000px"}}>
+                    <div className="posts" >
                         <SearchBox /> 
                         <InfiniteHits />
                         
