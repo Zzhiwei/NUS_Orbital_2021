@@ -85,6 +85,7 @@ export default function PostCard({ data, setOpenB, setOpenUb }) {
             data={{ ...data, id: data.objectID }} 
             action={renderBookmark()} 
             timeStamp={timeStamp} 
+            newTab={true}
         />
     );
   }  
