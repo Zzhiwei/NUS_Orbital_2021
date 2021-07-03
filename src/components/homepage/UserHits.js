@@ -10,6 +10,7 @@ import UserCard from './UserCard'
 
 import './Masonry.css'
 import Masonry from 'react-masonry-css'
+import { IndeterminateCheckBoxOutlined } from '@material-ui/icons'
 
 
 const useStyles = makeStyles((theme) => {
@@ -19,7 +20,12 @@ const useStyles = makeStyles((theme) => {
       flexWrap: 'wrap',
       justifyContent: 'flex-start',
       marginTop: '20px'
-    }
+    },
+    usercard: {
+      height:'80px',
+      flex: "0 1 290px",
+      margin: '7px',
+    },
   }
 })
 
@@ -59,7 +65,9 @@ function UserHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) 
             {
               hits.map((hit, index) => {
                 return (
-                      <UserCard key={index} data={hit} />
+                  <div key={index} className={classes.usercard}>
+                      <UserCard  data={hit} />
+                  </div>
                 )
               }) 
             }

@@ -102,23 +102,23 @@ export default function PictureCropper({ closeCropper, setAvatarKey}) {
 		setLoading(true)
 		const canvas = await getCroppedImg(image, croppedArea)
 		const canvasDataUrl = canvas.toDataURL("image/jpeg")
+		const ref = storage.ref(`profile_pictures/${currentUser.uid}`)
 		
-		await storage.ref(`profile_pictures/${currentUser.uid}`)
-			.putString(canvasDataUrl, 'data_url')
-			.catch(error => {
+		await ref.putString(canvasDataUrl, 'data_url').catch(error => {
 				alert("An error has occurred")
 				window.location.assign(window.location.href)
 			})
-		
-		const newVal = currentUserData.hasProfilePicture + 1
-		await db.collection('users').doc(currentUser.uid).update({
-			hasProfilePicture: newVal
+
+		await ref.getDownloadURL().then(async url => {
+			await db.collection('users').doc(currentUser.uid).update({
+				profilePicture: url
+			})
+			setCurrentUserData({
+				...currentUserData,
+				profilePicture: url
+			})
 		})
 
-		setCurrentUserData({
-			...currentUserData,
-			hasProfilePicture: newVal 
-		})
 		setLoading(false)
 		setOpenModal(false)
 		closeCropper()

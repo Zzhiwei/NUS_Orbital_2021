@@ -59,7 +59,6 @@ export default function ProfileAvatar({ userData, enableEdit, id, setAvatarKey})
         }).catch(err => {
             setLink(null)
         })
-
     }
     
 
@@ -77,7 +76,7 @@ export default function ProfileAvatar({ userData, enableEdit, id, setAvatarKey})
 
     
     useEffect(async () => {
-        if (userData.hasProfilePicture) {
+        if (userData.profilePicture) {
             await getProfilePicture()
         }
     }, [])
