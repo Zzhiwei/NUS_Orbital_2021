@@ -41,6 +41,7 @@ function ProfilePage() {
     const history = useHistory()
     const [openModal, setOpenModal] = useState(false)
     const [viewingOwn, setViewingOwn] = useState(null)
+    const [avatarKey, setAvatarKey] = useState(0)
 
     const [renderOptions, setRenderOptions] = useState({
         userData: null,
@@ -191,7 +192,7 @@ function ProfilePage() {
         return (
             <div>
                 <Paper className={classes.root} elevation={3}>                  
-                    <ProfileAvatar userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
+                    <ProfileAvatar key={avatarKey} setAvatarKey={setAvatarKey} id={id} userData={renderOptions.userData} enableEdit={renderOptions.enableEdit}/>
                     {renderMessage()}
                     <Modal
                         open={openModal}

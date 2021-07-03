@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Slider, Button, makeStyles, IconButton, Snackbar, Tooltip } from '@material-ui/core'
+import { Modal, Slider, Button, makeStyles, IconButton, Snackbar, Tooltip, CircularProgress } from '@material-ui/core'
 import Cropper from "react-easy-crop"
 import CancelIcon from '@material-ui/icons/Cancel';
 import Alert from '@material-ui/lab/Alert';
@@ -7,7 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 
 import './Cropper.css'
 import getCroppedImg from "./CropImage";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
 import { useAuth } from '../../../contexts/AuthContext'
 
 const useStyles = makeStyles((theme) => {
@@ -38,13 +38,19 @@ const useStyles = makeStyles((theme) => {
 			'& > * + *': {
 			  marginTop: theme.spacing(2),
 			},
-		}
+		}, 
+		modal: {
+			position: 'absolute',
+			left: '50%',
+			top: '50%',
+			transform: 'translate(-50%, -50%)'
+			}
     }
 });
 
 
 
-export default function PictureCropper({ closeCropper }) {
+export default function PictureCropper({ closeCropper, setAvatarKey}) {
     const classes = useStyles()
 
 	const { currentUser,  currentUserData, setCurrentUserData } = useAuth()
@@ -58,6 +64,9 @@ export default function PictureCropper({ closeCropper }) {
 	const [crop, setCrop] = React.useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = React.useState(1);
 	const [warningOpen, setWarningOpen] = useState(false);
+	const [loading, setLoading] = useState(false)
+	const [openModal, setOpenModal] = useState(false)
+
 
 	
 	const handleWarningClose = (event, reason) => {
@@ -89,18 +98,33 @@ export default function PictureCropper({ closeCropper }) {
 		if (!image) {
 			return setWarningOpen(true)
 		}
+		setOpenModal(true)
+		setLoading(true)
 		const canvas = await getCroppedImg(image, croppedArea)
 		const canvasDataUrl = canvas.toDataURL("image/jpeg")
-		await db.collection('users').doc(currentUser.uid).update({
-			profilePicture: canvasDataUrl
-		})
-		setCurrentUserData({
-			...currentUserData,
-			profilePicture: canvasDataUrl
-		})
-		// setSrcURL(canvasDataUrl)
+		const ref = storage.ref(`profile_pictures/${currentUser.uid}`)
 		
+		await ref.putString(canvasDataUrl, 'data_url').catch(error => {
+				alert("An error has occurred")
+				window.location.assign(window.location.href)
+			})
+
+		await ref.getDownloadURL().then(async url => {
+			await db.collection('users').doc(currentUser.uid).update({
+				profilePicture: url
+			})
+			setCurrentUserData({
+				...currentUserData,
+				profilePicture: url
+			})
+		})
+
+		setLoading(false)
+		setOpenModal(false)
 		closeCropper()
+		setAvatarKey(prev => prev + 1)
+		
+		
 
 	}
 
@@ -173,7 +197,7 @@ export default function PictureCropper({ closeCropper }) {
 				>
 					Select Image
 				</Button>
-				<Button style={{backgroundColor: '#4caf50', color: 'white'}} variant='contained'  onClick={handleUpload}>
+				<Button disabled={loading} style={{backgroundColor: '#4caf50', color: 'white'}} variant='contained'  onClick={handleUpload}>
 					Upload
 				</Button>
 				
@@ -190,6 +214,14 @@ export default function PictureCropper({ closeCropper }) {
 						</Alert>
 					</Snackbar>
 				</div>
+				<Modal
+						open={openModal}
+						onClose={null}
+				>
+						<div className={classes.modal}>
+								<CircularProgress />
+						</div>
+				</Modal>
 		</div>
 	);
 }

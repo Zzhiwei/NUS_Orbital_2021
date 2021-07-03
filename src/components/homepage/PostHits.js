@@ -9,7 +9,7 @@ import './Masonry.css'
 import Masonry from 'react-masonry-css'
 
 
-function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) {
+function PostHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) {
     
     const [openB, setOpenB] = useState(false)
     const [openUb, setOpenUb] = useState(false)
@@ -57,4 +57,4 @@ function InfiniteHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext, 
     )
 }
 
-export default connectInfiniteHits(InfiniteHits)
+export default connectInfiniteHits(PostHits)
