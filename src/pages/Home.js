@@ -31,6 +31,7 @@ export default function Home({autoScrollToTop}) {
                 <Container>
 
                 {searchFor === 0 && (
+                    <>
                     <InstantSearch
                     indexName="posts"
                     searchClient={searchClient}
@@ -49,13 +50,14 @@ export default function Home({autoScrollToTop}) {
                             </div>
                         </div>
                     </InstantSearch>
+                    <Copyright />
+                    </>
                 )}
 
                 {searchFor === 1 && (
                     <UserSearch searchClient={searchClient} setSearchFor={setSearchFor} searchFor={searchFor}/>
                 )}
                 
-                <Copyright />
                 </Container>
             </div>
     )

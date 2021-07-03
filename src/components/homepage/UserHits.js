@@ -51,7 +51,7 @@ function UserHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) 
     }
 
     if (len === 0) {
-        return <NoResults />
+        return <NoResults postSearch={true} />
     }
 
     const breakpointColumnsObj = {
