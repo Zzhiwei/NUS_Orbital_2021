@@ -1,14 +1,15 @@
 import React from 'react'
-import { InstantSearch, Configure } from 'react-instantsearch-dom';
+import { InstantSearch, Configure, InfiniteHits } from 'react-instantsearch-dom';
 
 import SearchBox from './SearchBox';
+import UserHits from './UserHits';
 
 import '../../pages/css/Home.css'
 
 export default function UserSearch({searchClient, setSearchFor, searchFor}) {
   return (
       <InstantSearch
-        indexName="posts"
+        indexName="users"
         searchClient={searchClient}
       > 
           <Configure
@@ -18,7 +19,7 @@ export default function UserSearch({searchClient, setSearchFor, searchFor}) {
           <div className="homeContainer" >
               <div className="posts" >
                   <SearchBox searchFor={searchFor} setSearchFor={setSearchFor} /> 
-                  {/* <InfiniteHits /> */}
+                  <UserHits />
               </div>
           </div>
       </InstantSearch>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import algoliasearch from 'algoliasearch';
 import { InstantSearch, Configure } from 'react-instantsearch-dom';
 import SearchBox from '../components/homepage/SearchBox'
-import InfiniteHits from '../components/homepage/InfiniteHits'
+import PostHits from '../components/homepage/PostHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
 import { Button, Container } from '@material-ui/core';
@@ -45,8 +45,7 @@ export default function Home({autoScrollToTop}) {
                             </div>
                             <div className="posts" >
                                 <SearchBox setSearchFor={setSearchFor} searchFor={searchFor} /> 
-                                <InfiniteHits />
-                                
+                                <PostHits />
                             </div>
                         </div>
                     </InstantSearch>
