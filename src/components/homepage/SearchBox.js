@@ -26,9 +26,11 @@ const useStyles = makeStyles(() => {
     }
 })
 
-function SearchBox({ isSearchStalled, refine }) {
+function SearchBox({ isSearchStalled, refine, setSearchFor, searchFor}) {
     const classes = useStyles()
     const [input, setInput] = useState('')
+
+    const searchPlaceHolder = searchFor === 1 ? "Search for users" : "Search for posts"
 
     const handleChange = (e) => {
         setInput(e.target.value)
@@ -44,6 +46,14 @@ function SearchBox({ isSearchStalled, refine }) {
         e.preventDefault()
     }
 
+    function handleUserSearch() {
+        if (searchFor === 0) {
+            return setSearchFor(1)
+        } 
+        setSearchFor(0)
+        
+    }
+
     return (
         <form noValidate action="" role="search" onSubmit={handleSubmit}>
              
@@ -56,7 +66,7 @@ function SearchBox({ isSearchStalled, refine }) {
                         size="small"
                         value={input}
                         variant="outlined"
-                        placeholder="Search for posts"
+                        placeholder={searchPlaceHolder}
                         onChange={handleChange}
                         InputProps={{
                             startAdornment: (
@@ -84,6 +94,20 @@ function SearchBox({ isSearchStalled, refine }) {
                     
                 >
                     Reset
+                </Button>
+                
+                <Button
+                    variant="outlined"
+                    disableElevation
+                    className={classes.btn}
+                    onClick={handleUserSearch}
+                >
+                    {searchFor === 0 && (
+                        <div>user search</div>
+                    )}
+                    {searchFor === 1 && (
+                        <div>post search</div>
+                    )}
                 </Button>
                 
             </Grid>
