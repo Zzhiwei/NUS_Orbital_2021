@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Zoom, Tooltip, makeStyles, Avatar, Modal, IconButton, Typography } from '@material-ui/core';
 import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 import PictureCropper from './Cropper/PictureCropper'
+import { storage } from '../../firebase';
+
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -34,11 +36,11 @@ const useStyles = makeStyles((theme) => {
     }
 });
 
-export default function ProfileAvatar({ userData, enableEdit}) {
+export default function ProfileAvatar({ userData, enableEdit, id, setAvatarKey}) {
     console.log("rendering profileAvatar")
     const classes = useStyles()
-    //cropper
     const [open, setOpen] = useState(false);
+    const [link, setLink] = useState(null)
 
 
 
@@ -50,6 +52,15 @@ export default function ProfileAvatar({ userData, enableEdit}) {
       const handleCropperClose = () => {
         setOpen(false);
       };
+
+    async function getProfilePicture() {
+        await storage.ref(`profile_pictures/${id}`).getDownloadURL().then(url => {
+            setLink(url)
+        }).catch(err => {
+            setLink(null)
+        })
+
+    }
     
 
     const renderCameraIcon = () => {
@@ -65,6 +76,13 @@ export default function ProfileAvatar({ userData, enableEdit}) {
     }
 
     
+    useEffect(async () => {
+        if (userData.hasProfilePicture) {
+            await getProfilePicture()
+        }
+    }, [])
+
+    
 
     return (
         <div className={classes.root}>
@@ -76,11 +94,11 @@ export default function ProfileAvatar({ userData, enableEdit}) {
                 aria-describedby="simple-modal-description"
             >
                 <div>
-                    <PictureCropper    closeCropper={handleCropperClose}/>
+                    <PictureCropper setAvatarKey={setAvatarKey} closeCropper={handleCropperClose}/>
                 </div>   
             </Modal>
              
-            <Avatar src={userData.profilePicture} className={classes.avatar}/>
+            <Avatar src={link} className={classes.avatar}/>
             {renderCameraIcon()}
             <Typography variant="h4" align="center">
                 {userData.basicInfo.firstName + " " + userData.basicInfo.lastName}
