@@ -38,9 +38,9 @@ export default function Card({ data, action, timeStamp, newTab=false }) {
 
     useEffect(() => {
         async function fetchProfilePic() {
-            const dataUrl = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
-            if (dataUrl) {
-                setProfilePic(dataUrl)
+            const link = await db.collection('users').doc(author).get().then(res => res.data().profilePicture)
+            if (link) {
+                setProfilePic(link)
             } else {
                 setProfilePic(null)
             }

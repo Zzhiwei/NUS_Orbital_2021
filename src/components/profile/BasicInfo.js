@@ -108,7 +108,7 @@ function BasicInfo({ userData, enableEdit }) {
                     open={open}
                     onClose={null}
                 >   
-                    <div>
+                    <div style={{overflowY: "scroll"}}>
                         <EditBasicInfo email={userData.email} basicInfo={userData.basicInfo} handleClose={handleClose} open={open}/>
                     </div>
                 </Modal>

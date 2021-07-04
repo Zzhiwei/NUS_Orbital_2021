@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => {
             top: '50%',
             transform: 'translate(-50%, -50%)',
             backgroundColor: '#f6eee3',
-            overflowY: 'auto'
+            overflowY: 'auto',
+            height: '80vh'
         }
 
     }
