@@ -226,7 +226,7 @@ export default function EditEducation({ info, index, handleClose }) {
                         style={{marginRight: '10px', width: '100px'}}
                         type="submit"
                     >
-                        add
+                        save
                     </Button>
                     <Button
                         variant="contained"
