@@ -13,7 +13,7 @@ const Menu = ({ items, currentRefinement, refine, customItems, scrollToTop, setR
         setSelectedValue("All")
       }
     )])
-  }, [])
+  }, [setResetFunctions, refine])
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);

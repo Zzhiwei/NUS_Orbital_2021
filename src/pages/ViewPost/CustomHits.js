@@ -10,6 +10,8 @@ function CustomHits({ hits, setOpenB, setOpenUb }) {
     if (hits.length > 3) {
         posts = hits.slice(0, 3)
     }
+
+    console.log(posts)
     
     return (
         <Grid container spacing={4} style={{margin: 'auto auto'}} justify="center">

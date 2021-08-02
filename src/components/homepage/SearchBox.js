@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import { connectSearchBox } from 'react-instantsearch-dom'
 import { Grid, TextField, Button, InputAdornment, makeStyles } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search'
-
 import algoliaLogo from '../../assets/Algolia-logo.svg'
-
-
 
 const useStyles = makeStyles(() => {
     return {

@@ -1,6 +1,5 @@
-
-import React, { useEffect, useRef, useState } from 'react';
-import { makeStyles, Paper, Typography, Button, CircularProgress, Modal } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { makeStyles, Paper, Button, CircularProgress, Modal } from '@material-ui/core';
 
 import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash'

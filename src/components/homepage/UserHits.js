@@ -1,17 +1,12 @@
-import { Grid, Button, makeStyles } from '@material-ui/core'
-import React, { useState } from 'react'
+import { Button, makeStyles } from '@material-ui/core'
+import React from 'react'
 import { connectInfiniteHits } from 'react-instantsearch-dom'
-// import PostCard from '../cards/PostCard'
 import NoResults from './NoResults'
-// import { BookmarkSnackBar, UnbookmarkSnackBar } from '../SnackBar'
 import UserCard from './UserCard'
-
-
 
 import './Masonry.css'
 import Masonry from 'react-masonry-css'
 import { IndeterminateCheckBoxOutlined } from '@material-ui/icons'
-
 
 const useStyles = makeStyles((theme) => {
   return {

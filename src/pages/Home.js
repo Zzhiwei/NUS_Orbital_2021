@@ -5,7 +5,7 @@ import SearchBox from '../components/homepage/SearchBox'
 import PostHits from '../components/homepage/PostHits'
 
 import FilterSidebar from '../components/homepage/FilterSidebar'
-import { Button, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import Copyright from '../components/Copyright'
 import UserSearch from '../components/homepage/UserSearch';
 
@@ -13,7 +13,7 @@ import './css/Home.css'
 
 
 
-export default function Home({autoScrollToTop}) {
+export default function Home({ autoScrollToTop }) {
     const [searchFor, setSearchFor] = useState(0)
 
     const searchClient = algoliasearch(

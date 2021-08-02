@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Avatar, Paper, makeStyles, Typography } from '@material-ui/core'
-
-import { storage } from '../../firebase'
 import { useHistory } from 'react-router-dom'
 
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     paper: {
       display: 'flex',

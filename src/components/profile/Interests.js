@@ -3,7 +3,6 @@ import React from 'react'
 import EditIcon from '@material-ui/icons/Edit';
 import EditInterests from './modals/EditInterests'
 
-
 const useStyles = makeStyles((theme) => {
     return {
         root: {

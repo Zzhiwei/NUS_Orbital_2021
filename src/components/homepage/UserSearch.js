@@ -1,6 +1,5 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
-import { InstantSearch, Configure, InfiniteHits, connectStateResults } from 'react-instantsearch-dom';
+import { InstantSearch, Configure, connectStateResults } from 'react-instantsearch-dom';
 
 import SearchBox from './SearchBox';
 import UserHits from './UserHits';
@@ -20,10 +19,9 @@ import '../../pages/css/Home.css'
 
 const Results = connectStateResults(({ searchState }) => {
     console.log("connecting results")
-    const res = searchState && searchState.query 
+    return searchState && searchState.query 
         ? <UserHits />
         : null
-    return res
 })
 
 export default function UserSearch({searchClient, setSearchFor, searchFor}) {
