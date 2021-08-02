@@ -1,4 +1,3 @@
-
 import React, {useState} from "react";
 import { Grid, IconButton, makeStyles, TextField,
     DialogActions,
@@ -16,11 +15,10 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import { db } from "../../firebase";
 import { useAuth } from "../../contexts/AuthContext";
-import { findAllByDisplayValue } from "@testing-library/react";
 import EditEducation from "./modals/EditEducation";
 
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
     return {
         iconRoot: {
             paddingBottom: "0px",

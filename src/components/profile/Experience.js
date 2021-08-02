@@ -1,13 +1,8 @@
 import React from 'react';
 import {  Zoom, IconButton, makeStyles, Modal, Tooltip, Typography } from '@material-ui/core';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-
 import ExperienceBlock from './ExperienceBlock'
 import AddExperience from './modals/AddExperience'
-
-
-
-
 
 const useStyles = makeStyles((theme) => {
     return {

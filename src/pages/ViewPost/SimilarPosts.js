@@ -16,14 +16,14 @@ export default function SimilarPosts({ hit, setOpenB, setOpenUb }) {
             Similar Posts
         </Typography>
             <InstantSearch
-                indexName="posts"
+                indexName="similarPosts"
                 searchClient={searchClient}
             > 
             <ExperimentalConfigureRelatedItems 
                 hit={hit}
                 hitsPerPage={3}
                 matchingPatterns={{
-                    type: { score: 6 },
+                    type: { score: 10 },
                     title: { score: 5 },
                     category: { score: 4 },
                     skills: { score : 3 },
