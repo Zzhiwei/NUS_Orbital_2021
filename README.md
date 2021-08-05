@@ -10,4 +10,5 @@ Most importantly, our website’s main purpose is to help people with the same i
 
 # First Look
 
-![Screenshot 2021-08-05 at 11 38 52 AM](https://user-images.githubusercontent.com/59001819/128287115-207ed260-70ab-4e9f-85fa-7a1a74e951ec.png)
+
+![test image size](https://user-images.githubusercontent.com/59001819/128287115-207ed260-70ab-4e9f-85fa-7a1a74e951ec.png){:height="50%" width="50%"}
