@@ -39,14 +39,34 @@ Most importantly, our website’s main purpose is to help people with the same i
 ## Auth Pages
 <img src="https://user-images.githubusercontent.com/59001819/128289883-e70d3337-191e-4aeb-bb8a-a2278e0b266a.png" width="500" height="600" />
 <img src="https://user-images.githubusercontent.com/59001819/128289949-a7318c36-a82b-4538-a97d-52102630bcc8.png" width="470" height="420" />
-<img src="" width="" height="" />
-<img src="" width="" height="" />
-<img src="" width="" height="" />
-<img src="" width="" height="" />
-<img src="" width="" height="" />
 
 
 
+# Tech Stack
+
+## Frontend
+
+### HTML/CSS/Javascript
+
+Programming languages that are fundamental to web development
+
+### React JS
+
+We have chosen to use ReactJS because it is fast and simple due to its component-based web development.
+
+### Material UI
+
+Material UI is one of the most popular UI frameworks for React. We decided to use this over React Bootstrap or any other framework due to its ease of use with React.
+
+## Backend 
+
+### Firebase
+
+We have chosen Firebase because of its serverless framework that allows us to set up our backend quickly with realtime databases and inbuilt third party authentication services. Furthermore, the firebase cloud functions allow us some ability to customize our backend to meet our app’s unique needs.
+
+### Algolia API:
+
+Algolia provides an AI-powered search API that allows our app to give our users a smooth instant search experience. The Algolia API is chosen because of its support for React JS and firebase. 
 
 
                                                                                                                                      
