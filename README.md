@@ -11,4 +11,16 @@ Most importantly, our website’s main purpose is to help people with the same i
 # First Look
 
 
-![test image size](https://user-images.githubusercontent.com/59001819/128287115-207ed260-70ab-4e9f-85fa-7a1a74e951ec.png){:height="50%" width="50%"}
+## Homepage
+<img src="https://user-images.githubusercontent.com/59001819/128287832-295e12c0-533c-420c-a99f-075fe7c901cc.png" width="700" height="500" />
+
+## Profile Page
+<img src="https://user-images.githubusercontent.com/59001819/128288220-be6330f1-f475-4393-a52d-80e1cad8d31a.png" width="700" height="969" />
+
+
+
+
+
+
+                                                                                                                                     
+                                                                                                                               
