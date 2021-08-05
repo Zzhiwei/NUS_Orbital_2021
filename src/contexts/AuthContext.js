@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
         return auth.createUserWithEmailAndPassword(email, password)
     }
 
-    //interesting behaviour, if you do not return it => program doesn't wait for async fx to finish
+    //if you do not return it => program doesn't wait for async fx to finish
     function login(email, password) {
          return auth.signInWithEmailAndPassword(email, password)
     }

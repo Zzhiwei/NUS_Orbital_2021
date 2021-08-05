@@ -27,8 +27,6 @@ const useStyles = makeStyles((theme) => {
 
 function UserHits({ hits, hasPrevious, hasMore, refinePrevious, refineNext,  }) {
     
-    // const [openB, setOpenB] = useState(false)
-    // const [openUb, setOpenUb] = useState(false)
     const classes = useStyles()
 
     const len = hits.length
