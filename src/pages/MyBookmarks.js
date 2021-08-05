@@ -45,8 +45,7 @@ export default function MyBookmarks({ selected, setSelected }) {
         850: 1
     }
     /*
-        right now it is in working state but not efficient 
-        since every deletions triggers another fetch action
+        every deletions triggers another fetch action
         and for some reason mybookmarks is rendered three times
     */
 

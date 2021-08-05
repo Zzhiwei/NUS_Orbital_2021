@@ -7,16 +7,6 @@ import UserHits from './UserHits';
 import '../../pages/css/Home.css'
 
 
-// const NoQuery = () => (
-//     <div style={{marginTop: '10px'}} align="center">
-//         <Typography variant="h4" color="primary">
-//             <div style={{fontWeight: 'normal'}}>
-//                 Enter a name
-//             </div>
-//         </Typography>
-//     </div>
-// )
-
 const Results = connectStateResults(({ searchState }) => {
     console.log("connecting results")
     return searchState && searchState.query 

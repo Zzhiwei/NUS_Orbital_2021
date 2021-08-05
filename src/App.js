@@ -13,20 +13,10 @@ import { CreatePost } from './pages/CreatePost/CreatePostForm';
 import LoadingPage from './pages/LoadingPage';
 import Homepage from './pages/Homepage';
 
-/*
-https://www.color-hex.com/color-palette/104061
-https://www.shutterstock.com/color/ivory
-https://www.shutterstock.com/blog/10-gorgeous-color-schemes-for-websites?kw=&gclsrc=aw.ds&gclid=CjwKCAjwzruGBhBAEiwAUqMR8KCbaWFs5E_Bh-lj5XH2SEtEInd8CD2cNQJlZFb7oc6cVkntNpt9VhoCH88QAvD_BwE
-layout: d9bda5
-cards/paper: f6eee3
-primary: see below
-*/
-
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#4C4556',
-      // main: '#000000', 
       light: '#a0c3e2',
     },
     secondary: {
@@ -34,14 +24,9 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#fffcf5',
-      // default: 'rgb(246,238,227, 0.5)'
-      //thisdefault: '#d7e0eb',
-      //default: '#4FC3F7' 
-      // default: '#f0e3cc'
     }
   },
 });
-
 
 function App() {
 
