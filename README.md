@@ -8,7 +8,7 @@ PartnerUp is a portal that allows you to find partners for competitions or any p
 
 Most importantly, our website’s main purpose is to help people with the same interest establish first contact.
 
-# First Look
+# First Look 
 
 
 ## Homepage
@@ -21,16 +21,27 @@ Most importantly, our website’s main purpose is to help people with the same i
 
 <img src="https://user-images.githubusercontent.com/59001819/128288527-ed5eb7ec-5c4b-49f8-8e85-aa01bf5412be.png" width="700" height="500" />
 
+## Inbuilt Chat
+<img src="https://user-images.githubusercontent.com/59001819/128289511-f89e730f-7510-4072-a1dc-4afdb8730d4a.png" width="700" height="400" />
+
 ## Post Creation
 
 <img src="https://user-images.githubusercontent.com/59001819/128288798-ebd6f1b5-4c7d-440c-896e-0f446241671f.png" width="482" height="414" />
 <img src="https://user-images.githubusercontent.com/59001819/128288846-bc6f740f-415d-4f05-93c2-53205577a756.png" width="482" height="344" />
 <img src="https://user-images.githubusercontent.com/59001819/128288958-d63e359a-55b1-481d-bdb0-c90f310f72e2.png" width="482" height="344" />
 
-
 ## Post Details
 <img src="https://user-images.githubusercontent.com/59001819/128289144-42177b40-fde4-4736-a3ae-92307e41cbc7.png" width="700" height="860" />
 
+## User Search
+<img src="https://user-images.githubusercontent.com/59001819/128289764-55fadac6-a7a7-4d7a-9686-5d3498052201.png" width="700" height="210" />
+
+## Auth Pages
+<img src="https://user-images.githubusercontent.com/59001819/128289883-e70d3337-191e-4aeb-bb8a-a2278e0b266a.png" width="500" height="600" />
+<img src="https://user-images.githubusercontent.com/59001819/128289949-a7318c36-a82b-4538-a97d-52102630bcc8.png" width="470" height="420" />
+<img src="" width="" height="" />
+<img src="" width="" height="" />
+<img src="" width="" height="" />
 <img src="" width="" height="" />
 <img src="" width="" height="" />
 
