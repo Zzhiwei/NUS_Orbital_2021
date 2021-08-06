@@ -21,7 +21,7 @@ Most importantly, our website’s main purpose is to help people with the same i
 
 <img src="https://user-images.githubusercontent.com/59001819/128288527-ed5eb7ec-5c4b-49f8-8e85-aa01bf5412be.png" width="700" height="500" />
 
-## Inbuilt Chat
+## Inbuilt Chat made with firebase
 <img src="https://user-images.githubusercontent.com/59001819/128289511-f89e730f-7510-4072-a1dc-4afdb8730d4a.png" width="700" height="400" />
 
 ## Post Creation
