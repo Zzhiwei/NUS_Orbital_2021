@@ -1,6 +1,7 @@
 # Summary
 
-This is a full stack project made with React, firebase, Material UI and Algolia for NUS project orbital with around 8 thousand lines of code.
+This is a full stack project made with React, firebase, Material UI and Algolia for NUS project orbital.
+~ 8000 lines of code.
 
 # Aim of the project
 
