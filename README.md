@@ -1,72 +1,75 @@
-# TeamTam orbital project 
+# Summary
 
-# Getting Started with Create React App
+This is a full stack project made with React, firebase, Material UI and Algolia for NUS project orbital.
+Around 8000 lines of code.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Aim of the project
 
-## Available Scripts
+PartnerUp is a portal that allows you to find partners for competitions or any projects, be it hackathons, short film competitions, school projects such as NUS orbital or anything else! You can explore posts made by others to join any existing groups that share your interest. You can also create your own posts to find partners to work with. Either way, our website provides an easy way to make first contact and collaborate with others! 
 
-In the project directory, you can run:
+Most importantly, our website’s main purpose is to help people with the same interest establish first contact.
 
-### `npm start`
+# First Look 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Homepage
+<img src="https://user-images.githubusercontent.com/59001819/128287832-295e12c0-533c-420c-a99f-075fe7c901cc.png" width="700" height="500" />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Profile Page
+<img src="https://user-images.githubusercontent.com/59001819/128288220-be6330f1-f475-4393-a52d-80e1cad8d31a.png" width="700" height="969" />
 
-### `npm test`
+## Image Cropper
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://user-images.githubusercontent.com/59001819/128288527-ed5eb7ec-5c4b-49f8-8e85-aa01bf5412be.png" width="700" height="500" />
 
-### `npm run build`
+## Inbuilt Chat made with firebase
+<img src="https://user-images.githubusercontent.com/59001819/128289511-f89e730f-7510-4072-a1dc-4afdb8730d4a.png" width="700" height="400" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Post Creation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<img src="https://user-images.githubusercontent.com/59001819/128288798-ebd6f1b5-4c7d-440c-896e-0f446241671f.png" width="482" height="414" />
+<img src="https://user-images.githubusercontent.com/59001819/128288846-bc6f740f-415d-4f05-93c2-53205577a756.png" width="482" height="344" />
+<img src="https://user-images.githubusercontent.com/59001819/128288958-d63e359a-55b1-481d-bdb0-c90f310f72e2.png" width="482" height="344" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Post Details
+<img src="https://user-images.githubusercontent.com/59001819/128289144-42177b40-fde4-4736-a3ae-92307e41cbc7.png" width="700" height="860" />
 
-### `npm run eject`
+## User Search
+<img src="https://user-images.githubusercontent.com/59001819/128289764-55fadac6-a7a7-4d7a-9686-5d3498052201.png" width="700" height="210" />
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Auth Pages
+<img src="https://user-images.githubusercontent.com/59001819/128289883-e70d3337-191e-4aeb-bb8a-a2278e0b266a.png" width="500" height="600" />
+<img src="https://user-images.githubusercontent.com/59001819/128289949-a7318c36-a82b-4538-a97d-52102630bcc8.png" width="470" height="420" />
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Link
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+https://orbital-teamtams-partnerup.herokuapp.com/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Tech Stack
 
-## Learn More
+## Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### HTML/CSS/Javascript
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Programming languages that are fundamental to web development
 
-### Code Splitting
+### React JS
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+We have chosen to use ReactJS because it is fast and simple due to its component-based web development.
 
-### Analyzing the Bundle Size
+### Material UI
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Material UI is one of the most popular UI frameworks for React. We decided to use this over React Bootstrap or any other framework due to its ease of use with React.
 
-### Making a Progressive Web App
+## Backend 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Firebase
 
-### Advanced Configuration
+We have chosen Firebase because of its serverless framework that allows us to set up our backend quickly with realtime databases and inbuilt third party authentication services. Furthermore, the firebase cloud functions allow us some ability to customize our backend to meet our app’s unique needs.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Algolia API:
 
-### Deployment
+Algolia provides an AI-powered search API that allows our app to give our users a smooth instant search experience. The Algolia API is chosen because of its support for React JS and firebase. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+                                                                                                                                     
+                                                                                                                               
