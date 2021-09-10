@@ -26,3 +26,10 @@ yarn-error.log*
 /functions
 .firebaserc
 firebase.json
+
+#vscode setting
+/.vscode
+
+
+
+
