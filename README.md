@@ -1,7 +1,7 @@
 # Summary
 
 This is a full stack project made with React, firebase, Material UI and Algolia for NUS project orbital.
-Around 8 KLOC.
+Around 10 KLOC.
 
 # Aim of the project
 
